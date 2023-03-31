@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+
+  arist_base_host:
+    image: aristic_host
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Staging"
+      ConnectionStrings__Default: "User ID=aristqnu;Password='ji1o@832!NVl1';Host=113.161.0.189;Port=8055;Database=Test;Pooling=true;"
+      App__ServerRootAddress: "http://ticket.aristqnu.com:8056/"
+      App__ClientRootAddress: "http://ticket.aristqnu.com:8057/"
+      App__CorsOrigins: "http://ticket.aristqnu.com:8057,http://localhost:8057"
+      TZ: "Asia/Ho_Chi_Minh"
+      Kestrel__Endpoints__Http__Url: "http://+:80"
+      Authentication__JwtBearer__Expiration: 300
+      Authentication__JwtBearer__RefreshTokenExpiration: 3600
+    ports:
+      - "8056:80"
+    volumes:
+      - "./Host-Logs:/app/App_Data/Logs"
+    restart: always
+
+  arist_base_ng:
+    image: aristic_ng
+    ports:
+      - "8057:80"

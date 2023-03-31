@@ -1,0 +1,18 @@
+{
+  "remoteServiceBaseUrl": "http://ticket.aristqnu.com:8056",
+  "appBaseUrl": "http://ticket.aristqnu.com:8057",
+  "localeMappings": [
+    {
+      "from": "pt-BR",
+      "to": "pt"
+    },
+    {
+      "from": "zh-CN",
+      "to": "zh"
+    },
+    {
+      "from": "he-IL",
+      "to": "he"
+    }
+  ]
+}
