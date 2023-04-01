@@ -2,19 +2,20 @@
 using Abp.Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace AristBase.BaseEntity
 {
-    public class PropertyType : Entity<Guid>, IFullAudited, IPassivable
+    public class CertificateKey : Entity<Guid>, IFullAudited, IPassivable, ISoftDelete, IMustHaveTenant
     {
-        public string Name { get; set; }
-        public Guid DepartmentId { get; set; }
-        public virtual Department Department { get; set; }
-        public virtual ICollection<PropertyTypeValue> PropertyTypeValues { get; set; }
+        public int CertificateTypeId { get; set; }
+        public virtual CertificateType CertificateType { get; set; }
+        public string Key { get; set; }
+        public string Title { get; set; }
+        public virtual Group Group { get; set; }
+        public Guid GroupId { get; set; }
         #region Audited
         public long? CreatorUserId { get; set; }
         public DateTime CreationTime { get; set; }
@@ -26,6 +27,8 @@ namespace AristBase.BaseEntity
         #endregion
         #region passivable
         public virtual bool IsActive { get; set; }
+        public int TenantId { get; set; }
         #endregion
     }
+
 }

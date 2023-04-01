@@ -5,9 +5,16 @@ using System.Collections.Generic;
 
 namespace AristBase.BaseEntity
 {
-    public class Department : Entity<Guid>, IFullAudited, IPassivable, ISoftDelete, IMustHaveTenant
+    public class CertificateType : Entity<int>, IFullAudited, IPassivable, ISoftDelete, IMustHaveTenant
     {
-        public string NameDepartment { get; set; }
+        public double Price { get; set; }
+        public string Name { get; set; }
+        public bool IsNeedSync { get; set; }
+        //public Type Type { get; set; }
+        public string FilePath { get; set; }
+        public string FinalResult { get; set; }
+        public virtual ICollection<Certificate> Certificates { get; set; }
+        public virtual ICollection<CertificateKey> CertificateKeys { get; set; }
         #region Audited
         public long? CreatorUserId { get; set; }
         public DateTime CreationTime { get; set; }
@@ -22,5 +29,10 @@ namespace AristBase.BaseEntity
         public int TenantId { get; set; }
         #endregion
     }
-
+    //public enum Type : byte
+    //{
+    //    Type1 = 1,
+    //    Type2 = 2,
+    //    Type3 = 3,
+    //}
 }

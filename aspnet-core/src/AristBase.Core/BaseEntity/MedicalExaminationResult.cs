@@ -1,19 +1,24 @@
-﻿using Abp.Domain.Entities.Auditing;
-using Abp.Domain.Entities;
+﻿using Abp.Domain.Entities;
+using Abp.Domain.Entities.Auditing;
+using AristBase.Authorization.Users;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace AristBase.BaseEntity
 {
-    public class PropertyTypeValue : Entity<Guid>, IFullAudited, IPassivable
+    public class MedicalExaminationResult : Entity<Guid>, IFullAudited, IPassivable, ISoftDelete, IMustHaveTenant
     {
+        public string Key { get; set; }
         public string Value { get; set; }
-        public virtual PropertyType PropertyType { get; set; }
-        public Guid PropertyTypeId { get; set; }
+        public virtual Certificate Certificate { get; set; }
+        public Guid CertificateId { get; set; }
+        public int UserId { get; set; }
+        public virtual User User { get; set; }
+        public bool Status { get; set; }
+
         #region Audited
         public long? CreatorUserId { get; set; }
         public DateTime CreationTime { get; set; }
@@ -25,6 +30,7 @@ namespace AristBase.BaseEntity
         #endregion
         #region passivable
         public virtual bool IsActive { get; set; }
+        public int TenantId { get; set; }
         #endregion
     }
 }

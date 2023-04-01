@@ -1,22 +1,23 @@
 ﻿using Abp.Domain.Entities.Auditing;
 using Abp.Domain.Entities;
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AristBase.BaseEntity
 {
-    public class EnterpriseDepartment : Entity<Guid>, IFullAudited, IPassivable
+    public class ClientInfo : Entity<int>, IFullAudited, IPassivable, ISoftDelete, IMustHaveTenant
     {
-        public virtual Enterprise Enterprise { get; set; }
-        public string EnterpriseId { get; set; }
-        public Guid DepartmentId { get; set; }
-        public virtual Department Department { get; set; }
-
-
+        public string FullName { get; set; }
+        //Male = true
+        public bool Sex { get; set; }
+        public string CCCD { get; set; }
+        public DateTime CreateTimeCCCD { get; set; }
+        public string AddressCCCD { get; set; }
+        public string Address { get; set; }
+        public string? GuardianName { get; set; }
+        public string? Avatar { get; set; }
+        public virtual ICollection<Certificate> Certificates { get; set; }
         #region Audited
         public long? CreatorUserId { get; set; }
         public DateTime CreationTime { get; set; }
@@ -28,6 +29,7 @@ namespace AristBase.BaseEntity
         #endregion
         #region passivable
         public virtual bool IsActive { get; set; }
+        public int TenantId { get; set; }
         #endregion
     }
 }

@@ -5,8 +5,9 @@ namespace AristBase.MultiTenancy
 {
     public class Tenant : AbpTenant<User>
     {
+        public string AgencyName { get; set; }
         public Tenant()
-        {            
+        {
         }
 
         public Tenant(string tenancyName, string name)

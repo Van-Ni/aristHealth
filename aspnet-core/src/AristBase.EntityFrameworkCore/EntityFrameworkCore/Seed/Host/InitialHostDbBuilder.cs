@@ -18,10 +18,6 @@ namespace AristBase.EntityFrameworkCore.Seed.Host
             new HostRoleAndUserCreator(_context).Create();
             new DefaultSettingsCreator(_context).Create();
 
-            new DefaultDepartmentCreator(_context).Create();
-            new DefaultPropertyTypeCreator(_context).Create();
-            new DefaultPropertyTypeValueCreator(_context).Create();
-
             _context.SaveChanges();
         }
     }

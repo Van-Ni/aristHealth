@@ -8,18 +8,12 @@ using System.Threading.Tasks;
 
 namespace AristBase.BaseEntity
 {
-    public class EnterpriseEditedHistory : Entity<string>, IFullAudited, IPassivable
+    public class Group : Entity<Guid>, IFullAudited, IPassivable, ISoftDelete, IMustHaveTenant
     {
         public string Name { get; set; }
-        public int LocationCode { get; set; }
-        public string Address { get; set; }
-        public double Lat { get; set; }
-        public double Lng { get; set; }
-        public int EstablishYear { get; set; }
-        public string BussinessType { get; set; }
-        public string Representative { get; set; }
-        public virtual Enterprise Enterprise { get; set; }
-        public string EnterpriseId { get; set; }
+        public Guid DepartmentId { get; set; }
+        public virtual ICollection<CertificateKey> Certificates { get; set; }
+        public virtual ICollection<DocterGroup> Docters { get; set; }
         #region Audited
         public long? CreatorUserId { get; set; }
         public DateTime CreationTime { get; set; }
@@ -31,6 +25,7 @@ namespace AristBase.BaseEntity
         #endregion
         #region passivable
         public virtual bool IsActive { get; set; }
+        public int TenantId { get; set; }
         #endregion
     }
 }
