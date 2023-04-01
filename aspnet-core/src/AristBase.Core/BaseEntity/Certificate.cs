@@ -16,7 +16,8 @@ namespace AristBase.BaseEntity
         public virtual ClientInfo ClientInfo { get; set; }
         public double AmountPaid { get; set; }
         public string Reason { get; set; }
-        public virtual ICollection<MedicalExaminationResult> MedicalExaminationResults { get; set; }
+        public virtual ICollection<MedicationKeyResult> MedicationKeyResults { get; set; }
+        public virtual ICollection<CertificateGroupStatus> CertificateGroupStatuses { get; set; }
         #region Audited
         public long? CreatorUserId { get; set; }
         public DateTime CreationTime { get; set; }

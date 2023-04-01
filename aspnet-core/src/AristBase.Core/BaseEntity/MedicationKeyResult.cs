@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AristBase.BaseEntity
 {
-    public class MedicalExaminationResult : Entity<Guid>, IFullAudited, IPassivable, ISoftDelete, IMustHaveTenant
+    public class MedicationKeyResult : Entity<Guid>, IFullAudited, IPassivable, ISoftDelete, IMustHaveTenant
     {
         public string Key { get; set; }
         public string Value { get; set; }
@@ -17,7 +17,7 @@ namespace AristBase.BaseEntity
         public Guid CertificateId { get; set; }
         public int UserId { get; set; }
         public virtual User User { get; set; }
-        public bool Status { get; set; }
+
 
         #region Audited
         public long? CreatorUserId { get; set; }

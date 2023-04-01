@@ -3,6 +3,7 @@ using System;
 using AristBase.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AristBase.Migrations
 {
     [DbContext(typeof(AristBaseDbContext))]
-    partial class AristBaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230401063005_updatedb")]
+    partial class updatedb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1669,65 +1672,6 @@ namespace AristBase.Migrations
                     b.ToTable("Certificate");
                 });
 
-            modelBuilder.Entity("AristBase.BaseEntity.CertificateGroupStatus", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CertificateId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("uuid");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("TenantId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<long?>("UserId1")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool>("status")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CertificateId");
-
-                    b.HasIndex("GroupId");
-
-                    b.HasIndex("UserId1");
-
-                    b.ToTable("CertificateGroupStatuses");
-                });
-
             modelBuilder.Entity("AristBase.BaseEntity.CertificateKey", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2042,7 +1986,7 @@ namespace AristBase.Migrations
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("AristBase.BaseEntity.MedicationKeyResult", b =>
+            modelBuilder.Entity("AristBase.BaseEntity.MedicalExaminationResult", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -2077,6 +2021,9 @@ namespace AristBase.Migrations
 
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
 
                     b.Property<int>("TenantId")
                         .HasColumnType("integer");
@@ -2418,31 +2365,6 @@ namespace AristBase.Migrations
                     b.Navigation("ClientInfo");
                 });
 
-            modelBuilder.Entity("AristBase.BaseEntity.CertificateGroupStatus", b =>
-                {
-                    b.HasOne("AristBase.BaseEntity.Certificate", "Certificate")
-                        .WithMany("CertificateGroupStatuses")
-                        .HasForeignKey("CertificateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AristBase.BaseEntity.Group", "Group")
-                        .WithMany("CertificateGroupStatuses")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AristBase.Authorization.Users.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
-
-                    b.Navigation("Certificate");
-
-                    b.Navigation("Group");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("AristBase.BaseEntity.CertificateKey", b =>
                 {
                     b.HasOne("AristBase.BaseEntity.CertificateType", "CertificateType")
@@ -2490,10 +2412,10 @@ namespace AristBase.Migrations
                     b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("AristBase.BaseEntity.MedicationKeyResult", b =>
+            modelBuilder.Entity("AristBase.BaseEntity.MedicalExaminationResult", b =>
                 {
                     b.HasOne("AristBase.BaseEntity.Certificate", "Certificate")
-                        .WithMany("MedicationKeyResults")
+                        .WithMany("MedicalExaminationResults")
                         .HasForeignKey("CertificateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2607,9 +2529,7 @@ namespace AristBase.Migrations
 
             modelBuilder.Entity("AristBase.BaseEntity.Certificate", b =>
                 {
-                    b.Navigation("CertificateGroupStatuses");
-
-                    b.Navigation("MedicationKeyResults");
+                    b.Navigation("MedicalExaminationResults");
                 });
 
             modelBuilder.Entity("AristBase.BaseEntity.CertificateType", b =>
@@ -2631,8 +2551,6 @@ namespace AristBase.Migrations
 
             modelBuilder.Entity("AristBase.BaseEntity.Group", b =>
                 {
-                    b.Navigation("CertificateGroupStatuses");
-
                     b.Navigation("Certificates");
 
                     b.Navigation("Docters");

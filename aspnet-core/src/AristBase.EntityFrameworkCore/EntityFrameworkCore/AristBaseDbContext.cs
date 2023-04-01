@@ -20,7 +20,8 @@ namespace AristBase.EntityFrameworkCore
         public DbSet<ClientInfo> ClientInfo { get; set; }
         public DbSet<DocterGroup> DocterGroups { get; set; }
         public DbSet<Group> Groups { get; set; }
-        public DbSet<MedicalExaminationResult> MedicalExaminationResults { get; set; }
+        public DbSet<CertificateGroupStatus> CertificateGroupStatuses { get; set; }
+        public DbSet<MedicationKeyResult> MedicalExaminationResults { get; set; }
         //public DbSet<Tenant> Tenant { get; set; }
         public AristBaseDbContext(DbContextOptions<AristBaseDbContext> options)
             : base(options)

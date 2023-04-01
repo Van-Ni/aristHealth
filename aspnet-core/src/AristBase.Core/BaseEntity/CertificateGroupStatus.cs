@@ -5,18 +5,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AristBase.Authorization.Users;
 
 namespace AristBase.BaseEntity
 {
-    public class Group : Entity<Guid>, IFullAudited, IPassivable, ISoftDelete, IMustHaveTenant
+    public class CertificateGroupStatus : Entity<Guid>, IFullAudited, IPassivable, ISoftDelete, IMustHaveTenant
     {
-        public string Name { get; set; }
-        public virtual Department Department { get; set; }
-        public Guid DepartmentId { get; set; }
-
-        public virtual ICollection<CertificateKey> Certificates { get; set; }
-        public virtual ICollection<DocterGroup> Docters { get; set; }
-        public virtual ICollection<CertificateGroupStatus> CertificateGroupStatuses { get; set; }
+        public virtual Certificate Certificate { get; set; }
+        public Guid CertificateId { get; set; }
+        public virtual Group Group { get; set; }
+        public Guid GroupId { get; set; }
+        public bool status { get; set; }
+        public int UserId { get; set; }
+        public virtual User User { get; set; }
         #region Audited
         public long? CreatorUserId { get; set; }
         public DateTime CreationTime { get; set; }
