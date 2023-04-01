@@ -1,5 +1,4 @@
 ﻿using System;
-using AristBase.BaseEntity;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -156,7 +155,7 @@ namespace AristBase.Migrations
                     LanguageName = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     Source = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     Key = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
-                    Value = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Value = table.Column<string>(type: "text", maxLength: 67108864, nullable: false),
                     CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
                     LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -449,11 +448,16 @@ namespace AristBase.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Departments",
+                name: "CertificateType",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Price = table.Column<double>(type: "double precision", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true),
+                    IsNeedSync = table.Column<bool>(type: "boolean", nullable: false),
+                    FilePath = table.Column<string>(type: "text", nullable: true),
+                    FinalResult = table.Column<string>(type: "text", nullable: true),
                     CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
                     CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
@@ -461,7 +465,58 @@ namespace AristBase.Migrations
                     DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
                     DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    TenantId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CertificateType", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ClientInfo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FullName = table.Column<string>(type: "text", nullable: true),
+                    Sex = table.Column<bool>(type: "boolean", nullable: false),
+                    CCCD = table.Column<string>(type: "text", nullable: true),
+                    CreateTimeCCCD = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    AddressCCCD = table.Column<string>(type: "text", nullable: true),
+                    Address = table.Column<string>(type: "text", nullable: true),
+                    GuardianName = table.Column<string>(type: "text", nullable: true),
+                    Avatar = table.Column<string>(type: "text", nullable: true),
+                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    TenantId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClientInfo", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Departments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    NameDepartment = table.Column<string>(type: "text", nullable: true),
+                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    TenantId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -469,39 +524,12 @@ namespace AristBase.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Enterprises",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    LocationCode = table.Column<int>(type: "integer", nullable: false),
-                    Address = table.Column<string>(type: "text", nullable: true),
-                    Lat = table.Column<double>(type: "double precision", nullable: false),
-                    Lng = table.Column<double>(type: "double precision", nullable: false),
-                    EstablishYear = table.Column<int>(type: "integer", nullable: false),
-                    BussinessType = table.Column<int>(type: "integer", nullable: false),
-                    Representative = table.Column<string>(type: "text", nullable: true),
-                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Enterprises", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ReportTemplates",
+                name: "Groups",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    FilePath = table.Column<string>(type: "text", nullable: true),
-                    TemplateDescription = table.Column<TemplateDescription>(type: "jsonb", nullable: true),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    DepartmentId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
                     CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
@@ -509,11 +537,12 @@ namespace AristBase.Migrations
                     DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
                     DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    TenantId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ReportTemplates", x => x.Id);
+                    table.PrimaryKey("PK_Groups", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -680,6 +709,7 @@ namespace AristBase.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    AgencyName = table.Column<string>(type: "text", nullable: true),
                     CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
                     LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -865,12 +895,16 @@ namespace AristBase.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PropertyTypes",
+                name: "Certificate",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    DepartmentId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CertificateTypeId = table.Column<int>(type: "integer", nullable: false),
+                    Status = table.Column<byte>(type: "smallint", nullable: false),
+                    PaymentStatus = table.Column<byte>(type: "smallint", nullable: false),
+                    ClientInfoId = table.Column<int>(type: "integer", nullable: false),
+                    AmountPaid = table.Column<double>(type: "double precision", nullable: false),
+                    Reason = table.Column<string>(type: "text", nullable: true),
                     CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
                     CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
@@ -878,26 +912,35 @@ namespace AristBase.Migrations
                     DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
                     DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    TenantId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PropertyTypes", x => x.Id);
+                    table.PrimaryKey("PK_Certificate", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PropertyTypes_Departments_DepartmentId",
-                        column: x => x.DepartmentId,
-                        principalTable: "Departments",
+                        name: "FK_Certificate_CertificateType_CertificateTypeId",
+                        column: x => x.CertificateTypeId,
+                        principalTable: "CertificateType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Certificate_ClientInfo_ClientInfoId",
+                        column: x => x.ClientInfoId,
+                        principalTable: "ClientInfo",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "EnterpriseDepartments",
+                name: "CertificateKey",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    EnterpriseId = table.Column<string>(type: "text", nullable: true),
-                    DepartmentId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CertificateTypeId = table.Column<int>(type: "integer", nullable: false),
+                    Key = table.Column<string>(type: "text", nullable: true),
+                    Title = table.Column<string>(type: "text", nullable: true),
+                    GroupId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
                     CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
@@ -905,33 +948,34 @@ namespace AristBase.Migrations
                     DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
                     DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    TenantId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EnterpriseDepartments", x => x.Id);
+                    table.PrimaryKey("PK_CertificateKey", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EnterpriseDepartments_Departments_DepartmentId",
-                        column: x => x.DepartmentId,
-                        principalTable: "Departments",
+                        name: "FK_CertificateKey_CertificateType_CertificateTypeId",
+                        column: x => x.CertificateTypeId,
+                        principalTable: "CertificateType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_EnterpriseDepartments_Enterprises_EnterpriseId",
-                        column: x => x.EnterpriseId,
-                        principalTable: "Enterprises",
-                        principalColumn: "Id");
+                        name: "FK_CertificateKey_Groups_GroupId",
+                        column: x => x.GroupId,
+                        principalTable: "Groups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "EnterpriseRevenues",
+                name: "DocterGroups",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Value = table.Column<string>(type: "text", nullable: true),
-                    ProfixAfterTax = table.Column<string>(type: "text", nullable: true),
-                    Revenue = table.Column<string>(type: "text", nullable: true),
-                    EnterpriseId = table.Column<string>(type: "text", nullable: true),
+                    GroupId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    UserId1 = table.Column<long>(type: "bigint", nullable: true),
                     CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
                     CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
@@ -940,107 +984,20 @@ namespace AristBase.Migrations
                     DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
-                    Quarter = table.Column<int>(type: "integer", nullable: false),
-                    Year = table.Column<int>(type: "integer", nullable: false)
+                    TenantId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EnterpriseRevenues", x => x.Id);
+                    table.PrimaryKey("PK_DocterGroups", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EnterpriseRevenues_Enterprises_EnterpriseId",
-                        column: x => x.EnterpriseId,
-                        principalTable: "Enterprises",
+                        name: "FK_DocterGroups_AbpUsers_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "AbpUsers",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EnterpriseTaxes",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    VATTax = table.Column<double>(type: "double precision", nullable: false),
-                    IncomeTax = table.Column<string>(type: "text", nullable: true),
-                    ImportExportTax = table.Column<string>(type: "text", nullable: true),
-                    OrtherTax = table.Column<string>(type: "text", nullable: true),
-                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
-                    Quarter = table.Column<int>(type: "integer", nullable: false),
-                    Year = table.Column<int>(type: "integer", nullable: false),
-                    EnterpriseId = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EnterpriseTaxes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EnterpriseTaxes_Enterprises_EnterpriseId",
-                        column: x => x.EnterpriseId,
-                        principalTable: "Enterprises",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "LetterInformation",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    EnterpriseId = table.Column<string>(type: "text", nullable: true),
-                    Quantity = table.Column<string>(type: "text", nullable: true),
-                    Revenue = table.Column<string>(type: "text", nullable: true),
-                    QuantityEcommerce = table.Column<string>(type: "text", nullable: true),
-                    RevenueEcommerce = table.Column<string>(type: "text", nullable: true),
-                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
-                    Quarter = table.Column<int>(type: "integer", nullable: false),
-                    Year = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_LetterInformation", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_LetterInformation_Enterprises_EnterpriseId",
-                        column: x => x.EnterpriseId,
-                        principalTable: "Enterprises",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "HistoryExports",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ReportTemplateId = table.Column<Guid>(type: "uuid", nullable: false),
-                    FileExport = table.Column<string>(type: "text", nullable: true),
-                    DateExport = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Room = table.Column<string>(type: "text", nullable: true),
-                    TemplateValue = table.Column<TemplateValue>(type: "jsonb", nullable: true),
-                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_HistoryExports", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_HistoryExports_ReportTemplates_ReportTemplateId",
-                        column: x => x.ReportTemplateId,
-                        principalTable: "ReportTemplates",
+                        name: "FK_DocterGroups_Groups_GroupId",
+                        column: x => x.GroupId,
+                        principalTable: "Groups",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1150,12 +1107,16 @@ namespace AristBase.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PropertyTypeValues",
+                name: "MedicalExaminationResults",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Key = table.Column<string>(type: "text", nullable: true),
                     Value = table.Column<string>(type: "text", nullable: true),
-                    PropertyTypeId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CertificateId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    UserId1 = table.Column<long>(type: "bigint", nullable: true),
+                    Status = table.Column<bool>(type: "boolean", nullable: false),
                     CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
                     CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
@@ -1163,56 +1124,21 @@ namespace AristBase.Migrations
                     DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
                     DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    TenantId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PropertyTypeValues", x => x.Id);
+                    table.PrimaryKey("PK_MedicalExaminationResults", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PropertyTypeValues_PropertyTypes_PropertyTypeId",
-                        column: x => x.PropertyTypeId,
-                        principalTable: "PropertyTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EnterprisePropertyByTimes",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    EnterpriseId = table.Column<string>(type: "text", nullable: true),
-                    IssueDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    PropertyTypeId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PropertyTypeValueId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatorUserId = table.Column<long>(type: "bigint", nullable: true),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    LastModifierUserId = table.Column<long>(type: "bigint", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeleterUserId = table.Column<long>(type: "bigint", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EnterprisePropertyByTimes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_EnterprisePropertyByTimes_Enterprises_EnterpriseId",
-                        column: x => x.EnterpriseId,
-                        principalTable: "Enterprises",
+                        name: "FK_MedicalExaminationResults_AbpUsers_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "AbpUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_EnterprisePropertyByTimes_PropertyTypeValues_PropertyTypeVa~",
-                        column: x => x.PropertyTypeValueId,
-                        principalTable: "PropertyTypeValues",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EnterprisePropertyByTimes_PropertyTypes_PropertyTypeId",
-                        column: x => x.PropertyTypeId,
-                        principalTable: "PropertyTypes",
+                        name: "FK_MedicalExaminationResults_Certificate_CertificateId",
+                        column: x => x.CertificateId,
+                        principalTable: "Certificate",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1567,59 +1493,50 @@ namespace AristBase.Migrations
                 column: "WebhookEventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EnterpriseDepartments_DepartmentId",
-                table: "EnterpriseDepartments",
-                column: "DepartmentId");
+                name: "IX_Certificate_CertificateTypeId",
+                table: "Certificate",
+                column: "CertificateTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EnterpriseDepartments_EnterpriseId",
-                table: "EnterpriseDepartments",
-                column: "EnterpriseId");
+                name: "IX_Certificate_ClientInfoId",
+                table: "Certificate",
+                column: "ClientInfoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EnterprisePropertyByTimes_EnterpriseId",
-                table: "EnterprisePropertyByTimes",
-                column: "EnterpriseId");
+                name: "IX_CertificateKey_CertificateTypeId",
+                table: "CertificateKey",
+                column: "CertificateTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EnterprisePropertyByTimes_PropertyTypeId",
-                table: "EnterprisePropertyByTimes",
-                column: "PropertyTypeId");
+                name: "IX_CertificateKey_GroupId",
+                table: "CertificateKey",
+                column: "GroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EnterprisePropertyByTimes_PropertyTypeValueId",
-                table: "EnterprisePropertyByTimes",
-                column: "PropertyTypeValueId");
+                name: "IX_CertificateKey_Key_CertificateTypeId",
+                table: "CertificateKey",
+                columns: new[] { "Key", "CertificateTypeId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_EnterpriseRevenues_EnterpriseId",
-                table: "EnterpriseRevenues",
-                column: "EnterpriseId");
+                name: "IX_DocterGroups_GroupId",
+                table: "DocterGroups",
+                column: "GroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EnterpriseTaxes_EnterpriseId",
-                table: "EnterpriseTaxes",
-                column: "EnterpriseId");
+                name: "IX_DocterGroups_UserId1",
+                table: "DocterGroups",
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_HistoryExports_ReportTemplateId",
-                table: "HistoryExports",
-                column: "ReportTemplateId");
+                name: "IX_MedicalExaminationResults_CertificateId",
+                table: "MedicalExaminationResults",
+                column: "CertificateId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LetterInformation_EnterpriseId",
-                table: "LetterInformation",
-                column: "EnterpriseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PropertyTypes_DepartmentId",
-                table: "PropertyTypes",
-                column: "DepartmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PropertyTypeValues_PropertyTypeId",
-                table: "PropertyTypeValues",
-                column: "PropertyTypeId");
+                name: "IX_MedicalExaminationResults_UserId1",
+                table: "MedicalExaminationResults",
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_CreatorUserId",
@@ -1717,22 +1634,16 @@ namespace AristBase.Migrations
                 name: "AbpWebhookSubscriptions");
 
             migrationBuilder.DropTable(
-                name: "EnterpriseDepartments");
+                name: "CertificateKey");
 
             migrationBuilder.DropTable(
-                name: "EnterprisePropertyByTimes");
+                name: "Departments");
 
             migrationBuilder.DropTable(
-                name: "EnterpriseRevenues");
+                name: "DocterGroups");
 
             migrationBuilder.DropTable(
-                name: "EnterpriseTaxes");
-
-            migrationBuilder.DropTable(
-                name: "HistoryExports");
-
-            migrationBuilder.DropTable(
-                name: "LetterInformation");
+                name: "MedicalExaminationResults");
 
             migrationBuilder.DropTable(
                 name: "RefreshTokens");
@@ -1753,13 +1664,10 @@ namespace AristBase.Migrations
                 name: "AbpWebhookEvents");
 
             migrationBuilder.DropTable(
-                name: "PropertyTypeValues");
+                name: "Groups");
 
             migrationBuilder.DropTable(
-                name: "ReportTemplates");
-
-            migrationBuilder.DropTable(
-                name: "Enterprises");
+                name: "Certificate");
 
             migrationBuilder.DropTable(
                 name: "AbpDynamicProperties");
@@ -1771,10 +1679,10 @@ namespace AristBase.Migrations
                 name: "AbpUsers");
 
             migrationBuilder.DropTable(
-                name: "PropertyTypes");
+                name: "CertificateType");
 
             migrationBuilder.DropTable(
-                name: "Departments");
+                name: "ClientInfo");
         }
     }
 }
