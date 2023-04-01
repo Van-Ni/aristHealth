@@ -14,7 +14,7 @@ namespace AristBase.BaseEntity
         //public bool SyncStatus { get; set; }
         public int ClientInfoId { get; set; }
         public virtual ClientInfo ClientInfo { get; set; }
-        public double AmountPaid { get; set; }
+        public decimal AmountPaid { get; set; }
         public string Reason { get; set; }
         public virtual ICollection<MedicationKeyResult> MedicationKeyResults { get; set; }
         public virtual ICollection<CertificateGroupStatus> CertificateGroupStatuses { get; set; }
