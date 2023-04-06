@@ -12,11 +12,12 @@ namespace AristBase.BaseEntity
         //Male = true
         public bool Sex { get; set; }
         public string CCCD { get; set; }
+        public DateTime DateOfBirth { get; set; }
         public DateTime CreateTimeCCCD { get; set; }
         public string AddressCCCD { get; set; }
         public string Address { get; set; }
         public string? GuardianName { get; set; }
-        public string? Avatar { get; set; }
+        //public string? Avatar { get; set; }
         public virtual ICollection<Certificate> Certificates { get; set; }
         #region Audited
         public long? CreatorUserId { get; set; }

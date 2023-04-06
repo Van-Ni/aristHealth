@@ -1,11 +1,19 @@
 import { AppComponentBase } from 'shared/app-component-base';
 import { Component, Injector, OnInit } from '@angular/core';
 
-export class PagedResultDto {
+export class IPagedResultDto<T>{
+    constructor(data?: Partial<T>) {
+        if (data) {
+          Object.assign(this, data);
+        }
+      }
+    items: T[];
+    totalCount: number;
+}
+export class PagedResultDto extends IPagedResultDto<any> {
     items: any[];
     totalCount: number;
 }
-
 export class EntityDto {
     id: number;
 }

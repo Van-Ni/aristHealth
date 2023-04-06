@@ -8,7 +8,7 @@ import { AppUrlService } from './nav/app-url.service';
 import { AppAuthService } from './auth/app-auth.service';
 import { AppRouteGuard } from './auth/auth-route-guard';
 import { LocalizePipe } from '@shared/pipes/localize.pipe';
-
+import {FilterByTruePipe} from './pipes/filter/filter-by-true.pipe'
 import { AbpPaginationControlsComponent } from './components/pagination/abp-pagination-controls.component';
 import { AbpValidationSummaryComponent } from './components/validation/abp-validation.summary.component';
 import { AbpModalHeaderComponent } from './components/modal/abp-modal-header.component';
@@ -17,7 +17,7 @@ import { LayoutStoreService } from './layout/layout-store.service';
 
 import { BusyDirective } from './directives/busy.directive';
 import { EqualValidator } from './directives/equal-validator.directive';
-
+import {DynamicTableComponent} from './components/dynamic-table/dynamic-table.component'
 @NgModule({
     imports: [
         CommonModule,
@@ -31,7 +31,9 @@ import { EqualValidator } from './directives/equal-validator.directive';
         AbpModalFooterComponent,
         LocalizePipe,
         BusyDirective,
-        EqualValidator
+        EqualValidator,
+        DynamicTableComponent,
+        FilterByTruePipe
     ],
     exports: [
         AbpPaginationControlsComponent,
@@ -40,7 +42,9 @@ import { EqualValidator } from './directives/equal-validator.directive';
         AbpModalFooterComponent,
         LocalizePipe,
         BusyDirective,
-        EqualValidator
+        EqualValidator, 
+        DynamicTableComponent,
+        FilterByTruePipe
     ]
 })
 export class SharedModule {

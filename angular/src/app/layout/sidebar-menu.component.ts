@@ -63,56 +63,98 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                 'fas fa-users',
                 'Pages.Users'
             ),
-            new MenuItem(this.l('MultiLevelMenu'), '', 'fas fa-circle', '', [
-                new MenuItem('ASP.NET Boilerplate', '', 'fas fa-dot-circle', '', [
-                    new MenuItem(
-                        'Home',
-                        'https://aspnetboilerplate.com?ref=abptmpl',
-                        'far fa-circle'
-                    ),
-                    new MenuItem(
-                        'Templates',
-                        'https://aspnetboilerplate.com/Templates?ref=abptmpl',
-                        'far fa-circle'
-                    ),
-                    new MenuItem(
-                        'Samples',
-                        'https://aspnetboilerplate.com/Samples?ref=abptmpl',
-                        'far fa-circle'
-                    ),
-                    new MenuItem(
-                        'Documents',
-                        'https://aspnetboilerplate.com/Pages/Documents?ref=abptmpl',
-                        'far fa-circle'
-                    ),
-                ]),
-                new MenuItem('ASP.NET Zero', '', 'fas fa-dot-circle', '', [
-                    new MenuItem(
-                        'Home',
-                        'https://aspnetzero.com?ref=abptmpl',
-                        'far fa-circle'
-                    ),
-                    new MenuItem(
-                        'Features',
-                        'https://aspnetzero.com/Features?ref=abptmpl',
-                        'far fa-circle'
-                    ),
-                    new MenuItem(
-                        'Pricing',
-                        'https://aspnetzero.com/Pricing?ref=abptmpl#pricing',
-                        'far fa-circle'
-                    ),
-                    new MenuItem(
-                        'Faq',
-                        'https://aspnetzero.com/Faq?ref=abptmpl',
-                        'far fa-circle'
-                    ),
-                    new MenuItem(
-                        'Documents',
-                        'https://aspnetzero.com/Documents?ref=abptmpl',
-                        'far fa-circle'
-                    )
-                ])
+            new MenuItem(this.l('Quản lý dữ liệu'), '', 'fas fa-circle', '', [
+                new MenuItem(
+                    this.l('deparment'),
+                    '/app/deparments',
+                    'far fa-circle',
+                    '',
+                ),
+                new MenuItem(
+                    this.l('group'),
+                    '/app/groups',
+                    'far fa-circle',
+                    '',
+                ),
+            ]),
+            new MenuItem(this.l('Quản lý Form word'), '', 'fas fa-circle', '', [
+                new MenuItem(
+                    this.l('profile'),
+                    '/app/profiles',
+                    'far fa-circle',
+                    '',
+                ),new MenuItem(
+                    this.l('medicalhistory'),
+                    '/app/medicalhistorys',
+                    'far fa-circle',
+                    '',
+                ),new MenuItem(
+                    this.l('Giấy khám sức khỏe người lái xe'),
+                    '/app/driver-health-check',
+                    'far fa-circle',
+                    '',
+                ),new MenuItem(
+                    this.l('medicalhistoryv2'),
+                    '/app/medicalhistorysv2',
+                    'far fa-circle',
+                    '',
+                ),new MenuItem(
+                    this.l('physical-examinations'),
+                    '/app/physical-examinations',
+                    'far fa-circle',
+                    '',
+                ),new MenuItem(
+                    this.l('DrivingMedicalHistory'),
+                    '/app/DrivingMedicalHistory',
+                    'far fa-circle',
+                    '',
+                ),new MenuItem(
+                    this.l('CurrentConclusionType1'),
+                    '/app/CurrentConclusionType1',
+                    'far fa-circle',
+                    '',
+                ),new MenuItem(
+                    this.l('CurrentConclusionType2'),
+                    '/app/CurrentConclusionType2',
+                    'far fa-circle',
+                    '',
+                ),new MenuItem(
+                    this.l('CurrentConclusionType3'),
+                    '/app/CurrentConclusionType3',
+                    'far fa-circle',
+                    '',
+                ),new MenuItem(
+                    this.l('SubclinicalExaminationType1'),
+                    '/app/SubclinicalExaminationType1',
+                    'far fa-circle',
+                    '',
+                ),new MenuItem(
+                    this.l('SubclinicalExaminationType2'),
+                    '/app/SubclinicalExaminationType2',
+                    'far fa-circle',
+                    '',
+                ),new MenuItem(
+                    this.l('SubclinicalExaminationType3'),
+                    '/app/SubclinicalExaminationType3',
+                    'far fa-circle',
+                    '',
+                ),new MenuItem(
+                    this.l('ClinicalExamination1'),
+                    '/app/ClinicalExamination1',
+                    'far fa-circle',
+                    '',
+                ),new MenuItem(
+                    this.l('ClinicalExamination2'),
+                    '/app/ClinicalExamination2',
+                    'far fa-circle',
+                    '',
+                ),new MenuItem(
+                    this.l('ClinicalExamination3'),
+                    '/app/ClinicalExamination3',
+                    'far fa-circle',
+                    '',
+                ),
+                
             ])
         ];
     }

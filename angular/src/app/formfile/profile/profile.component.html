@@ -1,0 +1,93 @@
+<link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <form [formGroup]="addorEditProfile"
+      (ngSubmit)="submitForm(addorEditProfile)"
+      >
+        <div class="form-group row">
+          <label for="fullname" class="col-sm-2 col-form-label">Họ và tên</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="fullname" formControlName="FullName" placeholder="Họ và tên">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-5 row">
+            <label for="sex" class="col-sm-5 col-form-label">Giới tính</label>
+              <div class="col-sm-7">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="sex" id="sex" formGroupName="Sex">
+                  <label class="form-check-label" for="sex">Nam</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="sex" id="sex" formGroupName="Sex">
+                  <label class="form-check-label" for="sex">Nữ</label>
+                </div>
+              </div>
+          </div>
+          <div class="col-7 row">
+            <label for="CCCD" class="col-sm-2 col-form-label">Ngày sinh: </label>
+            <div class="col-sm-10">
+              <div class="col-xs-12 col-12 ">
+                <input type="text"
+                       placeholder="Ngày sinh"
+                       class="form-control"
+                       formGroupName="DateOfBirth"
+                       [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                       bsDatepicker>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-7 row">
+            <label for="CCCD" class="col-sm-4 col-form-label">Số CCCD</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="CCCD" placeholder="CCCD" formGroupName="CCCD">
+            </div>
+          </div>
+          <div class="col-5 row">
+            <label for="CCCD" class="col-sm-2 col-form-label">ngày: </label>
+            <div class="col-sm-10">
+              <div class="col-xs-12 col-12 ">
+                <input type="text"
+                       placeholder="Ngày cấp"
+                       class="form-control"
+                       formGroupName="CreateTimeCCCD"
+                       [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                       bsDatepicker>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="addressCCCD" class="col-sm-2 col-form-label">tại</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="addressCCCD" formGroupName="AddressCCCD" placeholder="Nơi cấp CCCD">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="address" class="col-sm-2 col-form-label">Chỗ ở hiện tại</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="address" formGroupName="Address" placeholder="Chỗ ở hiện tại">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="GuardianName" class="col-sm-2 col-form-label">Họ và tên bố, mẹ hoặc người giám hộ</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="GuardianName" formGroupName="GuardianName" placeholder="Họ và tên bố, mẹ hoặc người giám hộ">
+          </div>
+        </div>
+        <!-- <div class="form-group row">
+          <label for="address" class="col-sm-2 col-form-label">Lý do khám sức khỏe</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="address" placeholder="Lý do khám sức khỏe">
+          </div>
+        </div> -->
+        <div class="form-group row">
+          <button class="btn btn-primary">Lưu thông tin</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
