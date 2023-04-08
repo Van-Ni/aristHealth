@@ -76,7 +76,8 @@ import {EditCertificateTypeComponent} from './manager/certificate-type/edit-cert
 import {CertificateGroupStatusComponent} from './manager/certificate-group-status/certificate-group-status.component';
 import {CreateCertificateGroupStatusComponent} from './manager/certificate-group-status/create-certificate-group-status/create-certificate-group-status.component';
 import {EditCertificateGroupStatusComponent} from './manager/certificate-group-status/edit-certificate-group-status/edit-certificate-group-status.component';
-
+//service
+import {DataService} from './services/data.service';
 @NgModule({
     declarations: [
         AppComponent,
@@ -160,6 +161,6 @@ import {EditCertificateGroupStatusComponent} from './manager/certificate-group-s
         SharedModule,
         NgxPaginationModule,
     ],
-    providers: []
+    providers: [DataService]
 })
 export class AppModule {}

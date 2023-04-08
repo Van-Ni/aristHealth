@@ -12,7 +12,7 @@ namespace AristBase.Interfaces
     {
         public string Sorting { get; set; }
         [Required]
-        public Guid ParentId { get; set; }
+        public Guid CertificateId { get; set; }
     }
     public class PagedAndSortedResultRequestDto : PagedResultRequestDto, IPagedAndSortedResultRequest
     {

@@ -13,6 +13,7 @@ namespace AristBase.BaseEntity
     {
         public string Key { get; set; }
         public string Value { get; set; }
+        public string Group { get; set; }
         public bool IsSeal { get; set; }
         public virtual Certificate Certificate { get; set; }
         public Guid CertificateId { get; set; }

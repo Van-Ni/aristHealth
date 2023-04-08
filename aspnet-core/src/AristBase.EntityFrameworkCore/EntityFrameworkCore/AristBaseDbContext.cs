@@ -30,12 +30,12 @@ namespace AristBase.EntityFrameworkCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.Entity<CertificateKey>().HasIndex(p =>
-            //new
-            //{
-            //    p.Key,
-            //    p.CertificateTypeId
-            //}).IsUnique();
+            modelBuilder.Entity<MedicationKeyResult>().HasIndex(p =>
+            new
+            {
+                p.Key,
+                p.CertificateId
+            }).IsUnique();
             //modelBuilder.Entity<ReportTemplate>().Property(r => r.TemplateDescription).HasColumnType("jsonb");
             //modelBuilder.Entity<HistoryExport>().Property(r => r.TemplateValue).HasColumnType("jsonb");
             //modelBuilder.Entity<ApplicationLanguageText>()

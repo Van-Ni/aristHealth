@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { IPagedResultDto } from '@shared/paged-listing-component-base';
 
 @Component({
   selector: 'app-clinical-examination1',
   templateUrl: './clinical-examination1.component.html',
   styleUrls: ['./clinical-examination1.component.css']
 })
-export class ClinicalExamination1Component implements OnInit {
+export class ClinicalExamination1Component implements AfterContentInit {
+  @Input() Data: any;
+  data:  any;
   isTamThan1= true;
   isThaiSan1= true;
   isNoiTiet1= true;
@@ -17,7 +20,9 @@ export class ClinicalExamination1Component implements OnInit {
   isThanKinh1= true;
   constructor() { }
 
-  ngOnInit() {
+  ngAfterContentInit(): void {
+      
+      this.data= this.Data;
+      console.log("1",this.data);
   }
-
 }

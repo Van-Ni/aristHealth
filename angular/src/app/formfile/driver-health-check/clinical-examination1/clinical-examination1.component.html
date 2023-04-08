@@ -1,5 +1,5 @@
 <h2 style="text-align: center;">Khám lâm sàn</h2>
-<div class="container">
+<div class="container" *ngIf="data">
   <div (click)="isTamThan1 = !isTamThan1"
         [attr.aria-expanded]="!isTamThan1" aria-controls="collapseBasic"><h4>1. Tâm thần</h4>
   </div>
@@ -24,7 +24,7 @@
   <hr>
   <div id="collapseBasic" [collapse]="isMat1" [isAnimated]="true">
     <div class="well well-lg card card-block card-header">
-      <app-mat1></app-mat1>
+      <app-mat1 [Data]="data"></app-mat1>
     </div>
   </div>
   <div (click)="isTaiMuiHong1 = !isTaiMuiHong1"

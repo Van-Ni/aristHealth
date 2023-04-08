@@ -1,5 +1,5 @@
 <h2 style="text-align: center;">Giấy khám sức khỏe người lái xe</h2>
-<div class="container">
+<div class="container"*ngIf="medicationKeyResult">
   <div (click)="isProfile1 = !isProfile1"
         [attr.aria-expanded]="!isProfile1" aria-controls="collapseBasic"><h4>Thông tin cá nhân</h4>
   </div>
@@ -23,8 +23,8 @@
   </div>
   <hr>
   <div id="collapseBasic" [collapse]="isKhamLamSan1" [isAnimated]="true">
-    <div class="well well-lg card card-block card-header">
-      <app-clinical-examination1></app-clinical-examination1>
+    <div class="well well-lg card card-block card-header" >
+      <app-clinical-examination1 [Data]="medicationKeyResult"></app-clinical-examination1>
     </div>
   </div>
   <div (click)="isKhamCanLamSan1 = !isKhamCanLamSan1"
