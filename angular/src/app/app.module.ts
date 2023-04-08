@@ -15,6 +15,7 @@ import { SharedModule } from '@shared/shared.module';
 import { HomeComponent } from '@app/home/home.component';
 import { AboutComponent } from '@app/about/about.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 // tenants
 import { TenantsComponent } from '@app/tenants/tenants.component';
 import { CreateTenantDialogComponent } from './tenants/create-tenant/create-tenant-dialog.component';
@@ -43,12 +44,6 @@ import { SidebarMenuComponent } from './layout/sidebar-menu.component';
 import {DeparmentComponent} from './manager/deparment/deparment.component';
 import {CreateDepartmentComponent} from './manager/deparment/create-department/create-department.component';
 import {EditDepartmentComponent} from'./manager/deparment/edit-department/edit-department.component';
-import {GroupComponent} from './manager/group/group.component';
-import {CreateGroupComponent} from './manager/group/create-group/create-group.component';
-import {EditGroupComponent} from './manager/group/edit-group/edit-group.component';
-import {CreateDocterGroupComponent} from './manager/docter-group/create-docter-group/create-docter-group.component';
-import {EditDocterGroupComponent} from './manager/docter-group/edit-docter-group/edit-docter-group.component';
-import {DocterGroupComponent} from './manager/docter-group/docter-group.component';
 import {ProfileComponent} from './formfile/profile/profile.component';
 import {HealthCertificationComponent} from './formfile/Health-Certification/Health-Certification.component';
 import {MedicalHistoryComponent} from './formfile/Health-Certification/medical-history/medical-history.component';
@@ -75,7 +70,12 @@ import {NoiTiet1Component} from './formfile/driver-health-check/clinical-examina
 import {Mat1Component} from './formfile/driver-health-check/clinical-examination1/mat1/mat1.component';
 import {HoHap1Component} from './formfile/driver-health-check/clinical-examination1/ho-hap1/ho-hap1.component';
 import {CoXuongKhop1Component} from './formfile/driver-health-check/clinical-examination1/co-xuong-khop1/co-xuong-khop1.component';
-
+import {CertificateTypeComponent} from './manager/certificate-type/certificate-type.component';
+import {CreateCertificateTypeComponent} from './manager/certificate-type/create-certificate-type/create-certificate-type.component';
+import {EditCertificateTypeComponent} from './manager/certificate-type/edit-certificate-type/edit-certificate-type.component'
+import {CertificateGroupStatusComponent} from './manager/certificate-group-status/certificate-group-status.component';
+import {CreateCertificateGroupStatusComponent} from './manager/certificate-group-status/create-certificate-group-status/create-certificate-group-status.component';
+import {EditCertificateGroupStatusComponent} from './manager/certificate-group-status/edit-certificate-group-status/edit-certificate-group-status.component';
 
 @NgModule({
     declarations: [
@@ -110,12 +110,12 @@ import {CoXuongKhop1Component} from './formfile/driver-health-check/clinical-exa
         DeparmentComponent,
         CreateDepartmentComponent,
         EditDepartmentComponent,
-        GroupComponent,
-        DocterGroupComponent,
-        CreateGroupComponent,
-        EditGroupComponent,
-        CreateDocterGroupComponent,
-        EditDocterGroupComponent,
+        CertificateTypeComponent,
+        CreateCertificateTypeComponent,
+        EditCertificateTypeComponent,
+        CertificateGroupStatusComponent,
+        CreateCertificateGroupStatusComponent,
+        EditCertificateGroupStatusComponent,
         //fromfile
         ProfileComponent,
         HealthCertificationComponent,

@@ -86,20 +86,16 @@
         <tbody>
           <tr>
             <td style="text-align: center;">
-              <input class="" type="radio"  [(ngModel)]="mat1.thitruong_ngang" [ngModelOptions]="{standalone: true}" id="thitruong_ngang1" value="Bình thường">
-              <label class="form-check-label" for="thitruong_ngang"></label>
+              <input  type="radio"  [(ngModel)]="mat1.thitruong_ngang" [ngModelOptions]="{standalone: true}" name="thitruong_ngang" id="thitruong_ngang1" value="bth">
             </td>
             <td style="text-align: center;">
-              <input class="" type="radio"  [(ngModel)]="mat1.thitruong_ngang" [ngModelOptions]="{standalone: true}" id="thitruong_ngang2" value="Hạn chế">
-              <label class="form-check-label" for="thitruong_ngang"></label>
+              <input type="radio"  [(ngModel)]="mat1.thitruong_ngang" [ngModelOptions]="{standalone: true}"name="thitruong_ngang" id="thitruong_ngang2" value="hc">
             </td>
             <td style="text-align: center;">
-              <input class="" type="radio" [(ngModel)]="mat1.thitruong_dung" [ngModelOptions]="{standalone: true}" id="thitruong_dung1" value="Bình thường">
-              <label class="form-check-label" for="thitruong_dung"></label>
+              <input  type="radio" [(ngModel)]="mat1.thitruong_dung" [ngModelOptions]="{standalone: true}"name="thitruong_dung" id="thitruong_dung1" value="bth">
             </td>
             <td style="text-align: center;">
-              <input class="" type="radio" [(ngModel)]="mat1.thitruong_dung" [ngModelOptions]="{standalone: true}" id="thitruong_dung2" value="Hạn chế">
-              <label class="form-check-label" for="thitruong_dung"></label>
+              <input type="radio" [(ngModel)]="mat1.thitruong_dung" [ngModelOptions]="{standalone: true}"name="thitruong_dung" id="thitruong_dung2" value="hc">
             </td>
           </tr>
         </tbody>
@@ -109,32 +105,33 @@
     <div class="row">
       <div class="col-12">
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" [(ngModel)]="mat1.sacgiac" [ngModelOptions]="{standalone: true}" id="sacgiac1" value="Bình thường">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="mat1.bth" [ngModelOptions]="{standalone: true}" name="sacgiac" id="sacgiac1" value="bth">
           <label class="form-check-label" for="sacgiac">Bình thường</label>
         </div>
       </div>
       <div class="col-12">
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" [(ngModel)]="mat1.sacgiac" [ngModelOptions]="{standalone: true}" id="sacgiac2" value="Mù màu toàn bộ">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="mat1.mumau_all" [ngModelOptions]="{standalone: true}" name="sacgiac" id="sacgiac2" value="mm">
           <label class="form-check-label" for="sacgiac">Mù màu toàn bộ</label>
         </div>
       </div>
       <div class="col-12">
-        <div class="col-4">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-            <label class="form-check-label" for="inlineRadio2">Mù màu - Đỏ</label>
-          </div>
-        </div><div class="col-4">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-            <label class="form-check-label" for="inlineRadio2">Mù màu - Xanh lá cây</label>
-          </div>
-        </div><div class="col-4">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-            <label class="form-check-label" for="inlineRadio2">Mù màu - Vàng</label>
-          </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="mat1.mumau_do" name="mumau_do" id="mumau_do" value="Mù màu đỏ">
+          <label class="form-check-label" for="inlineRadio2">Mù màu - Đỏ</label>
+        </div>
+        
+      </div>
+      <div class="col-12">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="mat1.mumau_xanhlacay" name="mumau_xanhlacay" id="mumau_xanhlacay" value="Mù màu xanh">
+          <label class="form-check-label" for="inlineRadio2">Mù màu - Xanh lá cây</label>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="mat1.mumau_vang" name="mumau_vang" id="mumau_vang" value="Mù màu Vàng">
+          <label class="form-check-label" for="inlineRadio2">Mù màu - Vàng</label>
         </div>
       </div>
     </div>

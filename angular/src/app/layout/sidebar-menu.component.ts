@@ -69,10 +69,15 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                     '/app/deparments',
                     'far fa-circle',
                     '',
-                ),
-                new MenuItem(
-                    this.l('group'),
-                    '/app/groups',
+                )
+                ,new MenuItem(
+                    this.l('certificate-types'),
+                    '/app/certificate-types',
+                    'far fa-circle',
+                    '',
+                ),new MenuItem(
+                    this.l('certificate-group-status'),
+                    '/app/certificate-group-status',
                     'far fa-circle',
                     '',
                 ),
@@ -91,66 +96,6 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                 ),new MenuItem(
                     this.l('Giấy khám sức khỏe người lái xe'),
                     '/app/driver-health-check',
-                    'far fa-circle',
-                    '',
-                ),new MenuItem(
-                    this.l('medicalhistoryv2'),
-                    '/app/medicalhistorysv2',
-                    'far fa-circle',
-                    '',
-                ),new MenuItem(
-                    this.l('physical-examinations'),
-                    '/app/physical-examinations',
-                    'far fa-circle',
-                    '',
-                ),new MenuItem(
-                    this.l('DrivingMedicalHistory'),
-                    '/app/DrivingMedicalHistory',
-                    'far fa-circle',
-                    '',
-                ),new MenuItem(
-                    this.l('CurrentConclusionType1'),
-                    '/app/CurrentConclusionType1',
-                    'far fa-circle',
-                    '',
-                ),new MenuItem(
-                    this.l('CurrentConclusionType2'),
-                    '/app/CurrentConclusionType2',
-                    'far fa-circle',
-                    '',
-                ),new MenuItem(
-                    this.l('CurrentConclusionType3'),
-                    '/app/CurrentConclusionType3',
-                    'far fa-circle',
-                    '',
-                ),new MenuItem(
-                    this.l('SubclinicalExaminationType1'),
-                    '/app/SubclinicalExaminationType1',
-                    'far fa-circle',
-                    '',
-                ),new MenuItem(
-                    this.l('SubclinicalExaminationType2'),
-                    '/app/SubclinicalExaminationType2',
-                    'far fa-circle',
-                    '',
-                ),new MenuItem(
-                    this.l('SubclinicalExaminationType3'),
-                    '/app/SubclinicalExaminationType3',
-                    'far fa-circle',
-                    '',
-                ),new MenuItem(
-                    this.l('ClinicalExamination1'),
-                    '/app/ClinicalExamination1',
-                    'far fa-circle',
-                    '',
-                ),new MenuItem(
-                    this.l('ClinicalExamination2'),
-                    '/app/ClinicalExamination2',
-                    'far fa-circle',
-                    '',
-                ),new MenuItem(
-                    this.l('ClinicalExamination3'),
-                    '/app/ClinicalExamination3',
                     'far fa-circle',
                     '',
                 ),

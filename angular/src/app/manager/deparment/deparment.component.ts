@@ -36,7 +36,7 @@ export class DeparmentComponent  {
         this.enterprises = {
           items: result.items.map(x => {
             const deparmentViewModel = new DeparmentViewModel();
-            //deparmentViewModel.id = x.id;
+            deparmentViewModel.id = x.id;
             deparmentViewModel.nameDeparment = x.nameDepartment;
             return deparmentViewModel;
           }),

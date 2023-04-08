@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CreateMedicationKeyResultDto } from '@shared/service-proxies/service-proxies';
+import { CreateMedicationKeyResultDto, MedicationKeyResultB2ServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { log } from 'console';
 class Mat1ViewModel {
   mot_khongkinh_mattrai: string;
@@ -11,7 +11,8 @@ class Mat1ViewModel {
   hai_khongkinh: string;
   thitruong_ngang: string;
   thitruong_dung: string;
-  sacgiac: string;
+  bth: string;
+  mumau_all: string;
   mumau_do:string;
   mumau_vang: string;
   mumau_xanhlacay: string;
@@ -27,7 +28,7 @@ export class Mat1Component extends AppComponentBase implements OnInit {
   mat1= new Mat1ViewModel();
   inputmat1 :CreateMedicationKeyResultDto;
   inputmat1s : CreateMedicationKeyResultDto[] = [];
-  constructor(private injector: Injector) {
+  constructor(private injector: Injector, private medicationKeyResultServiceServiceProxy: MedicationKeyResultB2ServiceServiceProxy) {
     super(injector)
     
    }
@@ -39,100 +40,107 @@ export class Mat1Component extends AppComponentBase implements OnInit {
     console.log(this.appSession.userId);
     const item1 = new CreateMedicationKeyResultDto(
       {
-        key: 'M_KK_MT',
+        key: 'm_kk_mt',
         value:  this.mat1.mot_khongkinh_mattrai,
-        certificateId: '1073D4CE-09DB-4B30-B4A6-713037CB94C2',
+        certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
         userId:  this.appSession.userId
       }
     );const item2 = new CreateMedicationKeyResultDto(
       {
-        key: 'M_KK_MP',
+        key: 'm_kk_mp',
         value:  this.mat1.mot_khongkinh_matphai,
-        certificateId: '1073D4CE-09DB-4B30-B4A6-713037CB94C2',
+        certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
         userId:  this.appSession.userId
       }
     );const item3 = new CreateMedicationKeyResultDto(
       {
-        key: 'M_CK_MT',
+        key: 'm_ck_mt',
         value:  this.mat1.mot_cokinh_mattrai,
-        certificateId: '1073D4CE-09DB-4B30-B4A6-713037CB94C2',
+        certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
         userId:  this.appSession.userId
       }
     );const item4 = new CreateMedicationKeyResultDto(
       {
-        key: 'M_CK_MP',
+        key: 'm_ck_mp',
         value:  this.mat1.mot_cokinh_matphai,
-        certificateId: '1073D4CE-09DB-4B30-B4A6-713037CB94C2',
+        certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
         userId:  this.appSession.userId
       }
     );const item5 = new CreateMedicationKeyResultDto(
       {
-        key: 'H_CK',
+        key: 'h_ck',
         value:  this.mat1.hai_cokinh,
-        certificateId: '1073D4CE-09DB-4B30-B4A6-713037CB94C2',
+        certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
         userId:  this.appSession.userId
       }
     );const item6 = new CreateMedicationKeyResultDto(
       {
-        key: 'H_KK',
+        key: 'h_kk',
         value:  this.mat1.hai_khongkinh,
-        certificateId: '1073D4CE-09DB-4B30-B4A6-713037CB94C2',
+        certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
         userId:  this.appSession.userId
       }
     );const item7 = new CreateMedicationKeyResultDto(
       {
-        key: 'TT_N',
+        key: 'tt_n',
         value:  this.mat1.thitruong_ngang,
-        certificateId: '1073D4CE-09DB-4B30-B4A6-713037CB94C2',
+        certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
         userId:  this.appSession.userId
       }
     );const item8 = new CreateMedicationKeyResultDto(
       {
-        key: 'TT_D',
+        key: 'tt_d',
         value:  this.mat1.thitruong_dung,
-        certificateId: '1073D4CE-09DB-4B30-B4A6-713037CB94C2',
+        certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
         userId:  this.appSession.userId
       }
     );const item9 = new CreateMedicationKeyResultDto(
       {
-        key: 'SG',
-        value:  this.mat1.sacgiac,
-        certificateId: '1073D4CE-09DB-4B30-B4A6-713037CB94C2',
+        key: 'radio_bth',
+        value:  this.mat1.bth,
+        certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
+        userId:  this.appSession.userId
+      }
+    );const item15 = new CreateMedicationKeyResultDto(
+      {
+        key: 'mm_all',
+        value:  this.mat1.mumau_all,
+        certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
         userId:  this.appSession.userId
       }
     );const item10 = new CreateMedicationKeyResultDto(
       {
-        key: 'MauDo',
+        key: 'mm_do',
         value:  this.mat1.mumau_do,
-        certificateId: '1073D4CE-09DB-4B30-B4A6-713037CB94C2',
+        certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
         userId:  this.appSession.userId
       }
     );const item11 = new CreateMedicationKeyResultDto(
       {
-        key: 'MauVang',
+        key: 'mm_vang',
         value:  this.mat1.mumau_vang,
-        certificateId: '1073D4CE-09DB-4B30-B4A6-713037CB94C2',
+        certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
         userId:  this.appSession.userId
       }
     );const item12 = new CreateMedicationKeyResultDto(
       {
-        key: 'MauXanhLaCay',
+        key: 'mm_xanh',
         value:  this.mat1.mumau_xanhlacay,
-        certificateId: '1073D4CE-09DB-4B30-B4A6-713037CB94C2',
+        certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
         userId:  this.appSession.userId
       }
     );const item13 = new CreateMedicationKeyResultDto(
       {
-        key: 'CBVMat',
+        key: 'cbvm',
         value:  this.mat1.cacbenhvemat,
-        certificateId: '1073D4CE-09DB-4B30-B4A6-713037CB94C2',
+        certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
         userId:  this.appSession.userId
       }
     );const item14 = new CreateMedicationKeyResultDto(
       {
-        key: 'KL',
+        key: 'kl',
         value:  this.mat1.ketluan,
-        certificateId: '1073D4CE-09DB-4B30-B4A6-713037CB94C2',
+        certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
         userId:  this.appSession.userId
       }
     );
@@ -152,7 +160,14 @@ export class Mat1Component extends AppComponentBase implements OnInit {
     this.inputmat1s.push(item12);
     this.inputmat1s.push(item13);
     this.inputmat1s.push(item14);
+    this.inputmat1s.push(item15);
     console.log(this.inputmat1s);
-    
+    this.medicationKeyResultServiceServiceProxy.createList(this.inputmat1s).subscribe(
+      () => {
+        
+        this.notify.info(this.l('SavedSuccessfully.'));
+      },
+      
+    );
   }
 }

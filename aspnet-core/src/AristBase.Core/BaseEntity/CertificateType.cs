@@ -14,7 +14,6 @@ namespace AristBase.BaseEntity
         public string FilePath { get; set; }
         public string FinalResult { get; set; }
         public virtual ICollection<Certificate> Certificates { get; set; }
-        public virtual ICollection<CertificateKey> CertificateKeys { get; set; }
         #region Audited
         public long? CreatorUserId { get; set; }
         public DateTime CreationTime { get; set; }

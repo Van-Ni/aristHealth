@@ -17,6 +17,6 @@ namespace AristBase.CRUDServices.MedicationKeyResultServices.Dto
         public string Key { get; set; }
         public string Value { get; set; }
         public Guid CertificateId { get; set; }
-        public int UserId { get; set; }
+        public long UserId { get; set; }
     }
 }

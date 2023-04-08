@@ -13,10 +13,9 @@ namespace AristBase.BaseEntity
     {
         public virtual Certificate Certificate { get; set; }
         public Guid CertificateId { get; set; }
-        public virtual Group Group { get; set; }
-        public Guid GroupId { get; set; }
+        public string Group { get; set; }
         public bool status { get; set; }
-        public int UserId { get; set; }
+        public long UserId { get; set; }
         public virtual User User { get; set; }
         #region Audited
         public long? CreatorUserId { get; set; }

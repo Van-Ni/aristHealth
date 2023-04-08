@@ -8,7 +8,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
   templateUrl: './edit-department.component.html',
   styleUrls: ['./edit-department.component.css']
 })
-export class EditDepartmentComponent  extends AppComponentBase  implements OnInit {
+export class EditDepartmentComponent  extends AppComponentBase implements OnInit {
   id: string;
   saving = false;
   department = new DepartmentDto();

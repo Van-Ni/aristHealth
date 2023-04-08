@@ -9,7 +9,6 @@ import { TenantsComponent } from './tenants/tenants.component';
 import { RolesComponent } from 'app/roles/roles.component';
 import { ChangePasswordComponent } from './users/change-password/change-password.component';
 import { DeparmentComponent } from './manager/deparment/deparment.component';
-import {GroupComponent} from './manager/group/group.component';
 import { ProfileComponent } from './formfile/profile/profile.component';
 import { MedicalHistoryComponent } from './formfile/Health-Certification/medical-history/medical-history.component';
 import { MedicalHistoryV2Component } from './formfile/health-certification-v2/medical-history-v2/medical-history-v2.component';
@@ -25,6 +24,8 @@ import { ClinicalExamination2Component } from './formfile/health-certification-v
 import { ClinicalExamination3Component } from './formfile/Health-Certification/clinical-examination3/clinical-examination3.component';
 import { ClinicalExamination1Component } from './formfile/driver-health-check/clinical-examination1/clinical-examination1.component';
 import { DriverHealthCheckComponent } from './formfile/driver-health-check/driver-health-check.component';
+import { CertificateTypeComponent } from './manager/certificate-type/certificate-type.component';
+import { CertificateGroupStatusComponent } from './manager/certificate-group-status/certificate-group-status.component';
 @NgModule({
     imports: [
         RouterModule.forChild([
@@ -38,8 +39,9 @@ import { DriverHealthCheckComponent } from './formfile/driver-health-check/drive
                     { path: 'tenants', component: TenantsComponent, data: { permission: 'Pages.Tenants' }, canActivate: [AppRouteGuard] },
                     { path: 'about', component: AboutComponent, canActivate: [AppRouteGuard] },
                     { path: 'deparments', component: DeparmentComponent, canActivate: [AppRouteGuard] },
-                    { path: 'groups', component: GroupComponent, canActivate: [AppRouteGuard] },
                     { path: 'physical-examinations', component: PhysicalExaminationComponent, canActivate: [AppRouteGuard] },
+                    { path: 'certificate-types', component: CertificateTypeComponent, canActivate: [AppRouteGuard] },
+                    { path: 'certificate-group-status', component: CertificateGroupStatusComponent, canActivate: [AppRouteGuard] },
                     { path: 'profiles', component: ProfileComponent, canActivate: [AppRouteGuard] },
                     { path: 'driver-health-check', component: DriverHealthCheckComponent, canActivate: [AppRouteGuard] },
                     { path: 'CurrentConclusionType3', component: CurrentConclusionType3Component, canActivate: [AppRouteGuard] },

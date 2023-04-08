@@ -8,7 +8,6 @@ namespace AristBase.BaseEntity
     public class Department : Entity<Guid>, IFullAudited, IPassivable, ISoftDelete, IMustHaveTenant
     {
         public string NameDepartment { get; set; }
-        public virtual ICollection<Group> Groups { get; set; }
         #region Audited
         public long? CreatorUserId { get; set; }
         public DateTime CreationTime { get; set; }
