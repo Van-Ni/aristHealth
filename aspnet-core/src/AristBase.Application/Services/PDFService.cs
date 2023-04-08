@@ -21,11 +21,18 @@ namespace AristBase.Services
         }
 
         protected void FillPDF(PdfReader reader, FileStream os, Dictionary<string, string> filedValues)
-        {
+        {            
             PdfStamper stamper = new PdfStamper(reader, os);
             
 
             AcroFields formFields = stamper.AcroFields;
+
+            BaseFont font = BaseFont.CreateFont("./file/times new roman.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+
+            Font vietnameseFont = new Font(font, 12);
+
+            formFields.AddSubstitutionFont(font);
+
             foreach (var field in formFields.Fields)
             {
                 string value;
