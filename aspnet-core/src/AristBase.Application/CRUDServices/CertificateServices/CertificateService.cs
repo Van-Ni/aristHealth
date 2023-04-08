@@ -15,5 +15,6 @@ namespace AristBase.CRUDServices.CertificateServices
         public CertificateService(IRepository<Certificate, Guid> repository) : base(repository)
         {
         }
+
     }
 }

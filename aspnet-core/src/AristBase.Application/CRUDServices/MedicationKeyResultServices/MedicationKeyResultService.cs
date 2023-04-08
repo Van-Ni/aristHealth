@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AristBase.CRUDServices.MedicationKeyResultServices
 {
-    public class MedicationKeyResultService : AsyncCrudAppService<MedicationKeyResult, MedicationKeyResultDto, Guid>
+    public class MedicationKeyResultService : AsyncCrudAppService<MedicationKeyResult, MedicationKeyResultDto, Guid, MedicationKeyResultDto, CreateMedicationKeyResultDto,MedicationKeyResultDto>
     {
         public MedicationKeyResultService(IRepository<MedicationKeyResult, Guid> repository) : base(repository)
         {

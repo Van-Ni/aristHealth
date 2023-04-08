@@ -1,5 +1,4 @@
-﻿using Abp.Application.Services.Dto;
-using Abp.AutoMapper;
+﻿using Abp.AutoMapper;
 using AristBase.BaseEntity;
 using System;
 using System.Collections.Generic;
@@ -11,7 +10,7 @@ namespace AristBase.CRUDServices.ClientInfoServices.Dto
 {
     [AutoMapFrom(typeof(ClientInfo))]
     [AutoMapTo(typeof(ClientInfo))]
-    public class ClientInfoDto : EntityDto<int>
+    public class CreateClientInfoDto
     {
         public string FullName { get; set; }
         //Male = true
