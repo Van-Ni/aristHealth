@@ -44,7 +44,7 @@ namespace AristBase.CRUDServices.MedicationKeyResultServices
             var list = new List<MedicationKeyResult>();
             foreach (var item in input)
             {
-                var entity = ObjectMapper.Map<MedicationKeyResult>(item);              
+                var entity = ObjectMapper.Map<MedicationKeyResult>(item);
                 list.Add(entity);
             }
             await Repository.InsertRangeAsync(list);
@@ -59,7 +59,6 @@ namespace AristBase.CRUDServices.MedicationKeyResultServices
             return Repository.GetAll().Where(r => r.CertificateId == input.CertificateId).ToDictionary(c => c.Key, c => new KeyValueInfo
             {
                 Value = c.Value,
-                UserId = c.UserId
             });
         }
     }

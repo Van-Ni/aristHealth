@@ -26,6 +26,7 @@ import { ClinicalExamination1Component } from './formfile/driver-health-check/cl
 import { DriverHealthCheckComponent } from './formfile/driver-health-check/driver-health-check.component';
 import { CertificateTypeComponent } from './manager/certificate-type/certificate-type.component';
 import { CertificateGroupStatusComponent } from './manager/certificate-group-status/certificate-group-status.component';
+import { CertificateComponent } from './manager/certificate/certificate.component';
 @NgModule({
     imports: [
         RouterModule.forChild([
@@ -39,8 +40,10 @@ import { CertificateGroupStatusComponent } from './manager/certificate-group-sta
                     { path: 'tenants', component: TenantsComponent, data: { permission: 'Pages.Tenants' }, canActivate: [AppRouteGuard] },
                     { path: 'about', component: AboutComponent, canActivate: [AppRouteGuard] },
                     { path: 'deparments', component: DeparmentComponent, canActivate: [AppRouteGuard] },
+                    { path: 'certificates', component: CertificateComponent, canActivate: [AppRouteGuard] },
                     { path: 'physical-examinations', component: PhysicalExaminationComponent, canActivate: [AppRouteGuard] },
                     { path: 'certificate-types', component: CertificateTypeComponent, canActivate: [AppRouteGuard] },
+                    { path: '1/:id', component: DriverHealthCheckComponent, canActivate: [AppRouteGuard] },
                     { path: 'certificate-group-status', component: CertificateGroupStatusComponent, canActivate: [AppRouteGuard] },
                     { path: 'profiles', component: ProfileComponent, canActivate: [AppRouteGuard] },
                     { path: 'driver-health-check', component: DriverHealthCheckComponent, canActivate: [AppRouteGuard] },

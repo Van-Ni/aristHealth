@@ -17,8 +17,6 @@ namespace AristBase.BaseEntity
         public bool IsSeal { get; set; }
         public virtual Certificate Certificate { get; set; }
         public Guid CertificateId { get; set; }
-        public virtual User User { get; set; }
-        public long UserId { get; set; }
 
 
         #region Audited

@@ -80,20 +80,15 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                     '/app/certificate-group-status',
                     'far fa-circle',
                     '',
+                ),new MenuItem(
+                    this.l('certificates'),
+                    '/app/certificates',
+                    'far fa-circle',
+                    '',
                 ),
             ]),
             new MenuItem(this.l('Quản lý Form word'), '', 'fas fa-circle', '', [
                 new MenuItem(
-                    this.l('profile'),
-                    '/app/profiles',
-                    'far fa-circle',
-                    '',
-                ),new MenuItem(
-                    this.l('medicalhistory'),
-                    '/app/medicalhistorys',
-                    'far fa-circle',
-                    '',
-                ),new MenuItem(
                     this.l('Giấy khám sức khỏe người lái xe'),
                     '/app/driver-health-check',
                     'far fa-circle',

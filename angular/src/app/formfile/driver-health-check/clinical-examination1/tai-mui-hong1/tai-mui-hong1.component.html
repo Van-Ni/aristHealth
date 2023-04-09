@@ -1,62 +1,89 @@
-<div>
-  <p>4. Tai mũi họng</p>
-  <p>-Kết quả khám thính lực (Có thể sử dụng máy trợ thính):</p>
-  <div class="row">
-    <div class="col-6">
-      <div class="form-group row">
-        <div class="input-group">
-          <label for="chieucao" class="col-sm-2 col-form-label">Tai trái:</label>
-        <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)">
-        <div class="input-group-append">
-          <span class="input-group-text">m</span>
+<form autocomplete="off"
+#createtaimuihong1="ngForm"
+(ngSubmit)="save()">
+  <fieldset [disabled]="!isEditable">
+    <div>
+      <div class="form-group">
+        <label for="hohapslb">Phân loại:</label>
+        <select name="hohapslb" class="form-control" [(ngModel)]="taimuihong1.taimuihong_selectbox_phanloai"
+        [ngModelOptions]="{standalone: true}">
+          <option value="">Khác</option>
+          <option value="Phân loại 1">Phân loại 1</option>
+          <option value="Phân loại 2">Phân loại 2</option>
+          <option value="Phân loại 3">Phân loại 3</option>
+          <option value="Phân loại 4">Phân loại 4</option>
+          <option value="Phân loại 5">Phân loại 5</option>
+          
+        </select>
+      </div>
+      <p>-Kết quả khám thính lực (Có thể sử dụng máy trợ thính):</p>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group row">
+            <div class="input-group">
+              <label for="chieucao" class="col-sm-2 col-form-label">Tai trái:</label>
+            <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="taimuihong1.taimuihong_text_taitrai"
+            [ngModelOptions]="{standalone: true}">
+            <div class="input-group-append">
+              <span class="input-group-text">m</span>
+            </div>
+            </div>
+          </div>
         </div>
+        <div class="col-6">
+          <div class="form-group row">
+            <div class="input-group">
+              <label for="chieucao" class="col-sm-2 col-form-label">Nói thầm:</label>
+            <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="taimuihong1.taimuihong_text_taitrai_noitham"
+            [ngModelOptions]="{standalone: true}">
+            <div class="input-group-append">
+              <span class="input-group-text">m</span>
+            </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-6">
-      <div class="form-group row">
-        <div class="input-group">
-          <label for="chieucao" class="col-sm-2 col-form-label">Nói thầm:</label>
-        <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)">
-        <div class="input-group-append">
-          <span class="input-group-text">m</span>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group row">
+            <div class="input-group">
+              <label for="chieucao" class="col-sm-2 col-form-label">Tai phải:</label>
+            <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="taimuihong1.taimuihong_text_taiphai"
+            [ngModelOptions]="{standalone: true}">
+            <div class="input-group-append">
+              <span class="input-group-text">m</span>
+            </div>
+            </div>
+          </div>
         </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-6">
-      <div class="form-group row">
-        <div class="input-group">
-          <label for="chieucao" class="col-sm-2 col-form-label">Tai phải:</label>
-        <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)">
-        <div class="input-group-append">
-          <span class="input-group-text">m</span>
-        </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-6">
-      <div class="form-group row">
-        <div class="input-group">
-          <label for="chieucao" class="col-sm-2 col-form-label">Nói thầm:</label>
-        <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)">
-        <div class="input-group-append">
-          <span class="input-group-text">m</span>
-        </div>
+        <div class="col-6">
+          <div class="form-group row">
+            <div class="input-group">
+              <label for="chieucao" class="col-sm-2 col-form-label">Nói thầm:</label>
+            <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="taimuihong1.taimuihong_text_taiphai_noitham"
+            [ngModelOptions]="{standalone: true}">
+            <div class="input-group-append">
+              <span class="input-group-text">m</span>
+            </div>
+            </div>
+          </div>
         </div>
       </div>
+      <p>Các bệnh về mắt (nếu có)</p>
+      <div class="form-group">
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" [(ngModel)]="taimuihong1.taimuihong_text_noidung"
+        [ngModelOptions]="{standalone: true}"></textarea>
+      </div>
+      <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label">Kết luận:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" [(ngModel)]="taimuihong1.taimuihong_text_taimuihong_ketluan"
+          [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <button class="btn btn-primary">Lưu thông tin</button>
+      </div>
     </div>
-  </div>
-  <p>Các bệnh về mắt (nếu có)</p>
-  <div class="form-group">
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
-  </div>
-  <div class="form-group row">
-    <label for="" class="col-sm-2 col-form-label">Kết luận:</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="" placeholder="">
-    </div>
-  </div>
-</div>
+  </fieldset>
+</form>

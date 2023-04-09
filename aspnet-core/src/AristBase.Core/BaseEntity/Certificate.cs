@@ -8,12 +8,12 @@ namespace AristBase.BaseEntity
     public class Certificate : Entity<Guid>, IFullAudited, IPassivable, ISoftDelete, IMustHaveTenant
     {
         public int CertificateTypeId { get; set; }
-        public virtual CertificateType CertificateType { get; set; }
+        public  CertificateType CertificateType { get; set; }
         public Status Status { get; set; }
         public PaymentStatus PaymentStatus { get; set; }
         //public bool SyncStatus { get; set; }
         public int ClientInfoId { get; set; }
-        public virtual ClientInfo ClientInfo { get; set; }
+        public  ClientInfo ClientInfo { get; set; }
         public decimal AmountPaid { get; set; }
         public string Reason { get; set; }
         public virtual ICollection<MedicationKeyResult> MedicationKeyResults { get; set; }

@@ -14,68 +14,151 @@ using System.Threading.Tasks;
 
 namespace AristBase.CRUDServices.MedicationKeyResultServices
 {
-    public class MedicationKeyResultB1Service : KeyValueBaseService
+    public class KhoaTamThanService : KeyValueBaseService
     {
-        public MedicationKeyResultB1Service(IRepository<MedicationKeyResult, Guid> repository)
-            : base(repository, PermissionNames.B1)
+        public KhoaTamThanService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.TamThan)
         {
         }
     }
-    public class MedicationKeyResultB2Service : KeyValueBaseService
+    public class KhoaThanKinhService : KeyValueBaseService
     {
-        public MedicationKeyResultB2Service(IRepository<MedicationKeyResult, Guid> repository)
-            : base(repository, PermissionNames.B2)
+        public KhoaThanKinhService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.ThanKinh)
         {
         }
     }
-    public class MedicationKeyResultB3Service : KeyValueBaseService
+    public class KhoaThaiSanService : KeyValueBaseService
     {
-        public MedicationKeyResultB3Service(IRepository<MedicationKeyResult, Guid> repository)
-            : base(repository, PermissionNames.B3)
+        public KhoaThaiSanService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.ThaiSan)
         {
         }
     }
-    public class MedicationKeyResultB4Service : KeyValueBaseService
+    public class KhoaTimMachService : KeyValueBaseService
     {
-        public MedicationKeyResultB4Service(IRepository<MedicationKeyResult, Guid> repository)
-            : base(repository, PermissionNames.B4)
+        public KhoaTimMachService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.TimMach)
         {
         }
     }
-    public class MedicationKeyResultB5Service : KeyValueBaseService
+    public class KhoaNoiTietService : KeyValueBaseService
     {
-        public MedicationKeyResultB5Service(IRepository<MedicationKeyResult, Guid> repository)
-            : base(repository, PermissionNames.B5)
+        public KhoaNoiTietService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.NoiTiet)
         {
         }
     }
-    public class MedicationKeyResultB6Service : KeyValueBaseService
+    public class KhoaMatService : KeyValueBaseService
     {
-        public MedicationKeyResultB6Service(IRepository<MedicationKeyResult, Guid> repository)
-            : base(repository, PermissionNames.B6)
+        public KhoaMatService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.Mat)
         {
         }
     }
-    public class MedicationKeyResultB7Service : KeyValueBaseService
+    public class KhoaNhiKhoaService : KeyValueBaseService
     {
-        public MedicationKeyResultB7Service(IRepository<MedicationKeyResult, Guid> repository)
-            : base(repository, PermissionNames.B7)
+        public KhoaNhiKhoaService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.NhiKhoa)
         {
         }
     }
-    public class MedicationKeyResultB8Service : KeyValueBaseService
+    public class KhoaRangHamMatService : KeyValueBaseService
     {
-        public MedicationKeyResultB8Service(IRepository<MedicationKeyResult, Guid> repository)
-            : base(repository, PermissionNames.B8)
+        public KhoaRangHamMatService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.RangHamMat)
         {
         }
     }
-    public class MedicationKeyResultB9Service : KeyValueBaseService
+    public class KhoaHoHapService : KeyValueBaseService
     {
-        public MedicationKeyResultB9Service(IRepository<MedicationKeyResult, Guid> repository)
-            : base(repository, PermissionNames.B9)
+        public KhoaHoHapService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.HoHap)
         {
         }
     }
-
+    public class KhoaCoXuongKhopService : KeyValueBaseService
+    {
+        public KhoaCoXuongKhopService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.CoXuongKhop)
+        {
+        }
+    }
+    public class KhoaTaiMuiHongService : KeyValueBaseService
+    {
+        public KhoaTaiMuiHongService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.TaiMuiHong)
+        {
+        }
+    }
+    public class XetNghiemMauService : KeyValueBaseService
+    {
+        public XetNghiemMauService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.XetNghiemMau)
+        {
+        }
+    }
+    public class XetNghiemKhacService : KeyValueBaseService
+    {
+        public XetNghiemKhacService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.XetNghiemKhac)
+        {
+        }
+    }
+    public class XetNghiemMaTuyVaMauService : KeyValueBaseService
+    {
+        public XetNghiemMaTuyVaMauService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.XetNghiemMaTuyVaMau)
+        {
+        }
+    }
+    public class XetNghiemNuocTieuService : KeyValueBaseService
+    {
+        public XetNghiemNuocTieuService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.XetNghiemNuocTieu)
+        {
+        }
+    }
+    public class KhoaNgoaiKhoaService : KeyValueBaseService
+    {
+        public KhoaNgoaiKhoaService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.NgoaiKhoa)
+        {
+        }
+    }
+    public class KhoaDalieuService : KeyValueBaseService
+    {
+        public KhoaDalieuService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.DaLieu)
+        {
+        }
+    }
+    public class ChanDoanHinhAnhService : KeyValueBaseService
+    {
+        public ChanDoanHinhAnhService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.ChanDoanHinhAnh)
+        {
+        }
+    }
+    public class KhamTheLucService : KeyValueBaseService
+    {
+        public KhamTheLucService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.KhamTheLuc)
+        {
+        }
+    }
+    public class KetLuanService : KeyValueBaseService
+    {
+        public KetLuanService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.KetLuan)
+        {
+        }
+    }
+    public class TruongDonViKySoService : KeyValueBaseService
+    {
+        public TruongDonViKySoService(IRepository<MedicationKeyResult, Guid> repository)
+            : base(repository, PermissionNames.TruongDonViKySo)
+        {
+        }
+    }
 }

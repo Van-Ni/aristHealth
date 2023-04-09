@@ -1928,17 +1928,12 @@ namespace AristBase.Migrations
                     b.Property<int>("TenantId")
                         .HasColumnType("integer");
 
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Value")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CertificateId");
-
-                    b.HasIndex("UserId");
 
                     b.HasIndex("Key", "CertificateId")
                         .IsUnique();
@@ -2292,15 +2287,7 @@ namespace AristBase.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AristBase.Authorization.Users.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Certificate");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AristBase.MultiTenancy.Tenant", b =>

@@ -1,26 +1,24 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
 import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CreateMedicationKeyResultDto, MedicationKeyResultB2ServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CreateMedicationKeyResultDto, KhoaMatServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
-import { log } from 'console';
-import { forIn } from 'lodash-es';
 interface Mat1ViewModel {
-  B2_text_kk_mt: string;
-  B2_text_kk_mp: string;
-  B2_text_ck_mt: string;
-  B2_text_ck_mp: string;
-  B2_text_2m_ck: string;
-  B2_text_2m_kk: string;
-  B2_radio_thitruong_ngang: string;
-  B2_radio_thitruong_dung: string;
-  B2_checkbox_bth: string;
-  B2_checkbox_mumau_all: string;
-  B2_checkbox_mumau_do:string;
-  B2_checkbox_mumau_vang: string;
-  B2_checkbox_mumau_xanh: string;
-  B2_text_cbvm: string;
-  B2_text_mat_ketluan: string; 
+  Mat_text_kk_mt: string;
+  Mat_text_kk_mp: string;
+  Mat_text_ck_mt: string;
+  Mat_text_ck_mp: string;
+  Mat_text_2m_ck: string;
+  Mat_text_2m_kk: string;
+  Mat_radio_thitruong_ngang: string;
+  Mat_radio_thitruong_dung: string;
+  Mat_checkbox_bth: string;
+  Mat_checkbox_mumau_all: string;
+  Mat_checkbox_mumau_do:string;
+  Mat_checkbox_mumau_vang: string;
+  Mat_checkbox_mumau_xanh: string;
+  Mat_text_cbvm: string;
+  Mat_text_mat_ketluan: string; 
 }
 @Component({
   selector: 'app-mat1',
@@ -30,28 +28,27 @@ interface Mat1ViewModel {
 export class Mat1Component extends AppComponentBase implements OnInit {
   
   @Input() Data: any;
-  container: any;
   mat1 :Mat1ViewModel;  
   keys = [""];
   isEditable= false;
-  constructor(private dataservice: DataService,private injector: Injector, private medicationKeyResultServiceServiceProxy: MedicationKeyResultB2ServiceServiceProxy,  private _permissionChecker: PermissionCheckerService,) {
+  constructor(private dataservice: DataService,private injector: Injector, private khoaMatServiceServiceProxy: KhoaMatServiceServiceProxy,  private _permissionChecker: PermissionCheckerService,) {
     super(injector)
    }
 
   ngOnInit() {
-    if(this._permissionChecker.isGranted("Pages.B2.Create")){
+    if(this._permissionChecker.isGranted("Pages.Mat.Create")){
       this.isEditable = true;
       console.log(this.isEditable) 
     }
     console.log("testtttt", this.dataservice.getData())
-    //console.log("mat", this.Data)
-    this.container = this.dataservice.getData();
-    this.container.items.find(i=>this.keys.includes(i));
     console.log("matt",this.mat1)
-    let object = Object.fromEntries(new Map(this.dataservice.getData().items.map(obj=>{
+    // let object = Object.fromEntries(new Map(this.dataservice.getData().items.map(obj=>{
+    //   return [obj.key, obj.value]
+    // })));
+    //   this.mat1 =   object as unknown as Mat1ViewModel;
+      let object = Object.fromEntries(new Map(this.Data.items.map(obj=>{
       return [obj.key, obj.value]
     })));
-
       this.mat1 =   object as unknown as Mat1ViewModel;
       console.log("matt",this.mat1)
   }
@@ -66,22 +63,22 @@ export class Mat1Component extends AppComponentBase implements OnInit {
         inputmat1s.push(new CreateMedicationKeyResultDto({
           key: key,
           value:  element,
+          group: "Mat",
           certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
-          userId: this.appSession.userId
         }));        
       }
     }
     // const item1 = new CreateMedicationKeyResultDto(
     //   {
-    //     key: 'B2_text_kk_mt',
-    //     value:  this.mat1.B2_text_kk_mt,
+    //     key: 'Mat_text_kk_mt',
+    //     value:  this.mat1.Mat_text_kk_mt,
     //     certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
     //     userId:  this.appSession.userId
     //   }
     // );const item2 = new CreateMedicationKeyResultDto(
     //   {
-    //     key: 'B2_text_kk_mp',
-    //     value:  this.mat1.B2_text_kk_mp,
+    //     key: 'Mat_text_kk_mp',
+    //     value:  this.mat1.Mat_text_kk_mp,
     //     certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
     //     userId:  this.appSession.userId
     //   }
@@ -195,7 +192,7 @@ export class Mat1Component extends AppComponentBase implements OnInit {
     // this.inputmat1s.push(item14);
     // this.inputmat1s.push(item15);
     // console.log(this.inputmat1s);
-    this.medicationKeyResultServiceServiceProxy.createList(inputmat1s).subscribe(
+    this.khoaMatServiceServiceProxy.createList(inputmat1s).subscribe(
       () => {
         
         this.notify.info(this.l('SavedSuccessfully.'));

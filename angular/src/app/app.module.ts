@@ -76,6 +76,11 @@ import {EditCertificateTypeComponent} from './manager/certificate-type/edit-cert
 import {CertificateGroupStatusComponent} from './manager/certificate-group-status/certificate-group-status.component';
 import {CreateCertificateGroupStatusComponent} from './manager/certificate-group-status/create-certificate-group-status/create-certificate-group-status.component';
 import {EditCertificateGroupStatusComponent} from './manager/certificate-group-status/edit-certificate-group-status/edit-certificate-group-status.component';
+import {CertificateComponent} from './manager/certificate/certificate.component';
+import {CreateCertificateComponent} from './manager/certificate/create-certificate/create-certificate.component';
+import {EditCertificateComponent} from './manager/certificate/edit-certificate/edit-certificate.component';
+import {XetNghiemKhac1Component} from './formfile/driver-health-check/subclinical-examination-type1/xet-nghiem-khac1/xet-nghiem-khac1.component';
+import {XetNghiemMaTuyVaMauComponent} from './formfile/driver-health-check/subclinical-examination-type1/xet-nghiem-ma-tuy-va-mau/xet-nghiem-ma-tuy-va-mau.component';
 //service
 import {DataService} from './services/data.service';
 @NgModule({
@@ -117,6 +122,9 @@ import {DataService} from './services/data.service';
         CertificateGroupStatusComponent,
         CreateCertificateGroupStatusComponent,
         EditCertificateGroupStatusComponent,
+        CertificateComponent,
+        CreateCertificateComponent,
+        EditCertificateComponent,
         //fromfile
         ProfileComponent,
         HealthCertificationComponent,
@@ -143,7 +151,9 @@ import {DataService} from './services/data.service';
         NoiTiet1Component,
         TaiMuiHong1Component,
         ThaiSan1Component,
-        TimMach1Component
+        TimMach1Component,
+        XetNghiemKhac1Component,
+        XetNghiemMaTuyVaMauComponent,
     ],
     imports: [
         CommonModule,

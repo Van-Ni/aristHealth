@@ -28,6 +28,7 @@ export class DynamicTableComponent extends PagedListingComponentBase<EntityDto> 
   entity : EntityDto[] = [];
   @Output() onEdit: EventEmitter<EntityDto> = new EventEmitter();
   @Output() onDelete: EventEmitter<EntityDto> = new EventEmitter();
+  @Output() onView: EventEmitter<EntityDto> = new EventEmitter();
   modalRef?: any;
   constructor(injector: Injector,private modalService: BsModalService, private fb: FormBuilder,private router: Router) {
     super(injector);
@@ -52,5 +53,8 @@ export class DynamicTableComponent extends PagedListingComponentBase<EntityDto> 
   deleteClicked(clickedEntry: EntityDto): void {
     this.onDelete.emit(clickedEntry);
     this.refresh();
+  }
+  viewProfile(clickedEntry: EntityDto): void {
+    this.onView.emit(clickedEntry);
   }
 }
