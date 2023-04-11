@@ -2,7 +2,8 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '@app/services/data.service';
 import { IPagedResultDto, PagedRequestDto } from '@shared/paged-listing-component-base';
-import {  CertificateGroupStatusDtoPagedResultDto, CertificateGroupStatusServiceServiceProxy, GetDataServiceServiceProxy, KhoaMatServiceServiceProxy, MedicationKeyResultDtoPagedResultDto } from '@shared/service-proxies/service-proxies';
+import {  CertificateDto, CertificateGroupStatusDtoPagedResultDto, CertificateGroupStatusServiceServiceProxy, CertificateServiceServiceProxy, GetDataServiceServiceProxy, KhoaMatServiceServiceProxy, MedicationKeyResultDtoPagedResultDto } from '@shared/service-proxies/service-proxies';
+import { result } from 'lodash-es';
 export class MedicationKeyResultDtoPagedResultViewModel{
  id: string;
  certificateId: string;
@@ -33,8 +34,8 @@ export class DriverHealthCheckComponent implements OnInit {
   request: PagedRequestDto;
   medicationKeyResult: IPagedResultDto<MedicationKeyResultDtoPagedResultViewModel>;
   certificateStatusResult:CertificateGroupStatusDtoPagedResultDto ;
-  
-  constructor(private dataService: DataService,private certificateGroupStatusServiceServiceProxy: CertificateGroupStatusServiceServiceProxy,private getDataServiceServiceProxy: GetDataServiceServiceProxy,private route: ActivatedRoute) { }
+  profile: CertificateDto;
+  constructor(private dataService: DataService,private certificateServiceServiceProxy: CertificateServiceServiceProxy,private certificateGroupStatusServiceServiceProxy: CertificateGroupStatusServiceServiceProxy,private getDataServiceServiceProxy: GetDataServiceServiceProxy,private route: ActivatedRoute) { }
 
   ngOnInit() {
     console.log(this.route.snapshot.params['id']);
@@ -57,8 +58,11 @@ export class DriverHealthCheckComponent implements OnInit {
     this.certificateGroupStatusServiceServiceProxy.getAll("",this.route.snapshot.params['id'], "",0,1000 )
     .subscribe((result: CertificateGroupStatusDtoPagedResultDto) =>{
      this.certificateStatusResult = result;
-     console.log(this.certificateStatusResult)
     });
+    this.certificateServiceServiceProxy.getProfile(this.route.snapshot.params['id'])
+    .subscribe((result:CertificateDto)=>{
+      this.profile=result;
+    })
   }
 
 }

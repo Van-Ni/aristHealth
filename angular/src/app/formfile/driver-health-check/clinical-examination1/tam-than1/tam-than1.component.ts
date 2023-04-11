@@ -1,6 +1,7 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
+import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CreateMedicationKeyResultDto, KhoaTamThanServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, KhoaTamThanServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 interface TamThan1ViewModel {
   tamthan_text_noidung: string;
@@ -17,15 +18,24 @@ export class TamThan1Component  extends AppComponentBase  implements OnInit {
   @Input() Data: any;
   @Input() statusDataCheck: any;
   keys = [""];
-  isEditable= false;
-  constructor(private _permissionChecker: PermissionCheckerService,private injector: Injector, private khoaTamThanServiceServiceProxy: KhoaTamThanServiceServiceProxy) {
+  isEditable6= false;
+  certificateId: string;
+  certificateStatus: CertificateGroupStatusDto;
+  status = false;
+  constructor(private _permissionChecker: PermissionCheckerService,private dataservice: DataService,private injector: Injector, private khoaTamThanServiceServiceProxy: KhoaTamThanServiceServiceProxy) {
     super(injector)
    }
 
    ngOnInit() {
+    for (const item of this.statusDataCheck.items) {
+      if(item.group == "TamThan")
+      {
+        this.status = true;
+      }
+    }
+    this.certificateId = this.dataservice.getData();
     if(this._permissionChecker.isGranted("Pages.TamThan.Create")){
-      this.isEditable = true;
-      console.log(this.isEditable) 
+      this.isEditable6 = true;
     }
     let object = Object.fromEntries(new Map(this.Data.items.map(obj=>{
       return [obj.key, obj.value]
@@ -33,25 +43,37 @@ export class TamThan1Component  extends AppComponentBase  implements OnInit {
     this.tamthan1 = object as unknown as TamThan1ViewModel;
   }
   save(): void{
-    var inputmat1s : CreateMedicationKeyResultDto[] = [];
-    for (const key in this.tamthan1) {
-      if (Object.prototype.hasOwnProperty.call(this.tamthan1, key)) {
-        const element = this.tamthan1[key];
-        inputmat1s.push(new CreateMedicationKeyResultDto({
-          key: key,
-          value:  element,
-          group: "TamThan",
-          certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
-        }));        
+    var inputtamthan1s : CreateMedicationKeyResultDto[] = [];
+    const item1 = new CreateMedicationKeyResultDto(
+      {
+        key: 'tamthan_selectbox_phanloai',
+        value:  this.tamthan1.tamthan_selectbox_phanloai|| '',
+        certificateId: this.certificateId,  
+        group: "TamThan",
       }
-    }
-    this.khoaTamThanServiceServiceProxy.createList(inputmat1s).subscribe(
-      () => {
-        
-        this.notify.info(this.l('SavedSuccessfully.'));
-      },
-      
+    );const item2 = new CreateMedicationKeyResultDto(
+      {
+        key: 'tamthan_text_tamthan_ketluan',
+        value:  this.tamthan1.tamthan_text_tamthan_ketluan|| '',
+        certificateId: this.certificateId,
+        group: "TamThan",
+      }
     );
+    inputtamthan1s.push(item1);
+    inputtamthan1s.push(item2);
+    if(this.status == true){
+      this.khoaTamThanServiceServiceProxy.updateOrInsert(inputtamthan1s).subscribe(
+        () => {
+          this.notify.info(this.l('SavedSuccessfully.'));
+        },
+      );
+    }else{
+      this.khoaTamThanServiceServiceProxy.createList(inputtamthan1s).subscribe(
+        () => {
+          this.notify.info(this.l('SavedSuccessfully.'));
+        },
+      );
+    }
   }
 
 

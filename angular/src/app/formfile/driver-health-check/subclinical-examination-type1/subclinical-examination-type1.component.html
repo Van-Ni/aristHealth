@@ -6,7 +6,7 @@
   <hr>
   <div id="collapseBasic" [collapse]="isXetNghiemMaTuy" [isAnimated]="true">
   <div class="well well-lg card card-block card-header" >
-  <app-xet-nghiem-ma-tuy-va-mau ></app-xet-nghiem-ma-tuy-va-mau>
+  <app-xet-nghiem-ma-tuy-va-mau  [Data]="data" [statusDataCheck]="statusDataCheck1" ></app-xet-nghiem-ma-tuy-va-mau>
   </div>
   </div>
 
@@ -16,7 +16,7 @@
   <hr>
   <div id="collapseBasic" [collapse]="isXetNghiemKhac" [isAnimated]="true">
     <div class="well well-lg card card-block card-header">
-      <app-xet-nghiem-khac1 ></app-xet-nghiem-khac1>
+      <app-xet-nghiem-khac1  [Data]="data" [statusDataCheck]="statusDataCheck1"></app-xet-nghiem-khac1>
     </div>
   </div>
   <div class="form-group row">

@@ -11,11 +11,13 @@ export class SubclinicalExaminationType1Component implements AfterContentInit  {
   @Input() Data: any;
   @Input() statusDataCheck: any;
   data:  any;
+  statusDataCheck1: any;
   constructor() { }
 
   ngAfterContentInit(): void {
       
     this.data= this.Data;
+    this.statusDataCheck = this.statusDataCheck1;
 }
 
 }

@@ -6,7 +6,7 @@
   <hr>
   <div id="collapseBasic" [collapse]="isProfile1" [isAnimated]="true">
     <div class="well well-lg card card-block card-header">
-      <app-profile></app-profile>
+      <app-profile [profile]="profile"></app-profile>
     </div>
   </div>
   <div (click)="isTSBCDTKSK1 = !isTSBCDTKSK1"
@@ -24,7 +24,7 @@
   <hr>
   <div id="collapseBasic" [collapse]="isKhamTheLuc1" [isAnimated]="true">
     <div class="well well-lg card card-block card-header">
-      <app-physical-examination  [Data]="medicationKeyResult"></app-physical-examination>
+      <app-physical-examination [Data]="medicationKeyResult" [statusDataCheck]="certificateStatusResult"></app-physical-examination>
     </div>
   </div>
   <div (click)="isKhamLamSan1 = !isKhamLamSan1"
@@ -51,7 +51,7 @@
   <hr>
   <div id="collapseBasic" [collapse]="isKetLuan1" [isAnimated]="true">
     <div class="well well-lg card card-block card-header">
-      <app-current-conclusion-type1></app-current-conclusion-type1>
+      <app-current-conclusion-type1 [Data]="medicationKeyResult" [statusDataCheck]="certificateStatusResult"></app-current-conclusion-type1>
     </div>
   </div>
 </div>

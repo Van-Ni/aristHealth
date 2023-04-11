@@ -14,10 +14,10 @@ namespace AristBase.CRUDServices.ClientInfoServices.Dto
     {
         public string FullName { get; set; }
         //Male = true
-        public bool Sex { get; set; }
+        public string Sex { get; set; }
         public string CCCD { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public DateTime CreateTimeCCCD { get; set; }
+        public string DateOfBirth { get; set; }
+        public string CreateTimeCCCD { get; set; }
         public string AddressCCCD { get; set; }
         public string Address { get; set; }
         public string? GuardianName { get; set; }

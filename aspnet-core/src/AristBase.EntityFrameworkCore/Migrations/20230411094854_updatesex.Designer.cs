@@ -3,6 +3,7 @@ using System;
 using AristBase.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AristBase.Migrations
 {
     [DbContext(typeof(AristBaseDbContext))]
-    partial class AristBaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230411094854_updatesex")]
+    partial class updatesex
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1795,8 +1798,8 @@ namespace AristBase.Migrations
                     b.Property<string>("CCCD")
                         .HasColumnType("text");
 
-                    b.Property<string>("CreateTimeCCCD")
-                        .HasColumnType("text");
+                    b.Property<DateTime>("CreateTimeCCCD")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("timestamp with time zone");
@@ -1804,8 +1807,8 @@ namespace AristBase.Migrations
                     b.Property<long?>("CreatorUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("DateOfBirth")
-                        .HasColumnType("text");
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<long?>("DeleterUserId")
                         .HasColumnType("bigint");

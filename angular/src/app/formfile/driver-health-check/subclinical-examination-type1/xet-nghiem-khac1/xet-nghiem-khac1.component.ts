@@ -1,6 +1,7 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
+import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CreateMedicationKeyResultDto, XetNghiemKhacServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, XetNghiemKhacServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 class XetNghiemKhacViewModel{
   xetnghiemkhac_text_phanloai: string;
@@ -14,17 +15,28 @@ class XetNghiemKhacViewModel{
 })
 export class XetNghiemKhac1Component extends AppComponentBase  implements OnInit {
   xetnghiemkhac: XetNghiemKhacViewModel;
+  @Input() statusDataCheck: any;
   @Input() Data: any;
   keys = [""];
-  isEditable= false;
-  constructor( private _permissionChecker: PermissionCheckerService,private injector: Injector, private xetNghiemKhacServiceServiceProxy: XetNghiemKhacServiceServiceProxy) {
+  isEditable10= false;
+  certificateId: string;
+  certificateStatus: CertificateGroupStatusDto;
+  status = false;
+  constructor( private _permissionChecker: PermissionCheckerService,private dataservice: DataService,private injector: Injector, private xetNghiemKhacServiceServiceProxy: XetNghiemKhacServiceServiceProxy) {
     super(injector);
    }
 
   ngOnInit() {
+    for (const item of this.statusDataCheck.items) {
+      if(item.group == "XetNghiemKhac")
+      {
+        this.status = true;
+      }
+    }
+    this.certificateId = this.dataservice.getData();
     if(this._permissionChecker.isGranted("Pages.XetNghiemKhac.Create")){
-      this.isEditable = true;
-      console.log(this.isEditable) 
+      this.isEditable10 = true;
+      console.log(this.isEditable10) 
     }
     let object = Object.fromEntries(new Map(this.Data.items.map(obj=>{
       return [obj.key, obj.value]
@@ -32,25 +44,45 @@ export class XetNghiemKhac1Component extends AppComponentBase  implements OnInit
     this.xetnghiemkhac = object as unknown as XetNghiemKhacViewModel;
   }
   save(): void{
-    var inputmat1s : CreateMedicationKeyResultDto[] = [];
-    for (const key in this.xetnghiemkhac) {
-      if (Object.prototype.hasOwnProperty.call(this.xetnghiemkhac, key)) {
-        const element = this.xetnghiemkhac[key];
-        inputmat1s.push(new CreateMedicationKeyResultDto({
-          key: key,
-          value:  element,
-          group: "XetNghiemKhac",
-          certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
-        }));        
+    var inputxetnghiem1s : CreateMedicationKeyResultDto[] = [];
+    const item1 = new CreateMedicationKeyResultDto(
+      {
+        key: 'xetnghiemkhac_text_ketluan',
+        value:  this.xetnghiemkhac.xetnghiemkhac_text_ketluan|| '',
+        certificateId: this.certificateId,  
+        group: "XetNghiemKhac",
       }
-    }
-    this.xetNghiemKhacServiceServiceProxy.createList(inputmat1s).subscribe(
-      () => {
-        
-        this.notify.info(this.l('SavedSuccessfully.'));
-      },
-      
+    );const item2 = new CreateMedicationKeyResultDto(
+      {
+        key: 'xetnghiemkhac_text_ketqua',
+        value:  this.xetnghiemkhac.xetnghiemkhac_text_ketqua|| '',
+        certificateId: this.certificateId,
+        group: "XetNghiemKhac",
+      }
+    );const item3 = new CreateMedicationKeyResultDto(
+      {
+        key: 'xetnghiemkhac_text_ketqua',
+        value:  this.xetnghiemkhac.xetnghiemkhac_text_ketqua|| '',
+        certificateId: this.certificateId,
+        group: "XetNghiemKhac",
+      }
     );
+    inputxetnghiem1s.push(item1);
+    inputxetnghiem1s.push(item2);
+    inputxetnghiem1s.push(item3);
+    if(this.status == true){
+      this.xetNghiemKhacServiceServiceProxy.updateOrInsert(inputxetnghiem1s).subscribe(
+        () => {
+          this.notify.info(this.l('SavedSuccessfully.'));
+        },
+      );
+    }else{
+      this.xetNghiemKhacServiceServiceProxy.createList(inputxetnghiem1s).subscribe(
+        () => {
+          this.notify.info(this.l('SavedSuccessfully.'));
+        },
+      );
+    }
   }
 
 }

@@ -34,7 +34,7 @@ export class Mat1Component extends AppComponentBase implements OnInit {
   mat1 :Mat1ViewModel;  
   @Input() statusDataCheck: any;
   keys = [""];
-  isEditable= false;
+  isEditable3= false;
   certificateId: string;
   certificateStatus: CertificateGroupStatusDto;
   status = false;
@@ -43,17 +43,14 @@ export class Mat1Component extends AppComponentBase implements OnInit {
    }
   
   ngOnInit() {
-    console.log("check",this.statusDataCheck);
     for (const item of this.statusDataCheck.items) {
       if(item.group == "Mat")
       {
         this.status = true;
       }
     }
-    console.log("status ne",this.status);
     if(this._permissionChecker.isGranted("Pages.Mat.Create")){
-      this.isEditable = true;
-      console.log(this.isEditable) 
+      this.isEditable3 = true;
     }
     this.certificateId = this.dataservice.getData();
       let object = Object.fromEntries(new Map(this.Data.items.map(obj=>{
@@ -199,26 +196,5 @@ export class Mat1Component extends AppComponentBase implements OnInit {
         },
       );
     }
-    // this.CertificateGroupStatusServiceServiceProxy.getCheck(this.certificateId, "Mat").subscribe(
-    //   (result: CertificateGroupStatusDto)=>{
-    //     if(result.status = true)
-    //     {
-    //       this.khoaMatServiceServiceProxy.updateOrInsert(inputmat1s).subscribe(
-    //         () => {
-    //           this.notify.info(this.l('SavedSuccessfully.'));
-    //         },
-    //       );
-    //     }
-    //     else
-    //     {
-    //     this.khoaMatServiceServiceProxy.createList(inputmat1s).subscribe(
-    //       () => {
-    //         this.notify.info(this.l('SavedSuccessfully.'));
-    //       },
-    //     );
-    //     }
-    //   }
-    // )
-    
   }
 }

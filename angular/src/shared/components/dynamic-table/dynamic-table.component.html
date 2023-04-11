@@ -42,8 +42,8 @@
                   totalItems: totalItems
                 }
         ">
-          <td *ngFor="let item of filter | keyvalue | filterByTrue"(click)="viewProfile(output)" >
-              <p >{{output[item.key]}}</p>
+          <td *ngFor="let item of filter | keyvalue | filterByTrue" (click)="viewProfile(output)" >
+            {{output[item.key]}}
           </td>
           <td>
             <button type="button"

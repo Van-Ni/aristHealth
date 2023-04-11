@@ -585,6 +585,62 @@ export class CertificateServiceServiceProxy {
      * @param id (optional) 
      * @return Success
      */
+    getProfile(id: string | undefined): Observable<CertificateDto> {
+        let url_ = this.baseUrl + "/api/services/app/CertificateService/GetProfile?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetProfile(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetProfile(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CertificateDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CertificateDto>;
+        }));
+    }
+
+    protected processGetProfile(response: HttpResponseBase): Observable<CertificateDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CertificateDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
     get(id: string | undefined): Observable<CertificateDto> {
         let url_ = this.baseUrl + "/api/services/app/CertificateService/Get?";
         if (id === null)
@@ -1677,7 +1733,7 @@ export class ClientInfoServiceServiceProxy {
      * @param id (optional) 
      * @return Success
      */
-    getAll(fullName: string | undefined, sex: boolean | undefined, cCCD: string | undefined, dateOfBirth: moment.Moment | undefined, createTimeCCCD: moment.Moment | undefined, addressCCCD: string | undefined, address: string | undefined, guardianName: string | undefined, id: number | undefined): Observable<ClientInfoDtoPagedResultDto> {
+    getAll(fullName: string | undefined, sex: string | undefined, cCCD: string | undefined, dateOfBirth: string | undefined, createTimeCCCD: string | undefined, addressCCCD: string | undefined, address: string | undefined, guardianName: string | undefined, id: number | undefined): Observable<ClientInfoDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/ClientInfoService/GetAll?";
         if (fullName === null)
             throw new Error("The parameter 'fullName' cannot be null.");
@@ -1694,11 +1750,11 @@ export class ClientInfoServiceServiceProxy {
         if (dateOfBirth === null)
             throw new Error("The parameter 'dateOfBirth' cannot be null.");
         else if (dateOfBirth !== undefined)
-            url_ += "DateOfBirth=" + encodeURIComponent(dateOfBirth ? "" + dateOfBirth.toISOString() : "") + "&";
+            url_ += "DateOfBirth=" + encodeURIComponent("" + dateOfBirth) + "&";
         if (createTimeCCCD === null)
             throw new Error("The parameter 'createTimeCCCD' cannot be null.");
         else if (createTimeCCCD !== undefined)
-            url_ += "CreateTimeCCCD=" + encodeURIComponent(createTimeCCCD ? "" + createTimeCCCD.toISOString() : "") + "&";
+            url_ += "CreateTimeCCCD=" + encodeURIComponent("" + createTimeCCCD) + "&";
         if (addressCCCD === null)
             throw new Error("The parameter 'addressCCCD' cannot be null.");
         else if (addressCCCD !== undefined)
@@ -16357,10 +16413,10 @@ export interface IChangeUserLanguageDto {
 export class ClientInfoDto implements IClientInfoDto {
     id: number;
     fullName: string | undefined;
-    sex: boolean;
+    sex: string | undefined;
     cccd: string | undefined;
-    dateOfBirth: moment.Moment;
-    createTimeCCCD: moment.Moment;
+    dateOfBirth: string | undefined;
+    createTimeCCCD: string | undefined;
     addressCCCD: string | undefined;
     address: string | undefined;
     guardianName: string | undefined;
@@ -16380,8 +16436,8 @@ export class ClientInfoDto implements IClientInfoDto {
             this.fullName = _data["fullName"];
             this.sex = _data["sex"];
             this.cccd = _data["cccd"];
-            this.dateOfBirth = _data["dateOfBirth"] ? moment(_data["dateOfBirth"].toString()) : <any>undefined;
-            this.createTimeCCCD = _data["createTimeCCCD"] ? moment(_data["createTimeCCCD"].toString()) : <any>undefined;
+            this.dateOfBirth = _data["dateOfBirth"];
+            this.createTimeCCCD = _data["createTimeCCCD"];
             this.addressCCCD = _data["addressCCCD"];
             this.address = _data["address"];
             this.guardianName = _data["guardianName"];
@@ -16401,8 +16457,8 @@ export class ClientInfoDto implements IClientInfoDto {
         data["fullName"] = this.fullName;
         data["sex"] = this.sex;
         data["cccd"] = this.cccd;
-        data["dateOfBirth"] = this.dateOfBirth ? this.dateOfBirth.toISOString() : <any>undefined;
-        data["createTimeCCCD"] = this.createTimeCCCD ? this.createTimeCCCD.toISOString() : <any>undefined;
+        data["dateOfBirth"] = this.dateOfBirth;
+        data["createTimeCCCD"] = this.createTimeCCCD;
         data["addressCCCD"] = this.addressCCCD;
         data["address"] = this.address;
         data["guardianName"] = this.guardianName;
@@ -16420,10 +16476,10 @@ export class ClientInfoDto implements IClientInfoDto {
 export interface IClientInfoDto {
     id: number;
     fullName: string | undefined;
-    sex: boolean;
+    sex: string | undefined;
     cccd: string | undefined;
-    dateOfBirth: moment.Moment;
-    createTimeCCCD: moment.Moment;
+    dateOfBirth: string | undefined;
+    createTimeCCCD: string | undefined;
     addressCCCD: string | undefined;
     address: string | undefined;
     guardianName: string | undefined;
@@ -16663,10 +16719,10 @@ export interface ICreateCertificateTypeDto {
 
 export class CreateClientInfoDto implements ICreateClientInfoDto {
     fullName: string | undefined;
-    sex: boolean;
+    sex: string | undefined;
     cccd: string | undefined;
-    dateOfBirth: moment.Moment;
-    createTimeCCCD: moment.Moment;
+    dateOfBirth: string | undefined;
+    createTimeCCCD: string | undefined;
     addressCCCD: string | undefined;
     address: string | undefined;
     guardianName: string | undefined;
@@ -16685,8 +16741,8 @@ export class CreateClientInfoDto implements ICreateClientInfoDto {
             this.fullName = _data["fullName"];
             this.sex = _data["sex"];
             this.cccd = _data["cccd"];
-            this.dateOfBirth = _data["dateOfBirth"] ? moment(_data["dateOfBirth"].toString()) : <any>undefined;
-            this.createTimeCCCD = _data["createTimeCCCD"] ? moment(_data["createTimeCCCD"].toString()) : <any>undefined;
+            this.dateOfBirth = _data["dateOfBirth"];
+            this.createTimeCCCD = _data["createTimeCCCD"];
             this.addressCCCD = _data["addressCCCD"];
             this.address = _data["address"];
             this.guardianName = _data["guardianName"];
@@ -16705,8 +16761,8 @@ export class CreateClientInfoDto implements ICreateClientInfoDto {
         data["fullName"] = this.fullName;
         data["sex"] = this.sex;
         data["cccd"] = this.cccd;
-        data["dateOfBirth"] = this.dateOfBirth ? this.dateOfBirth.toISOString() : <any>undefined;
-        data["createTimeCCCD"] = this.createTimeCCCD ? this.createTimeCCCD.toISOString() : <any>undefined;
+        data["dateOfBirth"] = this.dateOfBirth;
+        data["createTimeCCCD"] = this.createTimeCCCD;
         data["addressCCCD"] = this.addressCCCD;
         data["address"] = this.address;
         data["guardianName"] = this.guardianName;
@@ -16723,10 +16779,10 @@ export class CreateClientInfoDto implements ICreateClientInfoDto {
 
 export interface ICreateClientInfoDto {
     fullName: string | undefined;
-    sex: boolean;
+    sex: string | undefined;
     cccd: string | undefined;
-    dateOfBirth: moment.Moment;
-    createTimeCCCD: moment.Moment;
+    dateOfBirth: string | undefined;
+    createTimeCCCD: string | undefined;
     addressCCCD: string | undefined;
     address: string | undefined;
     guardianName: string | undefined;

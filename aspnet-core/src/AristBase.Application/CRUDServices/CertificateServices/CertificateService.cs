@@ -46,5 +46,12 @@ namespace AristBase.CRUDServices.CertificateServices
 
             return MapToEntityDto(entity);
         }
+        public async Task<CertificateDto> GetProfile(Guid id)
+        {
+            CheckGetPermission();
+            var get = await Repository.GetAll().Where(i => i.Id == id).Include(i => i.ClientInfo).FirstOrDefaultAsync();
+            return MapToEntityDto(get);
+        }
+
     }
 }

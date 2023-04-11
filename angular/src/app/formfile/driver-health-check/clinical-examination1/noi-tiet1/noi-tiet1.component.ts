@@ -1,9 +1,9 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
+import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CreateMedicationKeyResultDto, KhoaNoiTietServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, KhoaNoiTietServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 interface NoiTiet1ViewModel {
-  noitiet_text_noidung: string;
   noitiet_selectbox_phanloai: string;
   noitiet_text_noitiet_ketluan: string;
 }
@@ -17,16 +17,24 @@ export class NoiTiet1Component  extends AppComponentBase implements OnInit {
   @Input() statusDataCheck: any;
   @Input() Data: any;
   keys = [""];
-  isEditable= false;
-  notify: any;
-  constructor(private _permissionChecker: PermissionCheckerService,private injector: Injector, private khoaNoiTietServiceServiceProxy: KhoaNoiTietServiceServiceProxy) { 
+  isEditable4= false;
+  certificateId: string;
+  certificateStatus: CertificateGroupStatusDto;
+  status = false;
+  constructor(private _permissionChecker: PermissionCheckerService,private dataservice: DataService,private injector: Injector, private khoaNoiTietServiceServiceProxy: KhoaNoiTietServiceServiceProxy) { 
     super(injector)
   }
 
   ngOnInit() {
+    for (const item of this.statusDataCheck.items) {
+      if(item.group == "NoiTiet")
+      {
+        this.status = true;
+      }
+    }
+    this.certificateId = this.dataservice.getData();
     if(this._permissionChecker.isGranted("Pages.NoiTiet.Create")){
-      this.isEditable = true;
-      console.log(this.isEditable) 
+      this.isEditable4 = true;
     }
     let object = Object.fromEntries(new Map(this.Data.items.map(obj=>{
       return [obj.key, obj.value]
@@ -34,25 +42,37 @@ export class NoiTiet1Component  extends AppComponentBase implements OnInit {
     this.noitiet1 = object as unknown as NoiTiet1ViewModel;
   }
   save(): void{
-    var inputmat1s : CreateMedicationKeyResultDto[] = [];
-    for (const key in this.noitiet1) {
-      if (Object.prototype.hasOwnProperty.call(this.noitiet1, key)) {
-        const element = this.noitiet1[key];
-        inputmat1s.push(new CreateMedicationKeyResultDto({
-          key: key,
-          value:  element,
-          group: "NoiTiet",
-          certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
-        }));        
+    var inputnoitiet1s : CreateMedicationKeyResultDto[] = [];
+    const item1 = new CreateMedicationKeyResultDto(
+      {
+        key: 'noitiet_selectbox_phanloai',
+        value:  this.noitiet1.noitiet_selectbox_phanloai|| '',
+        certificateId: this.certificateId,  
+        group: "NoiTiet",
       }
-    }
-    this.khoaNoiTietServiceServiceProxy.createList(inputmat1s).subscribe(
-      () => {
-        
-        this.notify.info(this.l('SavedSuccessfully.'));
-      },
-      
+    );const item2 = new CreateMedicationKeyResultDto(
+      {
+        key: 'noitiet_text_noitiet_ketluan',
+        value:  this.noitiet1.noitiet_text_noitiet_ketluan|| '',
+        certificateId: this.certificateId,
+        group: "NoiTiet",
+      }
     );
+    inputnoitiet1s.push(item1);
+    inputnoitiet1s.push(item2);
+    if(this.status == true){
+      this.khoaNoiTietServiceServiceProxy.updateOrInsert(inputnoitiet1s).subscribe(
+        () => {
+          this.notify.info(this.l('SavedSuccessfully.'));
+        },
+      );
+    }else{
+      this.khoaNoiTietServiceServiceProxy.createList(inputnoitiet1s).subscribe(
+        () => {
+          this.notify.info(this.l('SavedSuccessfully.'));
+        },
+      );
+    }
   }
 
 }
