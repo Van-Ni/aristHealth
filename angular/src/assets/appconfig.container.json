@@ -1,6 +1,6 @@
 {
-  "remoteServiceBaseUrl": "http://ticket.aristqnu.com:8056",
-  "appBaseUrl": "http://ticket.aristqnu.com:8057",
+  "remoteServiceBaseUrl": "https://localhost:44311",
+  "appBaseUrl": "http://localhost:4200",
   "localeMappings": [
     {
       "from": "pt-BR",

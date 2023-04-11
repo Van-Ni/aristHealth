@@ -1,0 +1,112 @@
+<form
+class="form-horizontal"
+autocomplete="off"
+#createDeparmentForm="ngForm"
+(ngSubmit)="save()"
+>
+  <abp-modal-header
+    [title]="'CreateNewDeparment' | localize"
+    (onCloseClick)="bsModalRef.hide()"
+  ></abp-modal-header>
+  <div class="modal-body">
+    <tabset>
+      <tab [heading]="'Details' | localize" class="pt-3 px-2">
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="nameDepartment">
+            {{ "name" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              id="name"
+              required
+              minlength="2"
+              maxlength="32"
+              [(ngModel)]="certificateType.name"
+              #nameModel="ngModel"
+              #nameEl
+            />
+            <abp-validation-summary
+              [control]="nameModel"
+              [controlEl]="nameEl"
+            ></abp-validation-summary>
+          </div>
+        </div><div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="filePath">
+            {{ "filePath" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="file"
+              class="form-control"
+              name="filePath"
+              id="filePath"
+              required
+              minlength="2"
+              maxlength="32"
+              [(ngModel)]="certificateType.filePath"
+              #filePathModel="ngModel"
+              #filePathEl
+            />
+            <abp-validation-summary
+              [control]="filePathModel"
+              [controlEl]="filePathEl"
+            ></abp-validation-summary>
+          </div>
+        </div><div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="nameDepartment">
+            {{ "price" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="text"
+              class="form-control"
+              name="price"
+              id="price"
+              required
+              minlength="2"
+              maxlength="32"
+              [(ngModel)]="certificateType.price"
+              #priceModel="ngModel"
+              #priceEl
+            />
+            <abp-validation-summary
+              [control]="priceModel"
+              [controlEl]="priceEl"
+            ></abp-validation-summary>
+          </div>
+        </div><div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="finalResult">
+            {{ "finalResult" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="text"
+              class="form-control"
+              name="finalResult"
+              id="finalResult"
+              required
+              minlength="2"
+              maxlength="32"
+              [(ngModel)]="certificateType.finalResult"
+              #finalResultModel="ngModel"
+              #finalResultEl
+            />
+            <abp-validation-summary
+              [control]="finalResultModel"
+              [controlEl]="finalResultEl"
+            ></abp-validation-summary>
+          </div>
+        </div>
+        
+      </tab>
+    </tabset>
+  </div>
+  <abp-modal-footer
+    [cancelDisabled]="saving"
+    [saveDisabled]="!createDeparmentForm.form.valid || saving"
+    (onCancelClick)="bsModalRef.hide()"
+  ></abp-modal-footer>
+</form>

@@ -1615,8 +1615,8 @@ namespace AristBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<double>("AmountPaid")
-                        .HasColumnType("double precision");
+                    b.Property<decimal>("AmountPaid")
+                        .HasColumnType("numeric");
 
                     b.Property<int>("CertificateTypeId")
                         .HasColumnType("integer");
@@ -1669,14 +1669,14 @@ namespace AristBase.Migrations
                     b.ToTable("Certificate");
                 });
 
-            modelBuilder.Entity("AristBase.BaseEntity.CertificateKey", b =>
+            modelBuilder.Entity("AristBase.BaseEntity.CertificateGroupStatus", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("CertificateTypeId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("CertificateId")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("timestamp with time zone");
@@ -1690,17 +1690,14 @@ namespace AristBase.Migrations
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("Group")
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
-
-                    b.Property<string>("Key")
-                        .HasColumnType("text");
 
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnType("timestamp with time zone");
@@ -1711,19 +1708,19 @@ namespace AristBase.Migrations
                     b.Property<int>("TenantId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Title")
-                        .HasColumnType("text");
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("status")
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CertificateTypeId");
+                    b.HasIndex("CertificateId");
 
-                    b.HasIndex("GroupId");
+                    b.HasIndex("UserId");
 
-                    b.HasIndex("Key", "CertificateTypeId")
-                        .IsUnique();
-
-                    b.ToTable("CertificateKey");
+                    b.ToTable("CertificateGroupStatuses");
                 });
 
             modelBuilder.Entity("AristBase.BaseEntity.CertificateType", b =>
@@ -1795,20 +1792,20 @@ namespace AristBase.Migrations
                     b.Property<string>("AddressCCCD")
                         .HasColumnType("text");
 
-                    b.Property<string>("Avatar")
-                        .HasColumnType("text");
-
                     b.Property<string>("CCCD")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("CreateTimeCCCD")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<string>("CreateTimeCCCD")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<long?>("CreatorUserId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("DateOfBirth")
+                        .HasColumnType("text");
 
                     b.Property<long?>("DeleterUserId")
                         .HasColumnType("bigint");
@@ -1834,8 +1831,8 @@ namespace AristBase.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<bool>("Sex")
-                        .HasColumnType("boolean");
+                    b.Property<string>("Sex")
+                        .HasColumnType("text");
 
                     b.Property<int>("TenantId")
                         .HasColumnType("integer");
@@ -1886,102 +1883,7 @@ namespace AristBase.Migrations
                     b.ToTable("Departments");
                 });
 
-            modelBuilder.Entity("AristBase.BaseEntity.DocterGroup", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("uuid");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("TenantId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<long?>("UserId1")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GroupId");
-
-                    b.HasIndex("UserId1");
-
-                    b.ToTable("DocterGroups");
-                });
-
-            modelBuilder.Entity("AristBase.BaseEntity.Group", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("DepartmentId")
-                        .HasColumnType("uuid");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<int>("TenantId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Groups");
-                });
-
-            modelBuilder.Entity("AristBase.BaseEntity.MedicalExaminationResult", b =>
+            modelBuilder.Entity("AristBase.BaseEntity.MedicationKeyResult", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -2002,10 +1904,16 @@ namespace AristBase.Migrations
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Group")
+                        .HasColumnType("text");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsSeal")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Key")
@@ -2017,17 +1925,8 @@ namespace AristBase.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("boolean");
-
                     b.Property<int>("TenantId")
                         .HasColumnType("integer");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<long?>("UserId1")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("Value")
                         .HasColumnType("text");
@@ -2036,7 +1935,8 @@ namespace AristBase.Migrations
 
                     b.HasIndex("CertificateId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("Key", "CertificateId")
+                        .IsUnique();
 
                     b.ToTable("MedicalExaminationResults");
                 });
@@ -2360,57 +2260,34 @@ namespace AristBase.Migrations
                     b.Navigation("ClientInfo");
                 });
 
-            modelBuilder.Entity("AristBase.BaseEntity.CertificateKey", b =>
-                {
-                    b.HasOne("AristBase.BaseEntity.CertificateType", "CertificateType")
-                        .WithMany("CertificateKeys")
-                        .HasForeignKey("CertificateTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AristBase.BaseEntity.Group", "Group")
-                        .WithMany("Certificates")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CertificateType");
-
-                    b.Navigation("Group");
-                });
-
-            modelBuilder.Entity("AristBase.BaseEntity.DocterGroup", b =>
-                {
-                    b.HasOne("AristBase.BaseEntity.Group", "Group")
-                        .WithMany("Docters")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AristBase.Authorization.Users.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
-
-                    b.Navigation("Group");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("AristBase.BaseEntity.MedicalExaminationResult", b =>
+            modelBuilder.Entity("AristBase.BaseEntity.CertificateGroupStatus", b =>
                 {
                     b.HasOne("AristBase.BaseEntity.Certificate", "Certificate")
-                        .WithMany("MedicalExaminationResults")
+                        .WithMany("CertificateGroupStatuses")
                         .HasForeignKey("CertificateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AristBase.Authorization.Users.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Certificate");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AristBase.BaseEntity.MedicationKeyResult", b =>
+                {
+                    b.HasOne("AristBase.BaseEntity.Certificate", "Certificate")
+                        .WithMany("MedicationKeyResults")
+                        .HasForeignKey("CertificateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Certificate");
                 });
 
             modelBuilder.Entity("AristBase.MultiTenancy.Tenant", b =>
@@ -2513,26 +2390,19 @@ namespace AristBase.Migrations
 
             modelBuilder.Entity("AristBase.BaseEntity.Certificate", b =>
                 {
-                    b.Navigation("MedicalExaminationResults");
+                    b.Navigation("CertificateGroupStatuses");
+
+                    b.Navigation("MedicationKeyResults");
                 });
 
             modelBuilder.Entity("AristBase.BaseEntity.CertificateType", b =>
                 {
-                    b.Navigation("CertificateKeys");
-
                     b.Navigation("Certificates");
                 });
 
             modelBuilder.Entity("AristBase.BaseEntity.ClientInfo", b =>
                 {
                     b.Navigation("Certificates");
-                });
-
-            modelBuilder.Entity("AristBase.BaseEntity.Group", b =>
-                {
-                    b.Navigation("Certificates");
-
-                    b.Navigation("Docters");
                 });
 #pragma warning restore 612, 618
         }

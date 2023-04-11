@@ -1,0 +1,86 @@
+<h2 style="text-align: center;">Khám lâm sàn</h2>
+<div class="container" *ngIf="data">
+  <div (click)="isTamThan1 = !isTamThan1"
+        [attr.aria-expanded]="!isTamThan1" aria-controls="collapseBasic"><h4>1. Tâm thần</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isTamThan1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-tam-than1 [Data]="data" [statusDataCheck]="statusDataCheck1"></app-tam-than1>
+    </div>
+  </div>
+  <div (click)="isThanKinh1 = !isThanKinh1"
+        [attr.aria-expanded]="!isThanKinh1" aria-controls="collapseBasic"><h4>2. Thần kinh</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isThanKinh1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-than-kinh1 [Data]="data" [statusDataCheck]="statusDataCheck1"></app-than-kinh1>
+    </div>
+  </div>
+  <div (click)="isMat1 = !isMat1"
+        [attr.aria-expanded]="!isMat1" aria-controls="collapseBasic"><h4>3. Mắt</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isMat1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-mat1 [Data]="data" [statusDataCheck]="statusDataCheck1"></app-mat1>
+    </div>
+  </div>
+  <div (click)="isTaiMuiHong1 = !isTaiMuiHong1"
+        [attr.aria-expanded]="!isTaiMuiHong1" aria-controls="collapseBasic"><h4>4. Tai mũi họng</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isTaiMuiHong1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-tai-mui-hong1 [Data]="data" [statusDataCheck]="statusDataCheck1"></app-tai-mui-hong1>
+    </div>
+  </div>
+  <div (click)="isTimMach1 = !isTimMach1"
+        [attr.aria-expanded]="!isTimMach1" aria-controls="collapseBasic"><h4>5. Tim mạch</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isTimMach1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-tim-mach1 [Data]="data" [statusDataCheck]="statusDataCheck1"></app-tim-mach1>
+    </div>
+  </div>
+  <div (click)="isHoHap1 = !isHoHap1"
+        [attr.aria-expanded]="!isHoHap1" aria-controls="collapseBasic"><h4>6. Hô hấp</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isHoHap1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-ho-hap1 [Data]="data" [statusDataCheck]="statusDataCheck1"></app-ho-hap1>
+    </div>
+  </div>
+  <div (click)="isCoXuongKhop1 = !isCoXuongKhop1"
+        [attr.aria-expanded]="!isCoXuongKhop1" aria-controls="collapseBasic"><h4>7. Cơ xương khớp</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isCoXuongKhop1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-co-xuong-khop1 [Data]="data" [statusDataCheck]="statusDataCheck1"></app-co-xuong-khop1>
+    </div>
+  </div>
+  <div (click)="isNoiTiet1 = !isNoiTiet1"
+        [attr.aria-expanded]="!isNoiTiet1" aria-controls="collapseBasic"><h4>8. Nội tiết</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isNoiTiet1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-noi-tiet1 [Data]="data" [statusDataCheck]="statusDataCheck1"></app-noi-tiet1>
+    </div>
+  </div>
+  <div (click)="isThaiSan1 = !isThaiSan1"
+        [attr.aria-expanded]="!isNoiTiet1" aria-controls="collapseBasic"><h4>9. Thai sản</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isThaiSan1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-thai-san1 [Data]="data" [statusDataCheck]="statusDataCheck1"></app-thai-san1>
+
+    </div>
+  </div>
+</div>
+

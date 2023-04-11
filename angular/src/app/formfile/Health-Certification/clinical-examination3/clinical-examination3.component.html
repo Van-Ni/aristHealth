@@ -1,0 +1,122 @@
+<h2 style="text-align: center;">Khám lâm sàn</h2>
+<div class="container" >
+  <div (click)="isTuanHoan1 = !isTuanHoan1"
+        [attr.aria-expanded]="!isTuanHoan1" aria-controls="collapseBasic"><h4>1. Tuần hoàn</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isTuanHoan1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-tuan-hoan></app-tuan-hoan>
+    </div>
+  </div>
+  <div (click)="isHoHap1 = !isHoHap1"
+        [attr.aria-expanded]="!isHoHap1" aria-controls="collapseBasic"><h4>2. Hô hấp</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isHoHap1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-ho-hap1 ></app-ho-hap1>
+    </div>
+  </div>
+  <div (click)="isTieuHoa1 = !isTieuHoa1"
+        [attr.aria-expanded]="!isTieuHoa1" aria-controls="collapseBasic"><h4>3. Tiêu hóa</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isTieuHoa1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-tieu-hoa></app-tieu-hoa>
+    </div>
+  </div>
+  <div (click)="isThan1 = !isThan1"
+        [attr.aria-expanded]="!isThan1" aria-controls="collapseBasic"><h4>4. Thận - tiết niệu</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isThan1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-than-tiet-nieu></app-than-tiet-nieu>
+    </div>
+  </div>
+  <div (click)="isCoXuongKhop1 = !isCoXuongKhop1"
+  [attr.aria-expanded]="!isCoXuongKhop1" aria-controls="collapseBasic"><h4>5. Cơ xương khớp</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isCoXuongKhop1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-co-xuong-khop1 ></app-co-xuong-khop1>
+  </div>
+</div>
+<div (click)="isThanKinh1 = !isThanKinh1"
+        [attr.aria-expanded]="!isThanKinh1" aria-controls="collapseBasic"><h4>6. Thần kinh</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isThanKinh1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-than-kinh1></app-than-kinh1>
+    </div>
+  </div>
+  <div (click)="isTamThan1 = !isTamThan1"
+        [attr.aria-expanded]="!isTamThan1" aria-controls="collapseBasic"><h4>7. Tâm thần</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isTamThan1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-tam-than1 ></app-tam-than1>
+    </div>
+  </div>
+  <div (click)="isNgoaiKhoa1 = !isNgoaiKhoa1"
+        [attr.aria-expanded]="!isNgoaiKhoa1" aria-controls="collapseBasic"><h4>8. Ngoại khoa</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isNgoaiKhoa1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-ngoai-khoa></app-ngoai-khoa>
+    </div>
+  </div>
+  <div (click)="isThaiSan1 = !isThaiSan1"
+        [attr.aria-expanded]="!isThaiSan1" aria-controls="collapseBasic"><h4>9. Thai sản</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isThaiSan1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-thai-san1></app-thai-san1>
+
+    </div>
+  </div>
+  <div (click)="isMat1 = !isMat1"
+        [attr.aria-expanded]="!isMat1" aria-controls="collapseBasic"><h4>10. Mắt</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isMat1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-mat1 ></app-mat1>
+    </div>
+  </div>
+  <div (click)="isTaiMuiHong1 = !isTaiMuiHong1"
+        [attr.aria-expanded]="!isTaiMuiHong1" aria-controls="collapseBasic"><h4>11. Tai mũi họng</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isTaiMuiHong1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-tai-mui-hong1 ></app-tai-mui-hong1>
+    </div>
+  </div>
+  <div (click)="isRangHamMat1 = !isRangHamMat1"
+        [attr.aria-expanded]="!isRangHamMat1" aria-controls="collapseBasic"><h4>12. Răng Hàm Mặt</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isRangHamMat1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-rang-ham-mat></app-rang-ham-mat>
+    </div>
+  </div>
+  <div (click)="isDaLieu1 = !isDaLieu1"
+        [attr.aria-expanded]="!isDaLieu1" aria-controls="collapseBasic"><h4>13. Da liễu</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isDaLieu1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-da-lieu></app-da-lieu>
+    </div>
+  </div>
+</div>  
+
