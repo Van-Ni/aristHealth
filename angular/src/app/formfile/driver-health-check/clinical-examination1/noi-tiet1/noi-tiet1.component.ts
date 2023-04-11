@@ -14,6 +14,7 @@ interface NoiTiet1ViewModel {
 })
 export class NoiTiet1Component  extends AppComponentBase implements OnInit {
   noitiet1: NoiTiet1ViewModel;
+  @Input() statusDataCheck: any;
   @Input() Data: any;
   keys = [""];
   isEditable= false;

@@ -1,5 +1,6 @@
 ﻿using Abp.AutoMapper;
 using AristBase.BaseEntity;
+using AristBase.CRUDServices.ClientInfoServices.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace AristBase.CRUDServices.CertificateServices.Dto
         public int CertificateTypeId { get; set; }
         public Status Status { get; set; }
         public PaymentStatus PaymentStatus { get; set; }
-        public int ClientInfoId { get; set; }
+        public ClientInfoDto ClientInfo { get; set; }
         public decimal AmountPaid { get; set; }
         public string Reason { get; set; }
     }

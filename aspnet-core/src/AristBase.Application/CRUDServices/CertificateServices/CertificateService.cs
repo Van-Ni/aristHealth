@@ -35,5 +35,16 @@ namespace AristBase.CRUDServices.CertificateServices
                 entities.Select(MapToEntityDto).ToList()
             );
         }
+        public async override Task<CertificateDto> CreateAsync(CreateCertificateDto input)
+        {
+            CheckCreatePermission();
+
+            var entity = MapToEntity(input);
+
+            await Repository.InsertAsync(entity);
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            return MapToEntityDto(entity);
+        }
     }
 }

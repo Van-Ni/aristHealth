@@ -18,13 +18,22 @@
       <app-driving-medical-history></app-driving-medical-history>
     </div>
   </div>
+  <div (click)="isKhamTheLuc1 = !isKhamTheLuc1"
+        [attr.aria-expanded]="!isKhamTheLuc1" aria-controls="collapseBasic"><h4>Khám thể lực</h4>
+  </div>
+  <hr>
+  <div id="collapseBasic" [collapse]="isKhamTheLuc1" [isAnimated]="true">
+    <div class="well well-lg card card-block card-header">
+      <app-physical-examination  [Data]="medicationKeyResult"></app-physical-examination>
+    </div>
+  </div>
   <div (click)="isKhamLamSan1 = !isKhamLamSan1"
         [attr.aria-expanded]="!isKhamLamSan1" aria-controls="collapseBasic"><h4>Khám lâm sàn</h4>
   </div>
   <hr>
   <div id="collapseBasic" [collapse]="isKhamLamSan1" [isAnimated]="true">
     <div class="well well-lg card card-block card-header" >
-      <app-clinical-examination1 [Data]="medicationKeyResult"></app-clinical-examination1>
+      <app-clinical-examination1 [Data]="medicationKeyResult"  [statusDataCheck]="certificateStatusResult"></app-clinical-examination1>
     </div>
   </div>
   <div (click)="isKhamCanLamSan1 = !isKhamCanLamSan1"
@@ -33,7 +42,7 @@
   <hr>
   <div id="collapseBasic" [collapse]="isKhamCanLamSan1" [isAnimated]="true">
     <div class="well well-lg card card-block card-header">
-      <app-subclinical-examination-type1></app-subclinical-examination-type1>
+      <app-subclinical-examination-type1 [Data]="medicationKeyResult" [statusDataCheck]="certificateStatusResult"></app-subclinical-examination-type1>
     </div>
   </div>
   <div (click)="isKetLuan1 = !isKetLuan1"

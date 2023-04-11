@@ -1,4 +1,8 @@
-<p>2. Các xét nghiệm chỉ thực hiện khi có chỉ định của bác sĩ khám sức khỏe: Huyết học/sinh hóa/X.quang và các xét nghiệm khác:</p>
+<form autocomplete="off"
+#createxetnghiemkhac="ngForm"
+(ngSubmit)="save()">
+  <fieldset [disabled]="!isEditable">
+    <p>2. Các xét nghiệm chỉ thực hiện khi có chỉ định của bác sĩ khám sức khỏe: Huyết học/sinh hóa/X.quang và các xét nghiệm khác:</p>
   <div class="form-group">
     <label for="exampleFormControlTextarea1">Phân loại sức khỏe</label>
     <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" [(ngModel)]="xetnghiemkhac.xetnghiemkhac_text_phanloai"
@@ -17,3 +21,5 @@
       [ngModelOptions]="{standalone: true}">
     </div>
   </div>
+  </fieldset>
+</form>

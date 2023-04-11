@@ -14,6 +14,7 @@ interface ThaiSan1ViewModel {
 })
 export class ThaiSan1Component extends AppComponentBase implements OnInit {
   thaisan1: ThaiSan1ViewModel;
+  @Input() statusDataCheck: any;
   @Input() Data: any;
   keys = [""];
   isEditable= false;

@@ -1,4 +1,6 @@
-﻿using Abp.AutoMapper;
+﻿using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
+using Abp.Domain.Entities;
 using AristBase.BaseEntity;
 using System;
 using System.Collections.Generic;
@@ -13,7 +15,7 @@ namespace AristBase.CRUDServices.MedicationKeyResultServices.Dto
     public class CreateMedicationKeyResultDto
     {
         public string Key { get; set; }
-        public string Value { get; set; }
+        public string? Value { get; set; }
         public string Group { get; set; }
         public Guid CertificateId { get; set; }
     }

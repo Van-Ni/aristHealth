@@ -81,6 +81,12 @@ import {CreateCertificateComponent} from './manager/certificate/create-certifica
 import {EditCertificateComponent} from './manager/certificate/edit-certificate/edit-certificate.component';
 import {XetNghiemKhac1Component} from './formfile/driver-health-check/subclinical-examination-type1/xet-nghiem-khac1/xet-nghiem-khac1.component';
 import {XetNghiemMaTuyVaMauComponent} from './formfile/driver-health-check/subclinical-examination-type1/xet-nghiem-ma-tuy-va-mau/xet-nghiem-ma-tuy-va-mau.component';
+import {DaLieuComponent} from './formfile/Health-Certification/clinical-examination3/da-lieu/da-lieu.component';
+import {RangHamMatComponent} from './formfile/Health-Certification/clinical-examination3/rang-ham-mat/rang-ham-mat.component';
+import {TuanHoanComponent} from './formfile/Health-Certification/clinical-examination3/tuan-hoan/tuan-hoan.component';
+import {TieuHoaComponent} from './formfile/Health-Certification/clinical-examination3/tieu-hoa/tieu-hoa.component';
+import {ThanTietNieuComponent} from './formfile/Health-Certification/clinical-examination3/than-tiet-nieu/than-tiet-nieu.component';
+import {NgoaiKhoaComponent} from './formfile/Health-Certification/clinical-examination3/ngoai-khoa/ngoai-khoa.component';
 //service
 import {DataService} from './services/data.service';
 @NgModule({
@@ -154,6 +160,12 @@ import {DataService} from './services/data.service';
         TimMach1Component,
         XetNghiemKhac1Component,
         XetNghiemMaTuyVaMauComponent,
+        DaLieuComponent,
+        RangHamMatComponent,
+        TuanHoanComponent,
+        TieuHoaComponent,
+        ThanTietNieuComponent,
+        NgoaiKhoaComponent,
     ],
     imports: [
         CommonModule,

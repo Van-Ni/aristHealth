@@ -13,6 +13,7 @@ namespace AristBase.Interfaces
         public string Sorting { get; set; }
         [Required]
         public Guid CertificateId { get; set; }
+        public string? Group { get; set; }
     }
     public class PagedAndSortedResultRequestDto : PagedResultRequestDto, IPagedAndSortedResultRequest
     {

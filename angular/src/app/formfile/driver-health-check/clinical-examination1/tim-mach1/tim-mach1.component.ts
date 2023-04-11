@@ -16,6 +16,7 @@ interface TimMach1ViewModel {
 })
 export class TimMach1Component  extends AppComponentBase implements OnInit {
   timmach1: TimMach1ViewModel;
+  @Input() statusDataCheck: any;
   @Input() Data: any;
   keys = [""];
   isEditable= false;

@@ -18,6 +18,7 @@ interface TaiMuHong1ViewModel {
 })
 export class TaiMuiHong1Component  extends AppComponentBase  implements OnInit {
   taimuihong1: TaiMuHong1ViewModel;
+  @Input() statusDataCheck: any;
   @Input() Data: any;
   keys = [""];
   isEditable= false;

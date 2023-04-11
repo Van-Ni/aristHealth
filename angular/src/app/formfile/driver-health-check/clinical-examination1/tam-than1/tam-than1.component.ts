@@ -15,6 +15,7 @@ interface TamThan1ViewModel {
 export class TamThan1Component  extends AppComponentBase  implements OnInit {
   tamthan1: TamThan1ViewModel;
   @Input() Data: any;
+  @Input() statusDataCheck: any;
   keys = [""];
   isEditable= false;
   constructor(private _permissionChecker: PermissionCheckerService,private injector: Injector, private khoaTamThanServiceServiceProxy: KhoaTamThanServiceServiceProxy) {

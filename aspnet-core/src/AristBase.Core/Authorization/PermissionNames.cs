@@ -25,6 +25,9 @@ namespace AristBase.Authorization
         public const string RangHamMat = "RangHamMat";
         public const string NgoaiKhoa = "NgoaiKhoa";
         public const string DaLieu = "DaLieu";
+        public const string TuanHoan = "TuanHoan";
+        public const string TieuHoa = "TieuHoa";
+        public const string ThanTietNieu = "ThanTietNieu";
         public const string XetNghiemMaTuyVaMau = "XetNghiemMaTuyVaMau";
         public const string XetNghiemNuocTieu = "XetNghiemNuocTieu";
         public const string XetNghiemMau = "XetNghiemMau";

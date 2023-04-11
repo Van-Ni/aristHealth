@@ -27,6 +27,7 @@ import { DriverHealthCheckComponent } from './formfile/driver-health-check/drive
 import { CertificateTypeComponent } from './manager/certificate-type/certificate-type.component';
 import { CertificateGroupStatusComponent } from './manager/certificate-group-status/certificate-group-status.component';
 import { CertificateComponent } from './manager/certificate/certificate.component';
+import { HealthCertificationComponent } from './formfile/Health-Certification/Health-Certification.component';
 @NgModule({
     imports: [
         RouterModule.forChild([
@@ -47,18 +48,7 @@ import { CertificateComponent } from './manager/certificate/certificate.componen
                     { path: 'certificate-group-status', component: CertificateGroupStatusComponent, canActivate: [AppRouteGuard] },
                     { path: 'profiles', component: ProfileComponent, canActivate: [AppRouteGuard] },
                     { path: 'driver-health-check', component: DriverHealthCheckComponent, canActivate: [AppRouteGuard] },
-                    { path: 'CurrentConclusionType3', component: CurrentConclusionType3Component, canActivate: [AppRouteGuard] },
-                    { path: 'CurrentConclusionType2', component: CurrentConclusionType2Component, canActivate: [AppRouteGuard] },
-                    { path: 'CurrentConclusionType1', component: CurrentConclusionType1Component, canActivate: [AppRouteGuard] },
-                    { path: 'ClinicalExamination3', component: ClinicalExamination3Component, canActivate: [AppRouteGuard] },
-                    { path: 'ClinicalExamination2', component: ClinicalExamination2Component, canActivate: [AppRouteGuard] },
-                    { path: 'ClinicalExamination1', component: ClinicalExamination1Component, canActivate: [AppRouteGuard] },
-                    { path: 'SubclinicalExaminationType3', component: SubclinicalExaminationType3Component, canActivate: [AppRouteGuard] },
-                    { path: 'SubclinicalExaminationType2', component: SubclinicalExaminationType2Component, canActivate: [AppRouteGuard] },
-                    { path: 'SubclinicalExaminationType1', component: SubclinicalExaminationType1Component, canActivate: [AppRouteGuard] },
-                    { path: 'DrivingMedicalHistory', component: DrivingMedicalHistoryComponent, canActivate: [AppRouteGuard] },
-                    { path: 'medicalhistorys', component: MedicalHistoryComponent, canActivate: [AppRouteGuard] },
-                    { path: 'medicalhistorysv2', component: MedicalHistoryV2Component, canActivate: [AppRouteGuard] },
+                    { path: 'health-certification', component: HealthCertificationComponent, canActivate: [AppRouteGuard] },
                     { path: 'update-password', component: ChangePasswordComponent, canActivate: [AppRouteGuard] }
                 ]
             }

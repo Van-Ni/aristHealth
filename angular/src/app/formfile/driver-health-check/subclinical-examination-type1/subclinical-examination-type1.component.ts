@@ -1,16 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-subclinical-examination-type1',
   templateUrl: './subclinical-examination-type1.component.html',
   styleUrls: ['./subclinical-examination-type1.component.css']
 })
-export class SubclinicalExaminationType1Component implements OnInit {
+export class SubclinicalExaminationType1Component implements AfterContentInit  {
   isXetNghiemMaTuy = true;
   isXetNghiemKhac =true;
+  @Input() Data: any;
+  @Input() statusDataCheck: any;
+  data:  any;
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngAfterContentInit(): void {
+      
+    this.data= this.Data;
+}
 
 }

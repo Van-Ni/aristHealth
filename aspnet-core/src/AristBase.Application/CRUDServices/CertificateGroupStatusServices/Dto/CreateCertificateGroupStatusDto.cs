@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Abp.AutoMapper;
+using AristBase.BaseEntity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace AristBase.CRUDServices.CertificateGroupStatusServices.Dto
 {
+    [AutoMapFrom(typeof(CertificateGroupStatus))]
+    [AutoMapTo(typeof(CertificateGroupStatus))]
     public class CreateCertificateGroupStatusDto
     {
         public Guid CertificateId { get; set; }

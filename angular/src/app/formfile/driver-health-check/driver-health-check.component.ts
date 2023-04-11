@@ -1,13 +1,22 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { DataService } from '@app/services/data.service';
 import { IPagedResultDto, PagedRequestDto } from '@shared/paged-listing-component-base';
-import {  KhoaMatServiceServiceProxy, MedicationKeyResultDtoPagedResultDto } from '@shared/service-proxies/service-proxies';
+import {  CertificateGroupStatusDtoPagedResultDto, CertificateGroupStatusServiceServiceProxy, GetDataServiceServiceProxy, KhoaMatServiceServiceProxy, MedicationKeyResultDtoPagedResultDto } from '@shared/service-proxies/service-proxies';
 export class MedicationKeyResultDtoPagedResultViewModel{
  id: string;
  certificateId: string;
  key: string;
  value: string;
  group: string;
+}
+export class CertificateGroupStatusViewModel{
+  id: string;
+  certificateId: string;
+  status: boolean;
+  group: string;
+  userId: number;
+  fullName: string;
 }
 @Component({
   selector: 'app-driver-health-check',
@@ -17,16 +26,19 @@ export class MedicationKeyResultDtoPagedResultViewModel{
 export class DriverHealthCheckComponent implements OnInit {
   isProfile1 = true;
   isTSBCDTKSK1 =true;
+  isKhamTheLuc1 = true;
   isKhamLamSan1= true;
   isKhamCanLamSan1 = true;
   isKetLuan1 = true;
   request: PagedRequestDto;
   medicationKeyResult: IPagedResultDto<MedicationKeyResultDtoPagedResultViewModel>;
+  certificateStatusResult:CertificateGroupStatusDtoPagedResultDto ;
   
-  constructor(private dataService: DataService,private khoaMatServiceServiceProxy: KhoaMatServiceServiceProxy) { }
+  constructor(private dataService: DataService,private certificateGroupStatusServiceServiceProxy: CertificateGroupStatusServiceServiceProxy,private getDataServiceServiceProxy: GetDataServiceServiceProxy,private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.khoaMatServiceServiceProxy.getAll("", "f4e1980b-40d9-49d5-9c59-7a364ced6253",0,1000)
+    console.log(this.route.snapshot.params['id']);
+    this.getDataServiceServiceProxy.getAll("", this.route.snapshot.params['id'], "",0,1000)
     .subscribe((result: MedicationKeyResultDtoPagedResultDto) => {
       this.medicationKeyResult = {
         items: result.items.map(x => {
@@ -40,7 +52,12 @@ export class DriverHealthCheckComponent implements OnInit {
         }),
         totalCount: result.totalCount
       };
-      this.dataService.setData(this.medicationKeyResult);
+      this.dataService.setData(this.route.snapshot.params['id']);
+    });
+    this.certificateGroupStatusServiceServiceProxy.getAll("",this.route.snapshot.params['id'], "",0,1000 )
+    .subscribe((result: CertificateGroupStatusDtoPagedResultDto) =>{
+     this.certificateStatusResult = result;
+     console.log(this.certificateStatusResult)
     });
   }
 

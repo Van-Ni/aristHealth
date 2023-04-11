@@ -12,7 +12,7 @@ namespace AristBase.BaseEntity
     public class MedicationKeyResult : Entity<Guid>, IFullAudited, IPassivable, ISoftDelete, IMustHaveTenant
     {
         public string Key { get; set; }
-        public string Value { get; set; }
+        public string? Value { get; set; }
         public string Group { get; set; }
         public bool IsSeal { get; set; }
         public virtual Certificate Certificate { get; set; }

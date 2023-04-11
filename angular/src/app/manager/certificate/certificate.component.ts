@@ -57,8 +57,6 @@ export class CertificateComponent  {
           }),
           totalCount: result.totalCount
         };
-        console.log(this.certificates);
-        
         finishedCallback(this.certificates);
       });
   }

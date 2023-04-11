@@ -34,8 +34,16 @@ import * as ApiServiceProxies from './service-proxies';
         ApiServiceProxies.ChanDoanHinhAnhServiceServiceProxy,
         ApiServiceProxies.KetLuanServiceServiceProxy,
         ApiServiceProxies.KhamTheLucServiceServiceProxy,
+        ApiServiceProxies.KhoaDalieuServiceServiceProxy,
+        ApiServiceProxies.ThanTietNieuServiceServiceProxy,
+        ApiServiceProxies.KhoaRangHamMatServiceServiceProxy,
+        ApiServiceProxies.KhoaNgoaiKhoaServiceServiceProxy,
+        ApiServiceProxies.TieuHoaServiceServiceProxy,
+        ApiServiceProxies.TuanHoanServiceServiceProxy,
         ApiServiceProxies.CertificateTypeServiceServiceProxy,
         ApiServiceProxies.CertificateServiceServiceProxy,
+        ApiServiceProxies.GetDataServiceServiceProxy,
+        ApiServiceProxies.CertificateGroupStatusServiceServiceProxy,
         { provide: HTTP_INTERCEPTORS, useClass: AbpHttpInterceptor, multi: true }
     ]
 })

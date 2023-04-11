@@ -2,6 +2,7 @@
 using Abp.AutoMapper;
 using AristBase.Authorization.Users;
 using AristBase.BaseEntity;
+using AristBase.Users.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,6 @@ namespace AristBase.CRUDServices.CertificateGroupStatusServices.Dto
         public string Group { get; set; }
         public bool status { get; set; }
         public long UserId { get; set; }
+        public UserDto User { get; set; }
     }
 }

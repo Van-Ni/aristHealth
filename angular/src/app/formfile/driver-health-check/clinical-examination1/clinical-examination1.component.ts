@@ -8,7 +8,9 @@ import { IPagedResultDto } from '@shared/paged-listing-component-base';
 })
 export class ClinicalExamination1Component implements AfterContentInit {
   @Input() Data: any;
+  @Input() statusDataCheck: any;
   data:  any;
+  statusDataCheck1: any;
   isTamThan1= true;
   isThaiSan1= true;
   isNoiTiet1= true;
@@ -21,8 +23,7 @@ export class ClinicalExamination1Component implements AfterContentInit {
   constructor() { }
 
   ngAfterContentInit(): void {
-      
       this.data= this.Data;
-      console.log("1",this.data);
+      this.statusDataCheck1= this.statusDataCheck;
   }
 }

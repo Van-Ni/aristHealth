@@ -15,6 +15,8 @@ interface ThanKinh1ViewModel {
 export class ThanKinh1Component extends AppComponentBase  implements OnInit {
   thankinh1: ThanKinh1ViewModel;
   @Input() Data: any;
+  @Input() statusDataCheck: any;
+  
   keys = [""];
   isEditable= false;
   constructor( private _permissionChecker: PermissionCheckerService,private injector: Injector, private khoaThanKinhServiceServiceProxy: KhoaThanKinhServiceServiceProxy) {
