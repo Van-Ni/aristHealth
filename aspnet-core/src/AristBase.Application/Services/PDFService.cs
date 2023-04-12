@@ -40,7 +40,9 @@ namespace AristBase.Services
         public const string Day = "sys_text_ngay";
         public const string Month = "sys_text_thang";
         public const string Year = "sys_text_nam";
-
+        public const string SoYTe = "text_tenancyName";
+        public const string TT = "text_branchName";
+        public const string So = "text_so";
 
     }
     public class PDFService : ApplicationService, ITransientDependency
@@ -80,6 +82,9 @@ namespace AristBase.Services
             var dic = result.ToDictionary(r => r.Key, r => r.Value);
 
             //Set dic client info
+            dic[PDFFieldConst.SoYTe] = "SỞ Y TẾ GIA LAI";
+            dic[PDFFieldConst.TT] = "TRUNG TÂM GIÁM ĐỊNH Y KHOA";
+            dic[PDFFieldConst.So] = "";
             dic[PDFFieldConst.Hvt] = cer.ClientInfo.FullName;
             dic[PDFFieldConst.Dob] = cer.ClientInfo.DateOfBirth;
             dic[PDFFieldConst.Address] = cer.ClientInfo.Address;
@@ -87,8 +92,8 @@ namespace AristBase.Services
             dic[PDFFieldConst.CCCD] = cer.ClientInfo.CCCD;
             dic[PDFFieldConst.CCCDTai] = cer.ClientInfo.AddressCCCD;
             dic[PDFFieldConst.CCCDNC] = cer.ClientInfo.CreateTimeCCCD;
-            dic[PDFFieldConst.Female] = cer.ClientInfo.Sex != "nam" ? "True" : "False";
-            dic[PDFFieldConst.Male] = cer.ClientInfo.Sex == "nam" ? "True" : "False";
+            dic[PDFFieldConst.Female] = cer.ClientInfo.Sex == "nu" ? "true" : "false";
+            dic[PDFFieldConst.Male] = cer.ClientInfo.Sex == "nam" ? "true" : "false";
             //Prepare datetimedata
             var now = Clock.Now;
             dic[PDFFieldConst.DayText] = now.ToString("dddd", new CultureInfo("vi-VN"));
@@ -109,7 +114,7 @@ namespace AristBase.Services
             };
 
         }
-        
+
         public async Task<FileResult> GetPDFFile(string path)
         {
             FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);

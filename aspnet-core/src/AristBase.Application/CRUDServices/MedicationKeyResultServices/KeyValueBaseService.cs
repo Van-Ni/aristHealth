@@ -44,7 +44,7 @@ namespace AristBase.CRUDServices.MedicationKeyResultServices
                 );
             }
         }
-        public async ValueTask<List<MedicationKeyResultDto>> CreateList([MinLength(1)]List<CreateMedicationKeyResultDto> input)
+        public async ValueTask<List<MedicationKeyResultDto>> CreateList([MinLength(1)] List<CreateMedicationKeyResultDto> input)
         {
             CheckCreatePermission();
             CustomCheckPermission(input);
@@ -131,6 +131,7 @@ namespace AristBase.CRUDServices.MedicationKeyResultServices
                 entities.Select(MapToEntityDto).ToList()
             );
         }
+
         public IDictionary<string, KeyValueInfo> TaskGetAll(ParentPagedAndSortedResultRequestDto input)
         {
             return Repository.GetAll().Where(r => r.CertificateId == input.CertificateId).ToDictionary(c => c.Key, c => new KeyValueInfo

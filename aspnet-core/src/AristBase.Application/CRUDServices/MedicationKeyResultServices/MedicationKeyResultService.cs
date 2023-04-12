@@ -9,6 +9,7 @@ using AristBase.Authorization;
 using AristBase.BaseEntity;
 using AristBase.CRUDServices.MedicationKeyResultServices.Dto;
 using AristBase.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -188,6 +189,13 @@ namespace AristBase.CRUDServices.MedicationKeyResultServices
                 totalCount,
                 entities.Select(MapToEntityDto).ToList()
             );
+        }
+        public async ValueTask<IEnumerable<MedicationKeyResultDto>> GetDataAllAsync(Guid id)
+        {
+            CheckGetAllPermission();
+            var entities = await Repository.GetAll().Where(w => w.CertificateId == id).ToListAsync();
+
+            return ObjectMapper.Map<IEnumerable<MedicationKeyResultDto>>(entities);
         }
         public override Task<MedicationKeyResultDto> CreateAsync(MedicationKeyResultDto input)
         {
