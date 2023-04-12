@@ -10,7 +10,7 @@ namespace AristBase.Authorization.Users
     {
         public const string DefaultPassword = "123qwe";
         public string SignPath {get;set;}
-        public string FullName { get;set;}
+        public string FullVNMName { get;set;}
         public string Prefix { get;set;}
         public static string CreateRandomPassword()
         {
