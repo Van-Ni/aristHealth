@@ -16,6 +16,7 @@ namespace AristBase.BaseEntity
         public  ClientInfo ClientInfo { get; set; }
         public decimal AmountPaid { get; set; }
         public string Reason { get; set; }
+        public string FileResult { get; set; }
         public virtual ICollection<MedicationKeyResult> MedicationKeyResults { get; set; }
         public virtual ICollection<CertificateGroupStatus> CertificateGroupStatuses { get; set; }
         #region Audited

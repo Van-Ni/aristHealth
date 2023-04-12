@@ -72,15 +72,7 @@ namespace AristBase.Services
                 .Where(c => c.Id == cerId)
                 .Include(c => c.CertificateType)
                 .Include(c =>c.ClientInfo)
-                .SingleAsync();
-            switch (cer.CertificateType.Id)
-            {
-                default:
-                    {
-                        
-                        break;
-                    }
-            }
+                .SingleAsync();           
 
             
             var result = await _repository.GetAll().Where(r => r.CertificateId == cerId).ToListAsync();
@@ -107,6 +99,8 @@ namespace AristBase.Services
             var path = PathHelper.GetOutputPath(cername, "giaypheplaixe");
             FiledPDF(cer.CertificateType.FilePath, path, dic, cerUserDic);
 
+            cer.FileResult = path;
+            
             using (var fs = File.OpenRead(path))
             {
                 return new FileStreamResult(fs, "application/pdf")
