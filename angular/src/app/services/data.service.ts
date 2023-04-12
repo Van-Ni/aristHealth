@@ -18,6 +18,7 @@ export class DataService {
   }
   data: any;
   allKeyData =  new BehaviorSubject<MedicationKeyResultDtoPagedResultDto>(null);
+  groupStatus = new BehaviorSubject<CertificateGroupStatusDtoPagedResultDto>(null);
   setData(data: any) {
     this.data = data;
   }
@@ -28,7 +29,6 @@ export class DataService {
   getAllKeyData ():Observable<MedicationKeyResultDtoPagedResultDto>{
     return this.allKeyData.asObservable();
   }
-  groupStatus = new BehaviorSubject<CertificateGroupStatusDtoPagedResultDto>(null);
   getGroupData ():Observable<CertificateGroupStatusDtoPagedResultDto>{
     return this.groupStatus.asObservable();
   }

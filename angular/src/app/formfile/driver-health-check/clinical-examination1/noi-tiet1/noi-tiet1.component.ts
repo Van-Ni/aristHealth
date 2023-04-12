@@ -37,6 +37,12 @@ export class NoiTiet1Component  extends CertificateKeyValueComponentBase<NoiTiet
     if(this._permissionChecker.isGranted("Pages.NoiTiet.Create")){
       this.isEditable4 = true;
     }
+    if(this.status == false)
+    {
+    this.noitiet1.noitiet_selectbox_phanloai = "Bình thường";
+    this.noitiet1.noitiet_text_noitiet_ketluan = "Đủ sức khỏe";
+    
+    }
   }
   save(): void{
     var inputnoitiet1s : CreateMedicationKeyResultDto[] = [];

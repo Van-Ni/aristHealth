@@ -39,7 +39,12 @@ export class ThaiSan1Component extends CertificateKeyValueComponentBase<ThaiSan1
     if(this._permissionChecker.isGranted("Pages.ThaiSan.Create")){
       this.isEditable7 = true;
     }
-
+    if(this.status == false)
+    {
+    this.thaisan1.thaisan_selectbox_phanloai = "Bình thường";
+    this.thaisan1.thaisan_text_thaisan_ketluan = "Đủ sức khỏe";
+    
+    }
   }
   save(): void{
     var inputthaisan1s : CreateMedicationKeyResultDto[] = [];

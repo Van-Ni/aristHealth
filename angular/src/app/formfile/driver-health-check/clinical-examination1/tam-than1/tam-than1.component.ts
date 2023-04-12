@@ -40,7 +40,11 @@ export class TamThan1Component  extends CertificateKeyValueComponentBase<TamThan
     if(this._permissionChecker.isGranted("Pages.TamThan.Create")){
       this.isEditable6 = true;
     }
-
+    if(this.status == false)
+    {
+    this.tamthan1.tamthan_selectbox_phanloai = "Bình thường";
+    this.tamthan1.tamthan_text_tamthan_ketluan = "Đủ sức khỏe";
+    }
   }
   save(): void{
     var inputtamthan1s : CreateMedicationKeyResultDto[] = [];

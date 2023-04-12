@@ -27,16 +27,23 @@ export abstract class CertificateKeyValueComponentBase<TEntityDto> extends AppCo
         console.log("CertificateKeyValueComponentBase", this.group);
         this.dataService.getGroupData()
             .subscribe((result: CertificateGroupStatusDtoPagedResultDto) => {
-                console.log("CertificateKeyValueComponentBase", result);
-                if (result && result.items && result.items.some(i => i.group == this.group)) {
-                    this.status = true;
-                    console.log("CertificateKeyValueComponentBase", this.status);
+                //console.log("CertificateKeyValueComponentBase", result);
+                if(result != null)
+                {
+                    console.log("CertificateKeyValueComponentBase", result);
+                    if (result && result.items && result.items.some(i => i.group == this.group)) {
+                        this.status = true;
+                        console.log("CertificateKeyValueComponentBase", this.status);
+                    }
                 }
             });
             this.dataService.getAllKeyData().subscribe((result: MedicationKeyResultDtoPagedResultDto) => {
-                console.log("CertificateKeyValueComponentBase", result);
-                if (result && result.items) {
-                    this.setViewModel(result);
+                console.log("CertificateKeyValueComponentBase1", result);
+                if(result != null)
+                {
+                    if (result && result.items) {
+                        this.setViewModel(result);
+                    }
                 }
             });
     }

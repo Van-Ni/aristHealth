@@ -40,7 +40,11 @@ export class ThanKinh1Component extends CertificateKeyValueComponentBase<ThanKin
     if(this._permissionChecker.isGranted("Pages.ThanKinh.Create")){
       this.isEditable8 = true;
     }
-
+    if(this.status == false)
+    {
+    this.thankinh1.thankinh_selectbox_phanloai = "Bình thường";
+    this.thankinh1.thankinh_text_thankinh_ketluan = "Đủ sức khỏe";
+    }
   }
   save(): void{
     var inputthankinh1s : CreateMedicationKeyResultDto[] = [];

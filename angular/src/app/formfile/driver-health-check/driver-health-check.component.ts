@@ -44,7 +44,7 @@ export class DriverHealthCheckComponent implements AfterContentInit {
     this.dataService.getAllKeyData().subscribe((result: MedicationKeyResultDtoPagedResultDto) => {
       console.log("Refresh data")
       this.medicationKeyResult = {
-        items: result.items.map(x => {
+        items: result.items?.map(x => {
           const medicationKeyResultDtoPagedResultViewModel = new MedicationKeyResultDtoPagedResultViewModel();
           medicationKeyResultDtoPagedResultViewModel.id = x.id;
           medicationKeyResultDtoPagedResultViewModel.certificateId = x.certificateId;

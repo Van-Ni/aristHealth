@@ -41,7 +41,12 @@ export class TimMach1Component  extends CertificateKeyValueComponentBase<TimMach
     if(this._permissionChecker.isGranted("Pages.TimMach.Create")){
       this.isEditable9 = true;
     }
-
+    if(this.status == false)
+    {
+    this.timmach1.timmach_selectbox_phanloai = "Bình thường";
+    this.timmach1.timmach_text_timmach_ketluan = "Đủ sức khỏe";
+    
+    }
   }
   save(): void{
     var inputtimmach1s : CreateMedicationKeyResultDto[] = [];

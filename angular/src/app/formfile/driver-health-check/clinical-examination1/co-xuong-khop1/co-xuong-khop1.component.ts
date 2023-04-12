@@ -38,6 +38,12 @@ export class CoXuongKhop1Component  extends CertificateKeyValueComponentBase<CoX
     if(this._permissionChecker.isGranted("Pages.CoXuongKhop.Create")){
       this.isEditable1 = true;
     }
+    if(this.status == false)
+    {
+    this.coxuongkhop1.coxuongkhop_selectbox_phanloai = "Bình thường";
+    this.coxuongkhop1.coxuongkhop_text_coxuongkhop_ketluan = "Đủ sức khỏe";
+    
+    }
   }
   save(): void{
     var inputcoxuongkhop1s : CreateMedicationKeyResultDto[] = [];

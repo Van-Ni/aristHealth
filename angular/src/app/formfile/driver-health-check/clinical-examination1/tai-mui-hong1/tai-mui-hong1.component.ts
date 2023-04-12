@@ -42,17 +42,26 @@ export class TaiMuiHong1Component  extends CertificateKeyValueComponentBase<TaiM
     if(this._permissionChecker.isGranted("Pages.TaiMuiHong.Create")){
       this.isEditable5 = true;
     }
+    if(this.status == false)
+    {
+    this.taimuihong1.taimuihong_text_taitrai = "05";
+    this.taimuihong1.taimuihong_text_taiphai = "05";
+    this.taimuihong1.taimuihong_selectbox_phanloai = "Không";
+    this.taimuihong1.taimuihong_text_taimuihong_ketluan="Đủ sức khỏe";
+    
+    }
   }
   save(): void{
     var inputtaimuihong1s : CreateMedicationKeyResultDto[] = [];
-    const item1 = new CreateMedicationKeyResultDto(
-      {
-        key: 'taimuihong_selectbox_phanloai',
-        value:  this.taimuihong1.taimuihong_selectbox_phanloai|| '',
-        certificateId: this.certificateId,  
-        group: this.group,
-      }
-    );const item2 = new CreateMedicationKeyResultDto(
+    // const item1 = new CreateMedicationKeyResultDto(
+    //   {
+    //     key: 'taimuihong_selectbox_phanloai',
+    //     value:  this.taimuihong1.taimuihong_selectbox_phanloai|| '',
+    //     certificateId: this.certificateId,  
+    //     group: this.group,
+    //   }
+    // );
+    const item2 = new CreateMedicationKeyResultDto(
       {
         key: 'taimuihong_text_noidung',
         value:  this.taimuihong1.taimuihong_text_noidung|| '',
@@ -95,7 +104,7 @@ export class TaiMuiHong1Component  extends CertificateKeyValueComponentBase<TaiM
         group: this.group,
       }
     );
-    inputtaimuihong1s.push(item1);
+    //inputtaimuihong1s.push(item1);
     inputtaimuihong1s.push(item2);
     inputtaimuihong1s.push(item3);
     inputtaimuihong1s.push(item4);

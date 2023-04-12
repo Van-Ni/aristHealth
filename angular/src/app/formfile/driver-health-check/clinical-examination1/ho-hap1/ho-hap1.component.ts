@@ -38,6 +38,12 @@ export class HoHap1Component extends CertificateKeyValueComponentBase<HoHap1View
     if(this._permissionChecker.isGranted("Pages.HoHap.Create")){
       this.isEditable2 = true;
     }
+    if(this.status == false)
+    {
+    this.hohap1.hohap_selectbox_phanloai = "Bình thường";
+    this.hohap1.hohap_text_hohap_ketluan = "Đủ sức khỏe";
+    
+    }
   }
   save(): void{
     var inputhohap1s : CreateMedicationKeyResultDto[] = [];

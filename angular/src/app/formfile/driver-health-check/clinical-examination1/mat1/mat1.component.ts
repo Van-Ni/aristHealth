@@ -39,23 +39,7 @@ export class Mat1Component extends CertificateKeyValueComponentBase<Mat1ViewMode
   
   @Input() Data: any;
   //mat1 :Mat1ViewModel; 
-  mat1: Mat1ViewModel = {
-    mat_text_kk_mt: '',
-    mat_text_kk_mp: '',
-    mat_text_ck_mt: '',
-    mat_text_ck_mp: '',
-    mat_text_2m_ck: '',
-    mat_text_2m_kk: '',
-    mat_radio_thitruong_ngang: 'bth',
-    mat_radio_thitruong_dung: 'bth',
-    mat_checkbox_bth: 'bth',
-    mat_checkbox_mumau_all: '',
-    mat_checkbox_mumau_do: '',
-    mat_checkbox_mumau_vang: '',
-    mat_checkbox_mumau_xanh: '',
-    mat_text_cbvm: '',
-    mat_text_mat_ketluan: ''
-  };
+  mat1: Mat1ViewModel;
   @Input() statusDataCheck: any;
   keys = [""];
   isEditable3= false;
@@ -72,9 +56,21 @@ export class Mat1Component extends CertificateKeyValueComponentBase<Mat1ViewMode
     if(this._permissionChecker.isGranted("Pages.Mat.Create")){
       this.isEditable3 = true;
     }
-    // this.mat1.mat_checkbox_bth = "bth";
-    // this.mat1.mat_radio_thitruong_dung = "bth";
-    // this.mat1.mat_radio_thitruong_ngang = "bth";
+    if(this.status == false)
+    {
+    this.mat1.mat_checkbox_bth = "bth";
+    this.mat1.mat_radio_thitruong_dung = "bth";
+    this.mat1.mat_radio_thitruong_ngang = "bth";
+    this.mat1.mat_text_kk_mt = "10/10";
+    this.mat1.mat_text_kk_mp = "10/10";
+    this.mat1.mat_text_ck_mp = "10/10";
+    this.mat1.mat_text_ck_mt = "10/10";
+    this.mat1.mat_text_2m_ck = "10/10";
+    this.mat1.mat_text_2m_kk = "10/10";
+    this.mat1.mat_text_cbvm = "Không";
+    this.mat1.mat_text_mat_ketluan = "Đủ sức khỏe"
+    }
+
   }
   save(): void {
     const inputmat1s : CreateMedicationKeyResultDto[] = [];
