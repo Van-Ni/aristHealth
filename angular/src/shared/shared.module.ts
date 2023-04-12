@@ -14,7 +14,7 @@ import { AbpValidationSummaryComponent } from './components/validation/abp-valid
 import { AbpModalHeaderComponent } from './components/modal/abp-modal-header.component';
 import { AbpModalFooterComponent } from './components/modal/abp-modal-footer.component';
 import { LayoutStoreService } from './layout/layout-store.service';
-
+import { FormsModule } from '@angular/forms';
 import { BusyDirective } from './directives/busy.directive';
 import { EqualValidator } from './directives/equal-validator.directive';
 import {DynamicTableComponent} from './components/dynamic-table/dynamic-table.component'
@@ -23,7 +23,8 @@ import {SpinnerComponent} from './components/spinner/spinner.component';
     imports: [
         CommonModule,
         RouterModule,
-        NgxPaginationModule
+        NgxPaginationModule,
+        FormsModule
     ],
     declarations: [
         AbpPaginationControlsComponent,

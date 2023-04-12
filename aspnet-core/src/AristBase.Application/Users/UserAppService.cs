@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -18,8 +19,10 @@ using AristBase.Authorization;
 using AristBase.Authorization.Accounts;
 using AristBase.Authorization.Roles;
 using AristBase.Authorization.Users;
+using AristBase.Extensions.Storage;
 using AristBase.Roles.Dto;
 using AristBase.Users.Dto;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,6 +37,7 @@ namespace AristBase.Users
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IAbpSession _abpSession;
         private readonly LogInManager _logInManager;
+        private readonly IStorageService storageService;
 
         public UserAppService(
             IRepository<User, long> repository,
@@ -42,6 +46,7 @@ namespace AristBase.Users
             IRepository<Role> roleRepository,
             IPasswordHasher<User> passwordHasher,
             IAbpSession abpSession,
+            IStorageService storageService,
             LogInManager logInManager)
             : base(repository)
         {
@@ -51,6 +56,7 @@ namespace AristBase.Users
             _passwordHasher = passwordHasher;
             _abpSession = abpSession;
             _logInManager = logInManager;
+            this.storageService = storageService;
         }
 
         public override async Task<UserDto> CreateAsync(CreateUserDto input)
@@ -196,7 +202,7 @@ namespace AristBase.Users
             {
                 throw new Exception("There is no current user!");
             }
-            
+
             if (await _userManager.CheckPasswordAsync(user, input.CurrentPassword))
             {
                 CheckErrors(await _userManager.ChangePasswordAsync(user, input.NewPassword));
@@ -218,19 +224,19 @@ namespace AristBase.Users
             {
                 throw new UserFriendlyException("Please log in before attempting to reset password.");
             }
-            
+
             var currentUser = await _userManager.GetUserByIdAsync(_abpSession.GetUserId());
             var loginAsync = await _logInManager.LoginAsync(currentUser.UserName, input.AdminPassword, shouldLockout: false);
             if (loginAsync.Result != AbpLoginResultType.Success)
             {
                 throw new UserFriendlyException("Your 'Admin Password' did not match the one on record.  Please try again.");
             }
-            
+
             if (currentUser.IsDeleted || !currentUser.IsActive)
             {
                 return false;
             }
-            
+
             var roles = await _userManager.GetRolesAsync(currentUser);
             if (!roles.Contains(StaticRoleNames.Tenants.Admin))
             {
@@ -245,6 +251,25 @@ namespace AristBase.Users
             }
 
             return true;
+        }
+        public async Task<UserDto> UploadSignPath([Required] IFormFile file, long id)
+        {
+
+            var getData = await Repository.FirstOrDefaultAsync(i => i.Id == id);
+
+            if (getData != null)
+            {
+                var data = await storageService.UploadFileAsync(file.FileName, getData.Id.ToString(), stream: file.OpenReadStream());
+                getData.SignPath = data;
+                await Repository.UpdateAsync(getData);
+                await CurrentUnitOfWork.SaveChangesAsync();
+                return ObjectMapper.Map<UserDto>(getData);
+            }
+            else
+            {
+                throw new Exception("Data not found.");
+            }
+
         }
     }
 }

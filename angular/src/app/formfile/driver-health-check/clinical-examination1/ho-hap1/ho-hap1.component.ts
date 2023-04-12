@@ -15,11 +15,22 @@ interface HoHap1ViewModel {
 })
 export class HoHap1Component extends CertificateKeyValueComponentBase<HoHap1ViewModel> implements OnInit {
   setViewModel(model: any) {
-    let object = Object.fromEntries(new Map(model.items.map(obj=>{
-      return [obj.key, obj.value]})));
-      this.hohap1 = object as unknown as HoHap1ViewModel;
+    // let object = Object.fromEntries(new Map(model.items.map(obj=>{
+    //   return [obj.key, obj.value]})));
+    //   this.hohap1 = object as unknown as HoHap1ViewModel;
+    for (const key in this.hohap1) {
+      if (Object.prototype.hasOwnProperty.call(this.hohap1, key)) {
+        const item = model.items.find(i => i.key === key);
+        if(item){
+          this.hohap1[key] = item.value;
+        }
+      }
+    }
   }
-  hohap1: HoHap1ViewModel;
+  hohap1: HoHap1ViewModel ={
+    hohap_selectbox_phanloai: "Bình thường",
+    hohap_text_hohap_ketluan: "Đủ sức khỏe",
+  };
   @Input() Data: any;
   @Input() statusDataCheck: any;
   keys = [""];
@@ -40,8 +51,7 @@ export class HoHap1Component extends CertificateKeyValueComponentBase<HoHap1View
     }
     if(this.status == false)
     {
-    this.hohap1.hohap_selectbox_phanloai = "Bình thường";
-    this.hohap1.hohap_text_hohap_ketluan = "Đủ sức khỏe";
+    
     
     }
   }

@@ -20,7 +20,6 @@ export class ProfileComponent extends AppComponentBase implements OnInit {
   }
   ngOnInit() {
     this.clientInfo = this.profile.clientInfo;
-    console.log("tenne",this.clientInfo)
     
   }
   save() : void{
@@ -35,7 +34,5 @@ export class ProfileComponent extends AppComponentBase implements OnInit {
       }
     );
   }
-  // l(arg0: string): any {
-  //   throw new Error('Method not implemented.');
-  // }
+
 }

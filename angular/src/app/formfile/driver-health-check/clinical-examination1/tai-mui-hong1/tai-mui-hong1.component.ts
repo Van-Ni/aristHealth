@@ -9,7 +9,6 @@ interface TaiMuHong1ViewModel {
   taimuihong_text_taiphai:string;
   taimuihong_text_taitrai_noitham:string;
   taimuihong_text_taiphai_noitham:string;
-  taimuihong_text_noidung: string;
   taimuihong_selectbox_phanloai: string;
   taimuihong_text_taimuihong_ketluan: string;
 }
@@ -20,11 +19,23 @@ interface TaiMuHong1ViewModel {
 })
 export class TaiMuiHong1Component  extends CertificateKeyValueComponentBase<TaiMuHong1ViewModel>  implements OnInit {
   setViewModel(model: any) {
-    let object = Object.fromEntries(new Map(model.items.map(obj=>{
-      return [obj.key, obj.value]})));
-      this.taimuihong1 = object as unknown as TaiMuHong1ViewModel;
+    for (const key in this.taimuihong1) {
+      if (Object.prototype.hasOwnProperty.call(this.taimuihong1, key)) {
+        const item = model.items.find(i => i.key === key);
+        if(item){
+          this.taimuihong1[key] = item.value;
+        }
+      }
+    }
   }
-  taimuihong1: TaiMuHong1ViewModel;
+  taimuihong1: TaiMuHong1ViewModel = {
+    taimuihong_text_taitrai: '05',
+    taimuihong_text_taiphai: '05',
+    taimuihong_text_taitrai_noitham: '',
+    taimuihong_text_taiphai_noitham: '',
+    taimuihong_selectbox_phanloai: 'Không',
+    taimuihong_text_taimuihong_ketluan: 'Đủ sức khỏe'
+  };
   @Input() statusDataCheck: any;
   @Input() Data: any;
   keys = [""];
@@ -42,29 +53,13 @@ export class TaiMuiHong1Component  extends CertificateKeyValueComponentBase<TaiM
     if(this._permissionChecker.isGranted("Pages.TaiMuiHong.Create")){
       this.isEditable5 = true;
     }
-    if(this.status == false)
-    {
-    this.taimuihong1.taimuihong_text_taitrai = "05";
-    this.taimuihong1.taimuihong_text_taiphai = "05";
-    this.taimuihong1.taimuihong_selectbox_phanloai = "Không";
-    this.taimuihong1.taimuihong_text_taimuihong_ketluan="Đủ sức khỏe";
-    
-    }
   }
   save(): void{
     var inputtaimuihong1s : CreateMedicationKeyResultDto[] = [];
-    // const item1 = new CreateMedicationKeyResultDto(
-    //   {
-    //     key: 'taimuihong_selectbox_phanloai',
-    //     value:  this.taimuihong1.taimuihong_selectbox_phanloai|| '',
-    //     certificateId: this.certificateId,  
-    //     group: this.group,
-    //   }
-    // );
     const item2 = new CreateMedicationKeyResultDto(
       {
-        key: 'taimuihong_text_noidung',
-        value:  this.taimuihong1.taimuihong_text_noidung|| '',
+        key: 'taimuihong_selectbox_phanloai',
+        value:  this.taimuihong1.taimuihong_selectbox_phanloai|| '',
         certificateId: this.certificateId,
         group: this.group,
       }

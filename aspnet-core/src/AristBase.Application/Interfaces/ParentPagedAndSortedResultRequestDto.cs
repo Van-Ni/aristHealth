@@ -15,8 +15,9 @@ namespace AristBase.Interfaces
         public Guid CertificateId { get; set; }
         public string? Group { get; set; }
     }
-    public class PagedAndSortedResultRequestDto : PagedResultRequestDto, IPagedAndSortedResultRequest
+    public class PagedAndSortedResultDto : PagedResultRequestDto, IPagedAndSortedResultRequest
     {
         public string Sorting { get; set; }
+        public string filter { get; set; }
     }
 }

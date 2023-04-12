@@ -1,4 +1,5 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
+import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
 import { CertificateGroupStatusDto, KhoaTaiMuiHongServiceServiceProxy, CreateMedicationKeyResultDto } from '@shared/service-proxies/service-proxies';
@@ -16,7 +17,13 @@ interface TaiMuHong3ViewModel {
   templateUrl: './tai-mui-hong3.component.html',
   styleUrls: ['./tai-mui-hong3.component.css']
 })
-export class TaiMuiHong3Component extends AppComponentBase  implements OnInit {
+export class TaiMuiHong3Component extends CertificateKeyValueComponentBase<TaiMuHong3ViewModel>  implements OnInit {
+  setViewModel(model: any) {
+    let object = Object.fromEntries(new Map(model.items.map(obj=>{
+      return [obj.key, obj.value]
+    })));
+    this.taimuihong3 = object as unknown as TaiMuHong3ViewModel;
+  }
   taimuihong3: TaiMuHong3ViewModel;
   @Input() statusDataCheck: any;
   @Input() Data: any;
@@ -26,24 +33,16 @@ export class TaiMuiHong3Component extends AppComponentBase  implements OnInit {
   certificateStatus: CertificateGroupStatusDto;
   status = false;
   constructor(private _permissionChecker: PermissionCheckerService,private dataservice: DataService,private injector: Injector, private khoaTaiMuiHongServiceServiceProxy: KhoaTaiMuiHongServiceServiceProxy) { 
-    super(injector)
-  }
+    super(injector, dataservice)
+    this.group = "taimuihong";
+   }
 
-  ngOnInit() {
-    for (const item of this.statusDataCheck.items) {
-      if(item.group == "TaiMuiHong")
-      {
-        this.status = true;
-      }
-    }
-    this.certificateId = this.dataservice.getData();
+   ngOnInit() {
+    super.ngOnInit();
     if(this._permissionChecker.isGranted("Pages.TaiMuiHong.Create")){
       this.isEditable5 = true;
     }
-    let object = Object.fromEntries(new Map(this.Data.items.map(obj=>{
-      return [obj.key, obj.value]
-    })));
-    this.taimuihong3 = object as unknown as TaiMuHong3ViewModel;
+
   }
   save(): void{
     var inputtaimuihong3s : CreateMedicationKeyResultDto[] = [];
@@ -52,42 +51,42 @@ export class TaiMuiHong3Component extends AppComponentBase  implements OnInit {
         key: 'taimuihong_selectbox_phanloai',
         value:  this.taimuihong3.taimuihong_selectbox_phanloai|| '',
         certificateId: this.certificateId,  
-        group: "TaiMuiHong",
+        group: "taimuihong",
       }
     );const item2 = new CreateMedicationKeyResultDto(
       {
         key: 'taimuihong_text_noidung',
         value:  this.taimuihong3.taimuihong_text_noidung|| '',
         certificateId: this.certificateId,
-        group: "TaiMuiHong",
+        group: "taimuihong",
       }
     );const item4 = new CreateMedicationKeyResultDto(
       {
         key: 'taimuihong_text_taiphai',
         value:  this.taimuihong3.taimuihong_text_taiphai|| '',
         certificateId: this.certificateId,
-        group: "TaiMuiHong",
+        group: "taimuihong",
       }
     );const item5 = new CreateMedicationKeyResultDto(
       {
         key: 'taimuihong_text_taiphai_noitham',
         value:  this.taimuihong3.taimuihong_text_taiphai_noitham|| '',
         certificateId: this.certificateId,
-        group: "TaiMuiHong",
+        group: "taimuihong",
       }
     );const item6 = new CreateMedicationKeyResultDto(
       {
         key: 'taimuihong_text_taitrai',
         value:  this.taimuihong3.taimuihong_text_taitrai|| '',
         certificateId: this.certificateId,
-        group: "TaiMuiHong",
+        group: "taimuihong",
       }
     );const item7 = new CreateMedicationKeyResultDto(
       {
         key: 'taimuihong_text_taitrai_noitham',
         value:  this.taimuihong3.taimuihong_text_taitrai_noitham|| '',
         certificateId: this.certificateId,
-        group: "TaiMuiHong",
+        group: "taimuihong",
       }
     );
     inputtaimuihong3s.push(item1);
@@ -100,12 +99,14 @@ export class TaiMuiHong3Component extends AppComponentBase  implements OnInit {
       this.khoaTaiMuiHongServiceServiceProxy.updateOrInsert(inputtaimuihong3s).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
+          this.dataservice.refreshData(this.certificateId);
         },
       );
     }else{
       this.khoaTaiMuiHongServiceServiceProxy.createList(inputtaimuihong3s).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
+          this.dataservice.refreshData(this.certificateId);
         },
       );
     }

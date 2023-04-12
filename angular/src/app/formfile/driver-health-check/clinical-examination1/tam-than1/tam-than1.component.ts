@@ -16,12 +16,20 @@ interface TamThan1ViewModel {
 })
 export class TamThan1Component  extends CertificateKeyValueComponentBase<TamThan1ViewModel>  implements OnInit {
   setViewModel(model: any) {
-    let object = Object.fromEntries(new Map(model.items.map(obj=>{
-      return [obj.key, obj.value]
-    })));
-    this.tamthan1 = object as unknown as TamThan1ViewModel;
+    for (const key in this.tamthan1) {
+      if (Object.prototype.hasOwnProperty.call(this.tamthan1, key)) {
+        const item = model.items.find(i => i.key === key);
+        if(item){
+          this.tamthan1[key] = item.value;
+        }
+      }
+    }
   }
-  tamthan1: TamThan1ViewModel;
+  tamthan1: TamThan1ViewModel={
+    tamthan_text_noidung: '',
+    tamthan_selectbox_phanloai: 'Bình thường',
+    tamthan_text_tamthan_ketluan: 'Đủ sức khỏe'
+  };
   @Input() Data: any;
   @Input() statusDataCheck: any;
   keys = [""];
@@ -39,11 +47,6 @@ export class TamThan1Component  extends CertificateKeyValueComponentBase<TamThan
     
     if(this._permissionChecker.isGranted("Pages.TamThan.Create")){
       this.isEditable6 = true;
-    }
-    if(this.status == false)
-    {
-    this.tamthan1.tamthan_selectbox_phanloai = "Bình thường";
-    this.tamthan1.tamthan_text_tamthan_ketluan = "Đủ sức khỏe";
     }
   }
   save(): void{

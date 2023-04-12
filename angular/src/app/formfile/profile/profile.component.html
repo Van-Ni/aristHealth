@@ -12,7 +12,7 @@
           <label for="fullname" class="col-sm-2 col-form-label">Họ và tên</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="fullname" required
-            [(ngModel)]="clientInfo.fullName"
+            [(ngModel)]="profile.clientInfo.fullName"
             #fullnameModel="ngModel"
             #fullnameEl
             [ngModelOptions]="{standalone: true}"
@@ -44,7 +44,7 @@
                 <input type="text"                
                        placeholder="Ngày sinh"
                        class="form-control"
-                       [(ngModel)]="clientInfo.dateOfBirth"
+                       [(ngModel)]="profile.clientInfo.dateOfBirth"
                         #dateofbirthModel="ngModel"
                         #dateofbirthEl
                         [ngModelOptions]="{standalone: true}"
@@ -63,7 +63,7 @@
             <label for="CCCD" class="col-sm-4 col-form-label">Số CCCD</label>
             <div class="col-sm-8">
               <input type="text" class="form-control" id="CCCD" placeholder="CCCD"
-              [(ngModel)]="clientInfo.cccd"
+              [(ngModel)]="profile.clientInfo.cccd"
                         #cccdModel="ngModel"
                         #cccdEl
                         [ngModelOptions]="{standalone: true}">
@@ -98,7 +98,7 @@
           <label for="addressCCCD" class="col-sm-2 col-form-label">tại</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="addressCCCD" placeholder="Nơi cấp CCCD"
-            [(ngModel)]="clientInfo.addressCCCD"
+            [(ngModel)]="profile.clientInfo.addressCCCD"
                         #addressCCCDModel="ngModel"
                         #addressCCCDEl
                         [ngModelOptions]="{standalone: true}">
@@ -112,7 +112,7 @@
           <label for="address" class="col-sm-2 col-form-label">Chỗ ở hiện tại</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="address" placeholder="Chỗ ở hiện tại"
-             [(ngModel)]="clientInfo.address"
+             [(ngModel)]="profile.clientInfo.address"
             #addressModel="ngModel"
             #addressEl
             [ngModelOptions]="{standalone: true}">
@@ -125,7 +125,7 @@
         <div class="form-group row">
           <label for="GuardianName" class="col-sm-2 col-form-label">Họ và tên bố, mẹ hoặc người giám hộ</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="GuardianName"  [(ngModel)]="clientInfo.guardianName" [ngModelOptions]="{standalone: true}" placeholder="Họ và tên bố, mẹ hoặc người giám hộ" >
+            <input type="text" class="form-control" id="GuardianName"  [(ngModel)]="profile.clientInfo.guardianName" [ngModelOptions]="{standalone: true}" placeholder="Họ và tên bố, mẹ hoặc người giám hộ" >
           </div>
         </div>
       </fieldset>

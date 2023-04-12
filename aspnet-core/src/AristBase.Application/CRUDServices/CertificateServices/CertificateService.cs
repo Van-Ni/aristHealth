@@ -3,6 +3,7 @@ using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
 using AristBase.BaseEntity;
 using AristBase.CRUDServices.CertificateServices.Dto;
+using AristBase.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,12 @@ using System.Threading.Tasks;
 
 namespace AristBase.CRUDServices.CertificateServices
 {
-    public class CertificateService : AsyncCrudAppService<Certificate, CertificateDto, Guid, PagedAndSortedResultRequestDto, CreateCertificateDto, UpdateCertificateDto>
+    public class CertificateService : AsyncCrudAppService<Certificate, CertificateDto, Guid, PagedAndSortedResultDto, CreateCertificateDto, UpdateCertificateDto>
     {
         public CertificateService(IRepository<Certificate, Guid> repository) : base(repository)
         {
         }
-        public async override Task<PagedResultDto<CertificateDto>> GetAllAsync(PagedAndSortedResultRequestDto input)
+        public async override Task<PagedResultDto<CertificateDto>> GetAllAsync(PagedAndSortedResultDto input)
         {
             CheckGetAllPermission();
 

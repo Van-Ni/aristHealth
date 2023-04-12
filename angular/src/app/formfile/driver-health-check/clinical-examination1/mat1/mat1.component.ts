@@ -32,14 +32,37 @@ interface Mat1ViewModel {
 })
 export class Mat1Component extends CertificateKeyValueComponentBase<Mat1ViewModel> implements OnInit {
   setViewModel(model: MedicationKeyResultDtoPagedResultDto) {    
-    let object = Object.fromEntries(new Map(model.items.map(obj=>{
-      return [obj.key, obj.value]})));
-      this.mat1 = object as unknown as Mat1ViewModel;
+    // let object = Object.fromEntries(new Map(model.items.map(obj=>{
+    //   return [obj.key, obj.value]})));
+    //   this.mat1 = object as unknown as Mat1ViewModel;
+    for (const key in this.mat1) {
+      if (Object.prototype.hasOwnProperty.call(this.mat1, key)) {
+        const item = model.items.find(i => i.key === key);
+        if(item){
+          this.mat1[key] = item.value;
+        }
+      }
+    }
   }
   
   @Input() Data: any;
-  //mat1 :Mat1ViewModel; 
-  mat1: Mat1ViewModel;
+  mat1: Mat1ViewModel = {
+    mat_checkbox_bth: "bth",
+    mat_radio_thitruong_dung: "bth",
+    mat_radio_thitruong_ngang: "bth",
+    mat_text_kk_mt: "10/10",
+    mat_text_kk_mp: "10/10",
+    mat_text_ck_mp: "10/10",
+    mat_text_ck_mt: "10/10",
+    mat_text_2m_ck: "10/10",
+    mat_text_2m_kk: "10/10",
+    mat_text_cbvm: "Không",
+    mat_text_mat_ketluan: "Đủ sức khỏe",
+    mat_checkbox_mumau_all: '',
+    mat_checkbox_mumau_do: '',
+    mat_checkbox_mumau_vang: '',
+    mat_checkbox_mumau_xanh: ''
+  };
   @Input() statusDataCheck: any;
   keys = [""];
   isEditable3= false;
@@ -56,21 +79,6 @@ export class Mat1Component extends CertificateKeyValueComponentBase<Mat1ViewMode
     if(this._permissionChecker.isGranted("Pages.Mat.Create")){
       this.isEditable3 = true;
     }
-    if(this.status == false)
-    {
-    this.mat1.mat_checkbox_bth = "bth";
-    this.mat1.mat_radio_thitruong_dung = "bth";
-    this.mat1.mat_radio_thitruong_ngang = "bth";
-    this.mat1.mat_text_kk_mt = "10/10";
-    this.mat1.mat_text_kk_mp = "10/10";
-    this.mat1.mat_text_ck_mp = "10/10";
-    this.mat1.mat_text_ck_mt = "10/10";
-    this.mat1.mat_text_2m_ck = "10/10";
-    this.mat1.mat_text_2m_kk = "10/10";
-    this.mat1.mat_text_cbvm = "Không";
-    this.mat1.mat_text_mat_ketluan = "Đủ sức khỏe"
-    }
-
   }
   save(): void {
     const inputmat1s : CreateMedicationKeyResultDto[] = [];

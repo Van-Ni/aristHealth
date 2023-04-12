@@ -16,11 +16,22 @@ interface CoXuongKhop1ViewModel {
 })
 export class CoXuongKhop1Component  extends CertificateKeyValueComponentBase<CoXuongKhop1ViewModel>  implements OnInit {
   setViewModel(model: any) {
-    let object = Object.fromEntries(new Map(model.items.map(obj=>{
-      return [obj.key, obj.value]})));
-      this.coxuongkhop1 = object as unknown as CoXuongKhop1ViewModel;
+    // let object = Object.fromEntries(new Map(model.items.map(obj=>{
+    //   return [obj.key, obj.value]})));
+    //   this.coxuongkhop1 = object as unknown as CoXuongKhop1ViewModel;
+    for (const key in this.coxuongkhop1) {
+      if (Object.prototype.hasOwnProperty.call(this.coxuongkhop1, key)) {
+        const item = model.items.find(i => i.key === key);
+        if(item){
+          this.coxuongkhop1[key] = item.value;
+        }
+      }
+    }
   }
-  coxuongkhop1: CoXuongKhop1ViewModel;
+  coxuongkhop1: CoXuongKhop1ViewModel = {
+    coxuongkhop_selectbox_phanloai :"Bình thường",
+    coxuongkhop_text_coxuongkhop_ketluan : "Đủ sức khỏe",
+  };
   @Input() Data: any;
   @Input() statusDataCheck: any;
   keys = [""];
@@ -38,12 +49,7 @@ export class CoXuongKhop1Component  extends CertificateKeyValueComponentBase<CoX
     if(this._permissionChecker.isGranted("Pages.CoXuongKhop.Create")){
       this.isEditable1 = true;
     }
-    if(this.status == false)
-    {
-    this.coxuongkhop1.coxuongkhop_selectbox_phanloai = "Bình thường";
-    this.coxuongkhop1.coxuongkhop_text_coxuongkhop_ketluan = "Đủ sức khỏe";
-    
-    }
+ 
   }
   save(): void{
     var inputcoxuongkhop1s : CreateMedicationKeyResultDto[] = [];

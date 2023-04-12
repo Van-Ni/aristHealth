@@ -6,7 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./subclinical-examination-type3.component.css']
 })
 export class SubclinicalExaminationType3Component implements OnInit {
-
+  ischuandoanha = true;
+  isMau = true;
+  isNuocTieu = true;
   constructor() { }
 
   ngOnInit() {

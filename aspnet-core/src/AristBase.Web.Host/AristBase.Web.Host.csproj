@@ -48,5 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="File\" />
+    <Folder Include="VolumeMap\pdf\output\" />
   </ItemGroup>
 </Project>

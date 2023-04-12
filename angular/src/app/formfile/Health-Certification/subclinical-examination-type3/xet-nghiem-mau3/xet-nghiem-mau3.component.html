@@ -1,3 +1,99 @@
-<p>
-  xet-nghiem-mau3 works!
-</p>
+<div class="container">
+  <p>1. Xét nghiệm máu:</p>
+  <p>a. Công thức máu:</p>
+  <form  autocomplete="off"
+  #createTuanHoan1="ngForm"
+  (ngSubmit)="save()">
+    <fieldset [disabled]="!isEditable2">
+      <div class="form-group row">
+        <div class="input-group">
+          <label for="chieucao" class="col-sm-2 col-form-label">Số lượng HC</label>
+          <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="xetnghiemmau3.xetnghiemmau_text_soluonghc"
+          [ngModelOptions]="{standalone: true}">
+          <div class="input-group-append">
+            <span class="input-group-text">x10^12/l</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="input-group">
+          <label for="chieucao" class="col-sm-2 col-form-label">Số lượng Bạch cầu</label>
+          <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="xetnghiemmau3.xetnghiemmau_text_soluongbc"
+          [ngModelOptions]="{standalone: true}">
+          <div class="input-group-append">
+            <span class="input-group-text">x10^9/l</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="input-group">
+          <label for="chieucao" class="col-sm-2 col-form-label">Số lượng Tiểu cầu</label>
+          <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="xetnghiemmau3.xetnghiemmau_text_soluongtc"
+          [ngModelOptions]="{standalone: true}">
+          <div class="input-group-append">
+            <span class="input-group-text">x10^9/l</span>
+          </div>
+        </div>
+      </div>
+      <p>b. Sinh hóa máu</p>
+      <div class="form-group row">
+        <div class="input-group">
+          <label for="chieucao" class="col-sm-2 col-form-label">Đường máu</label>
+          <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="xetnghiemmau3.xetnghiemmau_text_duongmau"
+          [ngModelOptions]="{standalone: true}">
+          <div class="input-group-append">
+            <span class="input-group-text">mmol/l</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="input-group">
+          <label for="chieucao" class="col-sm-2 col-form-label">Urê</label>
+          <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="xetnghiemmau3.xetnghiemmau_text_ure"
+          [ngModelOptions]="{standalone: true}">
+          <div class="input-group-append">
+            <span class="input-group-text">mmol/l</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="input-group">
+          <label for="chieucao" class="col-sm-2 col-form-label">Creatinin</label>
+          <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="xetnghiemmau3.xetnghiemmau_text_creatimin"
+          [ngModelOptions]="{standalone: true}">
+          <div class="input-group-append">
+            <span class="input-group-text">umol/l</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="input-group">
+          <label for="chieucao" class="col-sm-2 col-form-label">ASAT(GOT)</label>
+          <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="xetnghiemmau3.xetnghiemmau_text_asat"
+          [ngModelOptions]="{standalone: true}">
+          <div class="input-group-append">
+            <span class="input-group-text">U/L</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="input-group">
+          <label for="chieucao" class="col-sm-2 col-form-label">ALAT(GPT)</label>
+          <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="xetnghiemmau3.xetnghiemmau_text_alat"
+          [ngModelOptions]="{standalone: true}">
+          <div class="input-group-append">
+            <span class="input-group-text">U/L</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">c. Khác (Nếu có)</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"[(ngModel)]="xetnghiemmau3.xetnghiemmau_text_khac"
+        [ngModelOptions]="{standalone: true}"></textarea>
+      </div>
+      <div class="form-group row">
+        <button class="btn btn-primary">Lưu thông tin</button>
+      </div>
+    </fieldset>
+  </form>
+</div>

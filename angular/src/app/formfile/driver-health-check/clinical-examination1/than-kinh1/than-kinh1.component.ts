@@ -16,12 +16,20 @@ interface ThanKinh1ViewModel {
 })
 export class ThanKinh1Component extends CertificateKeyValueComponentBase<ThanKinh1ViewModel>  implements OnInit {
   setViewModel(model: any) {
-    let object = Object.fromEntries(new Map(model.items.map(obj=>{
-      return [obj.key, obj.value]
-    })));
-    this.thankinh1 = object as unknown as ThanKinh1ViewModel;
+    for (const key in this.thankinh1) {
+      if (Object.prototype.hasOwnProperty.call(this.thankinh1, key)) {
+        const item = model.items.find(i => i.key === key);
+        if(item){
+          this.thankinh1[key] = item.value;
+        }
+      }
+    }
   }
-  thankinh1: ThanKinh1ViewModel;
+  thankinh1: ThanKinh1ViewModel={
+    thankinh_text_noidung: '',
+    thankinh_selectbox_phanloai: 'Bình thường',
+    thankinh_text_thankinh_ketluan: 'Đủ sức khỏe'
+  };
   @Input() Data: any;
   @Input() statusDataCheck: any;
   
@@ -39,11 +47,6 @@ export class ThanKinh1Component extends CertificateKeyValueComponentBase<ThanKin
     super.ngOnInit();
     if(this._permissionChecker.isGranted("Pages.ThanKinh.Create")){
       this.isEditable8 = true;
-    }
-    if(this.status == false)
-    {
-    this.thankinh1.thankinh_selectbox_phanloai = "Bình thường";
-    this.thankinh1.thankinh_text_thankinh_ketluan = "Đủ sức khỏe";
     }
   }
   save(): void{

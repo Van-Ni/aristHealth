@@ -14,12 +14,18 @@ class KetLuan1ViewModel{
 })
 export class CurrentConclusionType1Component extends CertificateKeyValueComponentBase<KetLuan1ViewModel>  implements OnInit {
   setViewModel(model: any) {
-    let object = Object.fromEntries(new Map(model.items.map(obj=>{
-      return [obj.key, obj.value]
-    })));
-    this.ketluan1 = object as unknown as KetLuan1ViewModel;
+    for (const key in this.ketluan1) {
+      if (Object.prototype.hasOwnProperty.call(this.ketluan1, key)) {
+        const item = model.items.find(i => i.key === key);
+        if(item){
+          this.ketluan1[key] = item.value;
+        }
+      }
+    }
   }
-  ketluan1: KetLuan1ViewModel;
+  ketluan1: KetLuan1ViewModel ={
+    ketluan_text_phanloai: 'Đủ điều kiện lái xe hạng: '
+  };
   @Input() statusDataCheck: any;
   @Input() Data: any;
   keys = [""];

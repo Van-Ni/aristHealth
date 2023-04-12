@@ -32,7 +32,6 @@ export class DriverHealthCheckComponent implements AfterContentInit {
   isKhamLamSan1= true;
   isKhamCanLamSan1 = true;
   isKetLuan1 = true;
-  public  = false;
   request: PagedRequestDto;
   medicationKeyResult: IPagedResultDto<MedicationKeyResultDtoPagedResultViewModel>;
   certificateStatusResult:CertificateGroupStatusDtoPagedResultDto ;
@@ -42,35 +41,38 @@ export class DriverHealthCheckComponent implements AfterContentInit {
   ngAfterContentInit() {
     console.log(this.route.snapshot.params['id']);
     this.dataService.getAllKeyData().subscribe((result: MedicationKeyResultDtoPagedResultDto) => {
+      if(!result) return;
       console.log("Refresh data")
-      this.medicationKeyResult = {
-        items: result.items?.map(x => {
-          const medicationKeyResultDtoPagedResultViewModel = new MedicationKeyResultDtoPagedResultViewModel();
-          medicationKeyResultDtoPagedResultViewModel.id = x.id;
-          medicationKeyResultDtoPagedResultViewModel.certificateId = x.certificateId;
-          medicationKeyResultDtoPagedResultViewModel.key = x.key;
-          medicationKeyResultDtoPagedResultViewModel.value = x.value;
-          medicationKeyResultDtoPagedResultViewModel.group = x.group;
-          return medicationKeyResultDtoPagedResultViewModel;
-        }),
-        totalCount: result.totalCount
-      };
-      this.dataService.setData(this.route.snapshot.params['id']);
+      this.medicationKeyResult = result;
+      // this.medicationKeyResult = {
+      //   items: result.items?.map(x => {
+      //     const medicationKeyResultDtoPagedResultViewModel = new MedicationKeyResultDtoPagedResultViewModel();
+      //     medicationKeyResultDtoPagedResultViewModel.id = x.id;
+      //     medicationKeyResultDtoPagedResultViewModel.certificateId = x.certificateId;
+      //     medicationKeyResultDtoPagedResultViewModel.key = x.key;
+      //     medicationKeyResultDtoPagedResultViewModel.value = x.value;
+      //     medicationKeyResultDtoPagedResultViewModel.group = x.group;
+      //     return medicationKeyResultDtoPagedResultViewModel;
+      //   }),
+      //   totalCount: result.totalCount
+      // };
+      // this.dataService.setData(this.route.snapshot.params['id']);
     });
     this.dataService.getGroupData()
       .subscribe((result: CertificateGroupStatusDtoPagedResultDto) =>{
      this.certificateStatusResult = result;
     });
+    this.certificateServiceServiceProxy.getProfile(this.route.snapshot.params['id'])
+    .subscribe((result:CertificateDto)=>{
+      this.profile=result;
+    })
     this.getAllData();
   
   }
   getAllData(){
 
     this.dataService.refreshData(this.route.snapshot.params['id']);
-    this.certificateServiceServiceProxy.getProfile(this.route.snapshot.params['id'])
-    .subscribe((result:CertificateDto)=>{
-      this.profile=result;
-    })
+    
   }
 
 }

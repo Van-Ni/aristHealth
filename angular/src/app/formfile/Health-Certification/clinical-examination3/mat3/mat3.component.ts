@@ -1,4 +1,5 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
+import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
 import { CertificateGroupStatusDto, KhoaMatServiceServiceProxy, CreateMedicationKeyResultDto } from '@shared/service-proxies/service-proxies';
@@ -16,7 +17,13 @@ interface Mat3ViewModel {
   templateUrl: './mat3.component.html',
   styleUrls: ['./mat3.component.css']
 })
-export class Mat3Component extends AppComponentBase implements OnInit {
+export class Mat3Component extends CertificateKeyValueComponentBase<Mat3ViewModel> implements OnInit {
+  setViewModel(model: any) {
+    let object = Object.fromEntries(new Map(model.items.map(obj=>{
+      return [obj.key, obj.value]
+    })));
+      this.mat3 = object as unknown as Mat3ViewModel;
+  }
   
   @Input() Data: any;
   mat3 :Mat3ViewModel;  
@@ -27,24 +34,16 @@ export class Mat3Component extends AppComponentBase implements OnInit {
   certificateStatus: CertificateGroupStatusDto;
   status = false;
   constructor(private dataservice: DataService,private injector: Injector, private khoaMatServiceServiceProxy: KhoaMatServiceServiceProxy, private _permissionChecker: PermissionCheckerService,) {
-    super(injector)
+    super(injector, dataservice)
+    this.group = "mat";
    }
-  
-  ngOnInit() {
-    for (const item of this.statusDataCheck.items) {
-      if(item.group == "Mat")
-      {
-        this.status = true;
-      }
-    }
+
+   ngOnInit() {
+    super.ngOnInit();
     if(this._permissionChecker.isGranted("Pages.Mat.Create")){
       this.isEditable3 = true;
     }
-    this.certificateId = this.dataservice.getData();
-      let object = Object.fromEntries(new Map(this.Data.items.map(obj=>{
-      return [obj.key, obj.value]
-    })));
-      this.mat3 = object as unknown as Mat3ViewModel;
+
   }
   save(): void {
     const inputmat1s : CreateMedicationKeyResultDto[] = [];
@@ -53,35 +52,35 @@ export class Mat3Component extends AppComponentBase implements OnInit {
         key: 'mat_text_cbvm',
         value:  this.mat3.mat_text_cbvm|| '',
         certificateId: this.certificateId,
-        group: "Mat",
+        group: "mat",
       }
     );const item10 = new CreateMedicationKeyResultDto(
       {
         key: 'mat_text_ck_mp',
         value:  this.mat3.mat_text_ck_mp|| '',
         certificateId: this.certificateId,
-        group: "Mat",
+        group: "mat",
       }
     );const item11 = new CreateMedicationKeyResultDto(
       {
         key: 'mat_text_ck_mt',
         value:  this.mat3.mat_text_ck_mt|| '',
         certificateId: this.certificateId,
-        group: "Mat",
+        group: "mat",
       }
     );const item12 = new CreateMedicationKeyResultDto(
       {
         key: 'mat_text_kk_mp',
         value:  this.mat3.mat_text_kk_mp|| '',
         certificateId: this.certificateId,
-        group: "Mat",
+        group: "mat",
       }
     );const item13 = new CreateMedicationKeyResultDto(
       {
         key: 'mat_text_kk_mt',
         value:  this.mat3.mat_text_kk_mt|| '',
         certificateId: this.certificateId,
-        group: "Mat",
+        group: "mat",
       }
     );
     const item14 = new CreateMedicationKeyResultDto(
@@ -102,12 +101,14 @@ export class Mat3Component extends AppComponentBase implements OnInit {
       this.khoaMatServiceServiceProxy.updateOrInsert(inputmat1s).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
+          this.dataservice.refreshData(this.certificateId);
         },
       );
     }else{
       this.khoaMatServiceServiceProxy.createList(inputmat1s).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
+          this.dataservice.refreshData(this.certificateId);
         },
       );
     }

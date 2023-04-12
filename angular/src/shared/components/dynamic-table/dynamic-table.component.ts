@@ -12,8 +12,14 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 })
 export class DynamicTableComponent extends PagedListingComponentBase<EntityDto> {
   @Input() onList: Function;
+  keyword: '';
+  isActive: boolean | null;
+  advancedFiltersVisible = false;
   protected list(request: PagedRequestDto, pageNumber: number, finishedCallback: Function): void {
+    console.log("1");
     this.onList(request, (pageResult: IPagedResultDto<EntityDto>) => {
+      request.sortting=this.keyword;
+      console.log("sorrting",request);
       this.entity = pageResult.items;
       this.showPaging(pageResult, pageNumber);
         for (const key in pageResult.items[0]) {
@@ -26,6 +32,7 @@ export class DynamicTableComponent extends PagedListingComponentBase<EntityDto> 
     throw new Error('Method not implemented.');
   }
   entity : EntityDto[] = [];
+
   @Output() onEdit: EventEmitter<EntityDto> = new EventEmitter();
   @Output() onDelete: EventEmitter<EntityDto> = new EventEmitter();
   @Output() onView: EventEmitter<EntityDto> = new EventEmitter();
@@ -46,6 +53,11 @@ export class DynamicTableComponent extends PagedListingComponentBase<EntityDto> 
     this.filter[key] = checked;
   }
 
+  clearFilters(): void {
+    this.keyword = '';
+    this.isActive = undefined;
+    this.getDataPage(1);
+  }
 
   editClicked(clickedEntry: EntityDto): void {
     this.onEdit.emit(clickedEntry);

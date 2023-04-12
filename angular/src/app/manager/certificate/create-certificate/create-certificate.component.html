@@ -75,7 +75,7 @@
                 
             </div>
             <div class="form-group row">
-              <label for="CCCD" class="col-sm-3 col-form-label">ngày: </label>
+              <label for="CCCD" class="col-sm-3 col-form-label">Ngày cấp: </label>
               <div class="col-sm-9">
                 <div >
                   <input type="text"
@@ -95,9 +95,9 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="addressCCCD" class="col-sm-3 col-form-label">tại</label>
+              <label for="addressCCCD" class="col-sm-3 col-form-label">Nơi cấp</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control" id="addressCCCD" placeholder="Nơi cấp CCCD"
+                <input type="text" class="form-control" id="addressCCCD" placeholder="Cục Cảnh sát quản lý hành chính về trật tự xã hội"
                 [(ngModel)]="certificate.clientInfo.addressCCCD"
                             #addressCCCDModel="ngModel"
                             #addressCCCDEl
@@ -122,19 +122,19 @@
                       ></abp-validation-summary>
               </div>
             </div>
-            <div class="form-group row">
+            <!-- <div class="form-group row">
               <label for="GuardianName" class="col-sm-3 col-form-label">Họ và tên bố, mẹ hoặc người giám hộ</label>
               <div class="col-sm-9">
                 <input type="text" class="form-control" id="GuardianName"  [(ngModel)]="certificate.clientInfo.guardianName" [ngModelOptions]="{standalone: true}" placeholder="Họ và tên bố, mẹ hoặc người giám hộ" >
               </div>
-            </div>
+            </div> -->
             <div class="form-group row">
               <label for="certificate" class="col-sm-3 col-form-label">Chọn loại giấy</label>
               <div class="col-sm-9">
                 <select  class="form-control" [(ngModel)]="certificate.certificateTypeId" [ngModelOptions]="{standalone: true}">
                   <option value="1">Giấy khám sức khỏe thi bằng lái xe</option>
-                  <option value="2">Giấy khám sức khỏe loại 1</option>
-                  <option value="3">Giấy khám sức khỏe loại 2</option>
+                  <option value="2">Giấy khám sức khỏe dành cho người trên 18 tuổi</option>
+                  <option value="3">Giấy khám sức khỏe dành cho người dưới 18 tuổi</option>
                 </select>
               </div>
             </div>

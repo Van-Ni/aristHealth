@@ -15,11 +15,22 @@ interface NoiTiet1ViewModel {
 })
 export class NoiTiet1Component  extends CertificateKeyValueComponentBase<NoiTiet1ViewModel> implements OnInit {
   setViewModel(model: any) {
-    let object = Object.fromEntries(new Map(model.items.map(obj=>{
-      return [obj.key, obj.value]})));
-      this.noitiet1 = object as unknown as NoiTiet1ViewModel;
+    // let object = Object.fromEntries(new Map(model.items.map(obj=>{
+    //   return [obj.key, obj.value]})));
+    //   this.noitiet1 = object as unknown as NoiTiet1ViewModel;
+    for (const key in this.noitiet1) {
+      if (Object.prototype.hasOwnProperty.call(this.noitiet1, key)) {
+        const item = model.items.find(i => i.key === key);
+        if(item){
+          this.noitiet1[key] = item.value;
+        }
+      }
+    }
   }
-  noitiet1: NoiTiet1ViewModel;
+  noitiet1: NoiTiet1ViewModel = {
+    noitiet_selectbox_phanloai: 'Bình thường',
+    noitiet_text_noitiet_ketluan: 'Đủ sức khỏe'
+  };
   @Input() statusDataCheck: any;
   @Input() Data: any;
   keys = [""];
@@ -36,12 +47,6 @@ export class NoiTiet1Component  extends CertificateKeyValueComponentBase<NoiTiet
     super.ngOnInit();
     if(this._permissionChecker.isGranted("Pages.NoiTiet.Create")){
       this.isEditable4 = true;
-    }
-    if(this.status == false)
-    {
-    this.noitiet1.noitiet_selectbox_phanloai = "Bình thường";
-    this.noitiet1.noitiet_text_noitiet_ketluan = "Đủ sức khỏe";
-    
     }
   }
   save(): void{

@@ -16,12 +16,20 @@ interface ThaiSan1ViewModel {
 })
 export class ThaiSan1Component extends CertificateKeyValueComponentBase<ThaiSan1ViewModel> implements OnInit {
   setViewModel(model: any) {
-    let object = Object.fromEntries(new Map(model.items.map(obj=>{
-      return [obj.key, obj.value]
-    })));
-    this.thaisan1 = object as unknown as ThaiSan1ViewModel;
+    for (const key in this.thaisan1) {
+      if (Object.prototype.hasOwnProperty.call(this.thaisan1, key)) {
+        const item = model.items.find(i => i.key === key);
+        if(item){
+          this.thaisan1[key] = item.value;
+        }
+      }
+    }
   }
-  thaisan1: ThaiSan1ViewModel;
+  thaisan1: ThaiSan1ViewModel = {
+    thaisan_text_noidung: '',
+    thaisan_selectbox_phanloai: 'Bình thường',
+    thaisan_text_thaisan_ketluan: 'Đủ sức khỏe'
+  };
   @Input() statusDataCheck: any;
   @Input() Data: any;
   keys = [""];
@@ -38,12 +46,6 @@ export class ThaiSan1Component extends CertificateKeyValueComponentBase<ThaiSan1
     super.ngOnInit();
     if(this._permissionChecker.isGranted("Pages.ThaiSan.Create")){
       this.isEditable7 = true;
-    }
-    if(this.status == false)
-    {
-    this.thaisan1.thaisan_selectbox_phanloai = "Bình thường";
-    this.thaisan1.thaisan_text_thaisan_ketluan = "Đủ sức khỏe";
-    
     }
   }
   save(): void{

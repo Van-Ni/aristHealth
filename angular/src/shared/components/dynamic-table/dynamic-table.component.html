@@ -1,7 +1,23 @@
+<div class="card-header">
+  <div class="row">
+    <div class="col-md-6">&emsp;</div>
+    <div class="col-md-6">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <button type="button" class="btn bg-blue" (click)="getDataPage(1)">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+        <input type="text" class="form-control" name="keyword" [placeholder]="'SearchWithThreeDot' | localize"
+          (keyup.enter)="getDataPage(1)" [(ngModel)]="keyword" />
+      </div>
+    </div>
+  </div>
+</div>
 <div class="card-body">
   <div class="container">
     <div class="row">
-     
+
       <ng-template #template>
         <div class="modal-header">
           <h4 class="modal-title pull-left">Setting Table</h4>
@@ -12,7 +28,8 @@
         <div class="modal-body">
           <div *ngFor="let item of filter | keyvalue ">
             <div>
-              <input type="checkbox" id="filter" [checked]="item.value" (change)="updateCheckboxValue(item.key, $event.target.checked)">
+              <input type="checkbox" id="filter" [checked]="item.value"
+                (change)="updateCheckboxValue(item.key, $event.target.checked)">
               <label for="filter"> {{item.key| localize }}</label><br>
             </div>
           </div>
@@ -21,18 +38,16 @@
     </div>
   </div>
   <div class="table-responsive">
-    <table class="table table-striped table-bordered"
-      [busy]="isTableLoading">
+    <table class="table table-striped table-bordered" [busy]="isTableLoading">
       <thead class="bg-light">
         <tr>
-          <th *ngFor="let item of filter | keyvalue | filterByTrue">
-           {{item.key| localize }}
+          <th *ngFor="let item of filter | keyvalue | filterByTrue" [hidden]="item.key === 'id'">
+            {{item.key| localize }}
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr 
-        *ngFor="
+        <tr *ngFor="
           let output of entity
             | paginate
               : {
@@ -42,22 +57,23 @@
                   totalItems: totalItems
                 }
         ">
-          <td *ngFor="let item of filter | keyvalue | filterByTrue" (click)="viewProfile(output)" >
-            {{output[item.key]}}
+          <td *ngFor="let item of filter | keyvalue | filterByTrue" (click)="viewProfile(output)" [hidden]="item.key === 'id'">
+            <ng-container *ngIf="item.key !== 'status'" >
+              <p>{{output[item.key]}}</p>
+            </ng-container>
+            <p *ngIf="item.key == 'status' && output['status'] == 0">Bắt đầu</p>
+            <p *ngIf="item.key == 'status' && output['status'] == 1">Đang tiến hành</p>
+
           </td>
           <td>
-            <button type="button"
-              class="btn btn-sm bg-secondary"
-              (click)="editClicked(output)">
+            <button type="button" class="btn btn-sm bg-secondary" (click)="editClicked(output)">
               <i class="fas fa-pencil-alt"></i>
               {{ "Edit" | localize }}
             </button>
-            <button type="button"
-              class="btn btn-sm bg-danger mx-2"
-              (click)="deleteClicked(output)">
+            <!-- <button type="button" class="btn btn-sm bg-danger mx-2" (click)="deleteClicked(output)">
               <i class="fas fa-trash"></i>
               {{ "Delete" | localize }}
-            </button>
+            </button> -->
           </td>
         </tr>
       </tbody>
@@ -67,11 +83,11 @@
 <div class="card-footer table-card-footer bg-light border-top">
   <div class="row">
     <div class="col-sm-4 col-12 text-sm-left text-center">
-      <button class="btn btn-secondary"
-        (click)="refresh()">
+      <button class="btn btn-secondary" (click)="refresh()">
         <i class="fas fa-redo-alt"></i>
       </button>
-      <button style="margin-left: 0.5rem;" type="button" class="btn btn-primary" (click)="openModal(template)"><i class="fas fa-cog"></i></button>
+      <button style="margin-left: 0.5rem;" type="button" class="btn btn-primary" (click)="openModal(template)"><i
+          class="fas fa-cog"></i></button>
     </div>
     <div class="col-sm-4 col-12 text-center">
       <p class="mb-0 my-2">
@@ -80,8 +96,7 @@
     </div>
     <div class="col-sm-4 col-12">
       <div class="float-sm-right m-auto">
-        <abp-pagination-controls id="server"
-          (pageChange)="getDataPage($event)">
+        <abp-pagination-controls id="server" (pageChange)="getDataPage($event)">
         </abp-pagination-controls>
       </div>
     </div>

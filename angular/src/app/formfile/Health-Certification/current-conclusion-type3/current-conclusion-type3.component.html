@@ -1,7 +1,13 @@
 <h2 style="text-align: center;">KẾT LUẬN HIỆN TẠI</h2>
 <div class="container">
-  <div class="form-group">
-    <label for="exampleFormControlTextarea1">Phân loại sức khỏe</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
-  </div>
+  <form autocomplete="off"
+  #createTuanHoan1="ngForm"
+  (ngSubmit)="save()">
+    <fieldset [disabled]="!isEditable2">
+      <div class="form-group">
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"[(ngModel)]="ketluan3.ketluan_text_phanloai"
+        [ngModelOptions]="{standalone: true}"></textarea>
+      </div>
+    </fieldset>
+  </form>
 </div>

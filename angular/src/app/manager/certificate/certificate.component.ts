@@ -26,7 +26,7 @@ class CertificateViewModel{
   styleUrls: ['./certificate.component.css']
 })
 export class CertificateComponent  {
-  keyword = '';
+
   dropdownOpen: boolean = false;
   id: string;
   certificates: IPagedResultDto<CertificateViewModel>;
@@ -37,9 +37,12 @@ export class CertificateComponent  {
   constructor(injector: Injector, private router: Router,private _modalService: BsModalService, private certificateServiceServiceProxy: CertificateServiceServiceProxy, private route: ActivatedRoute
   ) {
   }
+  
   list=(request: PagedRequestDto, finishedCallback: Function)=>{
+    console.log("check", request);
+    console.log("2");
     this.certificateServiceServiceProxy
-      .getAll("", request.skipCount,  request.maxResultCount)     
+      .getAll(request.sortting, request.skipCount,  request.maxResultCount)     
       .subscribe((result: CertificateDtoPagedResultDto) => {
         
         this.certificates = {

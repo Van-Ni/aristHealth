@@ -1,4 +1,5 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
+import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
 import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, KhoaRangHamMatServiceServiceProxy } from '@shared/service-proxies/service-proxies';
@@ -14,7 +15,13 @@ interface RamHamMat3ViewModel {
   templateUrl: './rang-ham-mat.component.html',
   styleUrls: ['./rang-ham-mat.component.css']
 })
-export class RangHamMatComponent  extends AppComponentBase implements OnInit {
+export class RangHamMatComponent  extends CertificateKeyValueComponentBase<RamHamMat3ViewModel> implements OnInit {
+  setViewModel(model: any) {
+    let object = Object.fromEntries(new Map(model.items.map(obj=>{
+      return [obj.key, obj.value]
+    })));
+    this.ranghammat3 = object as unknown as RamHamMat3ViewModel;
+  }
   ranghammat3: RamHamMat3ViewModel;
   @Input() Data: any;
   keys = [""];
@@ -25,24 +32,16 @@ export class RangHamMatComponent  extends AppComponentBase implements OnInit {
   status = false;
   notify: any;
   constructor( private _permissionChecker: PermissionCheckerService,private dataservice: DataService,private injector: Injector,private KhoaRangHamMatServiceServiceProxy: KhoaRangHamMatServiceServiceProxy) {
-    super(injector);
+    super(injector, dataservice)
+    this.group = "ranghammat";
    }
 
-  ngOnInit() {
-    for (const item of this.statusDataCheck.items) {
-      if(item.group == "RangHamMat")
-      {
-        this.status = true;
-      }
-    }
-    this.certificateId = this.dataservice.getData();
+   ngOnInit() {
+    super.ngOnInit();
     if(this._permissionChecker.isGranted("Pages.RangHamMat.Create")){
       this.isEditable = true;
     }
-    let object = Object.fromEntries(new Map(this.Data.items.map(obj=>{
-      return [obj.key, obj.value]
-    })));
-    this.ranghammat3 = object as unknown as RamHamMat3ViewModel;
+
   }
   save(): void{
     var inputhohap2s : CreateMedicationKeyResultDto[] = [];
@@ -51,28 +50,28 @@ export class RangHamMatComponent  extends AppComponentBase implements OnInit {
         key: 'ranghammat_selectbox_phanloai',
         value:  this.ranghammat3.ranghammat_selectbox_phanloai|| '',
         certificateId: this.certificateId,  
-        group: "RangHamMat",
+        group: "ranghammat",
       }
     );const item3= new CreateMedicationKeyResultDto(
       {
         key: 'ranghammat_text_hamduoi',
         value:  this.ranghammat3.ranghammat_text_hamduoi|| '',
         certificateId: this.certificateId,
-        group: "RangHamMat",
+        group: "ranghammat",
       }
     );const item4 = new CreateMedicationKeyResultDto(
       {
         key: 'ranghammat_text_hamtren',
         value:  this.ranghammat3.ranghammat_text_hamtren|| '',
         certificateId: this.certificateId,
-        group: "RangHamMat",
+        group: "ranghammat",
       }
     );const item2 = new CreateMedicationKeyResultDto(
       {
         key: 'ranghammat_text_noidung',
         value:  this.ranghammat3.ranghammat_text_noidung|| '',
         certificateId: this.certificateId,
-        group: "RangHamMat",
+        group: "ranghammat",
       }
     );
     inputhohap2s.push(item1);
@@ -83,12 +82,14 @@ export class RangHamMatComponent  extends AppComponentBase implements OnInit {
       this.KhoaRangHamMatServiceServiceProxy.updateOrInsert(inputhohap2s).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
+          this.dataservice.refreshData(this.certificateId);
         },
       );
     }else{
       this.KhoaRangHamMatServiceServiceProxy.createList(inputhohap2s).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
+          this.dataservice.refreshData(this.certificateId);
         },
       );
     }

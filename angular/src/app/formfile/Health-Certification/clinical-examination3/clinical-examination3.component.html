@@ -1,12 +1,12 @@
 <h2 style="text-align: center;">Khám lâm sàn</h2>
-<div class="container" *ngIf="data">
+<div class="container" >
     <div (click)="isTuanHoan3 = !isTuanHoan3" [attr.aria-expanded]="!isTuanHoan3" aria-controls="collapseBasic">
         <h4>1. Tuần Hoàn</h4>
     </div>
     <hr>
     <div id="collapseBasic" [collapse]="isTuanHoan3" [isAnimated]="true">
         <div class="well well-lg card card-block card-header">
-            <app-tuan-hoan  [Data]="data" [statusDataCheck]="statusDataCheck3"></app-tuan-hoan>
+            <app-tuan-hoan  ></app-tuan-hoan>
         </div>
     </div>
     <div (click)="isHoHap3 = !isHoHap3" [attr.aria-expanded]="!isHoHap3" aria-controls="collapseBasic">
@@ -15,7 +15,7 @@
     <hr>
     <div id="collapseBasic" [collapse]="isHoHap3" [isAnimated]="true">
         <div class="well well-lg card card-block card-header">
-            <app-ho-hap3 [Data]="data" [statusDataCheck]="statusDataCheck3"></app-ho-hap3>
+            <app-ho-hap3 ></app-ho-hap3>
         </div>
     </div>
     <div (click)="isTieuHoa3 = !isTieuHoa3" [attr.aria-expanded]="!isTieuHoa3" aria-controls="collapseBasic">
@@ -24,7 +24,7 @@
     <hr>
     <div id="collapseBasic" [collapse]="isTieuHoa3" [isAnimated]="true">
         <div class="well well-lg card card-block card-header">
-            <app-tieu-hoa [Data]="data" [statusDataCheck]="statusDataCheck3"></app-tieu-hoa>
+            <app-tieu-hoa></app-tieu-hoa>
         </div>
     </div>
     <div (click)="isThan3 = !isThan3" [attr.aria-expanded]="!isThan3" aria-controls="collapseBasic">
@@ -33,7 +33,7 @@
     <hr>
     <div id="collapseBasic" [collapse]="isThan3" [isAnimated]="true">
         <div class="well well-lg card card-block card-header">
-            <app-than-tiet-nieu [Data]="data" [statusDataCheck]="statusDataCheck3"></app-than-tiet-nieu>
+            <app-than-tiet-nieu ></app-than-tiet-nieu>
         </div>
     </div>
     <div (click)="isCoXuongKhop3 = !isCoXuongKhop3" [attr.aria-expanded]="!isCoXuongKhop3" aria-controls="collapseBasic">
@@ -42,7 +42,7 @@
     <hr>
     <div id="collapseBasic" [collapse]="isCoXuongKhop3" [isAnimated]="true">
         <div class="well well-lg card card-block card-header">
-            <app-than-tiet-nieu [Data]="data" [statusDataCheck]="statusDataCheck3"></app-than-tiet-nieu>
+            <app-than-tiet-nieu ></app-than-tiet-nieu>
         </div>
     </div>
     <div (click)="isThanKinh3 = !isThanKinh3" [attr.aria-expanded]="!isThanKinh3" aria-controls="collapseBasic">
@@ -51,7 +51,7 @@
     <hr>
     <div id="collapseBasic" [collapse]="isThanKinh3" [isAnimated]="true">
         <div class="well well-lg card card-block card-header">
-            <app-than-kinh3 [Data]="data" [statusDataCheck]="statusDataCheck3"></app-than-kinh3>
+            <app-than-kinh3 ></app-than-kinh3>
         </div>
     </div>
     <div (click)="isTamThan3 = !isTamThan3" [attr.aria-expanded]="!isTamThan3"
@@ -61,7 +61,7 @@
     <hr>
     <div id="collapseBasic" [collapse]="isTamThan3" [isAnimated]="true">
         <div class="well well-lg card card-block card-header">
-            <app-tam-than3  [Data]="data" [statusDataCheck]="statusDataCheck3"></app-tam-than3>
+            <app-tam-than3 ></app-tam-than3>
         </div>
     </div>
     <div (click)="isNgoaiKhoa3 = !isNgoaiKhoa3" [attr.aria-expanded]="!isNgoaiKhoa3" aria-controls="collapseBasic">
@@ -70,7 +70,7 @@
     <hr>
     <div id="collapseBasic" [collapse]="isNgoaiKhoa3" [isAnimated]="true">
         <div class="well well-lg card card-block card-header">
-            <app-ngoai-khoa [Data]="data" [statusDataCheck]="statusDataCheck3"></app-ngoai-khoa>
+            <app-ngoai-khoa ></app-ngoai-khoa>
         </div>
     </div>
     <div (click)="isThaiSan3 = !isThaiSan3" [attr.aria-expanded]="!isThaiSan3" aria-controls="collapseBasic">
@@ -79,7 +79,7 @@
     <hr>
     <div id="collapseBasic" [collapse]="isThaiSan3" [isAnimated]="true">
         <div class="well well-lg card card-block card-header">
-            <app-san-phu-khoa [Data]="data" [statusDataCheck]="statusDataCheck3"></app-san-phu-khoa>
+            <app-san-phu-khoa ></app-san-phu-khoa>
         </div>
     </div>
     <div (click)="isMat3 = !isMat3" [attr.aria-expanded]="!isMat3" aria-controls="collapseBasic">
@@ -88,7 +88,7 @@
     <hr>
     <div id="collapseBasic" [collapse]="isMat3" [isAnimated]="true">
         <div class="well well-lg card card-block card-header">
-            <app-mat3 [Data]="data" [statusDataCheck]="statusDataCheck3"></app-mat3>
+            <app-mat3></app-mat3>
 
         </div>
     </div>
@@ -98,7 +98,7 @@
     <hr>
     <div id="collapseBasic" [collapse]="isTaiMuiHong3" [isAnimated]="true">
         <div class="well well-lg card card-block card-header">
-            <app-tai-mui-hong3  [Data]="data" [statusDataCheck]="statusDataCheck3"></app-tai-mui-hong3>
+            <app-tai-mui-hong3></app-tai-mui-hong3>
 
         </div>
     </div>
@@ -108,7 +108,7 @@
     <hr>
     <div id="collapseBasic" [collapse]="isRangHamMat3" [isAnimated]="true">
         <div class="well well-lg card card-block card-header">
-            <app-rang-ham-mat  [Data]="data" [statusDataCheck]="statusDataCheck3"></app-rang-ham-mat>
+            <app-rang-ham-mat ></app-rang-ham-mat>
 
         </div>
     </div>
@@ -118,7 +118,7 @@
     <hr>
     <div id="collapseBasic" [collapse]="isDaLieu3" [isAnimated]="true">
         <div class="well well-lg card card-block card-header">
-            <app-da-lieu [Data]="data" [statusDataCheck]="statusDataCheck3"></app-da-lieu>
+            <app-da-lieu></app-da-lieu>
         </div>
     </div>
 </div>

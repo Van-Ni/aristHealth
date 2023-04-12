@@ -18,12 +18,22 @@ interface TimMach1ViewModel {
 })
 export class TimMach1Component  extends CertificateKeyValueComponentBase<TimMach1ViewModel> implements OnInit {
   setViewModel(model: any) {
-    let object = Object.fromEntries(new Map(model.items.map(obj=>{
-      return [obj.key, obj.value]
-    })));
-    this.timmach1 = object as unknown as TimMach1ViewModel;
+    for (const key in this.timmach1) {
+      if (Object.prototype.hasOwnProperty.call(this.timmach1, key)) {
+        const item = model.items.find(i => i.key === key);
+        if(item){
+          this.timmach1[key] = item.value;
+        }
+      }
+    }
   }
-  timmach1: TimMach1ViewModel;
+  timmach1: TimMach1ViewModel = {
+    timmach_text_noidung: '',
+    timmach_text_mach: '',
+    timmach_text_huyetap: '',
+    timmach_selectbox_phanloai: 'Bình thường',
+    timmach_text_timmach_ketluan: 'Đủ sức khỏe'
+  };
   @Input() statusDataCheck: any;
   @Input() Data: any;
   keys = [""];
@@ -40,12 +50,6 @@ export class TimMach1Component  extends CertificateKeyValueComponentBase<TimMach
     super.ngOnInit();
     if(this._permissionChecker.isGranted("Pages.TimMach.Create")){
       this.isEditable9 = true;
-    }
-    if(this.status == false)
-    {
-    this.timmach1.timmach_selectbox_phanloai = "Bình thường";
-    this.timmach1.timmach_text_timmach_ketluan = "Đủ sức khỏe";
-    
     }
   }
   save(): void{
