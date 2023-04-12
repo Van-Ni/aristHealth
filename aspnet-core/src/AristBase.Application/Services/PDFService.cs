@@ -13,6 +13,7 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Pkcs;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -34,6 +35,10 @@ namespace AristBase.Services
         public const string CCCDTai = "client_text_cccdtai";
         public const string Address = "client_text_address";
         public const string Reason = "client_text_lidokham";
+        public const string DayText = "sys_text_thu";
+        public const string Day = "sys_text_ngay";
+        public const string Month = "sys_text_thang";
+        public const string Year = "sys_text_nam";
 
 
     }
@@ -67,17 +72,9 @@ namespace AristBase.Services
                 .Where(c => c.Id == cerId)
                 .Include(c => c.CertificateType)
                 .Include(c =>c.ClientInfo)
-                .SingleAsync();
-            switch (cer.CertificateType.Id)
-            {
-                default:
-                    {
-                        
-                        break;
-                    }
-            }
+                .SingleAsync();           
 
-            var cername = Guid.NewGuid().ToString("n")+ ".pdf";
+            
             var result = await _repository.GetAll().Where(r => r.CertificateId == cerId).ToListAsync();
             var dic = result.ToDictionary(r => r.Key, r => r.Value);
 
@@ -91,19 +88,35 @@ namespace AristBase.Services
             dic[PDFFieldConst.CCCDNC] = cer.ClientInfo.CreateTimeCCCD;
             dic[PDFFieldConst.Female] = cer.ClientInfo.Sex != "nam"? "True" : "False";
             dic[PDFFieldConst.Male] = cer.ClientInfo.Sex == "nam" ? "True" : "False";
+            //Prepare datetimedata
+            var now = Clock.Now;
+            dic[PDFFieldConst.DayText] = now.ToString("dddd", new CultureInfo("vi-VN"));
+            dic[PDFFieldConst.Day] = now.ToString("dd");
+            dic[PDFFieldConst.DayText] = now.ToString("MM");
+            dic[PDFFieldConst.DayText] = now.ToString("yyyy");
 
-
+            var cername = Guid.NewGuid().ToString("n") + ".pdf";
             var path = PathHelper.GetOutputPath(cername, "giaypheplaixe");
-            var ms = FiledPDF(cer.CertificateType.FilePath, path, dic, cerUserDic);
-            return new FileStreamResult(ms, "application/pdf");
+            FiledPDF(cer.CertificateType.FilePath, path, dic, cerUserDic);
+
+            cer.FileResult = path;
+            
+            using (var fs = File.OpenRead(path))
+            {
+                return new FileStreamResult(fs, "application/pdf")
+                {
+                    FileDownloadName = cername
+                };
+            }
         }
-        public FileStream FiledPDF(string templatePath, string outputPath, Dictionary<string, string> filedValues, Dictionary<string, User> cerUserDic)
+        public void FiledPDF(string templatePath, string outputPath, Dictionary<string, string> filedValues, Dictionary<string, User> cerUserDic)
         {
-            using FileStream os = new FileStream(outputPath, FileMode.Create);
-            using PdfReader reader = new PdfReader(templatePath);
-            FillPDF(reader, os, filedValues, cerUserDic);
-            reader.Close();
-            return os;
+            using (FileStream os = new FileStream(outputPath, FileMode.Create))
+            {
+                using PdfReader reader = new PdfReader(templatePath);
+                FillPDF(reader, os, filedValues, cerUserDic);
+                reader.Close();
+            }
         }
         protected void FillPDF(PdfReader reader, FileStream os, Dictionary<string, string> filedValues, Dictionary<string, User> cerUserDic)
         {            
@@ -125,7 +138,7 @@ namespace AristBase.Services
                 if (field.Key.StartsWith(PDFFieldConst.SignName))
                 {
                     var keyReplace = field.Key.Replace(PDFFieldConst.SignName, string.Empty);
-                    formFields.SetField(field.Key, cerUserDic[keyReplace].FullName);
+                    formFields.SetField(field.Key, cerUserDic[keyReplace].FullVNMName);
                     continue;
                 }
                 string value;
@@ -140,9 +153,9 @@ namespace AristBase.Services
                     formFields.SetField(field.Key, value);
                 else
                 {
-                    formFields.GenerateAppearances = false;
+                    //formFields.GenerateAppearances = false;
                     formFields.SetField(field.Key, value);
-                    formFields.GenerateAppearances = true;
+                    //formFields.GenerateAppearances = true;
                 }
 
             }
