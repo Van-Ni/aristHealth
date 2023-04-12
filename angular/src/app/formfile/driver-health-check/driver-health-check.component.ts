@@ -67,8 +67,6 @@ export class DriverHealthCheckComponent implements AfterContentInit {
   getAllData(){
 
     this.dataService.refreshData(this.route.snapshot.params['id']);
-    
-    
     this.certificateServiceServiceProxy.getProfile(this.route.snapshot.params['id'])
     .subscribe((result:CertificateDto)=>{
       this.profile=result;

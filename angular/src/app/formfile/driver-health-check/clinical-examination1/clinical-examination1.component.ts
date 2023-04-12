@@ -23,7 +23,5 @@ export class ClinicalExamination1Component implements AfterContentInit {
   constructor() { }
 
   ngAfterContentInit(): void {
-      this.data= this.Data;
-      this.statusDataCheck1= this.statusDataCheck;
   }
 }

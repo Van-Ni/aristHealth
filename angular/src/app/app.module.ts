@@ -106,7 +106,7 @@ import {ThanKinhTamThan2Component} from './formfile/health-certification-v2/clin
 import {ThanTietNieu2Component} from './formfile/health-certification-v2/clinical-examination2/than-tiet-nieu2/than-tiet-nieu2.component';
 import {TieuHoa2Component} from './formfile/health-certification-v2/clinical-examination2/tieu-hoa2/tieu-hoa2.component';
 import {TuanHoan2Component} from './formfile/health-certification-v2/clinical-examination2/tuan-hoan2/tuan-hoan2.component';
-
+import {Appove1Component} from './formfile/driver-health-check/appove1/appove1.component';
 //service
 import {DataService} from './services/data.service';
 import {LoadingService} from './services/loader/loading.service'
@@ -205,7 +205,8 @@ import {LoadingService} from './services/loader/loading.service'
         ThanKinhTamThan2Component,
         ThanTietNieu2Component,
         TieuHoa2Component,
-        TuanHoan2Component
+        TuanHoan2Component,
+        Appove1Component
     ],
     imports: [
         CommonModule,
