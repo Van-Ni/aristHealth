@@ -117,16 +117,16 @@
     <text name="ResetPasswordStepOneInfo">1. Nhập mật khẩu người quản trị</text>
     <text name="ResetPasswordStepTwoInfo">2. Sao chép mật khẩu này để gửi cho người dùng</text>
     <text name="UsersActivation">Kích hoạt người dùng</text>
-    <!--<text name="amountPaid">Từ khóa không hợp lệ!</text>
-    <text name="certificateTypeId">Từ khóa không hợp lệ!</text>
-    <text name="certificateType_Name">Từ khóa không hợp lệ!</text>
-    <text name="clientInfo_Name">Từ khóa không hợp lệ!</text>
-    <text name="paymentStatus">Từ khóa không hợp lệ!</text>
-    <text name="reason">Từ khóa không hợp lệ!</text>
-    <text name="status">Từ khóa không hợp lệ!</text>
-    <text name="certificate-types">Từ khóa không hợp lệ!</text>
-    <text name="certificates">Từ khóa không hợp lệ!</text>
-    <text name="CertificateType">Từ khóa không hợp lệ!</text>-->
+    <text name="amountPaid">Số tiền đã thanh toán</text>
+    <text name="certificateTypeId">ID loại giấy khám</text>
+    <text name="certificateType_Name">Tên loại giấy khám</text>
+    <text name="clientInfo_Name">Họ tên</text>
+    <text name="paymentStatus">Trạng thái thanh toán</text>
+    <text name="reason">Lý do</text>
+    <text name="status">Trạng thái</text>
+    <text name="certificate-types">Loại giấy khám</text>
+    <text name="certificates">Giấy khám</text>
+    <text name="CertificateType">Loại giấy khám</text>
 
 
   </texts>

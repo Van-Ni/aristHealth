@@ -23,7 +23,13 @@ export class XetNghiemMaTuyVaMauComponent extends CertificateKeyValueComponentBa
     })));
     this.xetnghiemmatuyvamau = object as unknown as XetnghiemMaTuyVaMauViewModel;
   }
-  xetnghiemmatuyvamau: XetnghiemMaTuyVaMauViewModel;
+  xetnghiemmatuyvamau: XetnghiemMaTuyVaMauViewModel = {
+    xetnghiemmatuyvamau_text_heroin: 'Âm tính',
+    xetnghiemmatuyvamau_text_amphetamin: 'Âm tính',
+    xetnghiemmatuyvamau_text_methamphetamin: 'Âm tính',
+    xetnghiemmatuyvamau_text_marijuana: 'Âm tính',
+    xetnghiemmatuyvamau_text_nongdomau: '0.00 mgld'
+  };
   @Input() Data: any;
   keys = [""];
   isEditable11= false;

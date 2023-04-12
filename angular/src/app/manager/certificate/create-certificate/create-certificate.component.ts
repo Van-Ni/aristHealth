@@ -9,7 +9,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./create-certificate.component.css']
 })
 export class CreateCertificateComponent extends AppComponentBase implements OnInit {
-  certificate:CreateCertificateDto;
+  certificate:CreateCertificateDto ;
   saving= false;
   constructor(private certificateServiceServiceProxy: CertificateServiceServiceProxy,    public bsModalRef: BsModalRef,
      private injector: Injector) 

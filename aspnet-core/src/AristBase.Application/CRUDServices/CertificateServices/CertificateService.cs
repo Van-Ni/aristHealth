@@ -4,9 +4,11 @@ using Abp.Domain.Repositories;
 using AristBase.BaseEntity;
 using AristBase.CRUDServices.CertificateServices.Dto;
 using AristBase.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,13 +41,24 @@ namespace AristBase.CRUDServices.CertificateServices
         public async override Task<CertificateDto> CreateAsync(CreateCertificateDto input)
         {
             CheckCreatePermission();
-
+            DateTime date1 = DateTime.ParseExact(input.ClientInfo.CreateTimeCCCD, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture);
+            input.ClientInfo.CreateTimeCCCD = date1.ToString("dd-MM-yyyy");
+            DateTime date = DateTime.ParseExact(input.ClientInfo.DateOfBirth, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture);
+             input.ClientInfo.DateOfBirth = date.ToString("dd-MM-yyyy");
             var entity = MapToEntity(input);
 
             await Repository.InsertAsync(entity);
             await CurrentUnitOfWork.SaveChangesAsync();
 
             return MapToEntityDto(entity);
+        }
+        public override Task<CertificateDto> UpdateAsync(UpdateCertificateDto input)
+        {
+            DateTime date1 = DateTime.ParseExact(input.ClientInfo.CreateTimeCCCD, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture);
+            input.ClientInfo.CreateTimeCCCD = date1.ToString("dd-MM-yyyy");
+            DateTime date = DateTime.ParseExact(input.ClientInfo.DateOfBirth, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture);
+            input.ClientInfo.DateOfBirth = date.ToString("dd-MM-yyyy");
+            return base.UpdateAsync(input);
         }
         public async Task<CertificateDto> GetProfile(Guid id)
         {
