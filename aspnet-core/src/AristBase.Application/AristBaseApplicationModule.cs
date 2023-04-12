@@ -13,6 +13,7 @@ namespace AristBase
         public override void PreInitialize()
         {
             Configuration.Authorization.Providers.Add<AristBaseAuthorizationProvider>();
+            Configuration.BackgroundJobs.IsJobExecutionEnabled = false;
         }
 
         public override void Initialize()
