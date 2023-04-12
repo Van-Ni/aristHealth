@@ -36,6 +36,8 @@ namespace AristBase.EntityFrameworkCore
                 p.Key,
                 p.CertificateId
             }).IsUnique();
+
+            modelBuilder.Entity<MedicationKeyResult>().HasIndex(p => p.CertificateId);
             //modelBuilder.Entity<ReportTemplate>().Property(r => r.TemplateDescription).HasColumnType("jsonb");
             //modelBuilder.Entity<HistoryExport>().Property(r => r.TemplateValue).HasColumnType("jsonb");
             //modelBuilder.Entity<ApplicationLanguageText>()

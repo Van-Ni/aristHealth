@@ -3,6 +3,7 @@ using System;
 using AristBase.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AristBase.Migrations
 {
     [DbContext(typeof(AristBaseDbContext))]
-    partial class AristBaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230411143949_signpath")]
+    partial class signpath
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1522,9 +1525,6 @@ namespace AristBase.Migrations
                         .HasMaxLength(328)
                         .HasColumnType("character varying(328)");
 
-                    b.Property<string>("FullName")
-                        .HasColumnType("text");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
@@ -1579,9 +1579,6 @@ namespace AristBase.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(32)
                         .HasColumnType("character varying(32)");
-
-                    b.Property<string>("Prefix")
-                        .HasColumnType("text");
 
                     b.Property<string>("SecurityStamp")
                         .HasMaxLength(128)
