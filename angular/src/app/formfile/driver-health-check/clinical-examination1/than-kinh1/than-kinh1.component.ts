@@ -1,4 +1,5 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
+import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
 import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, KhoaThanKinhServiceServiceProxy } from '@shared/service-proxies/service-proxies';
@@ -13,7 +14,13 @@ interface ThanKinh1ViewModel {
   templateUrl: './than-kinh1.component.html',
   styleUrls: ['./than-kinh1.component.css']
 })
-export class ThanKinh1Component extends AppComponentBase  implements OnInit {
+export class ThanKinh1Component extends CertificateKeyValueComponentBase<ThanKinh1ViewModel>  implements OnInit {
+  setViewModel(model: any) {
+    let object = Object.fromEntries(new Map(model.items.map(obj=>{
+      return [obj.key, obj.value]
+    })));
+    this.thankinh1 = object as unknown as ThanKinh1ViewModel;
+  }
   thankinh1: ThanKinh1ViewModel;
   @Input() Data: any;
   @Input() statusDataCheck: any;
@@ -24,24 +31,16 @@ export class ThanKinh1Component extends AppComponentBase  implements OnInit {
   certificateStatus: CertificateGroupStatusDto;
   status = false;
   constructor( private _permissionChecker: PermissionCheckerService,private dataservice: DataService,private injector: Injector, private khoaThanKinhServiceServiceProxy: KhoaThanKinhServiceServiceProxy) {
-     super(injector);
+    super(injector, dataservice)
+    this.group = "thankinh";
    }
-
+  
   ngOnInit() {
-    for (const item of this.statusDataCheck.items) {
-      if(item.group == "ThanKinh")
-      {
-        this.status = true;
-      }
-    }
-    this.certificateId = this.dataservice.getData();
+    super.ngOnInit();
     if(this._permissionChecker.isGranted("Pages.ThanKinh.Create")){
       this.isEditable8 = true;
     }
-    let object = Object.fromEntries(new Map(this.Data.items.map(obj=>{
-      return [obj.key, obj.value]
-    })));
-    this.thankinh1 = object as unknown as ThanKinh1ViewModel;
+
   }
   save(): void{
     var inputthankinh1s : CreateMedicationKeyResultDto[] = [];
@@ -50,14 +49,14 @@ export class ThanKinh1Component extends AppComponentBase  implements OnInit {
         key: 'thankinh_selectbox_phanloai',
         value:  this.thankinh1.thankinh_selectbox_phanloai|| '',
         certificateId: this.certificateId,  
-        group: "ThanKinh",
+        group: this.group,
       }
     );const item2 = new CreateMedicationKeyResultDto(
       {
         key: 'thankinh_text_thankinh_ketluan',
         value:  this.thankinh1.thankinh_text_thankinh_ketluan|| '',
         certificateId: this.certificateId,
-        group: "ThanKinh",
+        group: this.group,
       }
     );
     inputthankinh1s.push(item1);
@@ -66,12 +65,14 @@ export class ThanKinh1Component extends AppComponentBase  implements OnInit {
       this.khoaThanKinhServiceServiceProxy.updateOrInsert(inputthankinh1s).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
+          this.dataservice.refreshData(this.certificateId);
         },
       );
     }else{
       this.khoaThanKinhServiceServiceProxy.createList(inputthankinh1s).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
+          this.dataservice.refreshData(this.certificateId);
         },
       );
     }

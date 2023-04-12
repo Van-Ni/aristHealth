@@ -1,10 +1,11 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
+import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CreateMedicationKeyResultDto, KhoaNgoaiKhoaServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, KhoaNgoaiKhoaServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 interface NgoaiKhoa1ViewModel {
   ngoaikhoa_selectbox_phanloai: string;
-  ngoaikhoa_text_hohap_ketluan: string;
+  ngoaikhoa_text_ngoaikhoa_ketluan: string;
 }
 @Component({
   selector: 'app-ngoai-khoa',
@@ -12,46 +13,66 @@ interface NgoaiKhoa1ViewModel {
   styleUrls: ['./ngoai-khoa.component.css']
 })
 export class NgoaiKhoaComponent extends AppComponentBase implements OnInit {
-  ngoaikhoa: NgoaiKhoa1ViewModel;
+  ngoaikhoa3: NgoaiKhoa1ViewModel;
   @Input() Data: any;
   keys = [""];
   isEditable= false;
-  constructor( private _permissionChecker: PermissionCheckerService,private injector: Injector,private khoaNgoaiKhoaServiceServiceProxy: KhoaNgoaiKhoaServiceServiceProxy) {
+  @Input() statusDataCheck: any;
+  certificateId: string;
+  certificateStatus: CertificateGroupStatusDto;
+  status = false;
+  notify: any;
+  constructor( private _permissionChecker: PermissionCheckerService,private dataservice: DataService,private injector: Injector,private KhoaNgoaiKhoaServiceServiceProxy: KhoaNgoaiKhoaServiceServiceProxy) {
     super(injector);
    }
 
   ngOnInit() {
+    for (const item of this.statusDataCheck.items) {
+      if(item.group == "NgoaiKhoa")
+      {
+        this.status = true;
+      }
+    }
+    this.certificateId = this.dataservice.getData();
     if(this._permissionChecker.isGranted("Pages.NgoaiKhoa.Create")){
       this.isEditable = true;
-      console.log(this.isEditable) 
     }
     let object = Object.fromEntries(new Map(this.Data.items.map(obj=>{
       return [obj.key, obj.value]
     })));
-    this.ngoaikhoa = object as unknown as NgoaiKhoa1ViewModel;
+    this.ngoaikhoa3 = object as unknown as NgoaiKhoa1ViewModel;
   }
   save(): void{
-    var inputmat1s : CreateMedicationKeyResultDto[] = [];
-    for (const key in this.ngoaikhoa) {
-      if (Object.prototype.hasOwnProperty.call(this.ngoaikhoa, key)) {
-        const element = this.ngoaikhoa[key];
-        if(key.startsWith("ngoaikhoa"))
-        {
-        inputmat1s.push(new CreateMedicationKeyResultDto({
-          key: key,
-          value:  element,
-          group: "NgoaiKhoa",
-          certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
-        }));  
-        }      
+    var inputhohap2s : CreateMedicationKeyResultDto[] = [];
+    const item1 = new CreateMedicationKeyResultDto(
+      {
+        key: 'ngoaikhoa_selectbox_phanloai',
+        value:  this.ngoaikhoa3.ngoaikhoa_selectbox_phanloai|| '',
+        certificateId: this.certificateId,  
+        group: "NgoaiKhoa",
       }
-    }
-    this.khoaNgoaiKhoaServiceServiceProxy.createList(inputmat1s).subscribe(
-      () => {
-        
-        this.notify.info(this.l('SavedSuccessfully.'));
-      },
-      
+    );const item2 = new CreateMedicationKeyResultDto(
+      {
+        key: 'ngoaikhoa_text_ngoaikhoa_ketluan',
+        value:  this.ngoaikhoa3.ngoaikhoa_text_ngoaikhoa_ketluan|| '',
+        certificateId: this.certificateId,
+        group: "NgoaiKhoa",
+      }
     );
+    inputhohap2s.push(item1);
+    inputhohap2s.push(item2);
+    if(this.status == true){
+      this.KhoaNgoaiKhoaServiceServiceProxy.updateOrInsert(inputhohap2s).subscribe(
+        () => {
+          this.notify.info(this.l('SavedSuccessfully.'));
+        },
+      );
+    }else{
+      this.KhoaNgoaiKhoaServiceServiceProxy.createList(inputhohap2s).subscribe(
+        () => {
+          this.notify.info(this.l('SavedSuccessfully.'));
+        },
+      );
+    }
   }
 }

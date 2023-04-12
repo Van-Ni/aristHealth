@@ -1,4 +1,5 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
+import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
 import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, KhoaNoiTietServiceServiceProxy } from '@shared/service-proxies/service-proxies';
@@ -12,7 +13,12 @@ interface NoiTiet1ViewModel {
   templateUrl: './noi-tiet1.component.html',
   styleUrls: ['./noi-tiet1.component.css']
 })
-export class NoiTiet1Component  extends AppComponentBase implements OnInit {
+export class NoiTiet1Component  extends CertificateKeyValueComponentBase<NoiTiet1ViewModel> implements OnInit {
+  setViewModel(model: any) {
+    let object = Object.fromEntries(new Map(model.items.map(obj=>{
+      return [obj.key, obj.value]})));
+      this.noitiet1 = object as unknown as NoiTiet1ViewModel;
+  }
   noitiet1: NoiTiet1ViewModel;
   @Input() statusDataCheck: any;
   @Input() Data: any;
@@ -22,24 +28,15 @@ export class NoiTiet1Component  extends AppComponentBase implements OnInit {
   certificateStatus: CertificateGroupStatusDto;
   status = false;
   constructor(private _permissionChecker: PermissionCheckerService,private dataservice: DataService,private injector: Injector, private khoaNoiTietServiceServiceProxy: KhoaNoiTietServiceServiceProxy) { 
-    super(injector)
-  }
-
+    super(injector, dataservice)
+    this.group = "noitiet";
+   }
+  
   ngOnInit() {
-    for (const item of this.statusDataCheck.items) {
-      if(item.group == "NoiTiet")
-      {
-        this.status = true;
-      }
-    }
-    this.certificateId = this.dataservice.getData();
+    super.ngOnInit();
     if(this._permissionChecker.isGranted("Pages.NoiTiet.Create")){
       this.isEditable4 = true;
     }
-    let object = Object.fromEntries(new Map(this.Data.items.map(obj=>{
-      return [obj.key, obj.value]
-    })));
-    this.noitiet1 = object as unknown as NoiTiet1ViewModel;
   }
   save(): void{
     var inputnoitiet1s : CreateMedicationKeyResultDto[] = [];
@@ -48,14 +45,14 @@ export class NoiTiet1Component  extends AppComponentBase implements OnInit {
         key: 'noitiet_selectbox_phanloai',
         value:  this.noitiet1.noitiet_selectbox_phanloai|| '',
         certificateId: this.certificateId,  
-        group: "NoiTiet",
+        group: this.group,
       }
     );const item2 = new CreateMedicationKeyResultDto(
       {
         key: 'noitiet_text_noitiet_ketluan',
         value:  this.noitiet1.noitiet_text_noitiet_ketluan|| '',
         certificateId: this.certificateId,
-        group: "NoiTiet",
+        group: this.group,
       }
     );
     inputnoitiet1s.push(item1);
@@ -64,12 +61,14 @@ export class NoiTiet1Component  extends AppComponentBase implements OnInit {
       this.khoaNoiTietServiceServiceProxy.updateOrInsert(inputnoitiet1s).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
+          this.dataservice.refreshData(this.certificateId);
         },
       );
     }else{
       this.khoaNoiTietServiceServiceProxy.createList(inputnoitiet1s).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
+          this.dataservice.refreshData(this.certificateId);
         },
       );
     }

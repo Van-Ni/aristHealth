@@ -19,7 +19,7 @@ import { API_BASE_URL } from '@shared/service-proxies/service-proxies';
 import { RootComponent } from './root.component';
 import { AppInitializer } from './app-initializer';
 import { MyRefreshTokenService } from '@shared/auth/my-refresh-token.service';
-
+import {SpinerInterceptor} from './shared/interceptors/SpinerInterceptor'
 export function getCurrentLanguage(): string {
   if (abp.localization.currentLanguage.name) {
     return abp.localization.currentLanguage.name;
@@ -45,6 +45,7 @@ export function getCurrentLanguage(): string {
   declarations: [RootComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AbpHttpInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: SpinerInterceptor, multi: true },
     { provide: RefreshTokenService, useClass: MyRefreshTokenService},
     {
       provide: APP_INITIALIZER,

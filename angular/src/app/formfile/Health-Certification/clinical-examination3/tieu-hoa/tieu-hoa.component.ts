@@ -1,10 +1,11 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
+import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CreateMedicationKeyResultDto, TieuHoaServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, TieuHoaServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 interface TieuHoa1ViewModel {
   tieuhoa_selectbox_phanloai: string;
-  tieuhoa_text_hohap_ketluan: string;
+  tieuhoa_text_tieuhoa_noidung: string;
 }
 @Component({
   selector: 'app-tieu-hoa',
@@ -16,14 +17,25 @@ export class TieuHoaComponent extends AppComponentBase implements OnInit {
   @Input() Data: any;
   keys = [""];
   isEditable= false;
-  constructor( private _permissionChecker: PermissionCheckerService,private injector: Injector,private tieuHoaServiceServiceProxy: TieuHoaServiceServiceProxy) {
+  @Input() statusDataCheck: any;
+  certificateId: string;
+  certificateStatus: CertificateGroupStatusDto;
+  status = false;
+  notify: any;
+  constructor( private _permissionChecker: PermissionCheckerService,private dataservice: DataService,private injector: Injector,private tieuHoaServiceServiceProxy: TieuHoaServiceServiceProxy) {
     super(injector);
    }
 
   ngOnInit() {
-    if(this._permissionChecker.isGranted("Pages.TieuHoa.Create")){
+    for (const item of this.statusDataCheck.items) {
+      if(item.group == "TuanHoan")
+      {
+        this.status = true;
+      }
+    }
+    this.certificateId = this.dataservice.getData();
+    if(this._permissionChecker.isGranted("Pages.TuanHoan.Create")){
       this.isEditable = true;
-      console.log(this.isEditable) 
     }
     let object = Object.fromEntries(new Map(this.Data.items.map(obj=>{
       return [obj.key, obj.value]
@@ -31,27 +43,36 @@ export class TieuHoaComponent extends AppComponentBase implements OnInit {
     this.tieuhoa1 = object as unknown as TieuHoa1ViewModel;
   }
   save(): void{
-    var inputmat1s : CreateMedicationKeyResultDto[] = [];
-    for (const key in this.tieuhoa1) {
-      if (Object.prototype.hasOwnProperty.call(this.tieuhoa1, key)) {
-        const element = this.tieuhoa1[key];
-        if(key.startsWith("tieuhoa"))
-        {
-        inputmat1s.push(new CreateMedicationKeyResultDto({
-          key: key,
-          value:  element,
-          group: "TuanHoan",
-          certificateId: 'f4e1980b-40d9-49d5-9c59-7a364ced6253',
-        }));  
-        }      
+    var inputhohap2s : CreateMedicationKeyResultDto[] = [];
+    const item1 = new CreateMedicationKeyResultDto(
+      {
+        key: 'tieuhoa_selectbox_phanloai',
+        value:  this.tieuhoa1.tieuhoa_selectbox_phanloai|| '',
+        certificateId: this.certificateId,  
+        group: "TuanHoan",
       }
-    }
-    this.tieuHoaServiceServiceProxy.createList(inputmat1s).subscribe(
-      () => {
-        
-        this.notify.info(this.l('SavedSuccessfully.'));
-      },
-      
+    );const item2 = new CreateMedicationKeyResultDto(
+      {
+        key: 'tieuhoa_text_tieuhoa_noidung',
+        value:  this.tieuhoa1.tieuhoa_text_tieuhoa_noidung|| '',
+        certificateId: this.certificateId,
+        group: "TuanHoan",
+      }
     );
+    inputhohap2s.push(item1);
+    inputhohap2s.push(item2);
+    if(this.status == true){
+      this.tieuHoaServiceServiceProxy.updateOrInsert(inputhohap2s).subscribe(
+        () => {
+          this.notify.info(this.l('SavedSuccessfully.'));
+        },
+      );
+    }else{
+      this.tieuHoaServiceServiceProxy.createList(inputhohap2s).subscribe(
+        () => {
+          this.notify.info(this.l('SavedSuccessfully.'));
+        },
+      );
+    }
   }
 }

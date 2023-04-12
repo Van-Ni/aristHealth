@@ -58,6 +58,7 @@ export class CertificateComponent  {
           totalCount: result.totalCount
         };
         finishedCallback(this.certificates);
+        
       });
   }
   editEnterprise(enterprise: CertificateViewModel): void {

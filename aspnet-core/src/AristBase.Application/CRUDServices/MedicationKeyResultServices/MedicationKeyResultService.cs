@@ -161,26 +161,26 @@ namespace AristBase.CRUDServices.MedicationKeyResultServices
         {
         }
     }
-    public class GetDataService : AsyncCrudAppService<MedicationKeyResult, MedicationKeyResultDto, Guid, ParentPagedAndSortedResultRequestDto>
+    public class KhamLamSanService : KeyValueBaseService
+    {
+        public KhamLamSanService(IRepository<MedicationKeyResult, Guid> repository, IRepository<CertificateGroupStatus, Guid> repositoryCGS) : base(repository, repositoryCGS, PermissionNames.KhamLamSanKhac)
+        {
+        }
+    }
+    public class GetDataService : AsyncCrudAppService<MedicationKeyResult, MedicationKeyResultDto, Guid, Guid>
     {
         public GetDataService(IRepository<MedicationKeyResult, Guid> repository)
             : base(repository)
         {
         }
-        public async override Task<PagedResultDto<MedicationKeyResultDto>> GetAllAsync(ParentPagedAndSortedResultRequestDto input)
+        public async override Task<PagedResultDto<MedicationKeyResultDto>> GetAllAsync(Guid input)
         {
             CheckGetAllPermission();
 
             var query = CreateFilteredQuery(input);
-            query = query.Where(w => w.CertificateId == input.CertificateId);
-            if (input.Group != null)
-            {
-                query = query.Where(w => w.Group.Equals(input.Group));
-            }
-            var totalCount = await AsyncQueryableExecuter.CountAsync(query);
+            query = query.Where(w => w.CertificateId == input);
 
-            query = ApplySorting(query, input);
-            query = ApplyPaging(query, input);
+            var totalCount = await AsyncQueryableExecuter.CountAsync(query);
 
             var entities = await AsyncQueryableExecuter.ToListAsync(query);
 

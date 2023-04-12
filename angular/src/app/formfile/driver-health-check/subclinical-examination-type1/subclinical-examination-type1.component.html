@@ -1,5 +1,5 @@
 <h2 style="text-align: center;">KHÁM CẬN LÂM SÀN</h2>
-<div class="container">
+<div class="container"  *ngIf="data">
   <div (click)="isXetNghiemMaTuy = !isXetNghiemMaTuy"
   [attr.aria-expanded]="!isXetNghiemMaTuy" aria-controls="collapseBasic"><h4>Xét nghiệm ma túy</h4>
   </div>
@@ -18,8 +18,5 @@
     <div class="well well-lg card card-block card-header">
       <app-xet-nghiem-khac1  [Data]="data" [statusDataCheck]="statusDataCheck1"></app-xet-nghiem-khac1>
     </div>
-  </div>
-  <div class="form-group row">
-    <button class="btn btn-primary">Lưu thông tin</button>
   </div>
 </div>

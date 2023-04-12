@@ -13,6 +13,7 @@ using DocumentFormat.OpenXml.Vml.Office;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,7 +44,7 @@ namespace AristBase.CRUDServices.MedicationKeyResultServices
                 );
             }
         }
-        public async ValueTask<List<MedicationKeyResultDto>> CreateList(List<CreateMedicationKeyResultDto> input)
+        public async ValueTask<List<MedicationKeyResultDto>> CreateList([MinLength(1)]List<CreateMedicationKeyResultDto> input)
         {
             CheckCreatePermission();
             CustomCheckPermission(input);
@@ -61,9 +62,9 @@ namespace AristBase.CRUDServices.MedicationKeyResultServices
                 var addStatus = new CreateCertificateGroupStatusDto()
                 {
                     CertificateId = input[0].CertificateId,
-                    Group = input[0].Group,
+                    Group = input[0].Group.ToLower(),
                     status = true,
-                    UserId = 3
+                    UserId = (long)AbpSession.UserId
                 };
                 await repositoryCGS.InsertAsync(ObjectMapper.Map<CertificateGroupStatus>(addStatus));
                 await CurrentUnitOfWork.SaveChangesAsync();

@@ -22,24 +22,7 @@
   
     <div class="container-fluid">
       <div class="card">
-        <div class="card-header">
-          <div class="row">
-            <div class="col-md-6"><div class="dropdown">
-              <button class="dropdown-toggle dropdown-toggle-split"  class="btn btn-secondary" type="button" (click)="dropdownOpen = !dropdownOpen">
-                <i class="fas fa-filter"></i> Lọc nâng cao
-              </button>
-              <div class="dropdown-menu dropdown-menu-left" [class.show]="dropdownOpen" id="filter-enterprise">
-                <div class="row">
-                    <div class="col-12">
-                    </div>
-                </div>
-               
-              </div>
-            </div>
-            </div>
-
-          </div>
-        </div>
+        
         <app-dynamic-table
         (onEdit)="onTableItemClick($event)" 
         (onDelete)="onDeleteItemTable($event)"

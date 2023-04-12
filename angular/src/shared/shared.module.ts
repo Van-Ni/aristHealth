@@ -18,6 +18,7 @@ import { LayoutStoreService } from './layout/layout-store.service';
 import { BusyDirective } from './directives/busy.directive';
 import { EqualValidator } from './directives/equal-validator.directive';
 import {DynamicTableComponent} from './components/dynamic-table/dynamic-table.component'
+import {SpinnerComponent} from './components/spinner/spinner.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -33,7 +34,8 @@ import {DynamicTableComponent} from './components/dynamic-table/dynamic-table.co
         BusyDirective,
         EqualValidator,
         DynamicTableComponent,
-        FilterByTruePipe
+        FilterByTruePipe,
+        SpinnerComponent
     ],
     exports: [
         AbpPaginationControlsComponent,
@@ -44,7 +46,8 @@ import {DynamicTableComponent} from './components/dynamic-table/dynamic-table.co
         BusyDirective,
         EqualValidator, 
         DynamicTableComponent,
-        FilterByTruePipe
+        FilterByTruePipe,
+        SpinnerComponent
     ]
 })
 export class SharedModule {
@@ -56,7 +59,7 @@ export class SharedModule {
                 AppUrlService,
                 AppAuthService,
                 AppRouteGuard,
-                LayoutStoreService
+                LayoutStoreService,
             ]
         };
     }

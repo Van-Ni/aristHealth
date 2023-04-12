@@ -52,6 +52,5 @@ namespace AristBase.CRUDServices.CertificateServices
             var get = await Repository.GetAll().Where(i => i.Id == id).Include(i => i.ClientInfo).FirstOrDefaultAsync();
             return MapToEntityDto(get);
         }
-
     }
 }

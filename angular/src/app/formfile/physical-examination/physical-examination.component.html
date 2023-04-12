@@ -6,7 +6,8 @@
         <div class="form-group row">
           <div class="input-group">
           <label for="chieucao" class="col-sm-2 col-form-label">Cân nặng</label>
-            <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)">
+            <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)" [(ngModel)]="khamtheluc.khamtheluc_text_cannang"
+            [ngModelOptions]="{standalone: true}">
             <div class="input-group-append">
               <span class="input-group-text">kg</span>
             </div>
@@ -15,7 +16,8 @@
         <div class="form-group row">
           <div class="input-group">
           <label for="chieucao" class="col-sm-2 col-form-label">Chiều cao</label>
-            <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)">
+            <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="khamtheluc.khamtheluc_text_chieucao"
+            [ngModelOptions]="{standalone: true}">
             <div class="input-group-append">
               <span class="input-group-text">m</span>
             </div>
@@ -24,7 +26,8 @@
         <div class="form-group row">
           <div class="input-group">
           <label for="chieucao" class="col-sm-2 col-form-label">Mạch</label>
-            <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)">
+            <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="khamtheluc.khamtheluc_text_mach"
+            [ngModelOptions]="{standalone: true}">
             <div class="input-group-append">
               <span class="input-group-text">lần/phút</span>
             </div>
@@ -33,7 +36,8 @@
         <div class="form-group row">
           <div class="input-group">
           <label for="chieucao" class="col-sm-2 col-form-label">Huyết áp</label>
-            <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)">
+            <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="khamtheluc.khamtheluc_text_huyetap"
+            [ngModelOptions]="{standalone: true}">
             <div class="input-group-append">
               <span class="input-group-text">mmHg</span>
             </div>
@@ -42,7 +46,8 @@
         <div class="form-group row">
           <div class="input-group">
           <label for="chieucao" class="col-sm-2 col-form-label">Phân loại thể lực</label>
-            <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)">
+            <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)" [(ngModel)]="khamtheluc.khamtheluc_text_phanloaitheluc"
+            [ngModelOptions]="{standalone: true}">
           </div>
         </div>
         <div class="form-group row">

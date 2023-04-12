@@ -36,9 +36,10 @@ namespace AristBase.Authorization
         public const string KhamTheLuc = "KhamTheLuc";
         public const string KetLuan = "KetLuan";
         public const string TruongDonViKySo = "TruongDonViKySo";
+        public const string KhamLamSanKhac = "KhamLamSanKhac";
 
         public static List<string> Pages = new List<string>
-        { TamThan, ThanKinh, Mat, TaiMuiHong, TimMach, HoHap, CoXuongKhop, ThaiSan, NoiTiet,NhiKhoa, RangHamMat,XetNghiemMaTuyVaMau, XetNghiemMau,XetNghiemKhac,XetNghiemNuocTieu, ChanDoanHinhAnh,KhamTheLuc,TruongDonViKySo, KetLuan};
+        { TamThan, ThanKinh, Mat, TaiMuiHong, TimMach, HoHap, CoXuongKhop, ThaiSan, NoiTiet,NhiKhoa, RangHamMat,XetNghiemMaTuyVaMau, XetNghiemMau,XetNghiemKhac,XetNghiemNuocTieu, ChanDoanHinhAnh,KhamTheLuc,TruongDonViKySo, KetLuan,KhamLamSanKhac};
     }
     public class CRUDPermissionName
     {

@@ -15,21 +15,18 @@ using System.Threading.Tasks;
 
 namespace AristBase.CRUDServices.CertificateGroupStatusServices
 {
-    public class CertificateGroupStatusService : AsyncCrudAppService<CertificateGroupStatus, CertificateGroupStatusDto, Guid, ParentPagedAndSortedResultRequestDto, CreateCertificateGroupStatusDto, CertificateGroupStatusDto>
+    public class CertificateGroupStatusService : AsyncCrudAppService<CertificateGroupStatus, CertificateGroupStatusDto, Guid, Guid, CreateCertificateGroupStatusDto, CertificateGroupStatusDto>
     {
         public CertificateGroupStatusService(IRepository<CertificateGroupStatus, Guid> repository) : base(repository)
         {
         }
-        public async override Task<PagedResultDto<CertificateGroupStatusDto>> GetAllAsync(ParentPagedAndSortedResultRequestDto input)
+        public async override Task<PagedResultDto<CertificateGroupStatusDto>> GetAllAsync(Guid input)
         {
             CheckGetAllPermission();
 
             var query = CreateFilteredQuery(input);
-            query = query.Where(w=>w.CertificateId == input.CertificateId).Include(i=>i.User);
+            query = query.Where(w=>w.CertificateId == input).Include(i=>i.User);
             var totalCount = await AsyncQueryableExecuter.CountAsync(query);
-
-            query = ApplySorting(query, input);
-            query = ApplyPaging(query, input);
 
             var entities = await AsyncQueryableExecuter.ToListAsync(query);
 

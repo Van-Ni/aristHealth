@@ -21,6 +21,7 @@ export class ProfileComponent extends AppComponentBase implements OnInit {
   ngOnInit() {
     this.clientInfo = this.profile.clientInfo;
     console.log("tenne",this.clientInfo)
+    
   }
   save() : void{
     console.log(this.clientInfo);

@@ -11,15 +11,15 @@ export class ClinicalExamination1Component implements AfterContentInit {
   @Input() statusDataCheck: any;
   data:  any;
   statusDataCheck1: any;
-  isTamThan1= true;
-  isThaiSan1= true;
-  isNoiTiet1= true;
-  isCoXuongKhop1= true;
-  isHoHap1= true;
-  isTimMach1= true;
-  isTaiMuiHong1= true;
-  isMat1= true;
-  isThanKinh1= true;
+  isTamThan1= false;
+  isThaiSan1= false;
+  isNoiTiet1= false;
+  isCoXuongKhop1= false;
+  isHoHap1= false;
+  isTimMach1= false;
+  isTaiMuiHong1= false;
+  isMat1= false;
+  isThanKinh1= false;
   constructor() { }
 
   ngAfterContentInit(): void {

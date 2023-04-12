@@ -7,22 +7,24 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ClinicalExamination3Component implements OnInit {
   @Input() Data: any;
+  @Input() statusDataCheck: any;
   data:  any;
-  isTamThan1= true;
-  isThaiSan1= true;
-  isNoiTiet1= true;
-  isCoXuongKhop1= true;
-  isHoHap1= true;
-  isTimMach1= true;
-  isTaiMuiHong1= true;
-  isMat1= true;
-  isThanKinh1= true;
-  isDaLieu1= true;
-  isRangHamMat1= true;
-  isNgoaiKhoa1= true;
-  isThan1= true;
-  isTieuHoa1= true;
-  isTuanHoan1= true;
+  statusDataCheck3: any;
+  isTamThan3= true;
+  isThaiSan3= true;
+  isNoiTiet3= true;
+  isCoXuongKhop3= true;
+  isHoHap3= true;
+  isTimMach3= true;
+  isTaiMuiHong3= true;
+  isMat3= true;
+  isThanKinh3= true;
+  isDaLieu3= true;
+  isRangHamMat3= true;
+  isNgoaiKhoa3= true;
+  isThan3= true;
+  isTieuHoa3= true;
+  isTuanHoan3= true;
   constructor() { }
 
   ngOnInit() {

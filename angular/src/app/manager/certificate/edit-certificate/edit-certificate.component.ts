@@ -20,7 +20,7 @@ export class EditCertificateComponent extends AppComponentBase implements OnInit
     this.certificate = new UpdateCertificateDto();
     this.certificate.clientInfo = new ClientInfoDto();
     this.certificateServiceServiceProxy
-      .get(this.id)
+      .getProfile(this.id)
       .subscribe((result: CertificateDto) => {
         this.certificate = result;
         console.log(this.certificate)

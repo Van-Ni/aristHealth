@@ -32,7 +32,7 @@ export class CertificateGroupStatusComponent  {
   }
   list=(request: PagedRequestDto, finishedCallback: Function)=>{
     this.certificateGroupStatusServiceServiceProxy
-      .getAll("", "","",request.skipCount,  request.maxResultCount)     
+      .getAll("")     
       .subscribe((result: CertificateGroupStatusDtoPagedResultDto) => {
         this.certificateGroupStatus = {
           items: result.items.map(x => {

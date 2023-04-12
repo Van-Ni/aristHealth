@@ -87,8 +87,29 @@ import {TuanHoanComponent} from './formfile/Health-Certification/clinical-examin
 import {TieuHoaComponent} from './formfile/Health-Certification/clinical-examination3/tieu-hoa/tieu-hoa.component';
 import {ThanTietNieuComponent} from './formfile/Health-Certification/clinical-examination3/than-tiet-nieu/than-tiet-nieu.component';
 import {NgoaiKhoaComponent} from './formfile/Health-Certification/clinical-examination3/ngoai-khoa/ngoai-khoa.component';
+import {CoXuongKhop3Component} from './formfile/Health-Certification/clinical-examination3/co-xuong-khop3/co-xuong-khop3.component';
+import {HoHap3Component} from './formfile/Health-Certification/clinical-examination3/ho-hap3/ho-hap3.component';
+import {Mat3Component} from './formfile/Health-Certification/clinical-examination3/mat3/mat3.component';
+import {SanPhuKhoaComponent} from './formfile/Health-Certification/clinical-examination3/san-phu-khoa/san-phu-khoa.component';
+import {TaiMuiHong3Component} from './formfile/Health-Certification/clinical-examination3/tai-mui-hong3/tai-mui-hong3.component';
+import {TamThan3Component} from './formfile/Health-Certification/clinical-examination3/tam-than3/tam-than3.component';
+import {ThanKinh3Component} from './formfile/Health-Certification/clinical-examination3/than-kinh3/than-kinh3.component';
+import {ChuanDoanHinhAnh3Component} from './formfile/Health-Certification/subclinical-examination-type3/chuan-doan-hinh-anh3/chuan-doan-hinh-anh3.component';
+import {XetNghiemMau3Component} from './formfile/Health-Certification/subclinical-examination-type3/xet-nghiem-mau3/xet-nghiem-mau3.component';
+import {XetNghiemNuocTieu3Component} from './formfile/Health-Certification/subclinical-examination-type3/xet-nghiem-nuoc-tieu3/xet-nghiem-nuoc-tieu3.component';
+import {HoHap2Component} from './formfile/health-certification-v2/clinical-examination2/ho-hap2/ho-hap2.component';
+import {KhamLamSanKhacComponent} from './formfile/health-certification-v2/clinical-examination2/kham-lam-san-khac/kham-lam-san-khac.component';
+import {Mat2Component} from './formfile/health-certification-v2/clinical-examination2/mat2/mat2.component';
+import {RangHamMat2Component} from './formfile/health-certification-v2/clinical-examination2/rang-ham-mat2/rang-ham-mat2.component';
+import {TaiMuiHong2Component} from './formfile/health-certification-v2/clinical-examination2/tai-mui-hong2/tai-mui-hong2.component';
+import {ThanKinhTamThan2Component} from './formfile/health-certification-v2/clinical-examination2/than-kinh-tam-than2/than-kinh-tam-than2.component';
+import {ThanTietNieu2Component} from './formfile/health-certification-v2/clinical-examination2/than-tiet-nieu2/than-tiet-nieu2.component';
+import {TieuHoa2Component} from './formfile/health-certification-v2/clinical-examination2/tieu-hoa2/tieu-hoa2.component';
+import {TuanHoan2Component} from './formfile/health-certification-v2/clinical-examination2/tuan-hoan2/tuan-hoan2.component';
+
 //service
 import {DataService} from './services/data.service';
+import {LoadingService} from './services/loader/loading.service'
 @NgModule({
     declarations: [
         AppComponent,
@@ -166,6 +187,25 @@ import {DataService} from './services/data.service';
         TieuHoaComponent,
         ThanTietNieuComponent,
         NgoaiKhoaComponent,
+        CoXuongKhop3Component,
+        HoHap3Component,
+        Mat3Component,
+        SanPhuKhoaComponent,
+        TaiMuiHong3Component,
+        TamThan3Component,
+        ThanKinh3Component,
+        ChuanDoanHinhAnh3Component,
+        XetNghiemMau3Component,
+        XetNghiemNuocTieu3Component,
+        HoHap2Component,
+        KhamLamSanKhacComponent,
+        Mat2Component,
+        RangHamMat2Component,
+        TaiMuiHong2Component,
+        ThanKinhTamThan2Component,
+        ThanTietNieu2Component,
+        TieuHoa2Component,
+        TuanHoan2Component
     ],
     imports: [
         CommonModule,
@@ -183,6 +223,6 @@ import {DataService} from './services/data.service';
         SharedModule,
         NgxPaginationModule,
     ],
-    providers: [DataService]
+    providers: [DataService,LoadingService]
 })
 export class AppModule {}
