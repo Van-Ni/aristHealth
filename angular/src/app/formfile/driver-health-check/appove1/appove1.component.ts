@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
-import { CertificateGroupStatusDto, CertificateGroupStatusServiceServiceProxy, CreateCertificateGroupStatusDto, CreateMedicationKeyResultDto, TruongDonViKySoServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, CertificateGroupStatusServiceServiceProxy, CreateCertificateGroupStatusDto, CreateMedicationKeyResultDto, PDFServiceServiceProxy, TruongDonViKySoServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AbpSessionService, PermissionCheckerService } from 'abp-ng2-module';
 interface Approve1ViewModel {
   hohap_selectbox_phanloai: string;
@@ -22,7 +22,8 @@ export class Appove1Component extends CertificateKeyValueComponentBase<Approve1V
   status = false;
   approve1: Approve1ViewModel;
   
-  constructor( private _permissionChecker: PermissionCheckerService,private dataservice: DataService,private injector: Injector,private certificateGroupStatusServiceServiceProxy: CertificateGroupStatusServiceServiceProxy) {
+  constructor( private _permissionChecker: PermissionCheckerService,private dataservice: DataService,private injector: Injector,private certificateGroupStatusServiceServiceProxy: CertificateGroupStatusServiceServiceProxy,
+    private PDFServiceServiceProxy: PDFServiceServiceProxy) {
     super(injector, dataservice)
     this.group = "tdv";
    }
@@ -56,5 +57,31 @@ export class Appove1Component extends CertificateKeyValueComponentBase<Approve1V
       console.log("error");
     }
     
+  }
+  print(): void
+  {
+    if(this.status)
+    {
+      this.PDFServiceServiceProxy.fillPDFWithCertificate(this.certificateId).subscribe(
+        (response: any) => {
+          if (response && response.body) { // Check if the response body is not null or undefined
+            const blob = new Blob([response.body], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'filled_certificate.pdf';
+            link.target = '_blank';
+            link.click();
+          } else {
+            // Handle null or undefined response body
+            console.error('Response body is null or undefined');
+          }
+        },
+        error => {
+          // Handle error
+          console.error(error);
+        }
+      );
+    }
   }
 }

@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export abstract class CertificateKeyValueComponentBase<TEntityDto> extends AppComponentBase implements OnInit {
     status = false;
     model: TEntityDto;
+    data: CertificateGroupStatusDtoPagedResultDto;
     route: ActivatedRoute
     public group: string;
     public certificateId: string;
@@ -33,6 +34,7 @@ export abstract class CertificateKeyValueComponentBase<TEntityDto> extends AppCo
                     console.log("CertificateKeyValueComponentBase", result);
                     if (result && result.items && result.items.some(i => i.group == this.group)) {
                         this.status = true;
+                        this.data = result;
                         console.log("CertificateKeyValueComponentBase", this.status);
                     }
                 }

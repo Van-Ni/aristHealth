@@ -44,6 +44,7 @@ import * as ApiServiceProxies from './service-proxies';
         ApiServiceProxies.CertificateServiceServiceProxy,
         ApiServiceProxies.GetDataServiceServiceProxy,
         ApiServiceProxies.CertificateGroupStatusServiceServiceProxy,
+        ApiServiceProxies.PDFServiceServiceProxy,
         { provide: HTTP_INTERCEPTORS, useClass: AbpHttpInterceptor, multi: true }
     ]
 })

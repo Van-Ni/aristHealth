@@ -41,7 +41,7 @@
     <table class="table table-striped table-bordered" [busy]="isTableLoading">
       <thead class="bg-light">
         <tr>
-          <th *ngFor="let item of filter | keyvalue | filterByTrue" [hidden]="item.key === 'id'">
+          <th *ngFor="let item of filter | keyvalue | filterByTrue" [hidden]="item.key === 'id'|| item.key === 'certificateTypeId'">
             {{item.key| localize }}
           </th>
         </tr>
@@ -57,13 +57,20 @@
                   totalItems: totalItems
                 }
         ">
-          <td *ngFor="let item of filter | keyvalue | filterByTrue" (click)="viewProfile(output)" [hidden]="item.key === 'id'">
-            <ng-container *ngIf="item.key !== 'status'" >
+          <td *ngFor="let item of filter | keyvalue | filterByTrue" (click)="viewProfile(output)" [hidden]="item.key === 'id'|| item.key === 'certificateTypeId'">
+            <ng-container *ngIf="item.key !== 'status' && item.key !== 'paymentStatus'">
               <p>{{output[item.key]}}</p>
             </ng-container>
-            <p *ngIf="item.key == 'status' && output['status'] == 0">Bắt đầu</p>
-            <p *ngIf="item.key == 'status' && output['status'] == 1">Đang tiến hành</p>
-
+            <ng-container *ngIf="item.key == 'status'">
+              <p *ngIf="output[item.key] == 0">Bắt đầu</p>
+              <p *ngIf="output[item.key] == 1">Đang tiến hành</p>
+              <p *ngIf="output[item.key] == 2">Đã hủy</p>
+            </ng-container>
+            <ng-container *ngIf="item.key == 'paymentStatus'">
+              <p *ngIf="output[item.key] == 0">Chưa thanh toán</p>
+              <p *ngIf="output[item.key] == 1">Đã thanh toán trước 1 phần</p>
+              <p *ngIf="output[item.key] == 2">Đã thanh toán</p>
+            </ng-container>
           </td>
           <td>
             <button type="button" class="btn btn-sm bg-secondary" (click)="editClicked(output)">

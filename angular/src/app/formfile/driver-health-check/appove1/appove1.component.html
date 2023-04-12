@@ -1,5 +1,11 @@
 <div class="container">
-  <fieldset [disabled]="status">
-    <button type="submit" class="btn btn-primary" (click)="approve()">Duyệt</button>
-  </fieldset>
+
+    <div class="row">
+      <div class="col-6">
+        <button [disabled]="status" type="submit" class="btn btn-primary" (click)="approve()">Duyệt</button>
+      </div>
+      <div class="col-6">
+        <button type="submit" class="btn btn-primary" (click)="print()">In</button>
+      </div>
+    </div>
 </div>

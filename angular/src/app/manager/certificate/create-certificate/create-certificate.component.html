@@ -138,7 +138,7 @@
                 </select>
               </div>
             </div>
-            <div class="form-group row">
+            <!-- <div class="form-group row">
               <label for="certificate" class="col-sm-3 col-form-label">Trạng thái khám</label>
               <div class="col-sm-9">
                 <select  class="form-control" [(ngModel)]="certificate.status" [ngModelOptions]="{standalone: true}">
@@ -147,7 +147,7 @@
                   <option value="2">Hoàn thành</option>
                 </select>
               </div>
-            </div>
+            </div> -->
             <div class="form-group row">
               <label for="certificate" class="col-sm-3 col-form-label">Trạng thái thanh toán</label>
               <div class="col-sm-9">
@@ -165,9 +165,29 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="amountPaid" class="col-sm-3 col-form-label">Lí do</label>
+              <label for="amountPaid" class="col-sm-3 col-form-label">Hạng</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control" id="reason"  [(ngModel)]="certificate.reason" [ngModelOptions]="{standalone: true}" placeholder="Lí do khám" >
+                <div *ngIf="certificate.certificateTypeId == 1">
+                  <!-- Input field for option 1 -->
+                  <select  class="form-control" [(ngModel)]="certificate.reason" [ngModelOptions]="{standalone: true}">
+                    <option value="B1">B1</option>
+                    <option value="B2">B2</option>
+                    <option value="A1">A1</option>
+                    <option value="A2">A2</option>
+                    <option value="A3">A3</option>
+                    <option value="A4">A4</option>
+                    <option value="c">c</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="FC">FC</option>
+                    <option value="FB">FB</option>
+                    <option value="FB2">FB2</option>
+                    <option value="FD">FD</option>
+                  </select>
+                </div>
+                <div *ngIf="certificate.certificateTypeId == 2">
+                  <input type="text" class="form-control" id="reason"  [(ngModel)]="certificate.reason" [ngModelOptions]="{standalone: true}" placeholder="Lí do khám" >
+                </div>
               </div>
             </div>
             <abp-modal-footer
