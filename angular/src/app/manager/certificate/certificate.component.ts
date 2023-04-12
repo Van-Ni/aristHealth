@@ -37,14 +37,14 @@ export class CertificateComponent  {
   constructor(injector: Injector, private router: Router,private _modalService: BsModalService, private certificateServiceServiceProxy: CertificateServiceServiceProxy, private route: ActivatedRoute
   ) {
   }
-  
+
   list=(request: PagedRequestDto, finishedCallback: Function)=>{
     console.log("check", request);
     console.log("2");
     this.certificateServiceServiceProxy
-      .getAll(request.sortting, request.skipCount,  request.maxResultCount)     
+      .getAll("creationTime desc", request.skipCount,  request.maxResultCount)
       .subscribe((result: CertificateDtoPagedResultDto) => {
-        
+
         this.certificates = {
           items: result.items.map(x => {
             const certificateViewModel = new CertificateViewModel();
@@ -61,7 +61,7 @@ export class CertificateComponent  {
           totalCount: result.totalCount
         };
         finishedCallback(this.certificates);
-        
+
       });
   }
   editEnterprise(enterprise: CertificateViewModel): void {
@@ -101,13 +101,13 @@ export class CertificateComponent  {
           .delete(entity.id)
           .pipe(
             finalize(() => {
-              abp.notify.success("DeleteSuccess");              
+              abp.notify.success("DeleteSuccess");
             })
           )
           .subscribe(() => {});
       }
     }
-      
+
     );
   }
   onViewProfile(entity: CertificateViewModel)
