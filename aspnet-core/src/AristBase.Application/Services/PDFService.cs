@@ -109,7 +109,14 @@ namespace AristBase.Services
             };
 
         }
-        public void FiledPDF(string templatePath, string outputPath, Dictionary<string, string> filedValues, Dictionary<string, User> cerUserDic)
+        
+        public async Task<FileResult> GetPDFFile(string path)
+        {
+            FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+
+            return new FileStreamResult(fileStream, "application/pdf");
+        }
+        void FiledPDF(string templatePath, string outputPath, Dictionary<string, string> filedValues, Dictionary<string, User> cerUserDic)
         {
             using (FileStream os = new FileStream(outputPath, FileMode.Create))
             {
@@ -122,7 +129,7 @@ namespace AristBase.Services
         {
             PdfStamper stamper = new PdfStamper(reader, os, '\0');
             AcroFields formFields = stamper.AcroFields;
-            BaseFont font = BaseFont.CreateFont("./file/times new roman.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            BaseFont font = BaseFont.CreateFont("./file/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 
             formFields.AddSubstitutionFont(font);
 
@@ -139,6 +146,7 @@ namespace AristBase.Services
                 {
                     var keyReplace = field.Key.Replace(PDFFieldConst.SignName, string.Empty);
                     formFields.SetField(field.Key, cerUserDic[keyReplace].FullVNMName);
+                    formFields.SetFieldProperty(field.Key, "textfont", font, null);
                     continue;
                 }
                 string value;
@@ -149,12 +157,15 @@ namespace AristBase.Services
                     continue;
                 }
                 if (field.Key.Contains(PDFFieldConst.Text))
-
+                {
                     formFields.SetField(field.Key, value);
+                    formFields.SetFieldProperty(field.Key, "textfont", font, null);
+                }
                 else
                 {
                     //formFields.GenerateAppearances = false;
                     formFields.SetField(field.Key, value);
+                    formFields.SetFieldProperty(field.Key, "textfont", font, null);
                     //formFields.GenerateAppearances = true;
                 }
 
