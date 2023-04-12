@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services;
 using Abp.Dependency;
 using Abp.Domain.Repositories;
+using Abp.IO.Extensions;
 using Abp.Timing;
 using AristBase.Authorization.Users;
 using AristBase.BaseEntity;
@@ -52,29 +53,29 @@ namespace AristBase.Services
             IRepository<MedicationKeyResult, Guid> repository,
             IRepository<Certificate, Guid> certificateRepository,
             IRepository<CertificateGroupStatus, Guid> certificateStatus
-            
+
             )
         {
             _repository = repository;
             this._certificateRepository = certificateRepository;
             this._certificateStatus = certificateStatus;
         }
-        public async Task<FileStreamResult> FillPDFWithCertificate(Guid cerId)
+        public async Task<ActionResult> FillPDFWithCertificate(Guid cerId)
         {
             //TODO: Check status 
             var cerStatusData = await _certificateStatus.GetAll()
-                .Where(c=>c.CertificateId == cerId).Include(c=>c.User).ToListAsync();
+                .Where(c => c.CertificateId == cerId).Include(c => c.User).ToListAsync();
             //var now = Clock.Now;
-            var cerUserDic = cerStatusData.ToDictionary(c=>c.Group,c=>c.User);
+            var cerUserDic = cerStatusData.ToDictionary(c => c.Group, c => c.User);
 
 
-            var cer =await _certificateRepository.GetAll()
+            var cer = await _certificateRepository.GetAll()
                 .Where(c => c.Id == cerId)
                 .Include(c => c.CertificateType)
-                .Include(c =>c.ClientInfo)
-                .SingleAsync();           
+                .Include(c => c.ClientInfo)
+                .SingleAsync();
 
-            
+
             var result = await _repository.GetAll().Where(r => r.CertificateId == cerId).ToListAsync();
             var dic = result.ToDictionary(r => r.Key, r => r.Value);
 
@@ -86,28 +87,27 @@ namespace AristBase.Services
             dic[PDFFieldConst.CCCD] = cer.ClientInfo.CCCD;
             dic[PDFFieldConst.CCCDTai] = cer.ClientInfo.AddressCCCD;
             dic[PDFFieldConst.CCCDNC] = cer.ClientInfo.CreateTimeCCCD;
-            dic[PDFFieldConst.Female] = cer.ClientInfo.Sex != "nam"? "True" : "False";
+            dic[PDFFieldConst.Female] = cer.ClientInfo.Sex != "nam" ? "True" : "False";
             dic[PDFFieldConst.Male] = cer.ClientInfo.Sex == "nam" ? "True" : "False";
             //Prepare datetimedata
             var now = Clock.Now;
             dic[PDFFieldConst.DayText] = now.ToString("dddd", new CultureInfo("vi-VN"));
             dic[PDFFieldConst.Day] = now.ToString("dd");
-            dic[PDFFieldConst.DayText] = now.ToString("MM");
-            dic[PDFFieldConst.DayText] = now.ToString("yyyy");
+            dic[PDFFieldConst.Month] = now.ToString("MM");
+            dic[PDFFieldConst.Year] = now.ToString("yyyy");
 
             var cername = Guid.NewGuid().ToString("n") + ".pdf";
             var path = PathHelper.GetOutputPath(cername, "giaypheplaixe");
             FiledPDF(cer.CertificateType.FilePath, path, dic, cerUserDic);
 
             cer.FileResult = path;
-            
-            using (var fs = File.OpenRead(path))
+            FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+
+            return new FileStreamResult(fileStream, "application/pdf")
             {
-                return new FileStreamResult(fs, "application/pdf")
-                {
-                    FileDownloadName = cername
-                };
-            }
+                FileDownloadName = cername
+            };
+
         }
         public void FiledPDF(string templatePath, string outputPath, Dictionary<string, string> filedValues, Dictionary<string, User> cerUserDic)
         {
@@ -119,16 +119,16 @@ namespace AristBase.Services
             }
         }
         protected void FillPDF(PdfReader reader, FileStream os, Dictionary<string, string> filedValues, Dictionary<string, User> cerUserDic)
-        {            
+        {
             PdfStamper stamper = new PdfStamper(reader, os, '\0');
             AcroFields formFields = stamper.AcroFields;
             BaseFont font = BaseFont.CreateFont("./file/times new roman.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 
             formFields.AddSubstitutionFont(font);
-            
+
             foreach (var field in formFields.Fields)
             {
-                
+
                 if (field.Key.StartsWith(PDFFieldConst.SignImage))
                 {
                     var keyReplace = field.Key.Replace(PDFFieldConst.SignImage, string.Empty);
@@ -159,7 +159,7 @@ namespace AristBase.Services
                 }
 
             }
-           // SignPdf(filedValues[PDFFieldConst.SignatureField], stamper, formFields.GetFieldPositions(PDFFieldConst.SignatureField)[0]);
+            // SignPdf(filedValues[PDFFieldConst.SignatureField], stamper, formFields.GetFieldPositions(PDFFieldConst.SignatureField)[0]);
             stamper.FormFlattening = true;
             stamper.Close();
         }
@@ -206,7 +206,7 @@ namespace AristBase.Services
 
             var parameters = pk.Key as RsaPrivateCrtKeyParameters;
 
-           
+
 
             var appearance = stamper.SignatureAppearance;
             appearance.Reason = "MySign";
