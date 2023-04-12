@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Abp.Authorization.Users;
 using Abp.Extensions;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace AristBase.Authorization.Users
 {
@@ -9,6 +10,8 @@ namespace AristBase.Authorization.Users
     {
         public const string DefaultPassword = "123qwe";
         public string SignPath {get;set;}
+        public string FullName { get;set;}
+        public string Prefix { get;set;}
         public static string CreateRandomPassword()
         {
             return Guid.NewGuid().ToString("N").Truncate(16);
