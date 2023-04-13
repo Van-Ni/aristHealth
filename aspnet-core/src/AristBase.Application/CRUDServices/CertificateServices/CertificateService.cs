@@ -4,6 +4,7 @@ using Abp.Domain.Repositories;
 using AristBase.BaseEntity;
 using AristBase.CRUDServices.CertificateServices.Dto;
 using AristBase.Interfaces;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -44,7 +45,7 @@ namespace AristBase.CRUDServices.CertificateServices
             DateTime date1 = DateTime.ParseExact(input.ClientInfo.CreateTimeCCCD, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture);
             input.ClientInfo.CreateTimeCCCD = date1.ToString("dd-MM-yyyy");
             DateTime date = DateTime.ParseExact(input.ClientInfo.DateOfBirth, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture);
-             input.ClientInfo.DateOfBirth = date.ToString("dd-MM-yyyy");
+            input.ClientInfo.DateOfBirth = date.ToString("dd-MM-yyyy");
             var entity = MapToEntity(input);
 
             await Repository.InsertAsync(entity);
@@ -54,10 +55,20 @@ namespace AristBase.CRUDServices.CertificateServices
         }
         public override Task<CertificateDto> UpdateAsync(UpdateCertificateDto input)
         {
-            DateTime date1 = DateTime.ParseExact(input.ClientInfo.CreateTimeCCCD, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture);
-            input.ClientInfo.CreateTimeCCCD = date1.ToString("dd-MM-yyyy");
-            DateTime date = DateTime.ParseExact(input.ClientInfo.DateOfBirth, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture);
-            input.ClientInfo.DateOfBirth = date.ToString("dd-MM-yyyy");
+            DateTime parsedDate1;
+            DateTime parsedDate2;
+
+            if (DateTime.TryParseExact(input.ClientInfo.DateOfBirth, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate1))
+            {
+
+                DateTime date = DateTime.ParseExact(input.ClientInfo.DateOfBirth, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture);
+                input.ClientInfo.DateOfBirth = date.ToString("dd-MM-yyyy");
+            }
+            if (DateTime.TryParseExact(input.ClientInfo.CreateTimeCCCD, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate2))
+            {
+                DateTime date1 = DateTime.ParseExact(input.ClientInfo.CreateTimeCCCD, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture);
+                input.ClientInfo.CreateTimeCCCD = date1.ToString("dd-MM-yyyy");
+            }
             return base.UpdateAsync(input);
         }
         public async Task<CertificateDto> GetProfile(Guid id)

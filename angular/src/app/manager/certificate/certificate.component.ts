@@ -42,7 +42,7 @@ export class CertificateComponent  {
     console.log("check", request);
     console.log("2");
     this.certificateServiceServiceProxy
-      .getAll("creationTime desc", request.skipCount,  request.maxResultCount)
+      .getAll("creationTime desc","", request.skipCount,  request.maxResultCount)
       .subscribe((result: CertificateDtoPagedResultDto) => {
 
         this.certificates = {
