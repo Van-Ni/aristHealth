@@ -25,22 +25,22 @@ export abstract class CertificateKeyValueComponentBase<TEntityDto> extends AppCo
 
     ngOnInit(): void {
         this.certificateId = this.route.snapshot.params['id'];
-        console.log("CertificateKeyValueComponentBase", this.group);
+
         this.dataService.getGroupData()
             .subscribe((result: CertificateGroupStatusDtoPagedResultDto) => {
-                //console.log("CertificateKeyValueComponentBase", result);
+
                 if(result != null)
                 {
-                    console.log("CertificateKeyValueComponentBase", result);
+
                     if (result && result.items && result.items.some(i => i.group == this.group)) {
                         this.status = true;
                         this.data = result;
-                        console.log("CertificateKeyValueComponentBase", this.status);
+
                     }
                 }
             });
             this.dataService.getAllKeyData().subscribe((result: MedicationKeyResultDtoPagedResultDto) => {
-                console.log("CertificateKeyValueComponentBase1", result);
+
                 if(result != null)
                 {
                     if (result && result.items) {

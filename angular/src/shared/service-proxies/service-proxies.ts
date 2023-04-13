@@ -29,7 +29,7 @@ export class AccountServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     isTenantAvailable(body: IsTenantAvailableInput | undefined): Observable<IsTenantAvailableOutput> {
@@ -85,7 +85,7 @@ export class AccountServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     register(body: RegisterInput | undefined): Observable<RegisterOutput> {
@@ -153,7 +153,7 @@ export class CertificateGroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param input (optional) 
+     * @param input (optional)
      * @return Success
      */
     getAll(input: string | undefined): Observable<CertificateGroupStatusDtoPagedResultDto> {
@@ -209,7 +209,7 @@ export class CertificateGroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -265,7 +265,7 @@ export class CertificateGroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<CertificateGroupStatusDto> {
@@ -321,7 +321,7 @@ export class CertificateGroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: CertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -377,7 +377,7 @@ export class CertificateGroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -441,9 +441,9 @@ export class CertificateServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateDtoPagedResultDto> {
@@ -507,7 +507,7 @@ export class CertificateServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateCertificateDto | undefined): Observable<CertificateDto> {
@@ -563,7 +563,7 @@ export class CertificateServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     getProfile(id: string | undefined): Observable<CertificateDto> {
@@ -619,7 +619,7 @@ export class CertificateServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<CertificateDto> {
@@ -675,7 +675,7 @@ export class CertificateServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: UpdateCertificateDto | undefined): Observable<CertificateDto> {
@@ -731,7 +731,7 @@ export class CertificateServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -795,7 +795,7 @@ export class CertificateTypeServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: number | undefined): Observable<CertificateTypeDto> {
@@ -851,9 +851,9 @@ export class CertificateTypeServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateTypeDtoPagedResultDto> {
@@ -917,7 +917,7 @@ export class CertificateTypeServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateCertificateTypeDto | undefined): Observable<CertificateTypeDto> {
@@ -973,7 +973,7 @@ export class CertificateTypeServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: CertificateTypeDto | undefined): Observable<CertificateTypeDto> {
@@ -1029,7 +1029,7 @@ export class CertificateTypeServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -1093,7 +1093,7 @@ export class ChanDoanHinhAnhServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -1156,7 +1156,7 @@ export class ChanDoanHinhAnhServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -1219,10 +1219,10 @@ export class ChanDoanHinhAnhServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -1294,7 +1294,7 @@ export class ChanDoanHinhAnhServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -1359,7 +1359,7 @@ export class ChanDoanHinhAnhServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -1415,7 +1415,7 @@ export class ChanDoanHinhAnhServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -1471,7 +1471,7 @@ export class ChanDoanHinhAnhServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -1527,7 +1527,7 @@ export class ChanDoanHinhAnhServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -1591,7 +1591,7 @@ export class ClientInfoServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateClientInfoDto | undefined): Observable<ClientInfoDto> {
@@ -1647,7 +1647,7 @@ export class ClientInfoServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: number | undefined): Observable<ClientInfoDto> {
@@ -1703,15 +1703,15 @@ export class ClientInfoServiceServiceProxy {
     }
 
     /**
-     * @param fullName (optional) 
-     * @param sex (optional) 
-     * @param cCCD (optional) 
-     * @param dateOfBirth (optional) 
-     * @param createTimeCCCD (optional) 
-     * @param addressCCCD (optional) 
-     * @param address (optional) 
-     * @param guardianName (optional) 
-     * @param id (optional) 
+     * @param fullName (optional)
+     * @param sex (optional)
+     * @param cCCD (optional)
+     * @param dateOfBirth (optional)
+     * @param createTimeCCCD (optional)
+     * @param addressCCCD (optional)
+     * @param address (optional)
+     * @param guardianName (optional)
+     * @param id (optional)
      * @return Success
      */
     getAll(fullName: string | undefined, sex: string | undefined, cCCD: string | undefined, dateOfBirth: string | undefined, createTimeCCCD: string | undefined, addressCCCD: string | undefined, address: string | undefined, guardianName: string | undefined, id: number | undefined): Observable<ClientInfoDtoPagedResultDto> {
@@ -1799,7 +1799,7 @@ export class ClientInfoServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: ClientInfoDto | undefined): Observable<ClientInfoDto> {
@@ -1855,7 +1855,7 @@ export class ClientInfoServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -1919,7 +1919,7 @@ export class ConfigurationServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     changeUiTheme(body: ChangeUiThemeInput | undefined): Observable<void> {
@@ -1983,7 +1983,7 @@ export class DepartmentServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<DepartmentDto> {
@@ -2039,9 +2039,9 @@ export class DepartmentServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<DepartmentDtoPagedResultDto> {
@@ -2105,7 +2105,7 @@ export class DepartmentServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateDepartmentDto | undefined): Observable<DepartmentDto> {
@@ -2161,7 +2161,7 @@ export class DepartmentServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: DepartmentDto | undefined): Observable<DepartmentDto> {
@@ -2217,7 +2217,7 @@ export class DepartmentServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -2281,7 +2281,7 @@ export class GetDataServiceServiceProxy {
     }
 
     /**
-     * @param input (optional) 
+     * @param input (optional)
      * @return Success
      */
     getAll(input: string | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -2337,7 +2337,7 @@ export class GetDataServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     getDataAll(id: string | undefined): Observable<MedicationKeyResultDto[]> {
@@ -2400,7 +2400,7 @@ export class GetDataServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -2456,7 +2456,7 @@ export class GetDataServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -2508,7 +2508,7 @@ export class GetDataServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -2564,7 +2564,7 @@ export class GetDataServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -2632,7 +2632,7 @@ export class KetLuanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -2695,7 +2695,7 @@ export class KetLuanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -2758,10 +2758,10 @@ export class KetLuanServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -2833,7 +2833,7 @@ export class KetLuanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -2898,7 +2898,7 @@ export class KetLuanServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -2954,7 +2954,7 @@ export class KetLuanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -3010,7 +3010,7 @@ export class KetLuanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -3066,7 +3066,7 @@ export class KetLuanServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -3130,7 +3130,7 @@ export class KhamLamSanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -3193,7 +3193,7 @@ export class KhamLamSanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -3256,10 +3256,10 @@ export class KhamLamSanServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -3331,7 +3331,7 @@ export class KhamLamSanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -3396,7 +3396,7 @@ export class KhamLamSanServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -3452,7 +3452,7 @@ export class KhamLamSanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -3508,7 +3508,7 @@ export class KhamLamSanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -3564,7 +3564,7 @@ export class KhamLamSanServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -3628,7 +3628,7 @@ export class KhamTheLucServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -3691,7 +3691,7 @@ export class KhamTheLucServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -3754,10 +3754,10 @@ export class KhamTheLucServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -3829,7 +3829,7 @@ export class KhamTheLucServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -3894,7 +3894,7 @@ export class KhamTheLucServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -3950,7 +3950,7 @@ export class KhamTheLucServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -4006,7 +4006,7 @@ export class KhamTheLucServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -4062,7 +4062,7 @@ export class KhamTheLucServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -4126,7 +4126,7 @@ export class KhoaCoXuongKhopServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -4189,7 +4189,7 @@ export class KhoaCoXuongKhopServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -4252,10 +4252,10 @@ export class KhoaCoXuongKhopServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -4327,7 +4327,7 @@ export class KhoaCoXuongKhopServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -4392,7 +4392,7 @@ export class KhoaCoXuongKhopServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -4448,7 +4448,7 @@ export class KhoaCoXuongKhopServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -4504,7 +4504,7 @@ export class KhoaCoXuongKhopServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -4560,7 +4560,7 @@ export class KhoaCoXuongKhopServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -4624,7 +4624,7 @@ export class KhoaDalieuServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -4687,7 +4687,7 @@ export class KhoaDalieuServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -4750,10 +4750,10 @@ export class KhoaDalieuServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -4825,7 +4825,7 @@ export class KhoaDalieuServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -4890,7 +4890,7 @@ export class KhoaDalieuServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -4946,7 +4946,7 @@ export class KhoaDalieuServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -5002,7 +5002,7 @@ export class KhoaDalieuServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -5058,7 +5058,7 @@ export class KhoaDalieuServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -5122,7 +5122,7 @@ export class KhoaHoHapServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -5185,7 +5185,7 @@ export class KhoaHoHapServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -5248,10 +5248,10 @@ export class KhoaHoHapServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -5323,7 +5323,7 @@ export class KhoaHoHapServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -5388,7 +5388,7 @@ export class KhoaHoHapServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -5444,7 +5444,7 @@ export class KhoaHoHapServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -5500,7 +5500,7 @@ export class KhoaHoHapServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -5556,7 +5556,7 @@ export class KhoaHoHapServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -5620,7 +5620,7 @@ export class KhoaMatServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -5683,7 +5683,7 @@ export class KhoaMatServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -5746,10 +5746,10 @@ export class KhoaMatServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -5821,7 +5821,7 @@ export class KhoaMatServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -5886,7 +5886,7 @@ export class KhoaMatServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -5942,7 +5942,7 @@ export class KhoaMatServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -5998,7 +5998,7 @@ export class KhoaMatServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -6054,7 +6054,7 @@ export class KhoaMatServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -6118,7 +6118,7 @@ export class KhoaNgoaiKhoaServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -6181,7 +6181,7 @@ export class KhoaNgoaiKhoaServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -6244,10 +6244,10 @@ export class KhoaNgoaiKhoaServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -6319,7 +6319,7 @@ export class KhoaNgoaiKhoaServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -6384,7 +6384,7 @@ export class KhoaNgoaiKhoaServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -6440,7 +6440,7 @@ export class KhoaNgoaiKhoaServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -6496,7 +6496,7 @@ export class KhoaNgoaiKhoaServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -6552,7 +6552,7 @@ export class KhoaNgoaiKhoaServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -6616,7 +6616,7 @@ export class KhoaNhiKhoaServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -6679,7 +6679,7 @@ export class KhoaNhiKhoaServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -6742,10 +6742,10 @@ export class KhoaNhiKhoaServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -6817,7 +6817,7 @@ export class KhoaNhiKhoaServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -6882,7 +6882,7 @@ export class KhoaNhiKhoaServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -6938,7 +6938,7 @@ export class KhoaNhiKhoaServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -6994,7 +6994,7 @@ export class KhoaNhiKhoaServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -7050,7 +7050,7 @@ export class KhoaNhiKhoaServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -7114,7 +7114,7 @@ export class KhoaNoiTietServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -7177,7 +7177,7 @@ export class KhoaNoiTietServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -7240,10 +7240,10 @@ export class KhoaNoiTietServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -7315,7 +7315,7 @@ export class KhoaNoiTietServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -7380,7 +7380,7 @@ export class KhoaNoiTietServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -7436,7 +7436,7 @@ export class KhoaNoiTietServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -7492,7 +7492,7 @@ export class KhoaNoiTietServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -7548,7 +7548,7 @@ export class KhoaNoiTietServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -7612,7 +7612,7 @@ export class KhoaRangHamMatServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -7675,7 +7675,7 @@ export class KhoaRangHamMatServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -7738,10 +7738,10 @@ export class KhoaRangHamMatServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -7813,7 +7813,7 @@ export class KhoaRangHamMatServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -7878,7 +7878,7 @@ export class KhoaRangHamMatServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -7934,7 +7934,7 @@ export class KhoaRangHamMatServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -7990,7 +7990,7 @@ export class KhoaRangHamMatServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -8046,7 +8046,7 @@ export class KhoaRangHamMatServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -8110,7 +8110,7 @@ export class KhoaTaiMuiHongServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -8173,7 +8173,7 @@ export class KhoaTaiMuiHongServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -8236,10 +8236,10 @@ export class KhoaTaiMuiHongServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -8311,7 +8311,7 @@ export class KhoaTaiMuiHongServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -8376,7 +8376,7 @@ export class KhoaTaiMuiHongServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -8432,7 +8432,7 @@ export class KhoaTaiMuiHongServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -8488,7 +8488,7 @@ export class KhoaTaiMuiHongServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -8544,7 +8544,7 @@ export class KhoaTaiMuiHongServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -8608,7 +8608,7 @@ export class KhoaTamThanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -8671,7 +8671,7 @@ export class KhoaTamThanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -8734,10 +8734,10 @@ export class KhoaTamThanServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -8809,7 +8809,7 @@ export class KhoaTamThanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -8874,7 +8874,7 @@ export class KhoaTamThanServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -8930,7 +8930,7 @@ export class KhoaTamThanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -8986,7 +8986,7 @@ export class KhoaTamThanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -9042,7 +9042,7 @@ export class KhoaTamThanServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -9106,7 +9106,7 @@ export class KhoaThaiSanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -9169,7 +9169,7 @@ export class KhoaThaiSanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -9232,10 +9232,10 @@ export class KhoaThaiSanServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -9307,7 +9307,7 @@ export class KhoaThaiSanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -9372,7 +9372,7 @@ export class KhoaThaiSanServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -9428,7 +9428,7 @@ export class KhoaThaiSanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -9484,7 +9484,7 @@ export class KhoaThaiSanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -9540,7 +9540,7 @@ export class KhoaThaiSanServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -9604,7 +9604,7 @@ export class KhoaThanKinhServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -9667,7 +9667,7 @@ export class KhoaThanKinhServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -9730,10 +9730,10 @@ export class KhoaThanKinhServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -9805,7 +9805,7 @@ export class KhoaThanKinhServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -9870,7 +9870,7 @@ export class KhoaThanKinhServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -9926,7 +9926,7 @@ export class KhoaThanKinhServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -9982,7 +9982,7 @@ export class KhoaThanKinhServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -10038,7 +10038,7 @@ export class KhoaThanKinhServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -10102,7 +10102,7 @@ export class KhoaTimMachServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -10165,7 +10165,7 @@ export class KhoaTimMachServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -10228,10 +10228,10 @@ export class KhoaTimMachServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -10303,7 +10303,7 @@ export class KhoaTimMachServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -10368,7 +10368,7 @@ export class KhoaTimMachServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -10424,7 +10424,7 @@ export class KhoaTimMachServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -10480,7 +10480,7 @@ export class KhoaTimMachServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -10536,7 +10536,7 @@ export class KhoaTimMachServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -10600,10 +10600,10 @@ export class PDFServiceServiceProxy {
     }
 
     /**
-     * @param cerId (optional) 
+     * @param cerId (optional)
      * @return Success
      */
-    fillPDFWithCertificate(cerId: string | undefined): Observable<void> {
+    fillPDFWithCertificate(cerId: string | undefined): Observable<any> {
         let url_ = this.baseUrl + "/api/services/app/PDFService/FillPDFWithCertificate?";
         if (cerId === null)
             throw new Error("The parameter 'cerId' cannot be null.");
@@ -10625,14 +10625,14 @@ export class PDFServiceServiceProxy {
                 try {
                     return this.processFillPDFWithCertificate(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
+                    return _observableThrow(e) as any as Observable<any>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<void>;
+                return _observableThrow(response_) as any as Observable<any>;
         }));
     }
 
-    protected processFillPDFWithCertificate(response: HttpResponseBase): Observable<void> {
+    protected processFillPDFWithCertificate(response: HttpResponseBase): Observable<any> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -10640,9 +10640,7 @@ export class PDFServiceServiceProxy {
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
-            }));
+            return _observableOf(responseBlob);
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -10652,7 +10650,7 @@ export class PDFServiceServiceProxy {
     }
 
     /**
-     * @param path (optional) 
+     * @param path (optional)
      * @return Success
      */
     getPDFFile(path: string | undefined): Observable<void> {
@@ -10716,7 +10714,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateRoleDto | undefined): Observable<RoleDto> {
@@ -10772,7 +10770,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param permission (optional) 
+     * @param permission (optional)
      * @return Success
      */
     getRoles(permission: string | undefined): Observable<RoleListDtoListResultDto> {
@@ -10828,7 +10826,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: RoleDto | undefined): Observable<RoleDto> {
@@ -10884,7 +10882,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -10987,7 +10985,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     getRoleForEdit(id: number | undefined): Observable<GetRoleForEditOutput> {
@@ -11043,7 +11041,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: number | undefined): Observable<RoleDto> {
@@ -11099,9 +11097,9 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param keyword (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param keyword (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(keyword: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<RoleDtoPagedResultDto> {
@@ -11240,7 +11238,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateTenantDto | undefined): Observable<TenantDto> {
@@ -11296,7 +11294,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -11348,7 +11346,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: number | undefined): Observable<TenantDto> {
@@ -11404,10 +11402,10 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param keyword (optional) 
-     * @param isActive (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param keyword (optional)
+     * @param isActive (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(keyword: string | undefined, isActive: boolean | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<TenantDtoPagedResultDto> {
@@ -11475,7 +11473,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: TenantDto | undefined): Observable<TenantDto> {
@@ -11543,7 +11541,7 @@ export class ThanTietNieuServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -11606,7 +11604,7 @@ export class ThanTietNieuServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -11669,10 +11667,10 @@ export class ThanTietNieuServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -11744,7 +11742,7 @@ export class ThanTietNieuServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -11809,7 +11807,7 @@ export class ThanTietNieuServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -11865,7 +11863,7 @@ export class ThanTietNieuServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -11921,7 +11919,7 @@ export class ThanTietNieuServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -11977,7 +11975,7 @@ export class ThanTietNieuServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -12041,7 +12039,7 @@ export class TieuHoaServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -12104,7 +12102,7 @@ export class TieuHoaServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -12167,10 +12165,10 @@ export class TieuHoaServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -12242,7 +12240,7 @@ export class TieuHoaServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -12307,7 +12305,7 @@ export class TieuHoaServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -12363,7 +12361,7 @@ export class TieuHoaServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -12419,7 +12417,7 @@ export class TieuHoaServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -12475,7 +12473,7 @@ export class TieuHoaServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -12539,7 +12537,7 @@ export class TokenAuthServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     authenticate(body: AuthenticateModel | undefined): Observable<AuthenticateResultModel> {
@@ -12595,7 +12593,7 @@ export class TokenAuthServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     refreshToken(body: RefreshTokenModel | undefined): Observable<AuthenticateResultModel> {
@@ -12709,7 +12707,7 @@ export class TokenAuthServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     externalAuthenticate(body: ExternalAuthenticateModel | undefined): Observable<ExternalAuthenticateResultModel> {
@@ -12777,7 +12775,7 @@ export class TruongDonViKySoServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -12840,7 +12838,7 @@ export class TruongDonViKySoServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -12903,10 +12901,10 @@ export class TruongDonViKySoServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -12978,7 +12976,7 @@ export class TruongDonViKySoServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -13043,7 +13041,7 @@ export class TruongDonViKySoServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -13099,7 +13097,7 @@ export class TruongDonViKySoServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -13155,7 +13153,7 @@ export class TruongDonViKySoServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -13211,7 +13209,7 @@ export class TruongDonViKySoServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -13275,7 +13273,7 @@ export class TuanHoanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -13338,7 +13336,7 @@ export class TuanHoanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -13401,10 +13399,10 @@ export class TuanHoanServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -13476,7 +13474,7 @@ export class TuanHoanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -13541,7 +13539,7 @@ export class TuanHoanServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -13597,7 +13595,7 @@ export class TuanHoanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -13653,7 +13651,7 @@ export class TuanHoanServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -13709,7 +13707,7 @@ export class TuanHoanServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -13773,7 +13771,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateUserDto | undefined): Observable<UserDto> {
@@ -13829,7 +13827,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: UserDto | undefined): Observable<UserDto> {
@@ -13885,7 +13883,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -13937,7 +13935,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     activate(body: Int64EntityDto | undefined): Observable<void> {
@@ -13989,7 +13987,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     deActivate(body: Int64EntityDto | undefined): Observable<void> {
@@ -14092,7 +14090,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     changeLanguage(body: ChangeUserLanguageDto | undefined): Observable<void> {
@@ -14144,7 +14142,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     changePassword(body: ChangePasswordDto | undefined): Observable<boolean> {
@@ -14189,7 +14187,7 @@ export class UserServiceProxy {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
+
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -14201,7 +14199,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     resetPassword(body: ResetPasswordDto | undefined): Observable<boolean> {
@@ -14246,7 +14244,7 @@ export class UserServiceProxy {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
+
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -14258,8 +14256,8 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param id (optional) 
-     * @param file (optional) 
+     * @param id (optional)
+     * @param file (optional)
      * @return Success
      */
     uploadSignPath(id: number | undefined, file: FileParameter | undefined): Observable<UserDto> {
@@ -14322,7 +14320,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: number | undefined): Observable<UserDto> {
@@ -14378,10 +14376,10 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param keyword (optional) 
-     * @param isActive (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param keyword (optional)
+     * @param isActive (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(keyword: string | undefined, isActive: boolean | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<UserDtoPagedResultDto> {
@@ -14461,7 +14459,7 @@ export class XetNghiemKhacServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -14524,7 +14522,7 @@ export class XetNghiemKhacServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -14587,10 +14585,10 @@ export class XetNghiemKhacServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -14662,7 +14660,7 @@ export class XetNghiemKhacServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -14727,7 +14725,7 @@ export class XetNghiemKhacServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -14783,7 +14781,7 @@ export class XetNghiemKhacServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -14839,7 +14837,7 @@ export class XetNghiemKhacServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -14895,7 +14893,7 @@ export class XetNghiemKhacServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -14959,7 +14957,7 @@ export class XetNghiemMaTuyVaMauServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -15022,7 +15020,7 @@ export class XetNghiemMaTuyVaMauServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -15085,10 +15083,10 @@ export class XetNghiemMaTuyVaMauServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -15160,7 +15158,7 @@ export class XetNghiemMaTuyVaMauServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -15225,7 +15223,7 @@ export class XetNghiemMaTuyVaMauServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -15281,7 +15279,7 @@ export class XetNghiemMaTuyVaMauServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -15337,7 +15335,7 @@ export class XetNghiemMaTuyVaMauServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -15393,7 +15391,7 @@ export class XetNghiemMaTuyVaMauServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -15457,7 +15455,7 @@ export class XetNghiemMauServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -15520,7 +15518,7 @@ export class XetNghiemMauServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -15583,10 +15581,10 @@ export class XetNghiemMauServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -15658,7 +15656,7 @@ export class XetNghiemMauServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -15723,7 +15721,7 @@ export class XetNghiemMauServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -15779,7 +15777,7 @@ export class XetNghiemMauServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -15835,7 +15833,7 @@ export class XetNghiemMauServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -15891,7 +15889,7 @@ export class XetNghiemMauServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -15955,7 +15953,7 @@ export class XetNghiemNuocTieuServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -16018,7 +16016,7 @@ export class XetNghiemNuocTieuServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: CreateMedicationKeyResultDto[] | undefined): Observable<MedicationKeyResultDto[]> {
@@ -16081,10 +16079,10 @@ export class XetNghiemNuocTieuServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<MedicationKeyResultDtoPagedResultDto> {
@@ -16156,7 +16154,7 @@ export class XetNghiemNuocTieuServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     taskGetAll(body: ParentPagedAndSortedResultRequestDto | undefined): Observable<{ [key: string]: KeyValueInfo; }> {
@@ -16221,7 +16219,7 @@ export class XetNghiemNuocTieuServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<MedicationKeyResultDto> {
@@ -16277,7 +16275,7 @@ export class XetNghiemNuocTieuServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateMedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -16333,7 +16331,7 @@ export class XetNghiemNuocTieuServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: MedicationKeyResultDto | undefined): Observable<MedicationKeyResultDto> {
@@ -16389,7 +16387,7 @@ export class XetNghiemNuocTieuServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {

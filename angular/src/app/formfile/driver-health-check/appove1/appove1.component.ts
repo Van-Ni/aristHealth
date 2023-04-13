@@ -14,20 +14,20 @@ interface Approve1ViewModel {
 })
 export class Appove1Component extends CertificateKeyValueComponentBase<Approve1ViewModel> implements OnInit {
   setViewModel(model: any) {
-    throw new Error('Method not implemented.');
+    //throw new Error('Method not implemented.');
   }
   isEditable2= false;
   certificateId: string;
   certificateStatus: CertificateGroupStatusDto;
   status = false;
   approve1: Approve1ViewModel;
-  
+
   constructor( private _permissionChecker: PermissionCheckerService,private dataservice: DataService,private injector: Injector,private certificateGroupStatusServiceServiceProxy: CertificateGroupStatusServiceServiceProxy,
     private PDFServiceServiceProxy: PDFServiceServiceProxy) {
     super(injector, dataservice)
     this.group = "tdv";
    }
-  
+
 
   ngOnInit() {
     super.ngOnInit();
@@ -44,7 +44,7 @@ export class Appove1Component extends CertificateKeyValueComponentBase<Approve1V
         status: true,
       }
     );
-    
+
     if(this.status == false){
       this.certificateGroupStatusServiceServiceProxy.create(item2).subscribe(
         () => {
@@ -56,7 +56,7 @@ export class Appove1Component extends CertificateKeyValueComponentBase<Approve1V
     else{
       console.log("error");
     }
-    
+
   }
   print(): void
   {
@@ -64,9 +64,11 @@ export class Appove1Component extends CertificateKeyValueComponentBase<Approve1V
     {
       this.PDFServiceServiceProxy.fillPDFWithCertificate(this.certificateId).subscribe(
         (response: any) => {
-          if (response && response.body) { // Check if the response body is not null or undefined
-            const blob = new Blob([response.body], { type: 'application/pdf' });
-            const url = URL.createObjectURL(blob);
+          console.log(response);
+
+          if (response) { // Check if the response body is not null or undefined
+            //const blob = new Blob([response.body], { type: 'application/pdf' });
+            const url = URL.createObjectURL(response);
             const link = document.createElement('a');
             link.href = url;
             link.download = 'filled_certificate.pdf';

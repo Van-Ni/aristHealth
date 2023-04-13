@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
 <div class="container">
-  <div class="row">
+  <div class="row" *ngIf="profile.clientInfo">
     <div class="col-12">
       <form class="form-horizontal"
       autocomplete="off"
@@ -41,7 +41,7 @@
             <label for="CCCD" class="col-sm-2 col-form-label">Ngày sinh: </label>
             <div class="col-sm">
               <div >
-                <input type="text"                
+                <input type="text"
                        placeholder="Ngày sinh"
                        class="form-control"
                        [(ngModel)]="profile.clientInfo.dateOfBirth"

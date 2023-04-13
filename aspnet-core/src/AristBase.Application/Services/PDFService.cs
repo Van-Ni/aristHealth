@@ -27,6 +27,8 @@ namespace AristBase.Services
         public const string SignImage = "sign_image_";
         public const string SignName = "sign_chuki_";
         public const string Text = "_text_";
+        public const string Radio = "_radio_";
+        public const string CheckBox = "_checkbox_";
         public const string Hvt = "client_text_hovaten";
         public const string Male = "client_checkbox_male";
         public const string Female = "client_checkbox_female";
@@ -158,20 +160,21 @@ namespace AristBase.Services
                 filedValues.TryGetValue(field.Key, out value);
                 if (string.IsNullOrEmpty(value))
                 {
-                    formFields.SetField(field.Key, "#############");
+                    formFields.SetField(field.Key, "");
                     continue;
                 }
-                if (field.Key.Contains(PDFFieldConst.Text))
+                
+                if(filedValues.Keys.Contains(PDFFieldConst.Radio)|| filedValues.Keys.Contains(PDFFieldConst.CheckBox))
                 {
+                    formFields.GenerateAppearances = false;
                     formFields.SetField(field.Key, value);
-                    formFields.SetFieldProperty(field.Key, "textfont", font, null);
+                    //formFields.SetFieldProperty(field.Key, "textfont", font, null);
+                    formFields.GenerateAppearances = true;
                 }
-                else
+                else 
                 {
-                    //formFields.GenerateAppearances = false;
                     formFields.SetField(field.Key, value);
                     formFields.SetFieldProperty(field.Key, "textfont", font, null);
-                    //formFields.GenerateAppearances = true;
                 }
 
             }
