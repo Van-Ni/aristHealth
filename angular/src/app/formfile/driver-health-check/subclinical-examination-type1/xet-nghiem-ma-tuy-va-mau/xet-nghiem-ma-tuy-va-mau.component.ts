@@ -18,10 +18,14 @@ interface XetnghiemMaTuyVaMauViewModel{
 })
 export class XetNghiemMaTuyVaMauComponent extends CertificateKeyValueComponentBase<XetnghiemMaTuyVaMauViewModel> implements OnInit {
   setViewModel(model: any) {
-    let object = Object.fromEntries(new Map(model.items.map(obj=>{
-      return [obj.key, obj.value]
-    })));
-    this.xetnghiemmatuyvamau = object as unknown as XetnghiemMaTuyVaMauViewModel;
+    for (const key in this.xetnghiemmatuyvamau) {
+      if (Object.prototype.hasOwnProperty.call(this.xetnghiemmatuyvamau, key)) {
+        const item = model.items.find(i => i.key === key);
+        if(item){
+          this.xetnghiemmatuyvamau[key] = item.value;
+        }
+      }
+    }
   }
   xetnghiemmatuyvamau: XetnghiemMaTuyVaMauViewModel = {
     xetnghiemmatuyvamau_text_heroin: 'Âm tính',
