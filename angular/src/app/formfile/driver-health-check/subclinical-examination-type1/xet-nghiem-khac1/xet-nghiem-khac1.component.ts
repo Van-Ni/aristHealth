@@ -16,14 +16,10 @@ class XetNghiemKhacViewModel{
 })
 export class XetNghiemKhac1Component extends CertificateKeyValueComponentBase<XetNghiemKhacViewModel>  implements OnInit {
   setViewModel(model: any) {
-    for (const key in this.xetnghiemkhac) {
-      if (Object.prototype.hasOwnProperty.call(this.xetnghiemkhac, key)) {
-        const item = model.items.find(i => i.key === key);
-        if(item){
-          this.xetnghiemkhac[key] = item.value;
-        }
-      }
-    }
+    let object = Object.fromEntries(new Map(model.items.map(obj=>{
+      return [obj.key, obj.value]
+    })));
+    this.xetnghiemkhac = object as unknown as XetNghiemKhacViewModel;
   }
   xetnghiemkhac: XetNghiemKhacViewModel;
   @Input() statusDataCheck: any;
