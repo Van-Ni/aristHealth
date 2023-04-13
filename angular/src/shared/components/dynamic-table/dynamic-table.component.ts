@@ -16,10 +16,7 @@ export class DynamicTableComponent extends PagedListingComponentBase<EntityDto> 
   isActive: boolean | null;
   advancedFiltersVisible = false;
   protected list(request: PagedRequestDto, pageNumber: number, finishedCallback: Function): void {
-    console.log("1");
     this.onList(request, (pageResult: IPagedResultDto<EntityDto>) => {
-      request.sortting=this.keyword;
-      console.log("sorrting",request);
       this.entity = pageResult.items;
       this.showPaging(pageResult, pageNumber);
         for (const key in pageResult.items[0]) {

@@ -126,8 +126,9 @@
     <text name="status">Trạng thái</text>
     <text name="certificate-types">Loại giấy khám</text>
     <text name="certificates">Giấy khám</text>
-    <text name="CertificateType">Loại giấy khám</text>
-
-
+    <text name="filePath">Đường dẫn lưu trữ</text>
+    <text name="finalResult"></text>
+    <text name="name">Tên loại giấy</text>
+    <text name="price">Giá tiền</text>
   </texts>
 </localizationDictionary>

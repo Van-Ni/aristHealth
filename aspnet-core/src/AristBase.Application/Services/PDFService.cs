@@ -45,6 +45,11 @@ namespace AristBase.Services
         public const string SoYTe = "text_tenancyName";
         public const string TT = "text_branchName";
         public const string So = "text_so";
+        public const string TTNBTH = "mat_radio_thitruong_ngang_bth";
+        public const string TTNHC = "mat_radio_thitruong_ngang_hc";
+        public const string TTDBTH = "mat_radio_thitruong_dung_bth";
+        public const string TTDHC = "mat_radio_thitruong_dung_hc";
+
 
     }
     public class PDFService : ApplicationService, ITransientDependency
@@ -102,6 +107,10 @@ namespace AristBase.Services
             dic[PDFFieldConst.Day] = now.ToString("dd");
             dic[PDFFieldConst.Month] = now.ToString("MM");
             dic[PDFFieldConst.Year] = now.ToString("yyyy");
+            dic[PDFFieldConst.TTNBTH] = dic["mat_radio_thitruong_ngang"] == "bth" ? "true" : "false";
+            dic[PDFFieldConst.TTNHC] = dic["mat_radio_thitruong_ngang"] == "hc" ? "true" : "false";
+            dic[PDFFieldConst.TTDBTH] = dic["mat_radio_thitruong_dung"] == "bth" ? "true" : "false";
+            dic[PDFFieldConst.TTDHC] = dic["mat_radio_thitruong_dung"] == "hc" ? "true" : "false";
 
             var cername = Guid.NewGuid().ToString("n") + ".pdf";
             var path = PathHelper.GetOutputPath(cername, "giaypheplaixe");
@@ -163,15 +172,15 @@ namespace AristBase.Services
                     formFields.SetField(field.Key, "");
                     continue;
                 }
-                
-                if(filedValues.Keys.Contains(PDFFieldConst.Radio)|| filedValues.Keys.Contains(PDFFieldConst.CheckBox))
+
+                if (filedValues.Keys.Contains(PDFFieldConst.Radio) || filedValues.Keys.Contains(PDFFieldConst.CheckBox))
                 {
                     formFields.GenerateAppearances = false;
                     formFields.SetField(field.Key, value);
                     //formFields.SetFieldProperty(field.Key, "textfont", font, null);
                     formFields.GenerateAppearances = true;
                 }
-                else 
+                else
                 {
                     formFields.SetField(field.Key, value);
                     formFields.SetFieldProperty(field.Key, "textfont", font, null);

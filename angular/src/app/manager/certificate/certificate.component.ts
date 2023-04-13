@@ -39,12 +39,10 @@ export class CertificateComponent  {
   }
 
   list=(request: PagedRequestDto, finishedCallback: Function)=>{
-    console.log("check", request);
-    console.log("2");
     this.certificateServiceServiceProxy
       .getAll("creationTime desc","", request.skipCount,  request.maxResultCount)
       .subscribe((result: CertificateDtoPagedResultDto) => {
-
+        if(result ==null) return;
         this.certificates = {
           items: result.items.map(x => {
             const certificateViewModel = new CertificateViewModel();
