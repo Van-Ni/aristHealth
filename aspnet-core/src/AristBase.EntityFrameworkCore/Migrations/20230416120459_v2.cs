@@ -5,14 +5,14 @@
 namespace AristBase.Migrations
 {
     /// <inheritdoc />
-    public partial class updatedecimaltodouble : Migration
+    public partial class v2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<decimal>(
-                name: "AmountPaid",
-                table: "Certificate",
+                name: "Price",
+                table: "CertificateType",
                 type: "numeric",
                 nullable: false,
                 oldClrType: typeof(double),
@@ -23,8 +23,8 @@ namespace AristBase.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<double>(
-                name: "AmountPaid",
-                table: "Certificate",
+                name: "Price",
+                table: "CertificateType",
                 type: "double precision",
                 nullable: false,
                 oldClrType: typeof(decimal),

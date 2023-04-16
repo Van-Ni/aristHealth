@@ -6,7 +6,8 @@
   <hr>
   <div id="collapseBasic" [collapse]="isTamThan1" [isAnimated]="true">
     <div class="well well-lg card card-block card-header">
-      <app-tam-than1 [Data]="data" [statusDataCheck]="statusDataCheck1"></app-tam-than1>
+      <!-- <app-tam-than1 [Data]="data" [statusDataCheck]="statusDataCheck1"></app-tam-than1> -->
+      <app-KetLuanPhanLoai></app-KetLuanPhanLoai>
     </div>
   </div>
   <div (click)="isThanKinh1 = !isThanKinh1"
@@ -15,7 +16,13 @@
   <hr>
   <div id="collapseBasic" [collapse]="isThanKinh1" [isAnimated]="true">
     <div class="well well-lg card card-block card-header">
-      <app-than-kinh1 [Data]="data" [statusDataCheck]="statusDataCheck1"></app-than-kinh1>
+      <!-- <app-than-kinh1 [Data]="data" [statusDataCheck]="statusDataCheck1"></app-than-kinh1> -->
+      <app-KetLuanPhanLoai 
+      ketluanTitle="tk" 
+      phanloaiTitle="Phân loại"
+      [inputModel]="Data.thankinh"
+      save="save"
+      ></app-KetLuanPhanLoai>
     </div>
   </div>
   <div (click)="isMat1 = !isMat1"

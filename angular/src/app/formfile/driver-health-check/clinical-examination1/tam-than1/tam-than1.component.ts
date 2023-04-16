@@ -2,10 +2,9 @@ import { Component, Injector, Input, OnInit } from '@angular/core';
 import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, KhoaTamThanServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, CreateCertificateGroupStatusDto, KeyValues, KhoaTamThanServiceServiceProxy, Values } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 interface TamThan1ViewModel {
-  tamthan_text_noidung: string;
   tamthan_selectbox_phanloai: string;
   tamthan_text_tamthan_ketluan: string;
 }
@@ -26,7 +25,6 @@ export class TamThan1Component  extends CertificateKeyValueComponentBase<TamThan
     }
   }
   tamthan1: TamThan1ViewModel={
-    tamthan_text_noidung: '',
     tamthan_selectbox_phanloai: 'Bình thường',
     tamthan_text_tamthan_ketluan: 'Đủ sức khỏe'
   };
@@ -50,33 +48,30 @@ export class TamThan1Component  extends CertificateKeyValueComponentBase<TamThan
     }
   }
   save(): void{
-    var inputtamthan1s : CreateMedicationKeyResultDto[] = [];
-    const item1 = new CreateMedicationKeyResultDto(
-      {
-        key: 'tamthan_selectbox_phanloai',
-        value:  this.tamthan1.tamthan_selectbox_phanloai|| '',
-        certificateId: this.certificateId,  
-        group: this.group,
+    const data  =  {
+      keys: {
+        "tamthan_selectbox_phanloai": new Values({ value: this.tamthan1.tamthan_selectbox_phanloai }),
+        "tamthan_text_tamthan_ketluan": new Values({ value: this.tamthan1.tamthan_text_tamthan_ketluan })
       }
-    );const item2 = new CreateMedicationKeyResultDto(
+    };
+    const input = new CreateCertificateGroupStatusDto(
       {
-        key: 'tamthan_text_tamthan_ketluan',
-        value:  this.tamthan1.tamthan_text_tamthan_ketluan|| '',
+        userId : this.appSession.userId,
         certificateId: this.certificateId,
         group: this.group,
+        status : false,
+        content : new KeyValues(data),
       }
     );
-    inputtamthan1s.push(item1);
-    inputtamthan1s.push(item2);
     if(this.status == true){
-      this.khoaTamThanServiceServiceProxy.updateOrInsert(inputtamthan1s).subscribe(
+      this.khoaTamThanServiceServiceProxy.updateOrInsert(input).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
           this.dataservice.refreshData(this.certificateId);
         },
       );
     }else{
-      this.khoaTamThanServiceServiceProxy.createList(inputtamthan1s).subscribe(
+      this.khoaTamThanServiceServiceProxy.createList(input).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
           this.dataservice.refreshData(this.certificateId);

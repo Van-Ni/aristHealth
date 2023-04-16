@@ -1,8 +1,8 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
-import { CertificateGroupStatusDto, CertificateGroupStatusServiceServiceProxy, CreateCertificateGroupStatusDto, CreateMedicationKeyResultDto, PDFServiceServiceProxy, TruongDonViKySoServiceServiceProxy } from '@shared/service-proxies/service-proxies';
-import { AbpSessionService, PermissionCheckerService } from 'abp-ng2-module';
+import { CertificateGroupStatusDto, CertificateGroupStatusServiceServiceProxy, PDFServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { PermissionCheckerService } from 'abp-ng2-module';
 interface Approve1ViewModel {
   hohap_selectbox_phanloai: string;
   tbv: string;
@@ -31,31 +31,31 @@ export class Appove1Component extends CertificateKeyValueComponentBase<Approve1V
 
   ngOnInit() {
     super.ngOnInit();
-    if(this._permissionChecker.isGranted("Pages.TruongDonViKySo.Create")){
+    if(this._permissionChecker.isGranted("Pages.tdv.Create")){
       this.isEditable2 = true;
     }
   }
   approve() : void {
-      const item2 = new CreateCertificateGroupStatusDto(
-      {
-        userId: this.appSession.userId,
-        certificateId: this.certificateId,
-        group: this.group,
-        status: true,
-      }
-    );
+    //   const item2 = new CreateCertificateGroupStatusDto(
+    //   {
+    //     userId: this.appSession.userId,
+    //     certificateId: this.certificateId,
+    //     group: this.group,
+    //     status: true,
+    //   }
+    // );
 
-    if(this.status == false){
-      this.certificateGroupStatusServiceServiceProxy.create(item2).subscribe(
-        () => {
-          this.notify.info(this.l('SavedSuccessfully.'));
-          this.dataservice.refreshData(this.certificateId);
-        },
-      );
-    }
-    else{
-      console.log("error");
-    }
+    // if(this.status == false){
+    //   this.certificateGroupStatusServiceServiceProxy.create(item2).subscribe(
+    //     () => {
+    //       this.notify.info(this.l('SavedSuccessfully.'));
+    //       this.dataservice.refreshData(this.certificateId);
+    //     },
+    //   );
+    // }
+    // else{
+    //   console.log("error");
+    // }
 
   }
   print(): void

@@ -2,7 +2,7 @@ import { Component, Injector, Input, OnInit } from '@angular/core';
 import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, KhoaTaiMuiHongServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, CreateCertificateGroupStatusDto, KeyValues, KhoaTaiMuiHongServiceServiceProxy, Values } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 interface TaiMuHong1ViewModel {
   taimuihong_text_taitrai:string;
@@ -55,66 +55,34 @@ export class TaiMuiHong1Component  extends CertificateKeyValueComponentBase<TaiM
     }
   }
   save(): void{
-    var inputtaimuihong1s : CreateMedicationKeyResultDto[] = [];
-    const item2 = new CreateMedicationKeyResultDto(
-      {
-        key: 'taimuihong_selectbox_phanloai',
-        value:  this.taimuihong1.taimuihong_selectbox_phanloai|| '',
-        certificateId: this.certificateId,
-        group: this.group,
+    const data  =  {
+      keys: {
+        "hohap_selectbox_phanloai": new Values({ value: this.taimuihong1.taimuihong_selectbox_phanloai }),
+        "hohap_text_hohap_ketluan": new Values({ value: this.taimuihong1.taimuihong_text_taimuihong_ketluan }),
+        "taimuihong_text_taiphai": new Values({ value: this.taimuihong1.taimuihong_text_taiphai }),
+        "taimuihong_text_taiphai_noitham": new Values({ value: this.taimuihong1.taimuihong_text_taiphai_noitham }),
+        "taimuihong_text_taitrai": new Values({ value: this.taimuihong1.taimuihong_text_taitrai }),
+        "taimuihong_text_taitrai_noitham": new Values({ value: this.taimuihong1.taimuihong_text_taitrai_noitham }),
       }
-    );const item3 = new CreateMedicationKeyResultDto(
+    };
+    const input = new CreateCertificateGroupStatusDto(
       {
-        key: 'taimuihong_text_taimuihong_ketluan',
-        value:  this.taimuihong1.taimuihong_text_taimuihong_ketluan|| '',
+        userId : this.appSession.userId,
         certificateId: this.certificateId,
         group: this.group,
-      }
-    );const item4 = new CreateMedicationKeyResultDto(
-      {
-        key: 'taimuihong_text_taiphai',
-        value:  this.taimuihong1.taimuihong_text_taiphai|| '',
-        certificateId: this.certificateId,
-        group: this.group,
-      }
-    );const item5 = new CreateMedicationKeyResultDto(
-      {
-        key: 'taimuihong_text_taiphai_noitham',
-        value:  this.taimuihong1.taimuihong_text_taiphai_noitham|| '',
-        certificateId: this.certificateId,
-        group: this.group,
-      }
-    );const item6 = new CreateMedicationKeyResultDto(
-      {
-        key: 'taimuihong_text_taitrai',
-        value:  this.taimuihong1.taimuihong_text_taitrai|| '',
-        certificateId: this.certificateId,
-        group: this.group,
-      }
-    );const item7 = new CreateMedicationKeyResultDto(
-      {
-        key: 'taimuihong_text_taitrai_noitham',
-        value:  this.taimuihong1.taimuihong_text_taitrai_noitham|| '',
-        certificateId: this.certificateId,
-        group: this.group,
+        status : false,
+        content : new KeyValues(data),
       }
     );
-    //inputtaimuihong1s.push(item1);
-    inputtaimuihong1s.push(item2);
-    inputtaimuihong1s.push(item3);
-    inputtaimuihong1s.push(item4);
-    inputtaimuihong1s.push(item5);
-    inputtaimuihong1s.push(item6);
-    inputtaimuihong1s.push(item7);
     if(this.status == true){
-      this.khoaTaiMuiHongServiceServiceProxy.updateOrInsert(inputtaimuihong1s).subscribe(
+      this.khoaTaiMuiHongServiceServiceProxy.updateOrInsert(input).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
           this.dataservice.refreshData(this.certificateId);
         },
       );
     }else{
-      this.khoaTaiMuiHongServiceServiceProxy.createList(inputtaimuihong1s).subscribe(
+      this.khoaTaiMuiHongServiceServiceProxy.createList(input).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
           this.dataservice.refreshData(this.certificateId);

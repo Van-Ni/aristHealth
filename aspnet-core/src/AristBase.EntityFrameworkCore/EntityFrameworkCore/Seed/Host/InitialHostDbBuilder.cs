@@ -17,7 +17,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host
             new DefaultLanguagesCreator(_context).Create();
             new HostRoleAndUserCreator(_context).Create();
             new DefaultSettingsCreator(_context).Create();
-
+            new DefaultCerfiticateTypeCreator(_context).Create();
             _context.SaveChanges();
         }
     }

@@ -1,0 +1,33 @@
+<form autocomplete="off"
+#createCoXuongKhop="ngForm"
+(ngSubmit)="save()">
+  <fieldset [disabled]="!this._permissionChecker.isGranted(this.inputModel.group)">
+    <div>
+      <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">{{ketluanTitle}}</label>
+          <div class="col-sm-10">
+            <input list="phanloaiCsk" class="form-control" name="phanloaiCsk" [(ngModel)]="inputModel.content.keys['text_ketluan']"
+            [ngModelOptions]="{standalone: true}"/>
+          <datalist id="phanloaiCsk">
+            //opitions
+          </datalist>
+          </div>
+      </div>
+      <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label">Kết luận:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" value="" [(ngModel)]="inputModel.content.keys['text_phanloai']"
+          [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+      <div class="form-group " style="display: flex !important;justify-content: space-around !important;">
+        <ng-container *ngIf="!inputModel.status">
+          <button  class="btn btn-primary">Lưu thông tin</button>
+        </ng-container>
+        <ng-container *ngIf="inputModel.status">
+          <button  class="btn btn-success">Đã nhập thông tin</button>
+        </ng-container>
+      </div>
+    </div>
+  </fieldset>
+</form>

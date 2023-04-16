@@ -1,8 +1,7 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
 import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
-import { AppComponentBase } from '@shared/app-component-base';
-import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, TieuHoaServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, TieuHoaServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 interface TieuHoa1ViewModel {
   tieuhoa_selectbox_phanloai: string;
@@ -42,38 +41,38 @@ export class TieuHoaComponent extends CertificateKeyValueComponentBase<TieuHoa1V
 
   }
   save(): void{
-    var inputhohap2s : CreateMedicationKeyResultDto[] = [];
-    const item1 = new CreateMedicationKeyResultDto(
-      {
-        key: 'tieuhoa_selectbox_phanloai',
-        value:  this.tieuhoa1.tieuhoa_selectbox_phanloai|| '',
-        certificateId: this.certificateId,  
-        group: "tieuhoa",
-      }
-    );const item2 = new CreateMedicationKeyResultDto(
-      {
-        key: 'tieuhoa_text_tieuhoa_noidung',
-        value:  this.tieuhoa1.tieuhoa_text_tieuhoa_noidung|| '',
-        certificateId: this.certificateId,
-        group: "tieuhoa",
-      }
-    );
-    inputhohap2s.push(item1);
-    inputhohap2s.push(item2);
-    if(this.status == true){
-      this.tieuHoaServiceServiceProxy.updateOrInsert(inputhohap2s).subscribe(
-        () => {
-          this.notify.info(this.l('SavedSuccessfully.'));
-          this.dataservice.refreshData(this.certificateId);
-        },
-      );
-    }else{
-      this.tieuHoaServiceServiceProxy.createList(inputhohap2s).subscribe(
-        () => {
-          this.notify.info(this.l('SavedSuccessfully.'));
-          this.dataservice.refreshData(this.certificateId);
-        },
-      );
-    }
+    // var inputhohap2s : CreateMedicationKeyResultDto[] = [];
+    // const item1 = new CreateMedicationKeyResultDto(
+    //   {
+    //     key: 'tieuhoa_selectbox_phanloai',
+    //     value:  this.tieuhoa1.tieuhoa_selectbox_phanloai|| '',
+    //     certificateId: this.certificateId,  
+    //     group: "tieuhoa",
+    //   }
+    // );const item2 = new CreateMedicationKeyResultDto(
+    //   {
+    //     key: 'tieuhoa_text_tieuhoa_noidung',
+    //     value:  this.tieuhoa1.tieuhoa_text_tieuhoa_noidung|| '',
+    //     certificateId: this.certificateId,
+    //     group: "tieuhoa",
+    //   }
+    // );
+    // inputhohap2s.push(item1);
+    // inputhohap2s.push(item2);
+    // if(this.status == true){
+    //   this.tieuHoaServiceServiceProxy.updateOrInsert(inputhohap2s).subscribe(
+    //     () => {
+    //       this.notify.info(this.l('SavedSuccessfully.'));
+    //       this.dataservice.refreshData(this.certificateId);
+    //     },
+    //   );
+    // }else{
+    //   this.tieuHoaServiceServiceProxy.createList(inputhohap2s).subscribe(
+    //     () => {
+    //       this.notify.info(this.l('SavedSuccessfully.'));
+    //       this.dataservice.refreshData(this.certificateId);
+    //     },
+    //   );
+    // }
   }
 }

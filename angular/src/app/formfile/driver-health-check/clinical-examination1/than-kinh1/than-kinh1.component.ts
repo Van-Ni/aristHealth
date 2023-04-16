@@ -2,10 +2,9 @@ import { Component, Injector, Input, OnInit } from '@angular/core';
 import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, KhoaThanKinhServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, CreateCertificateGroupStatusDto, KeyValues, KhoaThanKinhServiceServiceProxy, Values } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 interface ThanKinh1ViewModel {
-  thankinh_text_noidung: string;
   thankinh_selectbox_phanloai: string;
   thankinh_text_thankinh_ketluan: string;
 }
@@ -26,7 +25,6 @@ export class ThanKinh1Component extends CertificateKeyValueComponentBase<ThanKin
     }
   }
   thankinh1: ThanKinh1ViewModel={
-    thankinh_text_noidung: '',
     thankinh_selectbox_phanloai: 'Bình thường',
     thankinh_text_thankinh_ketluan: 'Đủ sức khỏe'
   };
@@ -50,33 +48,30 @@ export class ThanKinh1Component extends CertificateKeyValueComponentBase<ThanKin
     }
   }
   save(): void{
-    var inputthankinh1s : CreateMedicationKeyResultDto[] = [];
-    const item1 = new CreateMedicationKeyResultDto(
-      {
-        key: 'thankinh_selectbox_phanloai',
-        value:  this.thankinh1.thankinh_selectbox_phanloai|| '',
-        certificateId: this.certificateId,  
-        group: this.group,
+    const data  =  {
+      keys: {
+        "thankinh_selectbox_phanloai": new Values({ value: this.thankinh1.thankinh_selectbox_phanloai }),
+        "thankinh_text_thankinh_ketluan": new Values({ value: this.thankinh1.thankinh_text_thankinh_ketluan })
       }
-    );const item2 = new CreateMedicationKeyResultDto(
+    };
+    const input = new CreateCertificateGroupStatusDto(
       {
-        key: 'thankinh_text_thankinh_ketluan',
-        value:  this.thankinh1.thankinh_text_thankinh_ketluan|| '',
+        userId : this.appSession.userId,
         certificateId: this.certificateId,
         group: this.group,
+        status : false,
+        content : new KeyValues(data),
       }
     );
-    inputthankinh1s.push(item1);
-    inputthankinh1s.push(item2);
     if(this.status == true){
-      this.khoaThanKinhServiceServiceProxy.updateOrInsert(inputthankinh1s).subscribe(
+      this.khoaThanKinhServiceServiceProxy.updateOrInsert(input).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
           this.dataservice.refreshData(this.certificateId);
         },
       );
     }else{
-      this.khoaThanKinhServiceServiceProxy.createList(inputthankinh1s).subscribe(
+      this.khoaThanKinhServiceServiceProxy.createList(input).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
           this.dataservice.refreshData(this.certificateId);

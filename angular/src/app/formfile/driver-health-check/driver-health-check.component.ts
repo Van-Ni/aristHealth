@@ -1,10 +1,9 @@
-import { AfterContentInit, Component, Input, OnInit, Output } from '@angular/core';
+import { AfterContentInit, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '@app/services/data.service';
 import { LoadingService } from '@app/services/loader/loading.service';
 import { IPagedResultDto, PagedRequestDto } from '@shared/paged-listing-component-base';
-import {  CertificateDto, CertificateGroupStatusDtoPagedResultDto, CertificateGroupStatusServiceServiceProxy, CertificateServiceServiceProxy, GetDataServiceServiceProxy, KhoaMatServiceServiceProxy, MedicationKeyResultDtoPagedResultDto } from '@shared/service-proxies/service-proxies';
-import { result } from 'lodash-es';
+import {  CertificateDto, CertificateGroupStatusDtoPagedResultDto, CertificateGroupStatusServiceServiceProxy, CertificateServiceServiceProxy, CreateCertificateGroupStatusDto, GetDataServiceServiceProxy,  } from '@shared/service-proxies/service-proxies';
 export class MedicationKeyResultDtoPagedResultViewModel{
  id: string;
  certificateId: string;
@@ -26,37 +25,23 @@ export class CertificateGroupStatusViewModel{
   styleUrls: ['./driver-health-check.component.css']
 })
 export class DriverHealthCheckComponent implements AfterContentInit {
-  isProfile1 = true;
+  isProfile1 = false;
   isTSBCDTKSK1 =true;
   isKhamTheLuc1 = true;
   isKhamLamSan1= true;
   isKhamCanLamSan1 = true;
   isKetLuan1 = true;
   request: PagedRequestDto;
-  medicationKeyResult: IPagedResultDto<MedicationKeyResultDtoPagedResultViewModel>;
   certificateStatusResult:CertificateGroupStatusDtoPagedResultDto ;
   profile: CertificateDto;
   constructor(public loader: LoadingService, private dataService: DataService,private certificateServiceServiceProxy: CertificateServiceServiceProxy,private certificateGroupStatusServiceServiceProxy: CertificateGroupStatusServiceServiceProxy,private getDataServiceServiceProxy: GetDataServiceServiceProxy,private route: ActivatedRoute) { }
 
   ngAfterContentInit() {
     console.log(this.route.snapshot.params['id']);
-    this.dataService.getAllKeyData().subscribe((result: MedicationKeyResultDtoPagedResultDto) => {
+    this.dataService.getAllKeyData().subscribe((result: CertificateGroupStatusDtoPagedResultDto) => {
       if(!result) return;
       console.log("Refresh data")
-      this.medicationKeyResult = result;
-      // this.medicationKeyResult = {
-      //   items: result.items?.map(x => {
-      //     const medicationKeyResultDtoPagedResultViewModel = new MedicationKeyResultDtoPagedResultViewModel();
-      //     medicationKeyResultDtoPagedResultViewModel.id = x.id;
-      //     medicationKeyResultDtoPagedResultViewModel.certificateId = x.certificateId;
-      //     medicationKeyResultDtoPagedResultViewModel.key = x.key;
-      //     medicationKeyResultDtoPagedResultViewModel.value = x.value;
-      //     medicationKeyResultDtoPagedResultViewModel.group = x.group;
-      //     return medicationKeyResultDtoPagedResultViewModel;
-      //   }),
-      //   totalCount: result.totalCount
-      // };
-      // this.dataService.setData(this.route.snapshot.params['id']);
+      this.certificateStatusResult = result;
     });
     this.dataService.getGroupData()
       .subscribe((result: CertificateGroupStatusDtoPagedResultDto) =>{
@@ -74,7 +59,9 @@ export class DriverHealthCheckComponent implements AfterContentInit {
     this.dataService.refreshData(this.route.snapshot.params['id']);
     
   }
-
+  save(entity :CreateCertificateGroupStatusDto){
+    //Group service insert or update
+  }
 }
 
 

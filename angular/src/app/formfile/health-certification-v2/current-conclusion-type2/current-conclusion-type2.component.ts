@@ -44,37 +44,37 @@ export class CurrentConclusionType2Component extends AppComponentBase  implement
     this.ketluan2 = object as unknown as KetLuan2ViewModel;
   }
   save(): void{
-    var inputxetnghiem1s : CreateMedicationKeyResultDto[] = [];
-    const item2 = new CreateMedicationKeyResultDto(
-      {
-        key: 'ketluan_text_ketqua',
-        value:  this.ketluan2.ketluan_text_ketqua|| '',
-        certificateId: this.certificateId,
-        group: "KetLuan",
-      }
-    );const item1 = new CreateMedicationKeyResultDto(
-      {
-        key: 'ketluan_text_phanloai',
-        value:  this.ketluan2.ketluan_text_phanloai|| '',
-        certificateId: this.certificateId,
-        group: "KetLuan",
-      }
-    );
-    inputxetnghiem1s.push(item2);
-    inputxetnghiem1s.push(item1);
-    if(this.status == true){
-      this.KetLuanServiceServiceProxy.updateOrInsert(inputxetnghiem1s).subscribe(
-        () => {
-          this.notify.info(this.l('SavedSuccessfully.'));
-        },
-      );
-    }else{
-      this.KetLuanServiceServiceProxy.createList(inputxetnghiem1s).subscribe(
-        () => {
-          this.notify.info(this.l('SavedSuccessfully.'));
-        },
-      );
-    }
+    // var inputxetnghiem1s : CreateMedicationKeyResultDto[] = [];
+    // const item2 = new CreateMedicationKeyResultDto(
+    //   {
+    //     key: 'ketluan_text_ketqua',
+    //     value:  this.ketluan2.ketluan_text_ketqua|| '',
+    //     certificateId: this.certificateId,
+    //     group: "KetLuan",
+    //   }
+    // );const item1 = new CreateMedicationKeyResultDto(
+    //   {
+    //     key: 'ketluan_text_phanloai',
+    //     value:  this.ketluan2.ketluan_text_phanloai|| '',
+    //     certificateId: this.certificateId,
+    //     group: "KetLuan",
+    //   }
+    // );
+    // inputxetnghiem1s.push(item2);
+    // inputxetnghiem1s.push(item1);
+    // if(this.status == true){
+    //   this.KetLuanServiceServiceProxy.updateOrInsert(inputxetnghiem1s).subscribe(
+    //     () => {
+    //       this.notify.info(this.l('SavedSuccessfully.'));
+    //     },
+    //   );
+    // }else{
+    //   this.KetLuanServiceServiceProxy.createList(inputxetnghiem1s).subscribe(
+    //     () => {
+    //       this.notify.info(this.l('SavedSuccessfully.'));
+    //     },
+    //   );
+    // }
   }
 
 }

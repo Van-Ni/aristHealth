@@ -2,7 +2,7 @@ import { Component, Injector, Input, OnInit } from '@angular/core';
 import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, KhamTheLucServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, CreateCertificateGroupStatusDto, KeyValues, KhamTheLucServiceServiceProxy, Values } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 class KhamTheLucViewModel {
   khamtheluc_text_cannang: string;
@@ -43,63 +43,35 @@ export class PhysicalExaminationComponent extends CertificateKeyValueComponentBa
       this.isEditable = true;
       console.log(this.isEditable) 
     }
-    let object = Object.fromEntries(new Map(this.Data.items.map(obj=>{
-      return [obj.key, obj.value]
-    })));
-    this.khamtheluc = object as unknown as KhamTheLucViewModel;
   }
   save(): void{
-    var inputkhamtheluc : CreateMedicationKeyResultDto[] = [];
-    const item1 = new CreateMedicationKeyResultDto(
-      {
-        key: 'khamtheluc_text_cannang',
-        value:  this.khamtheluc.khamtheluc_text_cannang|| '',
-        certificateId: this.certificateId,  
-        group: this.group,
+    const data  =  {
+      keys: {
+        "hohap_selectbox_phanloai": new Values({ value: this.khamtheluc.khamtheluc_text_cannang }),
+        "khamtheluc_text_chieucao": new Values({ value: this.khamtheluc.khamtheluc_text_chieucao }),
+        "khamtheluc_text_huyetap": new Values({ value: this.khamtheluc.khamtheluc_text_huyetap }),
+        "khamtheluc_text_mach": new Values({ value: this.khamtheluc.khamtheluc_text_mach }),
+        "khamtheluc_text_phanloaitheluc": new Values({ value: this.khamtheluc.khamtheluc_text_phanloaitheluc }),
       }
-    );const item2 = new CreateMedicationKeyResultDto(
+    };
+    const input = new CreateCertificateGroupStatusDto(
       {
-        key: 'khamtheluc_text_chieucao',
-        value:  this.khamtheluc.khamtheluc_text_chieucao|| '',
+        userId : this.appSession.userId,
         certificateId: this.certificateId,
         group: this.group,
-      }
-    );const item3 = new CreateMedicationKeyResultDto(
-      {
-        key: 'khamtheluc_text_huyetap',
-        value:  this.khamtheluc.khamtheluc_text_huyetap|| '',
-        certificateId: this.certificateId,
-        group: this.group,
-      }
-    );const item4 = new CreateMedicationKeyResultDto(
-      {
-        key: 'khamtheluc_text_mach',
-        value:  this.khamtheluc.khamtheluc_text_mach|| '',
-        certificateId: this.certificateId,
-        group: this.group,
-      }
-    );const item5 = new CreateMedicationKeyResultDto(
-      {
-        key: 'khamtheluc_text_phanloaitheluc',
-        value:  this.khamtheluc.khamtheluc_text_phanloaitheluc|| '',
-        certificateId: this.certificateId,
-        group: this.group,
+        status : false,
+        content : new KeyValues(data),
       }
     );
-    inputkhamtheluc.push(item1);
-    inputkhamtheluc.push(item2);
-    inputkhamtheluc.push(item3);
-    inputkhamtheluc.push(item4);
-    inputkhamtheluc.push(item5);
     if(this.status == true){
-      this.khamTheLucServiceServiceProxy.updateOrInsert(inputkhamtheluc).subscribe(
+      this.khamTheLucServiceServiceProxy.updateOrInsert(input).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
           this.dataservice.refreshData(this.certificateId);
         },
       );
     }else{
-      this.khamTheLucServiceServiceProxy.createList(inputkhamtheluc).subscribe(
+      this.khamTheLucServiceServiceProxy.createList(input).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
           this.dataservice.refreshData(this.certificateId);

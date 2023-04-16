@@ -2,7 +2,7 @@ import { Component, Injector, Input, OnInit } from '@angular/core';
 import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, KhoaNoiTietServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, CreateCertificateGroupStatusDto, KeyValues, KhoaNoiTietServiceServiceProxy, Values } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 interface NoiTiet1ViewModel {
   noitiet_selectbox_phanloai: string;
@@ -50,33 +50,30 @@ export class NoiTiet1Component  extends CertificateKeyValueComponentBase<NoiTiet
     }
   }
   save(): void{
-    var inputnoitiet1s : CreateMedicationKeyResultDto[] = [];
-    const item1 = new CreateMedicationKeyResultDto(
-      {
-        key: 'noitiet_selectbox_phanloai',
-        value:  this.noitiet1.noitiet_selectbox_phanloai|| '',
-        certificateId: this.certificateId,  
-        group: this.group,
+    const data  =  {
+      keys: {
+        "noitiet_selectbox_phanloai": new Values({ value: this.noitiet1.noitiet_selectbox_phanloai }),
+        "noitiet_text_noitiet_ketluan": new Values({ value: this.noitiet1.noitiet_text_noitiet_ketluan })
       }
-    );const item2 = new CreateMedicationKeyResultDto(
+    };
+    const input = new CreateCertificateGroupStatusDto(
       {
-        key: 'noitiet_text_noitiet_ketluan',
-        value:  this.noitiet1.noitiet_text_noitiet_ketluan|| '',
+        userId : this.appSession.userId,
         certificateId: this.certificateId,
         group: this.group,
+        status : false,
+        content : new KeyValues(data),
       }
     );
-    inputnoitiet1s.push(item1);
-    inputnoitiet1s.push(item2);
     if(this.status == true){
-      this.khoaNoiTietServiceServiceProxy.updateOrInsert(inputnoitiet1s).subscribe(
+      this.khoaNoiTietServiceServiceProxy.updateOrInsert(input).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
           this.dataservice.refreshData(this.certificateId);
         },
       );
     }else{
-      this.khoaNoiTietServiceServiceProxy.createList(inputnoitiet1s).subscribe(
+      this.khoaNoiTietServiceServiceProxy.createList(input).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
           this.dataservice.refreshData(this.certificateId);

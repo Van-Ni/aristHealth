@@ -15,13 +15,12 @@ namespace AristBase.EntityFrameworkCore
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Certificate> Certificate { get; set; }
-        //public DbSet<CertificateKey> CertificateKey { get; set; }
         public DbSet<CertificateType> CertificateType { get; set; }
+        public DbSet<CertificateSync> CertificateSync { get; set; }
+
         public DbSet<ClientInfo> ClientInfo { get; set; }
-        //public DbSet<DocterGroup> DocterGroups { get; set; }
-        //public DbSet<Group> Groups { get; set; }
+
         public DbSet<CertificateGroupStatus> CertificateGroupStatuses { get; set; }
-        public DbSet<MedicationKeyResult> MedicalExaminationResults { get; set; }
         public AristBaseDbContext(DbContextOptions<AristBaseDbContext> options)
             : base(options)
         {
@@ -30,19 +29,19 @@ namespace AristBase.EntityFrameworkCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<MedicationKeyResult>().HasIndex(p =>
-            new
-            {
-                p.Key,
-                p.CertificateId
-            }).IsUnique();
+            //modelBuilder.Entity<MedicationKeyResult>().HasIndex(p =>
+            //new
+            //{
+            //    p.Key,
+            //    p.CertificateId
+            //}).IsUnique();
 
-            modelBuilder.Entity<MedicationKeyResult>().HasIndex(p => p.CertificateId);
-            //modelBuilder.Entity<ReportTemplate>().Property(r => r.TemplateDescription).HasColumnType("jsonb");
-            //modelBuilder.Entity<HistoryExport>().Property(r => r.TemplateValue).HasColumnType("jsonb");
-            //modelBuilder.Entity<ApplicationLanguageText>()
-            //    .Property(p => p.Value)
-            //    .HasMaxLength(100); // any integer that is smaller than 10485760
+            //modelBuilder.Entity<MedicationKeyResult>().HasIndex(p => p.CertificateId);
+            modelBuilder.Entity<CertificateGroupStatus>().Property(r => r.Content).HasColumnType("jsonb");
+            modelBuilder.Entity<CertificateSync>().Property(r => r.MetaData).HasColumnType("jsonb");
+            modelBuilder.Entity<CertificateType>().Property(r => r.TemplateGroups).HasColumnType("jsonb");
+
+
         }
     }
 }

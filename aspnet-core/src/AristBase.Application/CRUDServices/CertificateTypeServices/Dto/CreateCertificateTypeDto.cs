@@ -12,8 +12,9 @@ namespace AristBase.CRUDServices.CertificateTypeServices.Dto
     [AutoMapTo(typeof(CertificateType))]
     public class CreateCertificateTypeDto
     {
-        public double Price { get; set; }
+        public decimal Price { get; set; }
         public string Name { get; set; }
+        public List<TemplateGroup> TemplateGroups { get; set; }
         public bool IsNeedSync { get; set; }
         public string FilePath { get; set; }
         public string FinalResult { get; set; }

@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
-import { CertificateGroupStatusDto, ChanDoanHinhAnhServiceServiceProxy, CreateMedicationKeyResultDto } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, ChanDoanHinhAnhServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 interface ChanDoanHinhAnh3ViewModel{
   chandoanhinhanh_text_ketluan:string;
@@ -38,31 +38,31 @@ export class ChuanDoanHinhAnh3Component extends CertificateKeyValueComponentBase
 
   }
   save(): void{
-    var inputhohap2s : CreateMedicationKeyResultDto[] = [];
-    const item1 = new CreateMedicationKeyResultDto(
-      {
-        key: 'chandoanhinhanh_text_ketluan',
-        value:  this.chuandoanhinhanh3.chandoanhinhanh_text_ketluan|| '',
-        certificateId: this.certificateId,  
-        group: this.group,
-      }
-    );
-    inputhohap2s.push(item1);
+    // var inputhohap2s : CreateMedicationKeyResultDto[] = [];
+    // const item1 = new CreateMedicationKeyResultDto(
+    //   {
+    //     key: 'chandoanhinhanh_text_ketluan',
+    //     value:  this.chuandoanhinhanh3.chandoanhinhanh_text_ketluan|| '',
+    //     certificateId: this.certificateId,  
+    //     group: this.group,
+    //   }
+    // );
+    // inputhohap2s.push(item1);
 
-    if(this.status == true){
-      this.ChanDoanHinhAnhServiceServiceProxy.updateOrInsert(inputhohap2s).subscribe(
-        () => {
-          this.notify.info(this.l('SavedSuccessfully.'));
-          this.dataservice.refreshData(this.certificateId);
-        },
-      );
-    }else{
-      this.ChanDoanHinhAnhServiceServiceProxy.createList(inputhohap2s).subscribe(
-        () => {
-          this.notify.info(this.l('SavedSuccessfully.'));
-          this.dataservice.refreshData(this.certificateId);
-        },
-      );
-    }
+    // if(this.status == true){
+    //   this.ChanDoanHinhAnhServiceServiceProxy.updateOrInsert(inputhohap2s).subscribe(
+    //     () => {
+    //       this.notify.info(this.l('SavedSuccessfully.'));
+    //       this.dataservice.refreshData(this.certificateId);
+    //     },
+    //   );
+    // }else{
+    //   this.ChanDoanHinhAnhServiceServiceProxy.createList(inputhohap2s).subscribe(
+    //     () => {
+    //       this.notify.info(this.l('SavedSuccessfully.'));
+    //       this.dataservice.refreshData(this.certificateId);
+    //     },
+    //   );
+    // }
   }
 }

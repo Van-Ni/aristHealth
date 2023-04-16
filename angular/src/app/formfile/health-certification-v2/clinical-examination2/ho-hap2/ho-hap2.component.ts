@@ -1,7 +1,7 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
 import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CertificateGroupStatusDto, KhoaHoHapServiceServiceProxy, CreateMedicationKeyResultDto } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, KhoaHoHapServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 interface HoHap2ViewModel {
   hohap_selectbox_phanloai: string;
@@ -43,36 +43,36 @@ export class HoHap2Component extends AppComponentBase implements OnInit {
     this.hohap2 = object as unknown as HoHap2ViewModel;
   }
   save(): void{
-    var inputhohap2s : CreateMedicationKeyResultDto[] = [];
-    const item1 = new CreateMedicationKeyResultDto(
-      {
-        key: 'hohap_selectbox_phanloai',
-        value:  this.hohap2.hohap_selectbox_phanloai|| '',
-        certificateId: this.certificateId,  
-        group: "HoHap",
-      }
-    );const item2 = new CreateMedicationKeyResultDto(
-      {
-        key: 'hohap_text_hohap_noidung',
-        value:  this.hohap2.hohap_text_hohap_noidung|| '',
-        certificateId: this.certificateId,
-        group: "HoHap",
-      }
-    );
-    inputhohap2s.push(item1);
-    inputhohap2s.push(item2);
-    if(this.status == true){
-      this.khoaHoHapServiceServiceProxy.updateOrInsert(inputhohap2s).subscribe(
-        () => {
-          this.notify.info(this.l('SavedSuccessfully.'));
-        },
-      );
-    }else{
-      this.khoaHoHapServiceServiceProxy.createList(inputhohap2s).subscribe(
-        () => {
-          this.notify.info(this.l('SavedSuccessfully.'));
-        },
-      );
-    }
+    // var inputhohap2s : CreateMedicationKeyResultDto[] = [];
+    // const item1 = new CreateMedicationKeyResultDto(
+    //   {
+    //     key: 'hohap_selectbox_phanloai',
+    //     value:  this.hohap2.hohap_selectbox_phanloai|| '',
+    //     certificateId: this.certificateId,  
+    //     group: "HoHap",
+    //   }
+    // );const item2 = new CreateMedicationKeyResultDto(
+    //   {
+    //     key: 'hohap_text_hohap_noidung',
+    //     value:  this.hohap2.hohap_text_hohap_noidung|| '',
+    //     certificateId: this.certificateId,
+    //     group: "HoHap",
+    //   }
+    // );
+    // inputhohap2s.push(item1);
+    // inputhohap2s.push(item2);
+    // if(this.status == true){
+    //   this.khoaHoHapServiceServiceProxy.updateOrInsert(inputhohap2s).subscribe(
+    //     () => {
+    //       this.notify.info(this.l('SavedSuccessfully.'));
+    //     },
+    //   );
+    // }else{
+    //   this.khoaHoHapServiceServiceProxy.createList(inputhohap2s).subscribe(
+    //     () => {
+    //       this.notify.info(this.l('SavedSuccessfully.'));
+    //     },
+    //   );
+    // }
   }
 }

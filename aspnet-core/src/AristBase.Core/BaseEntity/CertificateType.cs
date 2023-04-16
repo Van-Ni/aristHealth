@@ -7,10 +7,10 @@ namespace AristBase.BaseEntity
 {
     public class CertificateType : Entity<int>, IFullAudited, IPassivable, ISoftDelete, IMustHaveTenant
     {
-        public double Price { get; set; }
+        public decimal Price { get; set; }
         public string Name { get; set; }
         public bool IsNeedSync { get; set; }
-        //public Type Type { get; set; }
+        public List<TemplateGroup> TemplateGroups { get; set; }
         public string FilePath { get; set; }
         public string FinalResult { get; set; }
         public virtual ICollection<Certificate> Certificates { get; set; }
@@ -34,4 +34,9 @@ namespace AristBase.BaseEntity
     //    Type2 = 2,
     //    Type3 = 3,
     //}
+    public class TemplateGroup
+    {
+        public string GroupName { get; set; }
+        public GroupStatus DefaultStatus { get; set; }
+    }
 }

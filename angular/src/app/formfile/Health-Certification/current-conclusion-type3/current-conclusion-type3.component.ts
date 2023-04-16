@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
-import { CertificateGroupStatusDto, ChanDoanHinhAnhServiceServiceProxy, CreateMedicationKeyResultDto } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, ChanDoanHinhAnhServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 interface KetLuan3ViewModel{
   ketluan_text_phanloai:string;
@@ -38,31 +38,31 @@ export class CurrentConclusionType3Component extends CertificateKeyValueComponen
 
   }
   save(): void{
-    var inputhohap2s : CreateMedicationKeyResultDto[] = [];
-    const item1 = new CreateMedicationKeyResultDto(
-      {
-        key: 'ketluan_text_phanloai',
-        value:  this.ketluan3.ketluan_text_phanloai|| '',
-        certificateId: this.certificateId,  
-        group: this.group,
-      }
-    );
-    inputhohap2s.push(item1);
+    // var inputhohap2s : CreateMedicationKeyResultDto[] = [];
+    // const item1 = new CreateMedicationKeyResultDto(
+    //   {
+    //     key: 'ketluan_text_phanloai',
+    //     value:  this.ketluan3.ketluan_text_phanloai|| '',
+    //     certificateId: this.certificateId,  
+    //     group: this.group,
+    //   }
+    // );
+    // inputhohap2s.push(item1);
 
-    if(this.status == true){
-      this.ChanDoanHinhAnhServiceServiceProxy.updateOrInsert(inputhohap2s).subscribe(
-        () => {
-          this.notify.info(this.l('SavedSuccessfully.'));
-          this.dataservice.refreshData(this.certificateId);
-        },
-      );
-    }else{
-      this.ChanDoanHinhAnhServiceServiceProxy.createList(inputhohap2s).subscribe(
-        () => {
-          this.notify.info(this.l('SavedSuccessfully.'));
-          this.dataservice.refreshData(this.certificateId);
-        },
-      );
-    }
+    // if(this.status == true){
+    //   this.ChanDoanHinhAnhServiceServiceProxy.updateOrInsert(inputhohap2s).subscribe(
+    //     () => {
+    //       this.notify.info(this.l('SavedSuccessfully.'));
+    //       this.dataservice.refreshData(this.certificateId);
+    //     },
+    //   );
+    // }else{
+    //   this.ChanDoanHinhAnhServiceServiceProxy.createList(inputhohap2s).subscribe(
+    //     () => {
+    //       this.notify.info(this.l('SavedSuccessfully.'));
+    //       this.dataservice.refreshData(this.certificateId);
+    //     },
+    //   );
+    // }
   }
 }

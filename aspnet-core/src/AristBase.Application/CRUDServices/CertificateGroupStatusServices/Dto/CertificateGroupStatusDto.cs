@@ -18,6 +18,7 @@ namespace AristBase.CRUDServices.CertificateGroupStatusServices.Dto
         public Guid CertificateId { get; set; }
         public string Group { get; set; }
         public bool status { get; set; }
+        public KeyValues Content { get; set; }
         public long UserId { get; set; }
         public UserDto User { get; set; }
     }

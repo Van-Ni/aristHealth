@@ -15,7 +15,8 @@ import { SharedModule } from '@shared/shared.module';
 import { HomeComponent } from '@app/home/home.component';
 import { AboutComponent } from '@app/about/about.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 // tenants
 import { TenantsComponent } from '@app/tenants/tenants.component';
 import { CreateTenantDialogComponent } from './tenants/create-tenant/create-tenant-dialog.component';
@@ -41,9 +42,6 @@ import { SidebarLogoComponent } from './layout/sidebar-logo.component';
 import { SidebarUserPanelComponent } from './layout/sidebar-user-panel.component';
 import { SidebarMenuComponent } from './layout/sidebar-menu.component';
 //manager
-import {DeparmentComponent} from './manager/deparment/deparment.component';
-import {CreateDepartmentComponent} from './manager/deparment/create-department/create-department.component';
-import {EditDepartmentComponent} from'./manager/deparment/edit-department/edit-department.component';
 import {ProfileComponent} from './formfile/profile/profile.component';
 import {HealthCertificationComponent} from './formfile/Health-Certification/Health-Certification.component';
 import {MedicalHistoryComponent} from './formfile/Health-Certification/medical-history/medical-history.component';
@@ -107,6 +105,7 @@ import {ThanTietNieu2Component} from './formfile/health-certification-v2/clinica
 import {TieuHoa2Component} from './formfile/health-certification-v2/clinical-examination2/tieu-hoa2/tieu-hoa2.component';
 import {TuanHoan2Component} from './formfile/health-certification-v2/clinical-examination2/tuan-hoan2/tuan-hoan2.component';
 import {Appove1Component} from './formfile/driver-health-check/appove1/appove1.component';
+import {KetLuanPhanLoaiComponent} from './formfile/share/KetLuanPhanLoai/KetLuanPhanLoai.component';
 //service
 import {DataService} from './services/data.service';
 import {LoadingService} from './services/loader/loading.service'
@@ -140,9 +139,6 @@ import {LoadingService} from './services/loader/loading.service'
         SidebarUserPanelComponent,
         SidebarMenuComponent,
         //manager
-        DeparmentComponent,
-        CreateDepartmentComponent,
-        EditDepartmentComponent,
         CertificateTypeComponent,
         CreateCertificateTypeComponent,
         EditCertificateTypeComponent,
@@ -206,7 +202,8 @@ import {LoadingService} from './services/loader/loading.service'
         ThanTietNieu2Component,
         TieuHoa2Component,
         TuanHoan2Component,
-        Appove1Component
+        Appove1Component,
+        KetLuanPhanLoaiComponent
     ],
     imports: [
         CommonModule,
@@ -223,6 +220,8 @@ import {LoadingService} from './services/loader/loading.service'
         ServiceProxyModule,
         SharedModule,
         NgxPaginationModule,
+        MatInputModule,
+        MatAutocompleteModule,
     ],
     providers: [DataService,LoadingService]
 })

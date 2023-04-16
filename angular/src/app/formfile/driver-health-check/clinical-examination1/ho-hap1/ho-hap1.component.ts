@@ -2,7 +2,7 @@ import { Component, Injector, Input, OnInit } from '@angular/core';
 import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, KhoaHoHapServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, CreateCertificateGroupStatusDto, KeyValues, KhoaHoHapServiceServiceProxy, Values } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 interface HoHap1ViewModel {
   hohap_selectbox_phanloai: string;
@@ -56,33 +56,31 @@ export class HoHap1Component extends CertificateKeyValueComponentBase<HoHap1View
     }
   }
   save(): void{
-    var inputhohap1s : CreateMedicationKeyResultDto[] = [];
-    const item1 = new CreateMedicationKeyResultDto(
-      {
-        key: 'hohap_selectbox_phanloai',
-        value:  this.hohap1.hohap_selectbox_phanloai|| '',
-        certificateId: this.certificateId,  
-        group: this.group,
+    const data  =  {
+      keys: {
+        "hohap_selectbox_phanloai": new Values({ value: this.hohap1.hohap_selectbox_phanloai }),
+        "hohap_text_hohap_ketluan": new Values({ value: this.hohap1.hohap_text_hohap_ketluan })
       }
-    );const item2 = new CreateMedicationKeyResultDto(
+    };
+    const input = new CreateCertificateGroupStatusDto(
       {
-        key: 'hohap_text_hohap_ketluan',
-        value:  this.hohap1.hohap_text_hohap_ketluan|| '',
+        userId : this.appSession.userId,
         certificateId: this.certificateId,
         group: this.group,
+        status : false,
+        content : new KeyValues(data),
       }
     );
-    inputhohap1s.push(item1);
-    inputhohap1s.push(item2);
+    
     if(this.status == true){
-      this.khoaHoHapServiceServiceProxy.updateOrInsert(inputhohap1s).subscribe(
+      this.khoaHoHapServiceServiceProxy.updateOrInsert(input).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
           this.dataservice.refreshData(this.certificateId);
         },
       );
     }else{
-      this.khoaHoHapServiceServiceProxy.createList(inputhohap1s).subscribe(
+      this.khoaHoHapServiceServiceProxy.createList(input).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
           this.dataservice.refreshData(this.certificateId);

@@ -1,8 +1,7 @@
 import { AppComponentBase } from '../../shared/app-component-base';
 import { Component, Injector, OnInit } from '@angular/core';
 import { DataService } from "../services/data.service"
-import { CertificateDto, CertificateGroupStatusDtoPagedResultDto, CertificateGroupStatusServiceServiceProxy, CertificateServiceServiceProxy, GetDataServiceServiceProxy, KhoaMatServiceServiceProxy, MedicationKeyResultDtoPagedResultDto } from '../../shared/service-proxies/service-proxies';
-import { log } from 'console';
+import { CertificateGroupStatusDtoPagedResultDto } from '../../shared/service-proxies/service-proxies';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -39,7 +38,7 @@ export abstract class CertificateKeyValueComponentBase<TEntityDto> extends AppCo
                     }
                 }
             });
-            this.dataService.getAllKeyData().subscribe((result: MedicationKeyResultDtoPagedResultDto) => {
+            this.dataService.getAllKeyData().subscribe((result: CertificateGroupStatusDtoPagedResultDto) => {
 
                 if(result != null)
                 {

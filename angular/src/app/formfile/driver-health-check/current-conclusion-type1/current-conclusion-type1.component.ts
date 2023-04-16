@@ -2,7 +2,7 @@ import { Component, Injector, Input, OnInit } from '@angular/core';
 import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, KetLuanServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, CreateCertificateGroupStatusDto,  KetLuanServiceServiceProxy, KeyValues, Values } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 class KetLuan1ViewModel{
   ketluan_text_phanloai: string;
@@ -47,18 +47,22 @@ export class CurrentConclusionType1Component extends CertificateKeyValueComponen
 
   }
   save(): void{
-    var inputxetnghiem1s : CreateMedicationKeyResultDto[] = [];
-    const item1 = new CreateMedicationKeyResultDto(
+    const data  =  {
+      keys: {
+        "ketluan_text_phanloai": new Values({ value: this.ketluan1.ketluan_text_phanloai }),
+      }
+    };
+    const input = new CreateCertificateGroupStatusDto(
       {
-        key: 'ketluan_text_phanloai',
-        value:  this.ketluan1.ketluan_text_phanloai|| '',
+        userId : this.appSession.userId,
         certificateId: this.certificateId,
         group: this.group,
+        status : false,
+        content : new KeyValues(data),
       }
     );
-    inputxetnghiem1s.push(item1);
     if(this.status == true){
-      this.KetLuanServiceServiceProxy.updateOrInsert(inputxetnghiem1s).subscribe(
+      this.KetLuanServiceServiceProxy.updateOrInsert(input).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
           this.dataservice.refreshData(this.certificateId);
@@ -66,7 +70,7 @@ export class CurrentConclusionType1Component extends CertificateKeyValueComponen
         },
       );
     }else{
-      this.KetLuanServiceServiceProxy.createList(inputxetnghiem1s).subscribe(
+      this.KetLuanServiceServiceProxy.createList(input).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
           this.dataservice.refreshData(this.certificateId);

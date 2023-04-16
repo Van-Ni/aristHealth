@@ -2,10 +2,9 @@ import { Component, Injector, Input, OnInit } from '@angular/core';
 import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, KhoaThaiSanServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, CreateCertificateGroupStatusDto, KeyValues, KhoaThaiSanServiceServiceProxy, Values } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 interface ThaiSan1ViewModel {
-  thaisan_text_noidung: string;
   thaisan_selectbox_phanloai: string;
   thaisan_text_thaisan_ketluan: string;
 }
@@ -26,7 +25,6 @@ export class ThaiSan1Component extends CertificateKeyValueComponentBase<ThaiSan1
     }
   }
   thaisan1: ThaiSan1ViewModel = {
-    thaisan_text_noidung: '',
     thaisan_selectbox_phanloai: 'Bình thường',
     thaisan_text_thaisan_ketluan: 'Đủ sức khỏe'
   };
@@ -49,33 +47,30 @@ export class ThaiSan1Component extends CertificateKeyValueComponentBase<ThaiSan1
     }
   }
   save(): void{
-    var inputthaisan1s : CreateMedicationKeyResultDto[] = [];
-    const item1 = new CreateMedicationKeyResultDto(
-      {
-        key: 'thaisan_selectbox_phanloai',
-        value:  this.thaisan1.thaisan_selectbox_phanloai|| '',
-        certificateId: this.certificateId,  
-        group: this.group,
+    const data  =  {
+      keys: {
+        "thaisan_selectbox_phanloai": new Values({ value: this.thaisan1.thaisan_selectbox_phanloai }),
+        "thaisan_text_thaisan_ketluan": new Values({ value: this.thaisan1.thaisan_text_thaisan_ketluan })
       }
-    );const item2 = new CreateMedicationKeyResultDto(
+    };
+    const input = new CreateCertificateGroupStatusDto(
       {
-        key: 'thaisan_text_thaisan_ketluan',
-        value:  this.thaisan1.thaisan_text_thaisan_ketluan|| '',
+        userId : this.appSession.userId,
         certificateId: this.certificateId,
         group: this.group,
+        status : false,
+        content : new KeyValues(data),
       }
     );
-    inputthaisan1s.push(item1);
-    inputthaisan1s.push(item2);
     if(this.status == true){
-      this.khoaThaiSanServiceServiceProxy.updateOrInsert(inputthaisan1s).subscribe(
+      this.khoaThaiSanServiceServiceProxy.updateOrInsert(input).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
           this.dataservice.refreshData(this.certificateId);
         },
       );
     }else{
-      this.khoaThaiSanServiceServiceProxy.createList(inputthaisan1s).subscribe(
+      this.khoaThaiSanServiceServiceProxy.createList(input).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
           this.dataservice.refreshData(this.certificateId);

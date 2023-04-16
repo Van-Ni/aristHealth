@@ -1,7 +1,7 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
 import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, KhamLamSanServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, KhamLamSanServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 interface KhamLamSanKhac2ViewModel {
   khamlamsan_selectbox_phanloai: string;
@@ -43,36 +43,36 @@ export class KhamLamSanKhacComponent extends AppComponentBase implements OnInit 
     this.khamlamsan = object as unknown as KhamLamSanKhac2ViewModel;
   }
   save(): void{
-    var inputkhamlamsan2s : CreateMedicationKeyResultDto[] = [];
-    const item1 = new CreateMedicationKeyResultDto(
-      {
-        key: 'khamlamsankhac_selectbox_phanloai',
-        value:  this.khamlamsan.khamlamsan_selectbox_phanloai|| '',
-        certificateId: this.certificateId,  
-        group: "KhamLamSanKhac",
-      }
-    );const item2 = new CreateMedicationKeyResultDto(
-      {
-        key: 'khamlamsankhac_text_khamlamsan_noidung',
-        value:  this.khamlamsan.khamlamsan_text_khamlamsan_noidung|| '',
-        certificateId: this.certificateId,
-        group: "KhamLamSanKhac",
-      }
-    );
-    inputkhamlamsan2s.push(item1);
-    inputkhamlamsan2s.push(item2);
-    if(this.status == true){
-      this.khoakhamlamsanServiceServiceProxy.updateOrInsert(inputkhamlamsan2s).subscribe(
-        () => {
-          this.notify.info(this.l('SavedSuccessfully.'));
-        },
-      );
-    }else{
-      this.khoakhamlamsanServiceServiceProxy.createList(inputkhamlamsan2s).subscribe(
-        () => {
-          this.notify.info(this.l('SavedSuccessfully.'));
-        },
-      );
-    }
+    // var inputkhamlamsan2s : CreateMedicationKeyResultDto[] = [];
+    // const item1 = new CreateMedicationKeyResultDto(
+    //   {
+    //     key: 'khamlamsankhac_selectbox_phanloai',
+    //     value:  this.khamlamsan.khamlamsan_selectbox_phanloai|| '',
+    //     certificateId: this.certificateId,  
+    //     group: "KhamLamSanKhac",
+    //   }
+    // );const item2 = new CreateMedicationKeyResultDto(
+    //   {
+    //     key: 'khamlamsankhac_text_khamlamsan_noidung',
+    //     value:  this.khamlamsan.khamlamsan_text_khamlamsan_noidung|| '',
+    //     certificateId: this.certificateId,
+    //     group: "KhamLamSanKhac",
+    //   }
+    // );
+    // inputkhamlamsan2s.push(item1);
+    // inputkhamlamsan2s.push(item2);
+    // if(this.status == true){
+    //   this.khoakhamlamsanServiceServiceProxy.updateOrInsert(inputkhamlamsan2s).subscribe(
+    //     () => {
+    //       this.notify.info(this.l('SavedSuccessfully.'));
+    //     },
+    //   );
+    // }else{
+    //   this.khoakhamlamsanServiceServiceProxy.createList(inputkhamlamsan2s).subscribe(
+    //     () => {
+    //       this.notify.info(this.l('SavedSuccessfully.'));
+    //     },
+    //   );
+    // }
   }
 }

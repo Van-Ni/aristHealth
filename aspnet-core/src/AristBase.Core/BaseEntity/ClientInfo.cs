@@ -16,6 +16,9 @@ namespace AristBase.BaseEntity
         public string CreateTimeCCCD { get; set; }
         public string AddressCCCD { get; set; }
         public string Address { get; set; }
+        public string Province { get; set; }
+        public string Commune { get; set; }
+        public string District { get; set; }
         public string? GuardianName { get; set; }
         //public string? Avatar { get; set; }
         public virtual ICollection<Certificate> Certificates { get; set; }

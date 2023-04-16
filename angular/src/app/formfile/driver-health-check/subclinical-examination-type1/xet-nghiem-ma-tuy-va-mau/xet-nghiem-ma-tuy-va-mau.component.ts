@@ -2,7 +2,7 @@ import { Component, Injector, Input, OnInit } from '@angular/core';
 import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, XetNghiemMaTuyVaMauServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, CreateCertificateGroupStatusDto, KeyValues, Values, XetNghiemMaTuyVaMauServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 interface XetnghiemMaTuyVaMauViewModel{
   xetnghiemmatuyvamau_text_heroin: string;
@@ -54,57 +54,33 @@ export class XetNghiemMaTuyVaMauComponent extends CertificateKeyValueComponentBa
 
   }
   save(): void{
-    var inputxetnghiemMT1s : CreateMedicationKeyResultDto[] = [];
-    const item1 = new CreateMedicationKeyResultDto(
-      {
-        key: 'xetnghiemmatuyvamau_text_amphetamin',
-        value:  this.xetnghiemmatuyvamau.xetnghiemmatuyvamau_text_amphetamin|| '',
-        certificateId: this.certificateId,  
-        group: this.group ,
+    const data  =  {
+      keys: {
+        "xetnghiemmatuyvamau_text_amphetamin": new Values({ value: this.xetnghiemmatuyvamau.xetnghiemmatuyvamau_text_amphetamin }),
+        "xetnghiemmatuyvamau_text_heroin": new Values({ value: this.xetnghiemmatuyvamau.xetnghiemmatuyvamau_text_heroin }),
+        "xetnghiemmatuyvamau_text_marijuana": new Values({ value: this.xetnghiemmatuyvamau.xetnghiemmatuyvamau_text_marijuana }),
+        "xetnghiemmatuyvamau_text_methamphetamin": new Values({ value: this.xetnghiemmatuyvamau.xetnghiemmatuyvamau_text_methamphetamin }),
+        "xetnghiemmatuyvamau_text_nongdomau": new Values({ value: this.xetnghiemmatuyvamau.xetnghiemmatuyvamau_text_nongdomau }),
       }
-    );const item2 = new CreateMedicationKeyResultDto(
+    };
+    const input = new CreateCertificateGroupStatusDto(
       {
-        key: 'xetnghiemmatuyvamau_text_heroin',
-        value:  this.xetnghiemmatuyvamau.xetnghiemmatuyvamau_text_heroin|| '',
+        userId : this.appSession.userId,
         certificateId: this.certificateId,
-        group: this.group ,
-      }
-    );const item3 = new CreateMedicationKeyResultDto(
-      {
-        key: 'xetnghiemmatuyvamau_text_marijuana',
-        value:  this.xetnghiemmatuyvamau.xetnghiemmatuyvamau_text_marijuana|| '',
-        certificateId: this.certificateId,
-        group: this.group ,
-      }
-    );const item4 = new CreateMedicationKeyResultDto(
-      {
-        key: 'xetnghiemmatuyvamau_text_methamphetamin',
-        value:  this.xetnghiemmatuyvamau.xetnghiemmatuyvamau_text_methamphetamin|| '',
-        certificateId: this.certificateId,
-        group: this.group ,
-      }
-    );const item5 = new CreateMedicationKeyResultDto(
-      {
-        key: 'xetnghiemmatuyvamau_text_nongdomau',
-        value:  this.xetnghiemmatuyvamau.xetnghiemmatuyvamau_text_nongdomau|| '',
-        certificateId: this.certificateId,
-        group:this.group ,
+        group: this.group,
+        status : false,
+        content : new KeyValues(data),
       }
     );
-    inputxetnghiemMT1s.push(item1);
-    inputxetnghiemMT1s.push(item2);
-    inputxetnghiemMT1s.push(item3);
-    inputxetnghiemMT1s.push(item4);
-    inputxetnghiemMT1s.push(item5);
     if(this.status){
-      this.xetNghiemMaTuyVaMauServiceServiceProxy.updateOrInsert(inputxetnghiemMT1s).subscribe(
+      this.xetNghiemMaTuyVaMauServiceServiceProxy.updateOrInsert(input).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
           this.dataservice.refreshData(this.certificateId);
         },
       );
     }else{
-      this.xetNghiemMaTuyVaMauServiceServiceProxy.createList(inputxetnghiemMT1s).subscribe(
+      this.xetNghiemMaTuyVaMauServiceServiceProxy.createList(input).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
           this.dataservice.refreshData(this.certificateId);

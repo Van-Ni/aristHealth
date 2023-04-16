@@ -17,8 +17,6 @@ export class SubclinicalExaminationType1Component implements AfterContentInit  {
   ngAfterContentInit(): void {
       
     this.data= this.Data;
-    console.log("sub", this.data);
-    
     this.statusDataCheck = this.statusDataCheck1;
 }
 

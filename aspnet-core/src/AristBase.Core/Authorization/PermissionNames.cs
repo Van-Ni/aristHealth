@@ -12,34 +12,34 @@ namespace AristBase.Authorization
         public const string Pages_Users_Activation = "Pages.Users.Activation";
 
         public const string Pages_Roles = "Pages.Roles";
-        public const string TamThan = "TamThan";
-        public const string ThanKinh = "ThanKinh";
-        public const string Mat = "Mat";
-        public const string TaiMuiHong = "TaiMuiHong";
-        public const string TimMach = "TimMach";
-        public const string HoHap = "HoHap";
-        public const string CoXuongKhop = "CoXuongKhop";
-        public const string ThaiSan = "ThaiSan";
-        public const string NoiTiet = "NoiTiet";
-        public const string NhiKhoa = "NhiKhoa";
-        public const string RangHamMat = "RangHamMat";
-        public const string NgoaiKhoa = "NgoaiKhoa";
-        public const string DaLieu = "DaLieu";
-        public const string TuanHoan = "TuanHoan";
-        public const string TieuHoa = "TieuHoa";
-        public const string ThanTietNieu = "ThanTietNieu";
-        public const string XetNghiemMaTuyVaMau = "XetNghiemMaTuyVaMau";
-        public const string XetNghiemNuocTieu = "XetNghiemNuocTieu";
-        public const string XetNghiemMau = "XetNghiemMau";
-        public const string XetNghiemKhac = "XetNghiemKhac";
-        public const string ChanDoanHinhAnh = "ChanDoanHinhAnh";
-        public const string KhamTheLuc = "KhamTheLuc";
-        public const string KetLuan = "KetLuan";
-        public const string TruongDonViKySo = "TruongDonViKySo";
-        public const string KhamLamSanKhac = "KhamLamSanKhac";
+        public const string TamThan = "tamthan";
+        public const string ThanKinh = "thankinh";
+        public const string Mat = "mat";
+        public const string TaiMuiHong = "taimuihong";
+        public const string TimMach = "timmach";
+        public const string HoHap = "hohap";
+        public const string CoXuongKhop = "coxuongkhop";
+        public const string ThaiSan = "thaisan";
+        public const string NoiTiet = "noitiet";
+        public const string NhiKhoa = "nhikhoa";
+        public const string RangHamMat = "ranghammat";
+        public const string NgoaiKhoa = "ngoaikhoa";
+        public const string DaLieu = "dalieu";
+        public const string TuanHoan = "tuanhoan";
+        public const string TieuHoa = "tieuhoa";
+        public const string ThanTietNieu = "thantietnieu";
+        public const string XetNghiemMaTuyVaMau = "xetnghiemmatuyvamau";
+        public const string XetNghiemNuocTieu = "xetnghiemnuoctieu";
+        public const string XetNghiemMau = "xetnghiemmau";
+        public const string XetNghiemKhac = "xetnghiemkhac";
+        public const string ChanDoanHinhAnh = "chandoanhinhanh";
+        public const string KhamTheLuc = "khamtheluc";
+        public const string KetLuan = "ketluan";
+        public const string tdv = "tdv";
+        public const string KhamLamSanKhac = "khamlamsankhac";
 
         public static List<string> Pages = new List<string>
-        { TamThan, ThanKinh, Mat, TaiMuiHong, TimMach, HoHap, CoXuongKhop, ThaiSan, NoiTiet,NhiKhoa, RangHamMat,XetNghiemMaTuyVaMau, XetNghiemMau,XetNghiemKhac,XetNghiemNuocTieu, ChanDoanHinhAnh,KhamTheLuc,TruongDonViKySo, KetLuan,KhamLamSanKhac};
+        { TamThan, ThanKinh, Mat, TaiMuiHong, TimMach, HoHap, CoXuongKhop, ThaiSan, NoiTiet,NhiKhoa, RangHamMat,XetNghiemMaTuyVaMau, XetNghiemMau,XetNghiemKhac,XetNghiemNuocTieu, ChanDoanHinhAnh,KhamTheLuc,tdv, KetLuan,KhamLamSanKhac};
     }
     public class CRUDPermissionName
     {

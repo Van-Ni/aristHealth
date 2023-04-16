@@ -1,12 +1,8 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
 import { DataService } from '@app/services/data.service';
-import { AppComponentBase } from '@shared/app-component-base';
-import { CertificateGroupStatusDto, CertificateGroupStatusDtoPagedResultDto, CertificateGroupStatusServiceServiceProxy, CreateMedicationKeyResultDto, KhoaMatServiceServiceProxy, MedicationKeyResultDtoPagedResultDto } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, CertificateGroupStatusServiceServiceProxy, CreateCertificateGroupStatusDto, KeyValues, KhoaMatServiceServiceProxy, Values } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
-import { Certificate } from 'crypto';
-import { result } from 'lodash-es'; 
 import {CertificateKeyValueComponentBase} from '../../../../manager/base-certificate';
-import { ActivatedRoute } from '@angular/router';
 
 interface Mat1ViewModel {
   mat_text_kk_mt: string;
@@ -31,10 +27,7 @@ interface Mat1ViewModel {
   styleUrls: ['./mat1.component.css']
 })
 export class Mat1Component extends CertificateKeyValueComponentBase<Mat1ViewModel> implements OnInit {
-  setViewModel(model: MedicationKeyResultDtoPagedResultDto) {    
-    // let object = Object.fromEntries(new Map(model.items.map(obj=>{
-    //   return [obj.key, obj.value]})));
-    //   this.mat1 = object as unknown as Mat1ViewModel;
+  setViewModel(model: any) {    
     for (const key in this.mat1) {
       if (Object.prototype.hasOwnProperty.call(this.mat1, key)) {
         const item = model.items.find(i => i.key === key);
@@ -81,139 +74,43 @@ export class Mat1Component extends CertificateKeyValueComponentBase<Mat1ViewMode
     }
   }
   save(): void {
-    const inputmat1s : CreateMedicationKeyResultDto[] = [];
-    const item1 = new CreateMedicationKeyResultDto(
-      {
-        key: 'mat_checkbox_bth',
-        value:  this.mat1.mat_checkbox_bth|| '',
-        certificateId: this.certificateId,  
-        group: this.group,
+    const data  =  {
+      keys: {
+        "mat_checkbox_bth": new Values({ value: this.mat1.mat_checkbox_bth }),
+        "mat_checkbox_mumau_all": new Values({ value: this.mat1.mat_checkbox_mumau_all }),
+        "mat_checkbox_mumau_do": new Values({ value: this.mat1.mat_checkbox_mumau_do }),
+        "mat_checkbox_mumau_vang": new Values({ value: this.mat1.mat_checkbox_mumau_vang }),
+        "mat_checkbox_mumau_xanh": new Values({ value: this.mat1.mat_checkbox_mumau_xanh }),
+        "mat_radio_thitruong_dung": new Values({ value: this.mat1.mat_radio_thitruong_dung }),
+        "mat_radio_thitruong_ngang": new Values({ value: this.mat1.mat_radio_thitruong_ngang }),
+        "mat_text_2m_ck": new Values({ value: this.mat1.mat_text_2m_ck }),
+        "mat_text_2m_kk": new Values({ value: this.mat1.mat_text_2m_kk }),
+        "mat_text_cbvm": new Values({ value: this.mat1.mat_text_cbvm }),
+        "mat_text_ck_mp": new Values({ value: this.mat1.mat_text_ck_mp }),
+        "mat_text_ck_mt": new Values({ value: this.mat1.mat_text_ck_mt }),
+        "mat_text_kk_mp": new Values({ value: this.mat1.mat_text_kk_mp }),
+        "mat_text_kk_mt": new Values({ value: this.mat1.mat_text_kk_mt }),
+        "mat_text_mat_ketluan": new Values({ value: this.mat1.mat_text_mat_ketluan }),
       }
-    );const item2 = new CreateMedicationKeyResultDto(
+    };
+    const input = new CreateCertificateGroupStatusDto(
       {
-        key: 'mat_checkbox_mumau_all',
-        value:  this.mat1.mat_checkbox_mumau_all|| '',
+        userId : this.appSession.userId,
         certificateId: this.certificateId,
         group: this.group,
-      }
-    );const item3 = new CreateMedicationKeyResultDto(
-      {
-        key: 'mat_checkbox_mumau_do',
-        value:  this.mat1.mat_checkbox_mumau_do|| '',
-        certificateId: this.certificateId,
-        group: this.group,
-      }
-    );const item4 = new CreateMedicationKeyResultDto(
-      {
-        key: 'mat_checkbox_mumau_vang',
-        value:  this.mat1.mat_checkbox_mumau_vang|| '',
-        certificateId: this.certificateId,
-        group: this.group,
-      }
-    );const item5 = new CreateMedicationKeyResultDto(
-      {
-        key: 'mat_checkbox_mumau_xanh',
-        value:  this.mat1.mat_checkbox_mumau_xanh|| '',
-        certificateId: this.certificateId,
-        group: this.group,
-      }
-    );const item6 = new CreateMedicationKeyResultDto(
-      {
-        key: 'mat_radio_thitruong_dung',
-        value:  this.mat1.mat_radio_thitruong_dung|| '',
-        certificateId: this.certificateId,
-        group: this.group,
-      }
-    );const item7 = new CreateMedicationKeyResultDto(
-      {
-        key: 'mat_radio_thitruong_ngang',
-        value:  this.mat1.mat_radio_thitruong_ngang|| '',
-        certificateId: this.certificateId,
-        group: this.group,
-      }
-    );const item8 = new CreateMedicationKeyResultDto(
-      {
-        key: 'mat_text_2m_ck',
-        value:  this.mat1.mat_text_2m_ck|| '',
-        certificateId: this.certificateId,
-        group: this.group,
-      }
-    );const item9 = new CreateMedicationKeyResultDto(
-      {
-        key: 'mat_text_2m_kk',
-        value:  this.mat1.mat_text_2m_kk|| '',
-        certificateId: this.certificateId,
-        group: this.group,
-      }
-    );const item15 = new CreateMedicationKeyResultDto(
-      {
-        key: 'mat_text_cbvm',
-        value:  this.mat1.mat_text_cbvm|| '',
-        certificateId: this.certificateId,
-        group: this.group,
-      }
-    );const item10 = new CreateMedicationKeyResultDto(
-      {
-        key: 'mat_text_ck_mp',
-        value:  this.mat1.mat_text_ck_mp|| '',
-        certificateId: this.certificateId,
-        group: this.group,
-      }
-    );const item11 = new CreateMedicationKeyResultDto(
-      {
-        key: 'mat_text_ck_mt',
-        value:  this.mat1.mat_text_ck_mt|| '',
-        certificateId: this.certificateId,
-        group: this.group,
-      }
-    );const item12 = new CreateMedicationKeyResultDto(
-      {
-        key: 'mat_text_kk_mp',
-        value:  this.mat1.mat_text_kk_mp|| '',
-        certificateId: this.certificateId,
-        group: this.group,
-      }
-    );const item13 = new CreateMedicationKeyResultDto(
-      {
-        key: 'mat_text_kk_mt',
-        value:  this.mat1.mat_text_kk_mt|| '',
-        certificateId: this.certificateId,
-        group: this.group,
+        status : false,
+        content : new KeyValues(data),
       }
     );
-    const item14 = new CreateMedicationKeyResultDto(
-      {
-        key: 'mat_text_mat_ketluan',
-        value:  this.mat1.mat_text_mat_ketluan||'',
-        certificateId: this.certificateId,
-        group: this.group,
-      }
-    );
-    
-    inputmat1s.push(item1);
-    inputmat1s.push(item2);
-    inputmat1s.push(item3);
-    inputmat1s.push(item4);
-    inputmat1s.push(item5);
-    inputmat1s.push(item6);
-    inputmat1s.push(item7);
-    inputmat1s.push(item8);
-    inputmat1s.push(item9);
-    inputmat1s.push(item10);
-    inputmat1s.push(item11);
-    inputmat1s.push(item12);
-    inputmat1s.push(item13);
-    inputmat1s.push(item14);
-    inputmat1s.push(item15);
     if(this.status == true){
-      this.khoaMatServiceServiceProxy.updateOrInsert(inputmat1s).subscribe(
+      this.khoaMatServiceServiceProxy.updateOrInsert(input).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
           this.dataservice.refreshData(this.certificateId);
         },
       );
     }else{
-      this.khoaMatServiceServiceProxy.createList(inputmat1s).subscribe(
+      this.khoaMatServiceServiceProxy.createList(input).subscribe(
         () => {
           this.notify.info(this.l('SavedSuccessfully.'));
           this.dataservice.refreshData(this.certificateId);

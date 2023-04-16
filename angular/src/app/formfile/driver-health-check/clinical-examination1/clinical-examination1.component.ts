@@ -1,5 +1,10 @@
 import { AfterContentInit, AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { IPagedResultDto } from '@shared/paged-listing-component-base';
+import { CreateCertificateGroupStatusDto } from '@shared/service-proxies/service-proxies';
+
+interface ClinicalExaminationModel{
+  thankinh: CreateCertificateGroupStatusDto;
+}
 
 @Component({
   selector: 'app-clinical-examination1',
@@ -7,9 +12,11 @@ import { IPagedResultDto } from '@shared/paged-listing-component-base';
   styleUrls: ['./clinical-examination1.component.css']
 })
 export class ClinicalExamination1Component implements AfterContentInit {
-  @Input() Data: any;
+  @Input() Data: ClinicalExaminationModel;
+  @Input() save: Function;
   @Input() statusDataCheck: any;
   data:  any;
+  tk = "tk";
   statusDataCheck1: any;
   isTamThan1= false;
   isThaiSan1= false;
@@ -24,4 +31,5 @@ export class ClinicalExamination1Component implements AfterContentInit {
 
   ngAfterContentInit(): void {
   }
+ 
 }

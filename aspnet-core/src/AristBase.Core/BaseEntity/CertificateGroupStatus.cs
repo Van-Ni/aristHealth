@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AristBase.Authorization.Users;
+using Castle.MicroKernel.SubSystems.Conversion;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AristBase.BaseEntity
 {
@@ -13,10 +15,11 @@ namespace AristBase.BaseEntity
     {
         public virtual Certificate Certificate { get; set; }
         public Guid CertificateId { get; set; }
+        public KeyValues Content { get; set; }
         public string Group { get; set; }
-        public bool status { get; set; }
-        public long UserId { get; set; }
-        public virtual User User { get; set; }
+        public GroupStatus Status { get; set; }
+        public long? UserId { get; set; }
+        public virtual User? User { get; set; }
         #region Audited
         public long? CreatorUserId { get; set; }
         public DateTime CreationTime { get; set; }
@@ -30,5 +33,19 @@ namespace AristBase.BaseEntity
         public virtual bool IsActive { get; set; }
         public int TenantId { get; set; }
         #endregion
+    }
+    public class KeyValues
+    {
+        public Dictionary<string, Values> Keys { get; set; }
+    }
+    public class Values
+    {
+        public string Value { get; set; }
+    }
+    public enum GroupStatus : byte
+    {
+        UNREADY, // Khong cho ket luan.
+        SUBMITTED,
+        OPTIONAL, //Thai san
     }
 }

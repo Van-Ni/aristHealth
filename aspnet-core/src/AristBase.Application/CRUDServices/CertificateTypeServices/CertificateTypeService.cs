@@ -1,15 +1,8 @@
 ﻿using Abp.Application.Services;
 using Abp.Application.Services.Dto;
-using Abp.Authorization;
 using Abp.Domain.Repositories;
-using AristBase.Authorization;
 using AristBase.BaseEntity;
 using AristBase.CRUDServices.CertificateTypeServices.Dto;
-using Microsoft.AspNetCore.Authorization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AristBase.CRUDServices.CertificateTypeServices
@@ -18,6 +11,16 @@ namespace AristBase.CRUDServices.CertificateTypeServices
     {
         public CertificateTypeService(IRepository<CertificateType, int> repository) : base(repository)
         {
+        }
+        public async Task<CertificateTypeDto> UpdatePriceAsync(int typeId, decimal price)
+        {
+            CheckUpdatePermission();
+
+            var entity = await GetEntityByIdAsync(typeId);
+            entity.Price = price;
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            return MapToEntityDto(entity);
         }
     }
 }

@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
-import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, XetNghiemNuocTieuServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, XetNghiemNuocTieuServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 interface XetNghiemNuocTieu3ViewModel{
   xetnghiemnuoctieu_text_duong: string;
@@ -39,46 +39,46 @@ export class XetNghiemNuocTieu3Component extends CertificateKeyValueComponentBas
 
   }
   save(): void{
-    var inputhohap2s : CreateMedicationKeyResultDto[] = [];
-    const item1 = new CreateMedicationKeyResultDto(
-      {
-        key: 'xetnghiemnuoctieu_text_duong',
-        value:  this.xetnghiemnuoctieu3.xetnghiemnuoctieu_text_duong|| '',
-        certificateId: this.certificateId,  
-        group: this.group,
-      }
-    );const item2 = new CreateMedicationKeyResultDto(
-      {
-        key: 'xetnghiemnuoctieu_text_khac',
-        value:  this.xetnghiemnuoctieu3.xetnghiemnuoctieu_text_khac|| '',
-        certificateId: this.certificateId,
-        group: this.group,
-      }
-    );const item3 = new CreateMedicationKeyResultDto(
-      {
-        key: 'xetnghiemnuoctieu_text_protein',
-        value:  this.xetnghiemnuoctieu3.xetnghiemnuoctieu_text_protein|| '',
-        certificateId: this.certificateId,
-        group: this.group,
-      }
-    );
-    inputhohap2s.push(item1);
-    inputhohap2s.push(item2);
-    inputhohap2s.push(item3);
-    if(this.status == true){
-      this.XetNghiemNuocTieuServiceServiceProxy.updateOrInsert(inputhohap2s).subscribe(
-        () => {
-          this.notify.info(this.l('SavedSuccessfully.'));
-          this.dataservice.refreshData(this.certificateId);
-        },
-      );
-    }else{
-      this.XetNghiemNuocTieuServiceServiceProxy.createList(inputhohap2s).subscribe(
-        () => {
-          this.notify.info(this.l('SavedSuccessfully.'));
-          this.dataservice.refreshData(this.certificateId);
-        },
-      );
-    }
+    // var inputhohap2s : CreateMedicationKeyResultDto[] = [];
+    // const item1 = new CreateMedicationKeyResultDto(
+    //   {
+    //     key: 'xetnghiemnuoctieu_text_duong',
+    //     value:  this.xetnghiemnuoctieu3.xetnghiemnuoctieu_text_duong|| '',
+    //     certificateId: this.certificateId,  
+    //     group: this.group,
+    //   }
+    // );const item2 = new CreateMedicationKeyResultDto(
+    //   {
+    //     key: 'xetnghiemnuoctieu_text_khac',
+    //     value:  this.xetnghiemnuoctieu3.xetnghiemnuoctieu_text_khac|| '',
+    //     certificateId: this.certificateId,
+    //     group: this.group,
+    //   }
+    // );const item3 = new CreateMedicationKeyResultDto(
+    //   {
+    //     key: 'xetnghiemnuoctieu_text_protein',
+    //     value:  this.xetnghiemnuoctieu3.xetnghiemnuoctieu_text_protein|| '',
+    //     certificateId: this.certificateId,
+    //     group: this.group,
+    //   }
+    // );
+    // inputhohap2s.push(item1);
+    // inputhohap2s.push(item2);
+    // inputhohap2s.push(item3);
+    // if(this.status == true){
+    //   this.XetNghiemNuocTieuServiceServiceProxy.updateOrInsert(inputhohap2s).subscribe(
+    //     () => {
+    //       this.notify.info(this.l('SavedSuccessfully.'));
+    //       this.dataservice.refreshData(this.certificateId);
+    //     },
+    //   );
+    // }else{
+    //   this.XetNghiemNuocTieuServiceServiceProxy.createList(inputhohap2s).subscribe(
+    //     () => {
+    //       this.notify.info(this.l('SavedSuccessfully.'));
+    //       this.dataservice.refreshData(this.certificateId);
+    //     },
+    //   );
+    // }
   }
 }

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DataService } from '@app/services/data.service';
 import { LoadingService } from '@app/services/loader/loading.service';
 import { PagedRequestDto, IPagedResultDto } from '@shared/paged-listing-component-base';
-import { CertificateServiceServiceProxy, CertificateGroupStatusServiceServiceProxy, GetDataServiceServiceProxy, MedicationKeyResultDtoPagedResultDto, CertificateGroupStatusDtoPagedResultDto, CertificateDto } from '@shared/service-proxies/service-proxies';
+import { CertificateServiceServiceProxy, CertificateGroupStatusServiceServiceProxy, GetDataServiceServiceProxy, CertificateGroupStatusDtoPagedResultDto, CertificateDto } from '@shared/service-proxies/service-proxies';
 import { MedicationKeyResultDtoPagedResultViewModel } from '../driver-health-check/driver-health-check.component';
 
 @Component({
@@ -13,16 +13,15 @@ import { MedicationKeyResultDtoPagedResultViewModel } from '../driver-health-che
 })
 export class HealthCertificationV2Component implements AfterContentInit {
   request: PagedRequestDto;
-  medicationKeyResult: IPagedResultDto<MedicationKeyResultDtoPagedResultViewModel>;
   certificateStatusResult:CertificateGroupStatusDtoPagedResultDto ;
   profile: CertificateDto;
   constructor(public loader: LoadingService, private dataService: DataService,private certificateServiceServiceProxy: CertificateServiceServiceProxy,private certificateGroupStatusServiceServiceProxy: CertificateGroupStatusServiceServiceProxy,private getDataServiceServiceProxy: GetDataServiceServiceProxy,private route: ActivatedRoute) { }
 
   ngAfterContentInit() {
     console.log(this.route.snapshot.params['id']);
-    this.dataService.getAllKeyData().subscribe((result: MedicationKeyResultDtoPagedResultDto) => {
+    this.dataService.getAllKeyData().subscribe((result: CertificateGroupStatusDtoPagedResultDto) => {
       console.log("Refresh data")
-      this.medicationKeyResult = result;
+      this.certificateStatusResult = result;
       // this.medicationKeyResult = {
       //   items: result.items?.map(x => {
       //     const medicationKeyResultDtoPagedResultViewModel = new MedicationKeyResultDtoPagedResultViewModel();

@@ -1,8 +1,7 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
 import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
-import { AppComponentBase } from '@shared/app-component-base';
-import { CertificateGroupStatusDto, CreateMedicationKeyResultDto, KhoaNgoaiKhoaServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDto, KhoaNgoaiKhoaServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
 interface NgoaiKhoa1ViewModel {
   ngoaikhoa_selectbox_phanloai: string;
@@ -42,38 +41,38 @@ export class NgoaiKhoaComponent extends CertificateKeyValueComponentBase<NgoaiKh
 
   }
   save(): void{
-    var inputhohap2s : CreateMedicationKeyResultDto[] = [];
-    const item1 = new CreateMedicationKeyResultDto(
-      {
-        key: 'ngoaikhoa_selectbox_phanloai',
-        value:  this.ngoaikhoa3.ngoaikhoa_selectbox_phanloai|| '',
-        certificateId: this.certificateId,  
-        group: "ngoaikhoa",
-      }
-    );const item2 = new CreateMedicationKeyResultDto(
-      {
-        key: 'ngoaikhoa_text_ngoaikhoa_ketluan',
-        value:  this.ngoaikhoa3.ngoaikhoa_text_ngoaikhoa_ketluan|| '',
-        certificateId: this.certificateId,
-        group: "ngoaikhoa",
-      }
-    );
-    inputhohap2s.push(item1);
-    inputhohap2s.push(item2);
-    if(this.status == true){
-      this.KhoaNgoaiKhoaServiceServiceProxy.updateOrInsert(inputhohap2s).subscribe(
-        () => {
-          this.notify.info(this.l('SavedSuccessfully.'));
-          this.dataservice.refreshData(this.certificateId);
-        },
-      );
-    }else{
-      this.KhoaNgoaiKhoaServiceServiceProxy.createList(inputhohap2s).subscribe(
-        () => {
-          this.notify.info(this.l('SavedSuccessfully.'));
-          this.dataservice.refreshData(this.certificateId);
-        },
-      );
-    }
+    // var inputhohap2s : CreateMedicationKeyResultDto[] = [];
+    // const item1 = new CreateMedicationKeyResultDto(
+    //   {
+    //     key: 'ngoaikhoa_selectbox_phanloai',
+    //     value:  this.ngoaikhoa3.ngoaikhoa_selectbox_phanloai|| '',
+    //     certificateId: this.certificateId,  
+    //     group: "ngoaikhoa",
+    //   }
+    // );const item2 = new CreateMedicationKeyResultDto(
+    //   {
+    //     key: 'ngoaikhoa_text_ngoaikhoa_ketluan',
+    //     value:  this.ngoaikhoa3.ngoaikhoa_text_ngoaikhoa_ketluan|| '',
+    //     certificateId: this.certificateId,
+    //     group: "ngoaikhoa",
+    //   }
+    // );
+    // inputhohap2s.push(item1);
+    // inputhohap2s.push(item2);
+    // if(this.status == true){
+    //   this.KhoaNgoaiKhoaServiceServiceProxy.updateOrInsert(inputhohap2s).subscribe(
+    //     () => {
+    //       this.notify.info(this.l('SavedSuccessfully.'));
+    //       this.dataservice.refreshData(this.certificateId);
+    //     },
+    //   );
+    // }else{
+    //   this.KhoaNgoaiKhoaServiceServiceProxy.createList(inputhohap2s).subscribe(
+    //     () => {
+    //       this.notify.info(this.l('SavedSuccessfully.'));
+    //       this.dataservice.refreshData(this.certificateId);
+    //     },
+    //   );
+    // }
   }
 }

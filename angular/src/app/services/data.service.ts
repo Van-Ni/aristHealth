@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CertificateGroupStatusDtoPagedResultDto, CertificateGroupStatusServiceServiceProxy, CertificateServiceServiceProxy, GetDataServiceServiceProxy, MedicationKeyResultDtoPagedResultDto } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDtoPagedResultDto, CertificateGroupStatusServiceServiceProxy, CertificateServiceServiceProxy, GetDataServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { BehaviorSubject, Observable, Observer, Subject } from 'rxjs';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class DataService {
     
   }
   data: any;
-  allKeyData =  new BehaviorSubject<MedicationKeyResultDtoPagedResultDto>(null);
+  allKeyData =  new BehaviorSubject<CertificateGroupStatusDtoPagedResultDto>(null);
   groupStatus = new BehaviorSubject<CertificateGroupStatusDtoPagedResultDto>(null);
   setData(data: any) {
     this.data = data;
@@ -26,7 +26,7 @@ export class DataService {
   getData(): any {
     return this.data;
   }
-  getAllKeyData ():Observable<MedicationKeyResultDtoPagedResultDto>{
+  getAllKeyData ():Observable<CertificateGroupStatusDtoPagedResultDto>{
     return this.allKeyData.asObservable();
   }
   getGroupData ():Observable<CertificateGroupStatusDtoPagedResultDto>{
@@ -36,7 +36,7 @@ export class DataService {
   refreshData(cerId: string){
     console.log("refreshData");
     this.getDataServiceServiceProxy.getAll(cerId)
-      .subscribe((result: MedicationKeyResultDtoPagedResultDto) => {
+      .subscribe((result: CertificateGroupStatusDtoPagedResultDto) => {
         this.allKeyData.next(result);
     })
     this.certificateGroupStatusServiceServiceProxy.getAll(cerId)
