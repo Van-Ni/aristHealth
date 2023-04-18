@@ -12,6 +12,7 @@ namespace AristBase.Services
     static class PathHelper
     {
         public const string BaseOutputPath = "./VolumeMap/pdf/output/{0}/{1}";
+        public const string FontPath = "./Data/arial.ttf";
         public static string GetOutputPath(string fileName, string type)
         {
             var now = Clock.Now;

@@ -200,7 +200,7 @@ namespace AristBase.Net.MimeTypes
         ///<summary>OpenDocument Spreadsheet; Registered[12]</summary>
         public const string ApplicationVndOasisOpendocumentSpreadsheet = "application/vnd.oasis.opendocument.spreadsheet";
 
-        ///<summary>OpenDocument Text; Registered[11]</summary>
+        ///<summary>OpenDocument TEXT_FIX; Registered[11]</summary>
         public const string ApplicationVndOasisOpendocumentText = "application/vnd.oasis.opendocument.text";
 
         ///<summary>p12 files</summary>

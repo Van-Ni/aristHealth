@@ -1,10 +1,10 @@
 ﻿using Abp.Application.Services;
 using Abp.Dependency;
 using Abp.Domain.Repositories;
-using Abp.IO.Extensions;
 using Abp.Timing;
 using AristBase.Authorization.Users;
 using AristBase.BaseEntity;
+using AristBase.CRUDServices.CertificateGroupStatusServices.Dto;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.security;
@@ -24,27 +24,28 @@ namespace AristBase.Services
     public static class PDFFieldConst
     {
         public const string SignatureField = "Signature";
-        public const string SignImage = "sign_image_";
-        public const string SignName = "sign_chuki_";
-        public const string Text = "_text_";
-        public const string Radio = "_radio_";
-        public const string CheckBox = "_checkbox_";
-        public const string Hvt = "client_text_hovaten";
-        public const string Male = "client_checkbox_male";
-        public const string Female = "client_checkbox_female";
-        public const string Dob = "client_text_dob";
-        public const string CCCD = "client_text_cccd";
-        public const string CCCDNC = "client_text_cccdngaycap";
-        public const string CCCDTai = "client_text_cccdtai";
-        public const string Address = "client_text_address";
-        public const string Reason = "client_text_lidokham";
-        public const string DayText = "sys_text_thu";
-        public const string Day = "sys_text_ngay";
-        public const string Month = "sys_text_thang";
-        public const string Year = "sys_text_nam";
+        public const string SignImage = "sign_image";
+        public const string SignName = "sign_chuki";
+        public const string TEXT_FIX = "_text_";
+        public const string RADIO_FIX = "_radio_";
+        public const string CHECKBOX_FIX = "_checkbox_";
+        public const string Hvt = "text_hovaten";
+        public const string Male = "checkbox_male";
+        public const string Female = "checkbox_female";
+        public const string Dob = "text_dob";
+        public const string CCCD = "text_cccd";
+        public const string CCCDNC = "text_cccdngaycap";
+        public const string CCCDTai = "text_cccdtai";
+        public const string Address = "text_address";
+        public const string Reason = "text_lidokham";
+        public const string DayText = "text_thu";
+        public const string Day = "text_ngay";
+        public const string Month = "text_thang";
+        public const string Year = "text_nam";
         public const string SoYTe = "text_tenancyName";
         public const string TT = "text_branchName";
         public const string So = "text_so";
+
         public const string TTNBTH = "mat_radio_thitruong_ngang_bth";
         public const string TTNHC = "mat_radio_thitruong_ngang_hc";
         public const string TTDBTH = "mat_radio_thitruong_dung_bth";
@@ -54,18 +55,15 @@ namespace AristBase.Services
     }
     public class PDFService : ApplicationService, ITransientDependency
     {
-        private readonly IRepository<MedicationKeyResult, Guid> _repository;
         private readonly IRepository<Certificate, Guid> _certificateRepository;
         private readonly IRepository<CertificateGroupStatus, Guid> _certificateStatus;
 
         public PDFService(
-            IRepository<MedicationKeyResult, Guid> repository,
             IRepository<Certificate, Guid> certificateRepository,
             IRepository<CertificateGroupStatus, Guid> certificateStatus
 
             )
         {
-            _repository = repository;
             this._certificateRepository = certificateRepository;
             this._certificateStatus = certificateStatus;
         }
@@ -75,7 +73,7 @@ namespace AristBase.Services
             var cerStatusData = await _certificateStatus.GetAll()
                 .Where(c => c.CertificateId == cerId).Include(c => c.User).ToListAsync();
             //var now = Clock.Now;
-            var cerUserDic = cerStatusData.ToDictionary(c => c.Group, c => c.User);
+            var cerUserDic = cerStatusData.ToDictionary(c => c.Group, c => ObjectMapper.Map<CertificateGroupStatusDto>(c));
 
 
             var cer = await _certificateRepository.GetAll()
@@ -85,36 +83,59 @@ namespace AristBase.Services
                 .SingleAsync();
 
 
-            var result = await _repository.GetAll().Where(r => r.CertificateId == cerId).ToListAsync();
-            var dic = result.ToDictionary(r => r.Key, r => r.Value);
+            // var result = await _repository.GetAll().Where(r => r.CertificateId == cerId).ToListAsync();
+
+            // var dic = result.ToDictionary(r => r.Key, r => r.Value);
 
             //Set dic client info
-            dic[PDFFieldConst.SoYTe] = "SỞ Y TẾ GIA LAI";
-            dic[PDFFieldConst.TT] = "TRUNG TÂM GIÁM ĐỊNH Y KHOA";
-            dic[PDFFieldConst.So] = "";
-            dic[PDFFieldConst.Hvt] = cer.ClientInfo.FullName;
-            dic[PDFFieldConst.Dob] = cer.ClientInfo.DateOfBirth;
-            dic[PDFFieldConst.Address] = cer.ClientInfo.Address;
-            dic[PDFFieldConst.Reason] = cer.Reason;
-            dic[PDFFieldConst.CCCD] = cer.ClientInfo.CCCD;
-            dic[PDFFieldConst.CCCDTai] = cer.ClientInfo.AddressCCCD;
-            dic[PDFFieldConst.CCCDNC] = cer.ClientInfo.CreateTimeCCCD;
-            dic[PDFFieldConst.Female] = cer.ClientInfo.Sex == "nu" ? "true" : "false";
-            dic[PDFFieldConst.Male] = cer.ClientInfo.Sex == "nam" ? "true" : "false";
-            //Prepare datetimedata
+            // dic[PDFFieldConst.SoYTe] = "SỞ Y TẾ GIA LAI";
+            // dic[PDFFieldConst.TT] = "TRUNG TÂM GIÁM ĐỊNH Y KHOA";
+            //Set clientInfo status 
+
+            var dic = new Dictionary<string, Values>();
+            dic[PDFFieldConst.Hvt] = new Values
+            {
+                Value = cer.ClientInfo.FullName
+            };
+            dic[PDFFieldConst.Dob] = new Values
+            {
+                Value = cer.ClientInfo.DateOfBirth
+            };
+            dic[PDFFieldConst.Address] = new Values { Value = cer.ClientInfo.Address };
+            dic[PDFFieldConst.Reason] = new Values { Value = cer.Reason };
+            dic[PDFFieldConst.CCCD] = new Values { Value = cer.ClientInfo.CCCD };
+            dic[PDFFieldConst.CCCDTai] = new Values { Value = cer.ClientInfo.AddressCCCD };
+            dic[PDFFieldConst.CCCDNC] = new Values { Value = cer.ClientInfo.CreateTimeCCCD };
+            dic[PDFFieldConst.Female] = new Values { Value = cer.ClientInfo.Sex == "nu" ? "true" : "false" };
+            dic[PDFFieldConst.Male] = new Values { Value = cer.ClientInfo.Sex == "nam" ? "true" : "false" };
+            var clientInfo = new CertificateGroupStatusDto
+            {
+                Group = "client",
+                Content = dic
+            };
+            cerUserDic[clientInfo.Group] = clientInfo;
+            // Prepare datetimedata
             var now = Clock.Now;
-            dic[PDFFieldConst.DayText] = now.ToString("dddd", new CultureInfo("vi-VN"));
-            dic[PDFFieldConst.Day] = now.ToString("dd");
-            dic[PDFFieldConst.Month] = now.ToString("MM");
-            dic[PDFFieldConst.Year] = now.ToString("yyyy");
-            dic[PDFFieldConst.TTNBTH] = dic["mat_radio_thitruong_ngang"] == "bth" ? "true" : "false";
-            dic[PDFFieldConst.TTNHC] = dic["mat_radio_thitruong_ngang"] == "hc" ? "true" : "false";
-            dic[PDFFieldConst.TTDBTH] = dic["mat_radio_thitruong_dung"] == "bth" ? "true" : "false";
-            dic[PDFFieldConst.TTDHC] = dic["mat_radio_thitruong_dung"] == "hc" ? "true" : "false";
+            dic = new Dictionary<string, Values>();
+            // dic[PDFFieldConst.So] = "";
+            dic[PDFFieldConst.DayText] = new Values { Value = now.ToString("dddd", new CultureInfo("vi-VN")) };
+            dic[PDFFieldConst.Day] = new Values { Value = now.ToString("dd") };
+            dic[PDFFieldConst.Month] = new Values { Value = now.ToString("MM") };
+            dic[PDFFieldConst.Year] = new Values { Value = now.ToString("yyyy") };
+            var sys = new CertificateGroupStatusDto
+            {
+                Group = "sys",
+                Content = dic
+            };
+            cerUserDic[sys.Group] = sys;
+            //dic[PDFFieldConst.TTNBTH] = new Values { Value = dic["mat_radio_thitruong_ngang"] == "bth" ? "true" : "false" };
+            //dic[PDFFieldConst.TTNHC] = dic["mat_radio_thitruong_ngang"] == "hc" ? "true" : "false";
+            //dic[PDFFieldConst.TTDBTH] = dic["mat_radio_thitruong_dung"] == "bth" ? "true" : "false";
+            //dic[PDFFieldConst.TTDHC] = dic["mat_radio_thitruong_dung"] == "hc" ? "true" : "false";
 
             var cername = Guid.NewGuid().ToString("n") + ".pdf";
-            var path = PathHelper.GetOutputPath(cername, "giaypheplaixe");
-            FiledPDF(cer.CertificateType.FilePath, path, dic, cerUserDic);
+            var path = PathHelper.GetOutputPath(cername, cer.CertificateTypeId.ToString());
+            FiledPDF(cer.CertificateType.FilePath, path, cerUserDic);
 
             cer.FileResult = path;
             FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
@@ -132,59 +153,78 @@ namespace AristBase.Services
 
             return new FileStreamResult(fileStream, "application/pdf");
         }
-        void FiledPDF(string templatePath, string outputPath, Dictionary<string, string> filedValues, Dictionary<string, User> cerUserDic)
+        void FiledPDF(string templatePath, string outputPath, Dictionary<string, CertificateGroupStatusDto> cerUserDic)
         {
             using (FileStream os = new FileStream(outputPath, FileMode.Create))
             {
                 using PdfReader reader = new PdfReader(templatePath);
-                FillPDF(reader, os, filedValues, cerUserDic);
+                FillPDF(reader, os, cerUserDic);
                 reader.Close();
             }
         }
-        protected void FillPDF(PdfReader reader, FileStream os, Dictionary<string, string> filedValues, Dictionary<string, User> cerUserDic)
+        protected void FillPDF(PdfReader reader, FileStream os, Dictionary<string, CertificateGroupStatusDto> cerUserDic)
         {
             PdfStamper stamper = new PdfStamper(reader, os, '\0');
             AcroFields formFields = stamper.AcroFields;
-            BaseFont font = BaseFont.CreateFont("./file/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            BaseFont font = BaseFont.CreateFont(PathHelper.FontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 
             formFields.AddSubstitutionFont(font);
 
             foreach (var field in formFields.Fields)
             {
+                var keys = field.Key.Split("_");
+                if (cerUserDic.TryGetValue(keys[0], out var group))
+                {
+                    if (field.Key.EndsWith(PDFFieldConst.SignImage))
+                    {
+                        var keyReplace = field.Key.Replace(PDFFieldConst.SignImage, string.Empty);
+                        AddImage(group.User.SignPath, stamper, formFields.GetFieldPositions(field.Key)[0]);
+                        continue;
+                    }
+                    else if (field.Key.EndsWith(PDFFieldConst.SignName))
+                    {
+                        var keyReplace = field.Key.Replace(PDFFieldConst.SignName, string.Empty);
+                        formFields.SetField(field.Key, group.User.FullName);
+                        formFields.SetFieldProperty(field.Key, "textfont", font, null);
+                        continue;
+                    }
+                    else
+                    {
 
-                if (field.Key.StartsWith(PDFFieldConst.SignImage))
-                {
-                    var keyReplace = field.Key.Replace(PDFFieldConst.SignImage, string.Empty);
-                    AddImage(cerUserDic[keyReplace].SignPath, stamper, formFields.GetFieldPositions(field.Key)[0]);
-                    continue;
+                        var contentKey = string.Join("_", keys.Skip(1));
+                        if (group.Content.TryGetValue(contentKey, out var contentValue) && contentValue != null)
+                        {
+                            formFields.SetField(field.Key, contentValue.Value);
+                            formFields.SetFieldProperty(field.Key, "textfont", font, null);
+                            continue;
+                        }
+                    }
                 }
-                if (field.Key.StartsWith(PDFFieldConst.SignName))
-                {
-                    var keyReplace = field.Key.Replace(PDFFieldConst.SignName, string.Empty);
-                    formFields.SetField(field.Key, cerUserDic[keyReplace].FullVNMName);
-                    formFields.SetFieldProperty(field.Key, "textfont", font, null);
-                    continue;
-                }
-                string value;
-                filedValues.TryGetValue(field.Key, out value);
-                if (string.IsNullOrEmpty(value))
-                {
-                    formFields.SetField(field.Key, "");
-                    continue;
-                }
+                //Set field empty
+                formFields.SetField(field.Key, string.Empty);
 
-                if (filedValues.Keys.Contains(PDFFieldConst.Radio) || filedValues.Keys.Contains(PDFFieldConst.CheckBox))
-                {
-                    formFields.GenerateAppearances = false;
-                    formFields.SetField(field.Key, value);
-                    //formFields.SetFieldProperty(field.Key, "textfont", font, null);
-                    formFields.GenerateAppearances = true;
-                }
-                else
-                {
-                    formFields.SetField(field.Key, value);
-                    formFields.SetFieldProperty(field.Key, "textfont", font, null);
-                }
+
+
+                //string value;
+                //filedValues.TryGetValue(field.Key, out value);
+                //if (string.IsNullOrEmpty(value))
+                //{
+                //    formFields.SetField(field.Key, "");
+                //    continue;
+                //}
+
+                //if (filedValues.Keys.Contains(PDFFieldConst.RADIO_FIX) || filedValues.Keys.Contains(PDFFieldConst.CHECKBOX_FIX))
+                //{
+                //    formFields.GenerateAppearances = false;
+                //    formFields.SetField(field.Key, value);
+                //    //formFields.SetFieldProperty(field.Key, "textfont", font, null);
+                //    formFields.GenerateAppearances = true;
+                //}
+                //else
+                //{
+                //    formFields.SetField(field.Key, value);
+                //    formFields.SetFieldProperty(field.Key, "textfont", font, null);
+                //}
 
             }
             // SignPdf(filedValues[PDFFieldConst.SignatureField], stamper, formFields.GetFieldPositions(PDFFieldConst.SignatureField)[0]);
