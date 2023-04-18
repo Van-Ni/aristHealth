@@ -5,13 +5,16 @@ using Abp.Timing;
 using AristBase.Authorization.Users;
 using AristBase.BaseEntity;
 using AristBase.CRUDServices.CertificateGroupStatusServices.Dto;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using iTextSharp.text.pdf.security;
+using iText.Forms;
+using iText.Forms.Fields;
+using iText.IO.Font;
+using iText.IO.Image;
+using iText.Kernel.Font;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Crypto.Parameters;
-using Org.BouncyCastle.Pkcs;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -21,40 +24,9 @@ using System.Threading.Tasks;
 
 namespace AristBase.Services
 {
-    public static class PDFFieldConst
-    {
-        public const string SignatureField = "Signature";
-        public const string SignImage = "sign_image";
-        public const string SignName = "sign_chuki";
-        public const string TEXT_FIX = "_text_";
-        public const string RADIO_FIX = "_radio_";
-        public const string CHECKBOX_FIX = "_checkbox_";
-        public const string Hvt = "text_hovaten";
-        public const string Male = "checkbox_male";
-        public const string Female = "checkbox_female";
-        public const string Dob = "text_dob";
-        public const string CCCD = "text_cccd";
-        public const string CCCDNC = "text_cccdngaycap";
-        public const string CCCDTai = "text_cccdtai";
-        public const string Address = "text_address";
-        public const string Reason = "text_lidokham";
-        public const string DayText = "text_thu";
-        public const string Day = "text_ngay";
-        public const string Month = "text_thang";
-        public const string Year = "text_nam";
-        public const string SoYTe = "text_tenancyName";
-        public const string TT = "text_branchName";
-        public const string So = "text_so";
-
-        public const string TTNBTH = "mat_radio_thitruong_ngang_bth";
-        public const string TTNHC = "mat_radio_thitruong_ngang_hc";
-        public const string TTDBTH = "mat_radio_thitruong_dung_bth";
-        public const string TTDHC = "mat_radio_thitruong_dung_hc";
-
-
-    }
     public class PDFService : ApplicationService, ITransientDependency
     {
+
         private readonly IRepository<Certificate, Guid> _certificateRepository;
         private readonly IRepository<CertificateGroupStatus, Guid> _certificateStatus;
 
@@ -69,9 +41,8 @@ namespace AristBase.Services
         }
         public async Task<ActionResult> FillPDFWithCertificate(Guid cerId)
         {
-            //TODO: Check status 
             var cerStatusData = await _certificateStatus.GetAll()
-                .Where(c => c.CertificateId == cerId).Include(c => c.User).ToListAsync();
+                 .Where(c => c.CertificateId == cerId).Include(c => c.User).ToListAsync();
             //var now = Clock.Now;
             var cerUserDic = cerStatusData.ToDictionary(c => c.Group, c => ObjectMapper.Map<CertificateGroupStatusDto>(c));
 
@@ -106,8 +77,7 @@ namespace AristBase.Services
             dic[PDFFieldConst.CCCD] = new Values { Value = cer.ClientInfo.CCCD };
             dic[PDFFieldConst.CCCDTai] = new Values { Value = cer.ClientInfo.AddressCCCD };
             dic[PDFFieldConst.CCCDNC] = new Values { Value = cer.ClientInfo.CreateTimeCCCD };
-            dic[PDFFieldConst.Female] = new Values { Value = cer.ClientInfo.Sex == "nu" ? "true" : "false" };
-            dic[PDFFieldConst.Male] = new Values { Value = cer.ClientInfo.Sex == "nam" ? "true" : "false" };
+            dic[PDFFieldConst.Sex] = new Values { Value = cer.ClientInfo.Sex};
             var clientInfo = new CertificateGroupStatusDto
             {
                 Group = "client",
@@ -145,6 +115,7 @@ namespace AristBase.Services
                 FileDownloadName = cername
             };
 
+
         }
 
         public async Task<FileResult> GetPDFFile(string path)
@@ -155,37 +126,33 @@ namespace AristBase.Services
         }
         void FiledPDF(string templatePath, string outputPath, Dictionary<string, CertificateGroupStatusDto> cerUserDic)
         {
-            using (FileStream os = new FileStream(outputPath, FileMode.Create))
-            {
-                using PdfReader reader = new PdfReader(templatePath);
-                FillPDF(reader, os, cerUserDic);
-                reader.Close();
-            }
+            PdfDocument pdfDoc = new PdfDocument(new PdfReader(templatePath), new PdfWriter(outputPath));
+            PdfAcroForm form = PdfAcroForm.GetAcroForm(pdfDoc, true);
+            FillPDF(form, cerUserDic, pdfDoc);
+            pdfDoc.Close();
         }
-        protected void FillPDF(PdfReader reader, FileStream os, Dictionary<string, CertificateGroupStatusDto> cerUserDic)
+        protected void FillPDF(PdfAcroForm form, Dictionary<string, CertificateGroupStatusDto> cerUserDic, PdfDocument pdfDoc)
         {
-            PdfStamper stamper = new PdfStamper(reader, os, '\0');
-            AcroFields formFields = stamper.AcroFields;
-            BaseFont font = BaseFont.CreateFont(PathHelper.FontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            // BaseFont font = BaseFont.CreateFont("./file/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 
-            formFields.AddSubstitutionFont(font);
+            // formFields.AddSubstitutionFont(font);
+            PdfFont font = PdfFontFactory.CreateFont(PathHelper.FontPath, PdfEncodings.IDENTITY_H);
+            var fields = form.GetFormFields();
 
-            foreach (var field in formFields.Fields)
+
+            foreach (var field in fields)
             {
                 var keys = field.Key.Split("_");
                 if (cerUserDic.TryGetValue(keys[0], out var group))
                 {
                     if (field.Key.EndsWith(PDFFieldConst.SignImage))
                     {
-                        var keyReplace = field.Key.Replace(PDFFieldConst.SignImage, string.Empty);
-                        AddImage(group.User.SignPath, stamper, formFields.GetFieldPositions(field.Key)[0]);
+                        FillImage(form, field.Value, group.User.SignPath, pdfDoc);
                         continue;
                     }
                     else if (field.Key.EndsWith(PDFFieldConst.SignName))
                     {
-                        var keyReplace = field.Key.Replace(PDFFieldConst.SignName, string.Empty);
-                        formFields.SetField(field.Key, group.User.FullName);
-                        formFields.SetFieldProperty(field.Key, "textfont", font, null);
+                        field.Value.SetValue(group.User.FullName, font, 12f);
                         continue;
                     }
                     else
@@ -194,95 +161,88 @@ namespace AristBase.Services
                         var contentKey = string.Join("_", keys.Skip(1));
                         if (group.Content.TryGetValue(contentKey, out var contentValue) && contentValue != null)
                         {
-                            formFields.SetField(field.Key, contentValue.Value);
-                            formFields.SetFieldProperty(field.Key, "textfont", font, null);
+                            if (field.Value.GetFormType() == PdfName.Btn)
+                            {
+                                field.Value.SetCheckType(PdfFormField.TYPE_CHECK);//PdfFormField.TYPE_CIRCLE,PdfFormField.TYPE_CROSS,PdfFormField.TYPE_DIAMOND,PdfFormField.TYPE_SQUARE,PdfFormField.TYPE_STAR,etc
+                                
+                                if(!string.IsNullOrEmpty(contentValue.Value))
+                                    field.Value.SetValue(contentValue.Value, true);
+                            }
+                            else
+                            {
+                                field.Value.SetValue(contentValue.Value, font, 12f);
+                            }
                             continue;
                         }
                     }
                 }
-                //Set field empty
-                formFields.SetField(field.Key, string.Empty);
 
+                //field.Value.SetValue(string.Empty, font, 12f);
 
-
-                //string value;
-                //filedValues.TryGetValue(field.Key, out value);
-                //if (string.IsNullOrEmpty(value))
-                //{
-                //    formFields.SetField(field.Key, "");
-                //    continue;
-                //}
-
-                //if (filedValues.Keys.Contains(PDFFieldConst.RADIO_FIX) || filedValues.Keys.Contains(PDFFieldConst.CHECKBOX_FIX))
-                //{
-                //    formFields.GenerateAppearances = false;
-                //    formFields.SetField(field.Key, value);
-                //    //formFields.SetFieldProperty(field.Key, "textfont", font, null);
-                //    formFields.GenerateAppearances = true;
-                //}
-                //else
-                //{
-                //    formFields.SetField(field.Key, value);
-                //    formFields.SetFieldProperty(field.Key, "textfont", font, null);
-                //}
-
+                
             }
-            // SignPdf(filedValues[PDFFieldConst.SignatureField], stamper, formFields.GetFieldPositions(PDFFieldConst.SignatureField)[0]);
-            stamper.FormFlattening = true;
-            stamper.Close();
+            form.FlattenFields();
         }
-        private void AddImage(string imgPath, PdfStamper stamper, AcroFields.FieldPosition pos)
+
+        private void FillImage(PdfAcroForm form, PdfFormField field, string imagePath, PdfDocument pdfDoc)
         {
-            Rectangle rect = pos.position;
-            Image image = Image.GetInstance(imgPath);
-            image.SetAbsolutePosition(rect.Left, rect.Bottom);
-            image.ScaleToFit(rect.Width, rect.Height);
-            PdfContentByte canvas = stamper.GetOverContent(pos.page);
-            canvas.AddImage(image);
+            PdfArray sizingArray = field.GetWidgets()[0].GetRectangle();
+
+            var width = (float)(sizingArray.GetAsNumber(2).GetValue() - sizingArray.GetAsNumber(0).GetValue());
+            var height = (float)(sizingArray.GetAsNumber(3).GetValue() - sizingArray.GetAsNumber(1).GetValue());
+            var rect = new Rectangle(sizingArray.GetAsNumber(0).FloatValue(),
+                sizingArray.GetAsNumber(1).FloatValue(),
+            width,
+                height);
+
+            PdfCanvas pdfCanvas = new PdfCanvas(pdfDoc, pdfDoc.GetPageNumber(field.GetWidgets()[0].GetPage()));
+
+            pdfCanvas.AddImageFittedIntoRectangle(ImageDataFactory.Create(imagePath), rect, false);
         }
-        private static void SignPdf(string pathToCert, PdfStamper stamper, AcroFields.FieldPosition pos, string passCert = "1234")
-        {
-            var pass = passCert.ToCharArray();
 
-            FileStream fs;
-            try
-            {
-                fs = new FileStream(pathToCert, FileMode.Open);
-            }
-            catch (Exception ex)
-            {
-                return;
-            }
+        //private static void SignPdf(string pathToCert, PdfStamper stamper, AcroFields.FieldPosition pos, string passCert = "1234")
+        //{
+        //    var pass = passCert.ToCharArray();
 
-            var store = new Pkcs12Store(fs, pass);
+        //    FileStream fs;
+        //    try
+        //    {
+        //        fs = new FileStream(pathToCert, FileMode.Open);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return;
+        //    }
 
-            fs.Close();
+        //    var store = new Pkcs12Store(fs, pass);
 
-            var alias = "";
+        //    fs.Close();
 
-            // searching for private key
-            foreach (string al in store.Aliases)
-                if (store.IsKeyEntry(al) && store.GetKey(al).Key.IsPrivate)
-                {
-                    alias = al;
-                    break;
-                }
+        //    var alias = "";
 
-            var pk = store.GetKey(alias);
+        //    // searching for private key
+        //    foreach (string al in store.Aliases)
+        //        if (store.IsKeyEntry(al) && store.GetKey(al).Key.IsPrivate)
+        //        {
+        //            alias = al;
+        //            break;
+        //        }
 
-            var chain = store.GetCertificateChain(alias).Select(c => c.Certificate).ToList();
+        //    var pk = store.GetKey(alias);
 
-            var parameters = pk.Key as RsaPrivateCrtKeyParameters;
+        //    var chain = store.GetCertificateChain(alias).Select(c => c.Certificate).ToList();
+
+        //    var parameters = pk.Key as RsaPrivateCrtKeyParameters;
 
 
 
-            var appearance = stamper.SignatureAppearance;
-            appearance.Reason = "MySign";
+        //    var appearance = stamper.SignatureAppearance;
+        //    appearance.Reason = "MySign";
 
-            Rectangle rect = pos.position;
-            appearance.SetVisibleSignature(rect, pos.page, null);
-            IExternalSignature pks = new PrivateKeySignature(parameters, DigestAlgorithms.SHA256);
-            MakeSignature.SignDetached(appearance, pks, chain, null, null, null, 0, CryptoStandard.CMS);
-        }
+        //    Rectangle rect = pos.position;
+        //    appearance.SetVisibleSignature(rect, pos.page, null);
+        //    IExternalSignature pks = new PrivateKeySignature(parameters, DigestAlgorithms.SHA256);
+        //    MakeSignature.SignDetached(appearance, pks, chain, null, null, null, 0, CryptoStandard.CMS);
+        //}
     }
 }

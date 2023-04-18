@@ -1,24 +1,4 @@
-﻿using Abp;
-using Abp.Application.Services;
-using Abp.Application.Services.Dto;
-using Abp.Authorization;
-using Abp.Domain.Entities;
-using Abp.Domain.Repositories;
-using Abp.EntityFrameworkCore.Repositories;
-using AristBase.BaseEntity;
-using AristBase.CRUDServices.CertificateGroupStatusServices.Dto;
-using AristBase.CRUDServices.MedicationKeyResultServices.Dto;
-using AristBase.Interfaces;
-using DocumentFormat.OpenXml.Vml.Office;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AristBase.CRUDServices.MedicationKeyResultServices
+﻿namespace AristBase.CRUDServices.MedicationKeyResultServices
 {
     //public abstract class KeyValueBaseService : AsyncCrudPermissonAppService<CertificateGroupStatus, CertificateGroupStatusDto, Guid, ParentPagedAndSortedResultRequestDto, CreateCertificateGroupStatusDto, CertificateGroupStatusDto>
     //{
