@@ -17,6 +17,7 @@ import { AboutComponent } from '@app/about/about.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ToastrModule } from 'ngx-toastr';
 // tenants
 import { TenantsComponent } from '@app/tenants/tenants.component';
 import { CreateTenantDialogComponent } from './tenants/create-tenant/create-tenant-dialog.component';
@@ -43,31 +44,11 @@ import { SidebarUserPanelComponent } from './layout/sidebar-user-panel.component
 import { SidebarMenuComponent } from './layout/sidebar-menu.component';
 //manager
 import {ProfileComponent} from './formfile/profile/profile.component';
-import {HealthCertificationComponent} from './formfile/Health-Certification/Health-Certification.component';
-import {MedicalHistoryComponent} from './formfile/Health-Certification/medical-history/medical-history.component';
-import {HealthCertificationV2Component} from './formfile/health-certification-v2/health-certification-v2.component';
-import {MedicalHistoryV2Component} from './formfile/health-certification-v2/medical-history-v2/medical-history-v2.component';
 import {PhysicalExaminationComponent} from './formfile/physical-examination/physical-examination.component';
 import {DrivingMedicalHistoryComponent} from './formfile/driver-health-check/driving-medical-history/driving-medical-history.component';
 import {DriverHealthCheckComponent} from './formfile/driver-health-check/driver-health-check.component';
-import {CurrentConclusionType2Component} from './formfile/health-certification-v2/current-conclusion-type2/current-conclusion-type2.component';
 import {CurrentConclusionType1Component} from './formfile/driver-health-check/current-conclusion-type1/current-conclusion-type1.component';
-import {CurrentConclusionType3Component} from './formfile/Health-Certification/current-conclusion-type3/current-conclusion-type3.component';
-import {SubclinicalExaminationType1Component} from './formfile/driver-health-check/subclinical-examination-type1/subclinical-examination-type1.component';
-import {SubclinicalExaminationType2Component} from './formfile/health-certification-v2/subclinical-examination-type2/subclinical-examination-type2.component';
-import {SubclinicalExaminationType3Component} from './formfile/Health-Certification/subclinical-examination-type3/subclinical-examination-type3.component';
-import {ClinicalExamination3Component} from './formfile/Health-Certification/clinical-examination3/clinical-examination3.component';
-import {ClinicalExamination2Component} from './formfile/health-certification-v2/clinical-examination2/clinical-examination2.component';
 import {ClinicalExamination1Component} from './formfile/driver-health-check/clinical-examination1/clinical-examination1.component';
-import {TamThan1Component} from './formfile/driver-health-check/clinical-examination1/tam-than1/tam-than1.component';
-import {ThanKinh1Component} from './formfile/driver-health-check/clinical-examination1/than-kinh1/than-kinh1.component';
-import { TimMach1Component } from './formfile/driver-health-check/clinical-examination1/tim-mach1/tim-mach1.component';
-import {ThaiSan1Component} from './formfile/driver-health-check/clinical-examination1/thai-san1/thai-san1.component';
-import {TaiMuiHong1Component} from './formfile/driver-health-check/clinical-examination1/tai-mui-hong1/tai-mui-hong1.component';
-import {NoiTiet1Component} from './formfile/driver-health-check/clinical-examination1/noi-tiet1/noi-tiet1.component';
-import {Mat1Component} from './formfile/driver-health-check/clinical-examination1/mat1/mat1.component';
-import {HoHap1Component} from './formfile/driver-health-check/clinical-examination1/ho-hap1/ho-hap1.component';
-import {CoXuongKhop1Component} from './formfile/driver-health-check/clinical-examination1/co-xuong-khop1/co-xuong-khop1.component';
 import {CertificateTypeComponent} from './manager/certificate-type/certificate-type.component';
 import {CreateCertificateTypeComponent} from './manager/certificate-type/create-certificate-type/create-certificate-type.component';
 import {EditCertificateTypeComponent} from './manager/certificate-type/edit-certificate-type/edit-certificate-type.component'
@@ -77,35 +58,26 @@ import {EditCertificateGroupStatusComponent} from './manager/certificate-group-s
 import {CertificateComponent} from './manager/certificate/certificate.component';
 import {CreateCertificateComponent} from './manager/certificate/create-certificate/create-certificate.component';
 import {EditCertificateComponent} from './manager/certificate/edit-certificate/edit-certificate.component';
-import {XetNghiemKhac1Component} from './formfile/driver-health-check/subclinical-examination-type1/xet-nghiem-khac1/xet-nghiem-khac1.component';
-import {XetNghiemMaTuyVaMauComponent} from './formfile/driver-health-check/subclinical-examination-type1/xet-nghiem-ma-tuy-va-mau/xet-nghiem-ma-tuy-va-mau.component';
-import {DaLieuComponent} from './formfile/Health-Certification/clinical-examination3/da-lieu/da-lieu.component';
-import {RangHamMatComponent} from './formfile/Health-Certification/clinical-examination3/rang-ham-mat/rang-ham-mat.component';
-import {TuanHoanComponent} from './formfile/Health-Certification/clinical-examination3/tuan-hoan/tuan-hoan.component';
-import {TieuHoaComponent} from './formfile/Health-Certification/clinical-examination3/tieu-hoa/tieu-hoa.component';
-import {ThanTietNieuComponent} from './formfile/Health-Certification/clinical-examination3/than-tiet-nieu/than-tiet-nieu.component';
-import {NgoaiKhoaComponent} from './formfile/Health-Certification/clinical-examination3/ngoai-khoa/ngoai-khoa.component';
-import {CoXuongKhop3Component} from './formfile/Health-Certification/clinical-examination3/co-xuong-khop3/co-xuong-khop3.component';
-import {HoHap3Component} from './formfile/Health-Certification/clinical-examination3/ho-hap3/ho-hap3.component';
-import {Mat3Component} from './formfile/Health-Certification/clinical-examination3/mat3/mat3.component';
-import {SanPhuKhoaComponent} from './formfile/Health-Certification/clinical-examination3/san-phu-khoa/san-phu-khoa.component';
-import {TaiMuiHong3Component} from './formfile/Health-Certification/clinical-examination3/tai-mui-hong3/tai-mui-hong3.component';
-import {TamThan3Component} from './formfile/Health-Certification/clinical-examination3/tam-than3/tam-than3.component';
-import {ThanKinh3Component} from './formfile/Health-Certification/clinical-examination3/than-kinh3/than-kinh3.component';
-import {ChuanDoanHinhAnh3Component} from './formfile/Health-Certification/subclinical-examination-type3/chuan-doan-hinh-anh3/chuan-doan-hinh-anh3.component';
-import {XetNghiemMau3Component} from './formfile/Health-Certification/subclinical-examination-type3/xet-nghiem-mau3/xet-nghiem-mau3.component';
-import {XetNghiemNuocTieu3Component} from './formfile/Health-Certification/subclinical-examination-type3/xet-nghiem-nuoc-tieu3/xet-nghiem-nuoc-tieu3.component';
-import {HoHap2Component} from './formfile/health-certification-v2/clinical-examination2/ho-hap2/ho-hap2.component';
-import {KhamLamSanKhacComponent} from './formfile/health-certification-v2/clinical-examination2/kham-lam-san-khac/kham-lam-san-khac.component';
-import {Mat2Component} from './formfile/health-certification-v2/clinical-examination2/mat2/mat2.component';
-import {RangHamMat2Component} from './formfile/health-certification-v2/clinical-examination2/rang-ham-mat2/rang-ham-mat2.component';
-import {TaiMuiHong2Component} from './formfile/health-certification-v2/clinical-examination2/tai-mui-hong2/tai-mui-hong2.component';
-import {ThanKinhTamThan2Component} from './formfile/health-certification-v2/clinical-examination2/than-kinh-tam-than2/than-kinh-tam-than2.component';
-import {ThanTietNieu2Component} from './formfile/health-certification-v2/clinical-examination2/than-tiet-nieu2/than-tiet-nieu2.component';
-import {TieuHoa2Component} from './formfile/health-certification-v2/clinical-examination2/tieu-hoa2/tieu-hoa2.component';
-import {TuanHoan2Component} from './formfile/health-certification-v2/clinical-examination2/tuan-hoan2/tuan-hoan2.component';
 import {Appove1Component} from './formfile/driver-health-check/appove1/appove1.component';
 import {KetLuanPhanLoaiComponent} from './formfile/share/KetLuanPhanLoai/KetLuanPhanLoai.component';
+import {Mat1Component} from './formfile/driver-health-check/clinical-examination1/mat1/mat1.component';
+import {TaiMuiHongComponent} from './formfile/share/tai-mui-hong/tai-mui-hong.component';
+import {TimMachComponent} from './formfile/driver-health-check/clinical-examination1/tim-mach/tim-mach.component';
+import {XetNghiemMaTuyVaMauComponent} from './formfile/driver-health-check/subclinical-examination-type1/xet-nghiem-ma-tuy-va-mau/xet-nghiem-ma-tuy-va-mau.component';
+import {XetNghiemKhac1Component} from './formfile/driver-health-check/subclinical-examination-type1/xet-nghiem-khac1/xet-nghiem-khac1.component';
+import {SubclinicalExaminationType1Component} from './formfile/driver-health-check/subclinical-examination-type1/subclinical-examination-type1.component';
+import {Du18Component} from './formfile/du18/du18.component';
+import {Chuadu18Component} from './formfile/chuadu18/chuadu18.component';
+import {KhoaWrapperComponent} from './formfile/driver-health-check/khoa-wrapper/khoa-wrapper.component';
+import {ClinicalExamination18maxComponent} from './formfile/du18/clinical-examination18max/clinical-examination18max.component';
+import {SubclinicalExaminationType18maxComponent} from './formfile/du18/subclinical-examination-type18max/subclinical-examination-type18max.component';
+import {Mat18Component} from './formfile/share/mat18/mat18.component';
+import {RangHamMatComponent} from './formfile/share/rang-ham-mat/rang-ham-mat.component';
+import {TaiMuiHongLaixeComponent} from './formfile/driver-health-check/clinical-examination1/tai-mui-hong-laixe/tai-mui-hong-laixe.component';
+import {ChanDoanHinhAnhComponent} from './formfile/du18/subclinical-examination-type18max/chan-doan-hinh-anh/chan-doan-hinh-anh.component';
+import {XetNghiemMauComponent} from './formfile/du18/subclinical-examination-type18max/xet-nghiem-mau/xet-nghiem-mau.component';
+import {XetNghiemNuocTieuComponent} from './formfile/du18/subclinical-examination-type18max/xet-nghiem-nuoc-tieu/xet-nghiem-nuoc-tieu.component';
+import {ThongTinCaNhanComponent} from './formfile/share/thong-tin-ca-nhan/thong-tin-ca-nhan.component';
 //service
 import {DataService} from './services/data.service';
 import {LoadingService} from './services/loader/loading.service'
@@ -150,60 +122,31 @@ import {LoadingService} from './services/loader/loading.service'
         EditCertificateComponent,
         //fromfile
         ProfileComponent,
-        HealthCertificationComponent,
-        MedicalHistoryComponent,
-        HealthCertificationV2Component,
-        MedicalHistoryV2Component,
         PhysicalExaminationComponent,
         DriverHealthCheckComponent,
         DrivingMedicalHistoryComponent,
-        CurrentConclusionType2Component,
         CurrentConclusionType1Component,
-        CurrentConclusionType3Component,
-        SubclinicalExaminationType3Component,
-        SubclinicalExaminationType2Component,
-        SubclinicalExaminationType1Component,
         ClinicalExamination1Component,
-        ClinicalExamination2Component,
-        ClinicalExamination3Component,
-        TamThan1Component,
-        ThanKinh1Component,
-        CoXuongKhop1Component,
-        HoHap1Component,
         Mat1Component,
-        NoiTiet1Component,
-        TaiMuiHong1Component,
-        ThaiSan1Component,
-        TimMach1Component,
-        XetNghiemKhac1Component,
-        XetNghiemMaTuyVaMauComponent,
-        DaLieuComponent,
-        RangHamMatComponent,
-        TuanHoanComponent,
-        TieuHoaComponent,
-        ThanTietNieuComponent,
-        NgoaiKhoaComponent,
-        CoXuongKhop3Component,
-        HoHap3Component,
-        Mat3Component,
-        SanPhuKhoaComponent,
-        TaiMuiHong3Component,
-        TamThan3Component,
-        ThanKinh3Component,
-        ChuanDoanHinhAnh3Component,
-        XetNghiemMau3Component,
-        XetNghiemNuocTieu3Component,
-        HoHap2Component,
-        KhamLamSanKhacComponent,
-        Mat2Component,
-        RangHamMat2Component,
-        TaiMuiHong2Component,
-        ThanKinhTamThan2Component,
-        ThanTietNieu2Component,
-        TieuHoa2Component,
-        TuanHoan2Component,
         Appove1Component,
-        KetLuanPhanLoaiComponent
+        KetLuanPhanLoaiComponent,
+        TaiMuiHongComponent,
+        TimMachComponent,
+        SubclinicalExaminationType1Component,
+        XetNghiemMaTuyVaMauComponent,
+        XetNghiemKhac1Component,
+        Du18Component,
+        Chuadu18Component,
+        KhoaWrapperComponent,
+        ClinicalExamination18maxComponent,
+        SubclinicalExaminationType18maxComponent,
+        Mat18Component,
+        TaiMuiHongLaixeComponent,
+        RangHamMatComponent,
+        ChanDoanHinhAnhComponent,
+        XetNghiemMauComponent,
+        XetNghiemNuocTieuComponent,
+        ThongTinCaNhanComponent,
     ],
     imports: [
         CommonModule,
@@ -222,6 +165,7 @@ import {LoadingService} from './services/loader/loading.service'
         NgxPaginationModule,
         MatInputModule,
         MatAutocompleteModule,
+        ToastrModule,
     ],
     providers: [DataService,LoadingService]
 })

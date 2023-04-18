@@ -1,8 +1,6 @@
-import { Component, Injector, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { IPagedResultDto, PagedRequestDto } from '@shared/paged-listing-component-base';
-import { CertificateDtoPagedResultDto, CertificateTypeDtoPagedResultDto, CertificateTypeServiceServiceProxy } from '@shared/service-proxies/service-proxies';
-import { DepartmentServiceServiceProxy, DepartmentDtoPagedResultDto } from '@shared/service-proxies/service-proxies';
+import { Component, Injector } from '@angular/core';
+import { PagedListingComponentBase, PagedRequestDto } from '@shared/paged-listing-component-base';
+import { CertificateDtoPagedResultDto, CertificateTypeDto, CertificateTypeDtoPagedResultDto, CertificateTypeServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { finalize } from 'rxjs';
 import { CreateCertificateTypeComponent } from './create-certificate-type/create-certificate-type.component';
@@ -12,52 +10,81 @@ class CertificateTypeViewModel{
   price: number;
   name: string;
   filePath: string;
-  finalResult: string;
+  fina
+  lResult: string;
 }
+class PagedCertificatesRequestDto extends PagedRequestDto {
+  keyword: string;
+}
+
 @Component({
   selector: 'app-certificate-type',
   templateUrl: './certificate-type.component.html',
   styleUrls: ['./certificate-type.component.css']
 })
-export class CertificateTypeComponent  {
+export class CertificateTypeComponent  extends PagedListingComponentBase<CertificateTypeDto> {
+  certificateType: CertificateTypeDto[] = [];
   keyword = '';
-  dropdownOpen: boolean = false;
-  id: number;
-  certificateTypes: IPagedResultDto<CertificateTypeViewModel>;
 
-  createCertificateType(): void {
-    this.showCreateOrEditCertificateTypeDialog();
-  }
-  constructor(injector: Injector, private router: Router,private _modalService: BsModalService, private certificateTypeServiceServiceProxy: CertificateTypeServiceServiceProxy, private route: ActivatedRoute
+  constructor(
+    injector: Injector,
+    private _certificatesTypeService: CertificateTypeServiceServiceProxy,
+    private _modalService: BsModalService
   ) {
+    super(injector);
   }
-  list=(request: PagedRequestDto, finishedCallback: Function)=>{
-    this.certificateTypeServiceServiceProxy
-      .getAll("", request.skipCount,  request.maxResultCount)     
+
+  list(
+    request: PagedCertificatesRequestDto,
+    pageNumber: number,
+    finishedCallback: Function
+  ): void {
+    request.keyword = this.keyword;
+
+    this._certificatesTypeService
+      .getAll("creationTime desc","",request.keyword, request.skipCount, request.maxResultCount)
+      .pipe(
+        finalize(() => {
+          finishedCallback();
+        })
+      )
       .subscribe((result: CertificateTypeDtoPagedResultDto) => {
-        this.certificateTypes = {
-          items: result.items.map(x => {
-            const certificateTypeViewModel = new CertificateTypeViewModel();
-            certificateTypeViewModel.id = x.id;
-            certificateTypeViewModel.name = x.name;
-            certificateTypeViewModel.price = x.price;
-            certificateTypeViewModel.filePath = x.filePath;
-            certificateTypeViewModel.finalResult = x.finalResult;
-            return certificateTypeViewModel;
-          }),
-          totalCount: result.totalCount
-        };
-        console.log(this.certificateTypes);
-        
-        finishedCallback(this.certificateTypes);
+        this.certificateType = result.items;
+        this.showPaging(result, pageNumber);
       });
   }
-  editEnterprise(entity: CertificateTypeViewModel): void {
-    this.showCreateOrEditCertificateTypeDialog(entity.id);
+
+  delete(certificateType: CertificateTypeDto): void {
+    abp.message.confirm(
+      this.l('CertificateDeleteWarningMessage', certificateType.name),
+      undefined,
+      (result: boolean) => {
+        if (result) {
+          this._certificatesTypeService
+            .delete(certificateType.id)
+            .pipe(
+              finalize(() => {
+                abp.notify.success(this.l('SuccessfullyDeleted'));
+                this.refresh();
+              })
+            )
+            .subscribe(() => {});
+        }
+      }
+    );
   }
-  showCreateOrEditCertificateTypeDialog(id?: number): void {
+
+  createCertificateType(): void {
+    this.showCreateOrEditCertificateDialog();
+  }
+
+  editCertificate(certificateType: CertificateTypeDto): void {
+    this.showCreateOrEditCertificateDialog(certificateType.id);
+  }
+
+  showCreateOrEditCertificateDialog(id?: number): void {
     let createOrEditCertificateTypeDialog: BsModalRef;
-    if (!id) {
+    if (id==null) {
       createOrEditCertificateTypeDialog = this._modalService.show(
         CreateCertificateTypeComponent,
         {
@@ -76,27 +103,8 @@ export class CertificateTypeComponent  {
       );
     }
 
-  }
-  onTableItemClick(entity: CertificateTypeViewModel){
-    this.showCreateOrEditCertificateTypeDialog(entity.id);
-  }
-  onDeleteItemTable(entity: CertificateTypeViewModel){
-    abp.message.confirm('CertificateTypeDeleteWarningMessage',  entity.id.toString(),
-    (result: boolean) => {
-      console.log(entity.id);
-      if (result) {
-        this.certificateTypeServiceServiceProxy
-          .delete(entity.id)
-          .pipe(
-            finalize(() => {
-              abp.notify.success("DeleteSuccess");              
-            })
-          )
-          .subscribe(() => {});
-      }
-    }
-      
-    );
+    createOrEditCertificateTypeDialog.content.onSave.subscribe(() => {
+      this.refresh();
+    });
   }
 }
-

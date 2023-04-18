@@ -1,11 +1,7 @@
 <div class="container">
-
     <div class="row">
       <div class="col-6">
-        <button [disabled]="status" type="submit" class="btn btn-primary" (click)="approve()">Duyệt</button>
-      </div>
-      <div class="col-6">
-        <button type="submit" class="btn btn-primary" (click)="print()">In</button>
+        <button [disabled]="Data.status !=1" type="submit" class="btn btn-primary" (click)="approve()">Duyệt</button>
       </div>
     </div>
 </div>

@@ -1,5 +1,10 @@
-<form autocomplete="off" #createMat1="ngForm" (ngSubmit)="save()">
-  <fieldset [disabled]="!isEditable3">
+<div style="display: flex;justify-content: flex-end;">
+  <div *ngIf="inputModel.status ==1" >
+    <button (click)="isEdited()" class="btn btn-primary">Nhấn để sửa</button>
+  </div>
+</div>
+<form autocomplete="off" #createMat1="ngForm" (ngSubmit)="mySave()">
+  <fieldset>
     <div>
       <p>3. Mắt</p>
       <p>-Thị lực nhìn xa từng mắt:</p>
@@ -9,7 +14,7 @@
           <div class="form-group row">
             <div class="input-group">
               <label for="" class="col-sm-3 col-form-label">Mắt trái:</label>
-              <select class="form-control col-sm-2" [(ngModel)]="mat1.mat_text_kk_mt" [ngModelOptions]="{standalone: true}">
+              <select class="form-control col-sm-2" [(ngModel)]="inputModel.content['text_kk_mt'].value" [ngModelOptions]="{standalone: true}">
                 <option value="1/10">1</option>
                 <option value="2/10">2</option>
                 <option value="3/10">3</option>
@@ -31,7 +36,7 @@
           <div class="form-group row">
             <div class="input-group">
               <label for="" class="col-sm-3 col-form-label">Mắt phải:</label>
-              <select class="form-control col-sm-2" [(ngModel)]="mat1.mat_text_kk_mp" [ngModelOptions]="{standalone: true}">
+              <select class="form-control col-sm-2" [(ngModel)]="inputModel.content['text_kk_mp'].value" [ngModelOptions]="{standalone: true}">
                 <option value="1/10">1</option>
                 <option value="2/10">2</option>
                 <option value="3/10">3</option>
@@ -56,7 +61,7 @@
           <div class="form-group row">
             <div class="input-group">
               <label for="" class="col-sm-3 col-form-label">Mắt trái:</label>
-              <select class="form-control col-sm-2" [(ngModel)]="mat1.mat_text_ck_mt" [ngModelOptions]="{standalone: true}">
+              <select class="form-control col-sm-2" [(ngModel)]="inputModel.content['text_ck_mt'].value" [ngModelOptions]="{standalone: true}">
                 <option value="1/10">1</option>
                 <option value="2/10">2</option>
                 <option value="3/10">3</option>
@@ -78,7 +83,7 @@
           <div class="form-group row">
             <div class="input-group">
               <label for="" class="col-sm-3 col-form-label">Mắt phải:</label>
-              <select class="form-control col-sm-2" [(ngModel)]="mat1.mat_text_ck_mp" [ngModelOptions]="{standalone: true}">
+              <select class="form-control col-sm-2" [(ngModel)]="inputModel.content['text_ck_mp'].value" [ngModelOptions]="{standalone: true}">
                 <option value="1/10">1</option>
                 <option value="2/10">2</option>
                 <option value="3/10">3</option>
@@ -103,7 +108,7 @@
           <div class="form-group row">
             <div class="input-group">
               <label for="" class="col-sm-3 col-form-label">Có kính:</label>
-              <select class="form-control col-sm-2" [(ngModel)]="mat1.mat_text_2m_ck" [ngModelOptions]="{standalone: true}">
+              <select class="form-control col-sm-2" [(ngModel)]="inputModel.content['text_2m_ck'].value" [ngModelOptions]="{standalone: true}">
                 <option value="1/10">1</option>
                 <option value="2/10">2</option>
                 <option value="3/10">3</option>
@@ -126,7 +131,7 @@
           <div class="form-group row">
             <div class="input-group">
               <label for="" class="col-sm-3 col-form-label">Không kính:</label>
-              <select class="form-control col-sm-2" [(ngModel)]="mat1.mat_text_2m_kk" [ngModelOptions]="{standalone: true}">
+              <select class="form-control col-sm-2" [(ngModel)]="inputModel.content['text_2m_kk'].value" [ngModelOptions]="{standalone: true}">
                 <option value="1/10">1</option>
                 <option value="2/10">2</option>
                 <option value="3/10">3</option>
@@ -163,19 +168,19 @@
           <tbody>
             <tr>
               <td style="text-align: center;">
-                <input type="radio" [(ngModel)]="mat1.mat_radio_thitruong_ngang" [ngModelOptions]="{standalone: true}"
+                <input type="radio" [(ngModel)]="inputModel.content['radio_thitruong_ngang'].value" [ngModelOptions]="{standalone: true}"
                   name="thitruong_ngang" id="thitruong_ngang1" value="bth">
               </td>
               <td style="text-align: center;">
-                <input type="radio" [(ngModel)]="mat1.mat_radio_thitruong_ngang" [ngModelOptions]="{standalone: true}"
+                <input type="radio" [(ngModel)]="inputModel.content['radio_thitruong_ngang'].value" [ngModelOptions]="{standalone: true}"
                   name="thitruong_ngang" id="thitruong_ngang2" value="hc">
               </td>
               <td style="text-align: center;">
-                <input type="radio" [(ngModel)]="mat1.mat_radio_thitruong_dung" [ngModelOptions]="{standalone: true}"
+                <input type="radio" [(ngModel)]="inputModel.content['radio_thitruong_dung'].value" [ngModelOptions]="{standalone: true}"
                   name="thitruong_dung" id="thitruong_dung1" value="bth">
               </td>
               <td style="text-align: center;">
-                <input type="radio" [(ngModel)]="mat1.mat_radio_thitruong_dung" [ngModelOptions]="{standalone: true}"
+                <input type="radio" [(ngModel)]="inputModel.content['radio_thitruong_dung'].value" [ngModelOptions]="{standalone: true}"
                   name="thitruong_dung" id="thitruong_dung2" value="hc">
               </td>
             </tr>
@@ -186,14 +191,14 @@
       <div class="row">
         <div class="col-12">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" [(ngModel)]="mat1.mat_checkbox_bth"
+            <input class="form-check-input" type="checkbox" [(ngModel)]="inputModel.content['checkbox_bth'].value"
               [ngModelOptions]="{standalone: true}" name="sacgiac" id="sacgiac" value="bth">
             <label class="form-check-label" for="sacgiac">Bình thường</label>
           </div>
         </div>
         <div class="col-12">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" [(ngModel)]="mat1.mat_checkbox_mumau_all"
+            <input class="form-check-input" type="checkbox" [(ngModel)]="inputModel.content['checkbox_mumau_all'].value"
               [ngModelOptions]="{standalone: true}" name="mat_checkbox_mumau_all" id="mat_checkbox_mumau_all"
               value="mm">
             <label class="form-check-label" for="mat_checkbox_mumau_all">Mù màu toàn bộ</label>
@@ -201,7 +206,7 @@
         </div>
         <div class="col-12">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" [(ngModel)]="mat1.mat_checkbox_mumau_do"
+            <input class="form-check-input" type="checkbox" [(ngModel)]="inputModel.content['checkbox_mumau_do'].value"
               name="mat_checkbox_mumau_do" id="mat_checkbox_mumau_do" value="mmd">
             <label class="form-check-label" for="mat_checkbox_mumau_do">Mù màu - Đỏ</label>
           </div>
@@ -209,14 +214,14 @@
         </div>
         <div class="col-12">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" [(ngModel)]="mat1.mat_checkbox_mumau_xanh"
+            <input class="form-check-input" type="checkbox" [(ngModel)]="inputModel.content['checkbox_mumau_xanh'].value"
               name="mat_checkbox_mumau_xanh" id="mat_checkbox_mumau_xanh" value="mmx">
             <label class="form-check-label" for="mat_checkbox_mumau_xanh">Mù màu - Xanh lá cây</label>
           </div>
         </div>
         <div class="col-12">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" [(ngModel)]="mat1.mat_checkbox_mumau_vang" name="mumau_vang"
+            <input class="form-check-input" type="checkbox" [(ngModel)]="inputModel.content['checkbox_mumau_vang'].value" name="mumau_vang"
               id="mumau_vang" value="mmv">
             <label class="form-check-label" for="inlineRadio2">Mù màu - Vàng</label>
           </div>
@@ -224,21 +229,34 @@
       </div>
       <p>Các bệnh về mắt (nếu có)</p>
       <div class="form-group">
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" [(ngModel)]="mat1.mat_text_cbvm"
-          [ngModelOptions]="{standalone: true}"></textarea>
+        <input class="form-control" list="bvm" rows="4" [(ngModel)]="inputModel.content['text_cbvm'].value"
+          [ngModelOptions]="{standalone: true}">
+          <datalist id="bvm">
+            <option value="Không">Không</option>
+            <option value="Tật khúc xạ 2 mắt">Tật khúc xạ 2 mắt</option>
+            <option value="Tật khúc xạ mắt trái">Tật khúc xạ mắt trái</option>
+            <option value="Tật khúc xạ mắt phải">Tật khúc xạ mắt phải</option>
+            <option value="Nhận biết sáng tối">Nhận biết sáng tối</option>
+            <option value="ĐNT">ĐNT</option>
+            <option value="BBT">BBT</option>
+
+          </datalist>
+          <!-- <ul class="list-group" *ngIf="showDropdown">(click)="showDropdown"  (input)="filterData(inputModel.content['text_cbvm'].value)"
+            <li class="list-group-item" *ngFor="let option of filteredOptions" (click)="selectOption(option)">{{ option }}</li>
+          </ul> -->
       </div>
       <div class="form-group row">
         <label for="" class="col-sm-2 col-form-label">Kết luận:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="" [(ngModel)]="mat1.mat_text_mat_ketluan"
+          <input type="text" class="form-control" id="" [(ngModel)]="inputModel.content['text_ketluan'].value"
             [ngModelOptions]="{standalone: true}">
         </div>
       </div>
       <div class="form-group " style="display: flex !important;justify-content: space-around !important;">
-        <ng-container *ngIf="status==false">
-          <button  class="btn btn-primary">Lưu thông tin</button>
+        <ng-container *ngIf="inputModel.status == 0 ||  inputModel.status == 2">
+          <button  class="btn btn-danger">Lưu thông tin</button>
         </ng-container>
-        <ng-container *ngIf="status==true">
+        <ng-container *ngIf="inputModel.status == 1">
           <button  class="btn btn-success">Đã nhập thông tin</button>
         </ng-container>
       </div>

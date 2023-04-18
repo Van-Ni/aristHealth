@@ -1,0 +1,16 @@
+<div class="container">
+  <form autocomplete="off"
+  #createTuanHoan1="ngForm"
+  (ngSubmit)="save()">
+    <fieldset >
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1"></label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"[(ngModel)]="inputModel.content['text_chandoan'].value"
+        [ngModelOptions]="{standalone: true}"></textarea>
+      </div>
+      <div class="form-group row">
+        <button class="btn btn-primary">Lưu thông tin</button>
+      </div>
+    </fieldset>
+  </form>
+  </div>

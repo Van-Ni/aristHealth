@@ -15,7 +15,7 @@ namespace AristBase.BaseEntity
     {
         public virtual Certificate Certificate { get; set; }
         public Guid CertificateId { get; set; }
-        public KeyValues Content { get; set; }
+        public Dictionary<string, Values> Content { get; set; }
         public string Group { get; set; }
         public GroupStatus Status { get; set; }
         public long? UserId { get; set; }
@@ -34,13 +34,10 @@ namespace AristBase.BaseEntity
         public int TenantId { get; set; }
         #endregion
     }
-    public class KeyValues
-    {
-        public Dictionary<string, Values> Keys { get; set; }
-    }
     public class Values
     {
         public string Value { get; set; }
+        public string RealValue { get; set; }
     }
     public enum GroupStatus : byte
     {

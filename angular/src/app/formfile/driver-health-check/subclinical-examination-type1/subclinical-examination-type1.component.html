@@ -1,22 +1,9 @@
 <h2 style="text-align: center;">KHÁM CẬN LÂM SÀN</h2>
-<div class="container"  *ngIf="data">
-  <div (click)="isXetNghiemMaTuy = !isXetNghiemMaTuy"
-  [attr.aria-expanded]="!isXetNghiemMaTuy" aria-controls="collapseBasic"><h4>Xét nghiệm ma túy</h4>
-  </div>
-  <hr>
-  <div id="collapseBasic" [collapse]="isXetNghiemMaTuy" [isAnimated]="true">
-  <div class="well well-lg card card-block card-header" >
-  <app-xet-nghiem-ma-tuy-va-mau  [Data]="data" [statusDataCheck]="statusDataCheck1" ></app-xet-nghiem-ma-tuy-va-mau>
-  </div>
-  </div>
-
-  <div (click)="isXetNghiemKhac = !isXetNghiemKhac"
-        [attr.aria-expanded]="!isXetNghiemKhac" aria-controls="collapseBasic"><h4>Xét nghiệm khác</h4>
-  </div>
-  <hr>
-  <div id="collapseBasic" [collapse]="isXetNghiemKhac" [isAnimated]="true">
-    <div class="well well-lg card card-block card-header">
-      <app-xet-nghiem-khac1  [Data]="data" [statusDataCheck]="statusDataCheck1"></app-xet-nghiem-khac1>
-    </div>
-  </div>
+<div class="container">
+  <app-khoa-wrapper title="Xét nghiệm ma túy" [status]="Data.xetnghiemmatuyvamau.status">
+    <app-xet-nghiem-ma-tuy-va-mau [inputModel]="Data.xetnghiemmatuyvamau" [save]="save"></app-xet-nghiem-ma-tuy-va-mau>
+  </app-khoa-wrapper>
+  <app-khoa-wrapper title="Xét nghiệm khác" [status]="Data.xetnghiemkhac.status">
+    <app-xet-nghiem-khac1 [inputModel]="Data.xetnghiemkhac" [save]="save"></app-xet-nghiem-khac1>
+  </app-khoa-wrapper>
 </div>

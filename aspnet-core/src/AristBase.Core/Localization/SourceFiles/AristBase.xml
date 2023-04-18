@@ -130,5 +130,7 @@
     <text name="finalResult"></text>
     <text name="name">Tên loại giấy</text>
     <text name="price">Giá tiền</text>
+    <text name="Unready">Chưa khám {0}</text>
+
   </texts>
 </localizationDictionary>

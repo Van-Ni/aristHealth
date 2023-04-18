@@ -40,7 +40,6 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                 }
             });
     }
-
     getMenuItems(): MenuItem[] {
         return [
             // new MenuItem(this.l('About'), '/app/about', 'fas fa-info-circle'),
@@ -64,24 +63,12 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                 'Pages.Users'
             ),
             new MenuItem(this.l('Quản lý dữ liệu'), '', 'fas fa-circle', '', [
-                // new MenuItem(
-                //     this.l('deparment'),
-                //     '/app/deparments',
-                //     'far fa-circle',
-                //     '',
-                // ),
                 new MenuItem(
                     this.l('certificate-types'),
                     '/app/certificate-types',
                     'far fa-circle',
                     '',
                 ),
-                // new MenuItem(
-                //     this.l('certificate-group-status'),
-                //     '/app/certificate-group-status',
-                //     'far fa-circle',
-                //     '',
-                // ),
                 new MenuItem(
                     this.l('certificates'),
                     '/app/certificates',
@@ -89,21 +76,21 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                     '',
                 ),
             ]),
-            new MenuItem(this.l('Quản lý Form word'), '', 'fas fa-circle', '', [
-                new MenuItem(
-                    this.l('Giấy khám sức khỏe người lái xe'),
-                    '/app/driver-health-check',
-                    'far fa-circle',
-                    '',
-                ),
-                new MenuItem(
-                    this.l('Giấy khám sức khỏe 1'),
-                    '/app/health-certification',
-                    'far fa-circle',
-                    '',
-                ),
+            // new MenuItem(this.l('Quản lý Form word'), '', 'fas fa-circle', '', [
+            //     new MenuItem(
+            //         this.l('Giấy khám sức khỏe người lái xe'),
+            //         '/app/driver-health-check',
+            //         'far fa-circle',
+            //         '',
+            //     ),
+            //     new MenuItem(
+            //         this.l('Giấy khám sức khỏe 1'),
+            //         '/app/health-certification',
+            //         'far fa-circle',
+            //         '',
+            //     ),
 
-            ])
+            // ])
         ];
     }
 

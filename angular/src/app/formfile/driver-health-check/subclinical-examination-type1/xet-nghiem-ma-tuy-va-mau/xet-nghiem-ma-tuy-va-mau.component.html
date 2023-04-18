@@ -1,46 +1,62 @@
 <form autocomplete="off"
 #createxetnghiemmatuyvamau="ngForm"
-(ngSubmit)="save()">
-  <fieldset [disabled]="!isEditable11">
+(ngSubmit)="mySave()">
+  <fieldset >
     <div class="container">
       <p>1. Các xét nghiệm bắt buộc</p>
       <p>a. Xét nghiệm ma túy</p>
       <div class="form-group row">
         <label for="fullname" class="col-sm-2 col-form-label">Test Morphin/Heroin</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control"[(ngModel)]="xetnghiemmatuyvamau.xetnghiemmatuyvamau_text_heroin"
+          <input type="text" list="morpin" class="form-control"[(ngModel)]="inputModel.content['text_morphin'].value"
           [ngModelOptions]="{standalone: true}">
+          <datalist id="morpin">
+            <option value="Âm tính">Âm tính</option>
+            <option value="Dương tính">Dương tính</option>
+          </datalist>
         </div>
       </div><div class="form-group row">
         <label for="fullname" class="col-sm-2 col-form-label">Test Amphetamin</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" [(ngModel)]="xetnghiemmatuyvamau.xetnghiemmatuyvamau_text_amphetamin"
+          <input type="text" list="Amphetamin" class="form-control" [(ngModel)]="inputModel.content['text_amphetamin'].value"
           [ngModelOptions]="{standalone: true}">
+          <datalist id="Amphetamin">
+            <option value="Âm tính">Âm tính</option>
+            <option value="Dương tính">Dương tính</option>
+          </datalist>
         </div>
       </div><div class="form-group row">
         <label for="fullname" class="col-sm-2 col-form-label">Test Methamphetamin</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" [(ngModel)]="xetnghiemmatuyvamau.xetnghiemmatuyvamau_text_methamphetamin"
+          <input type="text" list="Methamphetamin" class="form-control" [(ngModel)]="inputModel.content['text_methamphetamin'].value"
           [ngModelOptions]="{standalone: true}">
+          <datalist id="Methamphetamin">
+            <option value="Âm tính">Âm tính</option>
+            <option value="Dương tính">Dương tính</option>
+          </datalist>
         </div>
       </div><div class="form-group row">
         <label for="fullname" class="col-sm-2 col-form-label">Test Marijuana (cần sa)</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" [(ngModel)]="xetnghiemmatuyvamau.xetnghiemmatuyvamau_text_marijuana"
+          <input type="text" class="form-control"  list="Marijuana"  [(ngModel)]="inputModel.content['text_marijuana'].value"
           [ngModelOptions]="{standalone: true}">
+          <datalist id="Marijuana">
+            <option value="Âm tính">Âm tính</option>
+            <option value="Dương tính">Dương tính</option>
+          </datalist>
         </div>
       </div>
       <div class="form-group">
         <p>b. Xét nghiệm nồng độ máu hoặc hơi thở</p>
-      <input type="text" class="form-control" [(ngModel)]="xetnghiemmatuyvamau.xetnghiemmatuyvamau_text_nongdomau"
+      <input type="text" class="form-control" [(ngModel)]="inputModel.content['text_nongdomau'].value"
       [ngModelOptions]="{standalone: true}">
       </div>
 
       <div class="form-group " style="display: flex !important;justify-content: space-around !important;">
-        <ng-container *ngIf="status==false">
-          <button  class="btn btn-primary">Lưu thông tin</button>
+        <ng-container *ngIf="inputModel.status == 0 ||  inputModel.status == 2">
+          <button  class="btn btn-danger">Lưu thông tin</button>
         </ng-container>
-        <ng-container *ngIf="status==true">
+        <ng-container *ngIf="inputModel.status == 1">
           <button  class="btn btn-success">Đã nhập thông tin</button>
         </ng-container>
       </div>

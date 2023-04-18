@@ -1,0 +1,9 @@
+<div (click)="expandStatus = !expandStatus" [attr.aria-expanded]="!expandStatus" aria-controls="collapseBasic" class="khoa-wrapper" [style.background-color]="getBackgroundColor(status)">
+  <h4>{{title}}</h4>
+</div>
+<hr>
+<div id="collapseBasic" [collapse]="expandStatus" [isAnimated]="true">
+  <div class="well well-lg card card-block card-header">
+    <ng-content></ng-content>
+  </div>
+</div>

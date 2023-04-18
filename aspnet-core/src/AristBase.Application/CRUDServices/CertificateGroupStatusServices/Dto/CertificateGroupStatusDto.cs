@@ -16,10 +16,10 @@ namespace AristBase.CRUDServices.CertificateGroupStatusServices.Dto
     public class CertificateGroupStatusDto : EntityDto<Guid>
     {
         public Guid CertificateId { get; set; }
+        public Dictionary<string, Values> Content { get; set; }
         public string Group { get; set; }
-        public bool status { get; set; }
-        public KeyValues Content { get; set; }
-        public long UserId { get; set; }
+        public GroupStatus Status { get; set; }
+        public long? UserId { get; set; }
         public UserDto User { get; set; }
     }
 }

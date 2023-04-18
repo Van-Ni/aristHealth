@@ -1,33 +1,33 @@
 <form autocomplete="off"
 #createxetnghiemkhac="ngForm"
-(ngSubmit)="save()">
-  <fieldset [disabled]="!isEditable10">
+(ngSubmit)="mySave()">
+  <fieldset >
   <div class="container">
     <p>2. Các xét nghiệm chỉ thực hiện khi có chỉ định của bác sĩ khám sức khỏe: Huyết học/sinh hóa/X.quang và các xét nghiệm khác:</p>
     <div class="form-group">
       <label for="exampleFormControlTextarea1">Phân loại sức khỏe</label>
-      <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" [(ngModel)]="xetnghiemkhac.xetnghiemkhac_text_phanloai"
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" [(ngModel)]="inputModel.content['text_phanloai'].value"
       [ngModelOptions]="{standalone: true}"></textarea>
     </div>
     <div class="form-group row">
       <label for="fullname" class="col-sm-2 col-form-label">a. Kết quả:</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control"   [(ngModel)]="xetnghiemkhac.xetnghiemkhac_text_ketqua"
+        <input type="text" class="form-control"   [(ngModel)]="inputModel.content['text_ketqua'].value"
         [ngModelOptions]="{standalone: true}">
       </div>
     </div><div class="form-group row">
       <label for="fullname" class="col-sm-2 col-form-label">b. Kết luận:</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control"  [(ngModel)]="xetnghiemkhac.xetnghiemkhac_text_ketluan"
+        <input type="text" class="form-control"  [(ngModel)]="inputModel.content['text_ketluan'].value"
         [ngModelOptions]="{standalone: true}">
       </div>
     </div>
   </div>
   <div class="form-group " style="display: flex !important;justify-content: space-around !important;">
-    <ng-container *ngIf="status==false">
-      <button  class="btn btn-primary">Lưu thông tin</button>
+    <ng-container *ngIf="inputModel.status == 0 ||  inputModel.status == 2">
+      <button  class="btn btn-danger">Lưu thông tin</button>
     </ng-container>
-    <ng-container *ngIf="status==true">
+    <ng-container *ngIf="inputModel.status == 1">
       <button  class="btn btn-success">Đã nhập thông tin</button>
     </ng-container>
   </div>

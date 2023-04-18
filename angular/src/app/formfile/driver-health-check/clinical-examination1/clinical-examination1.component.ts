@@ -1,9 +1,21 @@
-import { AfterContentInit, AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { IPagedResultDto } from '@shared/paged-listing-component-base';
-import { CreateCertificateGroupStatusDto } from '@shared/service-proxies/service-proxies';
+import { AfterContentInit, Component, Input } from '@angular/core';
+import { DefaultModel } from '@app/formfile/share/KetLuanPhanLoai/KetLuanPhanLoai.component';
+import { CertificateGroupStatusDto } from '@shared/service-proxies/service-proxies';
+import { Mat1Model } from './mat1/mat1.component';
 
-interface ClinicalExaminationModel{
-  thankinh: CreateCertificateGroupStatusDto;
+export interface ClinicalExaminationModel{
+  thankinh: CertificateGroupStatusDto;
+  tamthan: CertificateGroupStatusDto;
+  mat: CertificateGroupStatusDto;
+  noitiet: CertificateGroupStatusDto;
+  xetnghiemmatuyvamau: CertificateGroupStatusDto;
+  coxuongkhop: CertificateGroupStatusDto;
+  thaisan: CertificateGroupStatusDto;
+  hohap: CertificateGroupStatusDto;
+  taimuihong: CertificateGroupStatusDto;
+  ketluan: CertificateGroupStatusDto;
+  xetnghiemkhac: CertificateGroupStatusDto;
+  timmach: CertificateGroupStatusDto;
 }
 
 @Component({
@@ -16,20 +28,23 @@ export class ClinicalExamination1Component implements AfterContentInit {
   @Input() save: Function;
   @Input() statusDataCheck: any;
   data:  any;
-  tk = "tk";
   statusDataCheck1: any;
-  isTamThan1= false;
-  isThaiSan1= false;
-  isNoiTiet1= false;
-  isCoXuongKhop1= false;
-  isHoHap1= false;
-  isTimMach1= false;
-  isTaiMuiHong1= false;
-  isMat1= false;
-  isThanKinh1= false;
-  constructor() { }
 
+  constructor() { }
+  klplModel: DefaultModel ={
+    ketluanTitle : "Kết luận",
+    phanloaiTitle: "Phân loại",
+    optionsKetLuan :["Đủ sức khỏe", "Bình thường"],
+    optionsPhanLoai: ["Bình thường","Loại 1", "Loại 2", "Loại 3", "Loại 4", "Loại 5"]
+  }
+
+  tsModel: DefaultModel ={
+    ketluanTitle : "Kết luận",
+    phanloaiTitle: "Phân loại",
+    optionsKetLuan :["Đủ sức khỏe", "Bình thường"],
+    optionsPhanLoai: ["Tiền sử mở lấy thai. Hiện tại ổn định","Bình thường","Loại 1", "Loại 2", "Loại 3", "Loại 4", "Loại 5"]
+  }
   ngAfterContentInit(): void {
   }
- 
+  
 }

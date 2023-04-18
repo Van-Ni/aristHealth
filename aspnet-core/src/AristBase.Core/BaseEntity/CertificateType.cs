@@ -38,5 +38,7 @@ namespace AristBase.BaseEntity
     {
         public string GroupName { get; set; }
         public GroupStatus DefaultStatus { get; set; }
+        public Dictionary<string, Values> DefaultContent { get; set; }
     }
+  
 }

@@ -14,7 +14,8 @@ import { DriverHealthCheckComponent } from './formfile/driver-health-check/drive
 import { CertificateTypeComponent } from './manager/certificate-type/certificate-type.component';
 import { CertificateGroupStatusComponent } from './manager/certificate-group-status/certificate-group-status.component';
 import { CertificateComponent } from './manager/certificate/certificate.component';
-import { HealthCertificationComponent } from './formfile/Health-Certification/Health-Certification.component';
+import { Du18Component } from './formfile/du18/du18.component';
+import { Chuadu18Component } from './formfile/chuadu18/chuadu18.component';
 @NgModule({
     imports: [
         RouterModule.forChild([
@@ -31,10 +32,11 @@ import { HealthCertificationComponent } from './formfile/Health-Certification/He
                     { path: 'physical-examinations', component: PhysicalExaminationComponent, canActivate: [AppRouteGuard] },
                     { path: 'certificate-types', component: CertificateTypeComponent, canActivate: [AppRouteGuard] },
                     { path: '1/:id', component: DriverHealthCheckComponent, canActivate: [AppRouteGuard] },
+                    { path: '2/:id', component: Du18Component, canActivate: [AppRouteGuard] },
+                    { path: '3/:id', component: Chuadu18Component, canActivate: [AppRouteGuard] },
                     { path: 'certificate-group-status', component: CertificateGroupStatusComponent, canActivate: [AppRouteGuard] },
                     { path: 'profiles', component: ProfileComponent, canActivate: [AppRouteGuard] },
                     { path: 'driver-health-check', component: DriverHealthCheckComponent, canActivate: [AppRouteGuard] },
-                    { path: 'health-certification', component: HealthCertificationComponent, canActivate: [AppRouteGuard] },
                     { path: 'update-password', component: ChangePasswordComponent, canActivate: [AppRouteGuard] }
                 ]
             }

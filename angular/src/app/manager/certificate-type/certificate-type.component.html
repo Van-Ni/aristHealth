@@ -1,5 +1,4 @@
 <div [@routerTransition]>
-
   <section class="content-header">
     <div class="container-fluid">
       <div class="row">
@@ -7,7 +6,6 @@
           <h1>{{ "CertificateType" | localize }}</h1>
         </div>
         <div class="col-6 text-right">
-          <!-- <button class="btn btn-primary" style="margin-right: 1rem;">Xuất Excel</button> -->
           <a href="javascript:;"
             class="btn bg-blue"
             (click)="createCertificateType()">
@@ -19,32 +17,95 @@
     </div>
   </section>
   <section class="content px-2">
-  
     <div class="container-fluid">
       <div class="card">
         <div class="card-header">
           <div class="row">
-            <div class="col-md-6"><div class="dropdown">
-              <button class="dropdown-toggle dropdown-toggle-split"  class="btn btn-secondary" type="button" (click)="dropdownOpen = !dropdownOpen">
-                <i class="fas fa-filter"></i> Lọc nâng cao
-              </button>
-              <div class="dropdown-menu dropdown-menu-left" [class.show]="dropdownOpen" id="filter-enterprise">
-                <div class="row">
-                    <div class="col-12">
-                    </div>
+            <div class="col-md-6">&emsp;</div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <button type="button"
+                    class="btn bg-blue"
+                    (click)="getDataPage(1)">
+                    <i class="fas fa-search"></i>
+                  </button>
                 </div>
-               
+                <input type="text"
+                  class="form-control"
+                  name="keyword"
+                  [placeholder]="'SearchWithThreeDot' | localize"
+                  [(ngModel)]="keyword"
+                  (keyup.enter)="getDataPage(1)" />
               </div>
             </div>
-            </div>
-
           </div>
         </div>
-        <app-dynamic-table
-        (onEdit)="onTableItemClick($event)" 
-        (onDelete)="onDeleteItemTable($event)"
-        [onList]="list"
-        ></app-dynamic-table>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered"
+              [busy]="isTableLoading">
+              <thead class="bg-light">
+                <tr>
+                  <th>{{ "Tên loại giấy khám" | localize }}</th>
+                  <th>{{ "Giá tiền" | localize }}</th>
+                  <th style="width: 200px;">{{ "Actions" | localize }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="
+                  let certificateType of certificateType
+                    | paginate
+                      : {
+                          id: 'server',
+                          itemsPerPage: pageSize,
+                          currentPage: pageNumber,
+                          totalItems: totalItems
+                        }
+                ">
+                  <td>{{ certificateType.name }}</td>
+                  <td>{{ certificateType.price }}</td>
+                  <td>
+                    <button type="button"
+                      class="btn btn-sm bg-secondary"
+                      (click)="editCertificate(certificateType)">
+                      <i class="fas fa-pencil-alt"></i>
+                      {{ "Edit" | localize }}
+                    </button>
+                    <!-- <button type="button"
+                      class="btn btn-sm bg-danger mx-2"
+                      (click)="delete(certificateType)">
+                      <i class="fas fa-trash"></i>
+                      {{ "Delete" | localize }}
+                    </button> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer table-card-footer bg-light border-top">
+          <div class="row">
+            <div class="col-sm-4 col-12 text-sm-left text-center">
+              <button class="btn btn-secondary"
+                (click)="refresh()">
+                <i class="fas fa-redo-alt"></i>
+              </button>
+            </div>
+            <div class="col-sm-4 col-12 text-center">
+              <p class="mb-0 my-2">
+                {{ "TotalRecordsCount" | localize: totalItems }}
+              </p>
+            </div>
+            <div class="col-sm-4 col-12">
+              <div class="float-sm-right m-auto">
+                <abp-pagination-controls id="server"
+                  (pageChange)="getDataPage($event)">
+                </abp-pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>

@@ -1692,7 +1692,7 @@ namespace AristBase.Migrations
                     b.Property<Guid>("CertificateId")
                         .HasColumnType("uuid");
 
-                    b.Property<KeyValues>("Content")
+                    b.Property<Dictionary<string, Values>>("Content")
                         .HasColumnType("jsonb");
 
                     b.Property<DateTime>("CreationTime")
@@ -1970,6 +1970,24 @@ namespace AristBase.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("AristBase.BaseEntity.Region", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ParentId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("Regions");
                 });
 
             modelBuilder.Entity("AristBase.MultiTenancy.Tenant", b =>
@@ -2319,6 +2337,15 @@ namespace AristBase.Migrations
                     b.Navigation("Certificate");
                 });
 
+            modelBuilder.Entity("AristBase.BaseEntity.Region", b =>
+                {
+                    b.HasOne("AristBase.BaseEntity.Region", "ParentRegion")
+                        .WithMany("ChildRegions")
+                        .HasForeignKey("ParentId");
+
+                    b.Navigation("ParentRegion");
+                });
+
             modelBuilder.Entity("AristBase.MultiTenancy.Tenant", b =>
                 {
                     b.HasOne("AristBase.Authorization.Users.User", "CreatorUser")
@@ -2432,6 +2459,11 @@ namespace AristBase.Migrations
             modelBuilder.Entity("AristBase.BaseEntity.ClientInfo", b =>
                 {
                     b.Navigation("Certificates");
+                });
+
+            modelBuilder.Entity("AristBase.BaseEntity.Region", b =>
+                {
+                    b.Navigation("ChildRegions");
                 });
 #pragma warning restore 612, 618
         }

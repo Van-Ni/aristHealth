@@ -1,0 +1,56 @@
+<h2 style="text-align: center;">Khám lâm sàn</h2>
+<div class="container">
+  <app-khoa-wrapper title="1. Tuần hoàn" [status]="Data.tuanhoan.status">
+    <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.tuanhoan" [save]="save"></app-KetLuanPhanLoai>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="2. Hô hấp" [status]="Data.hohap.status">
+    <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.hohap" [save]="save"></app-KetLuanPhanLoai>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="3. Tiêu hóa" [status]="Data.tieuhoa.status">
+    <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.tieuhoa" [save]="save"></app-KetLuanPhanLoai>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="4. Thận tiết niệu" [status]="Data.thantietnieu.status">
+    <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.thantietnieu"
+      [save]="save"></app-KetLuanPhanLoai>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="5. Cơ xương khớp" [status]="Data.coxuongkhop.status">
+    <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.thantietnieu"
+      [save]="save"></app-KetLuanPhanLoai>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="6. Thần kinh" [status]="Data.thankinh.status">
+    <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.thankinh" [save]="save"></app-KetLuanPhanLoai>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="7. Tâm thần" [status]="Data.tamthan.status">
+    <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.tamthan" [save]="save"></app-KetLuanPhanLoai>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="8. Ngoại khoa" [status]="Data.ngoaikhoa.status">
+    <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.ngoaikhoa" [save]="save"></app-KetLuanPhanLoai>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="9. Sản" [status]="Data.thaisan.status">
+    <app-KetLuanPhanLoai [defaultModel]="tsModel" [inputModel]="Data.thaisan" [save]="save"></app-KetLuanPhanLoai>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="10. Mắt" [status]="Data.mat.status">
+    <app-mat18 [inputModel]="Data.mat" [save]="save"></app-mat18>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="11. Tai mũi họng" [status]="Data.taimuihong.status">
+    <app-tai-mui-hong [inputModel]="Data.taimuihong" [save]="save"></app-tai-mui-hong>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="12. Răng hàm mặt" [status]="Data.ranghammat.status">
+    <app-rang-ham-mat [inputModel]="Data.ranghammat" [save]="save"></app-rang-ham-mat>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="13. Da liễu" [status]="Data.dalieu.status">
+    <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.dalieu" [save]="save"></app-KetLuanPhanLoai>
+  </app-khoa-wrapper>
+</div>

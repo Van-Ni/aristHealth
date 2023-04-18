@@ -1,0 +1,27 @@
+<h2 style="text-align: center;">Giấy khám sức khỏe dùng cho người đủ 18 tuổi trở lên</h2>
+<div class="container">
+  <app-thong-tin-ca-nhan *ngIf="profile && profile.clientInfo">
+    <app-profile [profile]="profile"></app-profile>
+  </app-thong-tin-ca-nhan>
+
+  <app-khoa-wrapper title="Khám lâm sàn" [status]="-1">
+    <app-clinical-examination18max [Data]="dataModel"
+    [save]="save"
+    ></app-clinical-examination18max>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="Khám cận lâm sàn" [status]="-1">
+    <app-subclinical-examination-type18max [Data]="dataModel"
+    [save]="save"></app-subclinical-examination-type18max>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="Kết luận" [status]="-1">
+    <app-current-conclusion-type1 [Data]="dataModel.ketluan"
+    [save]="saveKL" ></app-current-conclusion-type1>
+  </app-khoa-wrapper>
+
+  <!-- <div class="row">
+    <app-appove1 [Data]="dataModel.ketluan"[save]="approve"
+     ></app-appove1>
+  </div> -->
+</div>

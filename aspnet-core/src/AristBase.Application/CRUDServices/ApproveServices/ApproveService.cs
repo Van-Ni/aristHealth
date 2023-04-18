@@ -4,6 +4,7 @@ using Abp.UI;
 using AristBase.Authorization;
 using AristBase.BaseEntity;
 using AristBase.CRUDServices.ApproveServices.Dto;
+using AristBase.CRUDServices.CertificateGroupStatusServices.Dto;
 using AristBase.CRUDServices.CertificateServices.Dto;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,9 +22,11 @@ namespace AristBase.CRUDServices.ApproveServices
         private readonly IRepository<CertificateGroupStatus, Guid> repositoryGroupStatus;
         private readonly IRepository<Certificate, Guid> repositoryCertificate;
 
-        public ApproveService(IRepository<CertificateSync, int> repository)
+        public ApproveService(IRepository<CertificateSync, int> repository, IRepository<CertificateGroupStatus, Guid> repositoryGroupStatus, IRepository<Certificate, Guid> repositoryCertificate)
         {
             this.repository = repository;
+            this.repositoryGroupStatus = repositoryGroupStatus;
+            this.repositoryCertificate = repositoryCertificate;
         }
         public async ValueTask<CertificateSyncDto> GetAsync(int id)
         {
@@ -34,39 +37,44 @@ namespace AristBase.CRUDServices.ApproveServices
         public async ValueTask<CertificateDto> ApproveAsync(Guid cerId)
         {
             //var query = await repositoryCertificate.FirstOrDefaultAsync(i=>i.Id == cerId);
-            var klStatus = await repositoryGroupStatus.GetAll().AnyAsync(w => cerId == w.Id && w.Status == GroupStatus.SUBMITTED && w.Group == PermissionNames.KetLuan);
-            if (klStatus)
+            try
             {
-                var queryCertificate = await repositoryCertificate.GetAll().Include(i => i.CertificateType).Where(w => w.Id == cerId).SingleAsync();
-                queryCertificate.Status = Status.Finish;
-                await repositoryCertificate.UpdateAsync(queryCertificate);
-                await CurrentUnitOfWork.SaveChangesAsync();
-
-                if (queryCertificate.CertificateType.IsNeedSync)
+                var klStatus = await repositoryGroupStatus.GetAll().AnyAsync(w => w.CertificateId == cerId && w.Status == GroupStatus.SUBMITTED && w.Group == PermissionNames.KetLuan);
+                if (klStatus)
                 {
-                    var obj = new CreateCertificateSyncDto()
+                    var queryCertificate = await repositoryCertificate.GetAll().Include(i => i.CertificateType).Where(w => w.Id == cerId).SingleAsync();
+                    queryCertificate.Status = Status.Finish;
+                    await repositoryCertificate.UpdateAsync(queryCertificate);
+                    await CurrentUnitOfWork.SaveChangesAsync();
+
+                    if (queryCertificate.CertificateType.IsNeedSync)
                     {
-                        MetaData = { },
-                        syncStatus = SyncStatus.done,
-                        CertificateId = cerId
-                    };
-                    var queryCertificateSync = await repository.FirstOrDefaultAsync(i => i.CertificateId == cerId);
-                    if (queryCertificateSync != null)
-                    {
-                        queryCertificateSync.syncStatus = SyncStatus.done;
-                        queryCertificateSync.MetaData = obj.MetaData;
-                        await repository.UpdateAsync(ObjectMapper.Map<CertificateSync>(obj));
-                        await CurrentUnitOfWork.SaveChangesAsync();
+                        var obj = new CreateCertificateSyncDto()
+                        {
+                            //var metadata = 
+                            MetaData = { },
+                            syncStatus = SyncStatus.done,
+                            CertificateId = cerId
+                        };
+                        var queryCertificateSync = await repository.FirstOrDefaultAsync(i => i.CertificateId == cerId);
+                        if (queryCertificateSync != null)
+                        {
+                            queryCertificateSync.syncStatus = SyncStatus.done;
+                            queryCertificateSync.MetaData = obj.MetaData;
+                            await repository.UpdateAsync(ObjectMapper.Map<CertificateSync>(obj));
+                            await CurrentUnitOfWork.SaveChangesAsync();
+                        }
+                        else
+                        {
+                            await repository.InsertAsync(ObjectMapper.Map<CertificateSync>(obj));
+                            await CurrentUnitOfWork.SaveChangesAsync();
+                        }
                     }
-                    else
-                    {
-                        await repository.InsertAsync(ObjectMapper.Map<CertificateSync>(obj));
-                        await CurrentUnitOfWork.SaveChangesAsync();
-                    }
+                    return ObjectMapper.Map<CertificateDto>(queryCertificate);
                 }
-                return ObjectMapper.Map<CertificateDto>(queryCertificate);
+                throw new UserFriendlyException(L("ChuaKetLuan"));
             }
-            throw new UserFriendlyException(L("ChuaKetLuan"));
+            catch (Exception ex) { throw; }
         }
         public async ValueTask<CertificateDto> UnApproveAsync(Guid cerId)
         {

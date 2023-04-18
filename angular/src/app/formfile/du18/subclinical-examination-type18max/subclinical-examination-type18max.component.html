@@ -1,0 +1,13 @@
+<div *ngIf="Data">
+  <app-khoa-wrapper title="Xét nghiệm máu" [status]="Data.xetnghiemmau.status">
+    <app-xet-nghiem-mau [defaultModel]="klplModel" [inputModel]="Data.xetnghiemmau" [save]="save"></app-xet-nghiem-mau>
+  </app-khoa-wrapper>  
+  
+  <app-khoa-wrapper title="Xét nghiệm nước tiểu" [status]="Data.xetnghiemnuoctieu.status">
+    <app-xet-nghiem-nuoc-tieu [defaultModel]="klplModel" [inputModel]="Data.xetnghiemnuoctieu" [save]="save"></app-xet-nghiem-nuoc-tieu>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="Chẩn đoán hình ảnh" [status]="Data.chandoanhinhanh.status">
+    <app-chan-doan-hinh-anh [defaultModel]="klplModel" [inputModel]="Data.chandoanhinhanh" [save]="save"></app-chan-doan-hinh-anh>
+  </app-khoa-wrapper>
+</div>

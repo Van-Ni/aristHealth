@@ -985,6 +985,82 @@ export class CertificateTypeServiceServiceProxy {
     }
 
     /**
+     * @param sorting (optional) 
+     * @param filter (optional) 
+     * @param keyword (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(sorting: string | undefined, filter: string | undefined, keyword: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateTypeDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/CertificateTypeService/GetAll?";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
+        if (keyword === null)
+            throw new Error("The parameter 'keyword' cannot be null.");
+        else if (keyword !== undefined)
+            url_ += "Keyword=" + encodeURIComponent("" + keyword) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CertificateTypeDtoPagedResultDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CertificateTypeDtoPagedResultDto>;
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<CertificateTypeDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CertificateTypeDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
      * @param typeId (optional) 
      * @param price (optional) 
      * @return Success
@@ -1091,72 +1167,6 @@ export class CertificateTypeServiceServiceProxy {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result200 = CertificateTypeDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param sorting (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
-     * @return Success
-     */
-    getAll(sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateTypeDtoPagedResultDto> {
-        let url_ = this.baseUrl + "/api/services/app/CertificateTypeService/GetAll?";
-        if (sorting === null)
-            throw new Error("The parameter 'sorting' cannot be null.");
-        else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (skipCount === null)
-            throw new Error("The parameter 'skipCount' cannot be null.");
-        else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
-        if (maxResultCount === null)
-            throw new Error("The parameter 'maxResultCount' cannot be null.");
-        else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAll(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetAll(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<CertificateTypeDtoPagedResultDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<CertificateTypeDtoPagedResultDto>;
-        }));
-    }
-
-    protected processGetAll(response: HttpResponseBase): Observable<CertificateTypeDtoPagedResultDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = CertificateTypeDtoPagedResultDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -2459,7 +2469,7 @@ export class GroupStatusServiceServiceProxy {
      * @param body (optional) 
      * @return Success
      */
-    updateOrInsert(body: CreateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
+    updateOrInsert(body: UpdateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
         let url_ = this.baseUrl + "/api/services/app/GroupStatusService/UpdateOrInsert";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2760,6 +2770,425 @@ export class GroupStatusServiceServiceProxy {
      */
     delete(id: string | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/services/app/GroupStatusService/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
+export class KetLuanServicesServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    updateOrInsert(body: UpdateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
+        let url_ = this.baseUrl + "/api/services/app/KetLuanServices/UpdateOrInsert";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateOrInsert(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateOrInsert(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CertificateGroupStatusDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CertificateGroupStatusDto>;
+        }));
+    }
+
+    protected processUpdateOrInsert(response: HttpResponseBase): Observable<CertificateGroupStatusDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CertificateGroupStatusDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createList(body: CreateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
+        let url_ = this.baseUrl + "/api/services/app/KetLuanServices/CreateList";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateList(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateList(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CertificateGroupStatusDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CertificateGroupStatusDto>;
+        }));
+    }
+
+    protected processCreateList(response: HttpResponseBase): Observable<CertificateGroupStatusDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CertificateGroupStatusDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param sorting (optional) 
+     * @param group (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateGroupStatusDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/KetLuanServices/GetAll?";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (certificateId === undefined || certificateId === null)
+            throw new Error("The parameter 'certificateId' must be defined and cannot be null.");
+        else
+            url_ += "CertificateId=" + encodeURIComponent("" + certificateId) + "&";
+        if (group === null)
+            throw new Error("The parameter 'group' cannot be null.");
+        else if (group !== undefined)
+            url_ += "Group=" + encodeURIComponent("" + group) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CertificateGroupStatusDtoPagedResultDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CertificateGroupStatusDtoPagedResultDto>;
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<CertificateGroupStatusDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CertificateGroupStatusDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    get(id: string | undefined): Observable<CertificateGroupStatusDto> {
+        let url_ = this.baseUrl + "/api/services/app/KetLuanServices/Get?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGet(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGet(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CertificateGroupStatusDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CertificateGroupStatusDto>;
+        }));
+    }
+
+    protected processGet(response: HttpResponseBase): Observable<CertificateGroupStatusDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CertificateGroupStatusDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    create(body: CreateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
+        let url_ = this.baseUrl + "/api/services/app/KetLuanServices/Create";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreate(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CertificateGroupStatusDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CertificateGroupStatusDto>;
+        }));
+    }
+
+    protected processCreate(response: HttpResponseBase): Observable<CertificateGroupStatusDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CertificateGroupStatusDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    update(body: CertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
+        let url_ = this.baseUrl + "/api/services/app/KetLuanServices/Update";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdate(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CertificateGroupStatusDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CertificateGroupStatusDto>;
+        }));
+    }
+
+    protected processUpdate(response: HttpResponseBase): Observable<CertificateGroupStatusDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CertificateGroupStatusDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: string | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/KetLuanServices/Delete?";
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
@@ -5122,7 +5551,7 @@ export class CertificateGroupStatus implements ICertificateGroupStatus {
     id: string;
     certificate: Certificate;
     certificateId: string;
-    content: KeyValues;
+    content: { [key: string]: Values; } | undefined;
     group: string | undefined;
     status: GroupStatus;
     userId: number | undefined;
@@ -5151,7 +5580,13 @@ export class CertificateGroupStatus implements ICertificateGroupStatus {
             this.id = _data["id"];
             this.certificate = _data["certificate"] ? Certificate.fromJS(_data["certificate"]) : <any>undefined;
             this.certificateId = _data["certificateId"];
-            this.content = _data["content"] ? KeyValues.fromJS(_data["content"]) : <any>undefined;
+            if (_data["content"]) {
+                this.content = {} as any;
+                for (let key in _data["content"]) {
+                    if (_data["content"].hasOwnProperty(key))
+                        (<any>this.content)[key] = _data["content"][key] ? Values.fromJS(_data["content"][key]) : new Values();
+                }
+            }
             this.group = _data["group"];
             this.status = _data["status"];
             this.userId = _data["userId"];
@@ -5180,7 +5615,13 @@ export class CertificateGroupStatus implements ICertificateGroupStatus {
         data["id"] = this.id;
         data["certificate"] = this.certificate ? this.certificate.toJSON() : <any>undefined;
         data["certificateId"] = this.certificateId;
-        data["content"] = this.content ? this.content.toJSON() : <any>undefined;
+        if (this.content) {
+            data["content"] = {};
+            for (let key in this.content) {
+                if (this.content.hasOwnProperty(key))
+                    (<any>data["content"])[key] = this.content[key] ? this.content[key].toJSON() : <any>undefined;
+            }
+        }
         data["group"] = this.group;
         data["status"] = this.status;
         data["userId"] = this.userId;
@@ -5209,7 +5650,7 @@ export interface ICertificateGroupStatus {
     id: string;
     certificate: Certificate;
     certificateId: string;
-    content: KeyValues;
+    content: { [key: string]: Values; } | undefined;
     group: string | undefined;
     status: GroupStatus;
     userId: number | undefined;
@@ -5228,10 +5669,10 @@ export interface ICertificateGroupStatus {
 export class CertificateGroupStatusDto implements ICertificateGroupStatusDto {
     id: string;
     certificateId: string;
+    content: { [key: string]: Values; } | undefined;
     group: string | undefined;
-    status: boolean;
-    content: KeyValues;
-    userId: number;
+    status: GroupStatus;
+    userId: number | undefined;
     user: UserDto;
 
     constructor(data?: ICertificateGroupStatusDto) {
@@ -5247,9 +5688,15 @@ export class CertificateGroupStatusDto implements ICertificateGroupStatusDto {
         if (_data) {
             this.id = _data["id"];
             this.certificateId = _data["certificateId"];
+            if (_data["content"]) {
+                this.content = {} as any;
+                for (let key in _data["content"]) {
+                    if (_data["content"].hasOwnProperty(key))
+                        (<any>this.content)[key] = _data["content"][key] ? Values.fromJS(_data["content"][key]) : new Values();
+                }
+            }
             this.group = _data["group"];
             this.status = _data["status"];
-            this.content = _data["content"] ? KeyValues.fromJS(_data["content"]) : <any>undefined;
             this.userId = _data["userId"];
             this.user = _data["user"] ? UserDto.fromJS(_data["user"]) : <any>undefined;
         }
@@ -5266,9 +5713,15 @@ export class CertificateGroupStatusDto implements ICertificateGroupStatusDto {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["certificateId"] = this.certificateId;
+        if (this.content) {
+            data["content"] = {};
+            for (let key in this.content) {
+                if (this.content.hasOwnProperty(key))
+                    (<any>data["content"])[key] = this.content[key] ? this.content[key].toJSON() : <any>undefined;
+            }
+        }
         data["group"] = this.group;
         data["status"] = this.status;
-        data["content"] = this.content ? this.content.toJSON() : <any>undefined;
         data["userId"] = this.userId;
         data["user"] = this.user ? this.user.toJSON() : <any>undefined;
         return data;
@@ -5285,10 +5738,10 @@ export class CertificateGroupStatusDto implements ICertificateGroupStatusDto {
 export interface ICertificateGroupStatusDto {
     id: string;
     certificateId: string;
+    content: { [key: string]: Values; } | undefined;
     group: string | undefined;
-    status: boolean;
-    content: KeyValues;
-    userId: number;
+    status: GroupStatus;
+    userId: number | undefined;
     user: UserDto;
 }
 
@@ -6253,9 +6706,9 @@ export interface ICreateCertificateDto {
 
 export class CreateCertificateGroupStatusDto implements ICreateCertificateGroupStatusDto {
     certificateId: string;
+    content: { [key: string]: Values; } | undefined;
     group: string | undefined;
-    content: KeyValues;
-    status: boolean;
+    status: GroupStatus;
 
     constructor(data?: ICreateCertificateGroupStatusDto) {
         if (data) {
@@ -6269,8 +6722,14 @@ export class CreateCertificateGroupStatusDto implements ICreateCertificateGroupS
     init(_data?: any) {
         if (_data) {
             this.certificateId = _data["certificateId"];
+            if (_data["content"]) {
+                this.content = {} as any;
+                for (let key in _data["content"]) {
+                    if (_data["content"].hasOwnProperty(key))
+                        (<any>this.content)[key] = _data["content"][key] ? Values.fromJS(_data["content"][key]) : new Values();
+                }
+            }
             this.group = _data["group"];
-            this.content = _data["content"] ? KeyValues.fromJS(_data["content"]) : <any>undefined;
             this.status = _data["status"];
         }
     }
@@ -6285,8 +6744,14 @@ export class CreateCertificateGroupStatusDto implements ICreateCertificateGroupS
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["certificateId"] = this.certificateId;
+        if (this.content) {
+            data["content"] = {};
+            for (let key in this.content) {
+                if (this.content.hasOwnProperty(key))
+                    (<any>data["content"])[key] = this.content[key] ? this.content[key].toJSON() : <any>undefined;
+            }
+        }
         data["group"] = this.group;
-        data["content"] = this.content ? this.content.toJSON() : <any>undefined;
         data["status"] = this.status;
         return data;
     }
@@ -6301,9 +6766,9 @@ export class CreateCertificateGroupStatusDto implements ICreateCertificateGroupS
 
 export interface ICreateCertificateGroupStatusDto {
     certificateId: string;
+    content: { [key: string]: Values; } | undefined;
     group: string | undefined;
-    content: KeyValues;
-    status: boolean;
+    status: GroupStatus;
 }
 
 export class CreateCertificateTypeDto implements ICreateCertificateTypeDto {
@@ -7267,61 +7732,6 @@ export interface IIsTenantAvailableOutput {
     tenantId: number | undefined;
 }
 
-export class KeyValues implements IKeyValues {
-    keys: { [key: string]: Values; } | undefined;
-
-    constructor(data?: IKeyValues) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            if (_data["keys"]) {
-                this.keys = {} as any;
-                for (let key in _data["keys"]) {
-                    if (_data["keys"].hasOwnProperty(key))
-                        (<any>this.keys)[key] = _data["keys"][key] ? Values.fromJS(_data["keys"][key]) : new Values();
-                }
-            }
-        }
-    }
-
-    static fromJS(data: any): KeyValues {
-        data = typeof data === 'object' ? data : {};
-        let result = new KeyValues();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        if (this.keys) {
-            data["keys"] = {};
-            for (let key in this.keys) {
-                if (this.keys.hasOwnProperty(key))
-                    (<any>data["keys"])[key] = this.keys[key] ? this.keys[key].toJSON() : <any>undefined;
-            }
-        }
-        return data;
-    }
-
-    clone(): KeyValues {
-        const json = this.toJSON();
-        let result = new KeyValues();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IKeyValues {
-    keys: { [key: string]: Values; } | undefined;
-}
-
 export enum PaymentStatus {
     _0 = 0,
     _1 = 1,
@@ -8079,6 +8489,7 @@ export enum SyncStatus {
 export class TemplateGroup implements ITemplateGroup {
     groupName: string | undefined;
     defaultStatus: GroupStatus;
+    defaultContent: { [key: string]: Values; } | undefined;
 
     constructor(data?: ITemplateGroup) {
         if (data) {
@@ -8093,6 +8504,13 @@ export class TemplateGroup implements ITemplateGroup {
         if (_data) {
             this.groupName = _data["groupName"];
             this.defaultStatus = _data["defaultStatus"];
+            if (_data["defaultContent"]) {
+                this.defaultContent = {} as any;
+                for (let key in _data["defaultContent"]) {
+                    if (_data["defaultContent"].hasOwnProperty(key))
+                        (<any>this.defaultContent)[key] = _data["defaultContent"][key] ? Values.fromJS(_data["defaultContent"][key]) : new Values();
+                }
+            }
         }
     }
 
@@ -8107,6 +8525,13 @@ export class TemplateGroup implements ITemplateGroup {
         data = typeof data === 'object' ? data : {};
         data["groupName"] = this.groupName;
         data["defaultStatus"] = this.defaultStatus;
+        if (this.defaultContent) {
+            data["defaultContent"] = {};
+            for (let key in this.defaultContent) {
+                if (this.defaultContent.hasOwnProperty(key))
+                    (<any>data["defaultContent"])[key] = this.defaultContent[key] ? this.defaultContent[key].toJSON() : <any>undefined;
+            }
+        }
         return data;
     }
 
@@ -8121,6 +8546,7 @@ export class TemplateGroup implements ITemplateGroup {
 export interface ITemplateGroup {
     groupName: string | undefined;
     defaultStatus: GroupStatus;
+    defaultContent: { [key: string]: Values; } | undefined;
 }
 
 export enum TenantAvailabilityState {
@@ -8359,6 +8785,77 @@ export interface IUpdateCertificateDto {
     clientInfo: ClientInfoDto;
     amountPaid: number;
     reason: string | undefined;
+}
+
+export class UpdateCertificateGroupStatusDto implements IUpdateCertificateGroupStatusDto {
+    id: string;
+    certificateId: string;
+    content: { [key: string]: Values; } | undefined;
+    group: string | undefined;
+    status: GroupStatus;
+
+    constructor(data?: IUpdateCertificateGroupStatusDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.certificateId = _data["certificateId"];
+            if (_data["content"]) {
+                this.content = {} as any;
+                for (let key in _data["content"]) {
+                    if (_data["content"].hasOwnProperty(key))
+                        (<any>this.content)[key] = _data["content"][key] ? Values.fromJS(_data["content"][key]) : new Values();
+                }
+            }
+            this.group = _data["group"];
+            this.status = _data["status"];
+        }
+    }
+
+    static fromJS(data: any): UpdateCertificateGroupStatusDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateCertificateGroupStatusDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["certificateId"] = this.certificateId;
+        if (this.content) {
+            data["content"] = {};
+            for (let key in this.content) {
+                if (this.content.hasOwnProperty(key))
+                    (<any>data["content"])[key] = this.content[key] ? this.content[key].toJSON() : <any>undefined;
+            }
+        }
+        data["group"] = this.group;
+        data["status"] = this.status;
+        return data;
+    }
+
+    clone(): UpdateCertificateGroupStatusDto {
+        const json = this.toJSON();
+        let result = new UpdateCertificateGroupStatusDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IUpdateCertificateGroupStatusDto {
+    id: string;
+    certificateId: string;
+    content: { [key: string]: Values; } | undefined;
+    group: string | undefined;
+    status: GroupStatus;
 }
 
 export class User implements IUser {
@@ -9146,6 +9643,7 @@ export interface IUserToken {
 
 export class Values implements IValues {
     value: string | undefined;
+    realValue: string | undefined;
 
     constructor(data?: IValues) {
         if (data) {
@@ -9159,6 +9657,7 @@ export class Values implements IValues {
     init(_data?: any) {
         if (_data) {
             this.value = _data["value"];
+            this.realValue = _data["realValue"];
         }
     }
 
@@ -9172,6 +9671,7 @@ export class Values implements IValues {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["value"] = this.value;
+        data["realValue"] = this.realValue;
         return data;
     }
 
@@ -9185,6 +9685,7 @@ export class Values implements IValues {
 
 export interface IValues {
     value: string | undefined;
+    realValue: string | undefined;
 }
 
 export interface FileParameter {

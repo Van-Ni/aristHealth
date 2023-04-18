@@ -21,6 +21,8 @@ namespace AristBase.EntityFrameworkCore
         public DbSet<ClientInfo> ClientInfo { get; set; }
 
         public DbSet<CertificateGroupStatus> CertificateGroupStatuses { get; set; }
+        public DbSet<Region> Regions { get; set; }
+
         public AristBaseDbContext(DbContextOptions<AristBaseDbContext> options)
             : base(options)
         {
@@ -40,6 +42,8 @@ namespace AristBase.EntityFrameworkCore
             modelBuilder.Entity<CertificateGroupStatus>().Property(r => r.Content).HasColumnType("jsonb");
             modelBuilder.Entity<CertificateSync>().Property(r => r.MetaData).HasColumnType("jsonb");
             modelBuilder.Entity<CertificateType>().Property(r => r.TemplateGroups).HasColumnType("jsonb");
+
+            modelBuilder.Entity<Region>().HasMany(r => r.ChildRegions).WithOne(cr => cr.ParentRegion).HasForeignKey(r => r.ParentId);
 
 
         }

@@ -72,7 +72,8 @@ namespace AristBase.CRUDServices.CertificateServices
                 {
                     CertificateId = entity.Id,
                     Group = tg.GroupName,
-                    Status = tg.DefaultStatus
+                    Status = tg.DefaultStatus,
+                    Content = tg.DefaultContent
                 });
                 await _cerGroupStatus.InsertRangeAsync(templateGroups);
                 await CurrentUnitOfWork.SaveChangesAsync();

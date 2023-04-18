@@ -40,7 +40,6 @@ export class CertificateGroupStatusComponent  {
             certificateGroupStatusViewModel.id = x.id;
             certificateGroupStatusViewModel.CertificateId = x.certificateId;
             certificateGroupStatusViewModel.Group = x.group;
-            certificateGroupStatusViewModel.status = x.status;
             certificateGroupStatusViewModel.UserId = x.userId;
             return certificateGroupStatusViewModel;
           }),

@@ -18,6 +18,9 @@
     <Content Remove="wwwroot\swagger\ui\index.html" />
   </ItemGroup>
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="newfolder\tinh.json" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="app.config" />
     <None Update="Dockerfile">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -48,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="File\" />
+    <Folder Include="NewFolder\" />
     <Folder Include="VolumeMap\pdf\output\" />
   </ItemGroup>
 </Project>

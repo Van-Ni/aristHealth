@@ -25,28 +25,28 @@ export abstract class CertificateKeyValueComponentBase<TEntityDto> extends AppCo
     ngOnInit(): void {
         this.certificateId = this.route.snapshot.params['id'];
 
-        this.dataService.getGroupData()
-            .subscribe((result: CertificateGroupStatusDtoPagedResultDto) => {
+        // this.dataService.getGroupData()
+        //     .subscribe((result: CertificateGroupStatusDtoPagedResultDto) => {
 
-                if(result != null)
-                {
+        //         if(result != null)
+        //         {
 
-                    if (result && result.items && result.items.some(i => i.group == this.group)) {
-                        this.status = true;
-                        this.data = result;
+        //             if (result && result.items && result.items.some(i => i.group == this.group)) {
+        //                 this.status = true;
+        //                 this.data = result;
 
-                    }
-                }
-            });
-            this.dataService.getAllKeyData().subscribe((result: CertificateGroupStatusDtoPagedResultDto) => {
+        //             }
+        //         }
+        //     });
+        //     this.dataService.getAllKeyData().subscribe((result: CertificateGroupStatusDtoPagedResultDto) => {
 
-                if(result != null)
-                {
-                    if (result && result.items) {
-                        this.setViewModel(result);
-                    }
-                }
-            });
+        //         if(result != null)
+        //         {
+        //             if (result && result.items) {
+        //                 this.setViewModel(result);
+        //             }
+        //         }
+        //     });
     }
     abstract setViewModel(model: any);
 }

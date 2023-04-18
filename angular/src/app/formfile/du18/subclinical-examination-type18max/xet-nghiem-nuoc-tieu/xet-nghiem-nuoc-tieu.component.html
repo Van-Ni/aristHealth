@@ -1,0 +1,27 @@
+<form autocomplete="off"
+#createtimmach1="ngForm"
+(ngSubmit)="mySave()">
+    <fieldset>
+      <div class="form-group row">
+        <div class="input-group">
+        <label for="chieucao" class="col-sm-2 col-form-label">a. Đường</label>
+          <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="inputModel.content['text_duong'].value"
+          [ngModelOptions]="{standalone: true}">
+        </div>
+      </div><div class="form-group row">
+        <div class="input-group">
+        <label for="chieucao" class="col-sm-2 col-form-label">b. Protein</label>
+          <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="inputModel.content['text_protein'].value"
+          [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">c. Khác (Nếu có)</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"[(ngModel)]="inputModel.content['text_khac'].value"
+        [ngModelOptions]="{standalone: true}"></textarea>
+      </div>
+      <div class="form-group row">
+        <button class="btn btn-primary">Lưu thông tin</button>
+      </div>
+    </fieldset>
+  </form>

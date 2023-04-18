@@ -16,6 +16,7 @@ namespace AristBase.CRUDServices.CertificateGroupStatusServices
         private string _permissionName;
         public KeyValueBaseService(IRepository<CertificateGroupStatus, Guid> repository) : base(repository)
         {
+            LocalizationSourceName = AristBaseConsts.LocalizationSourceName;
         }
         protected virtual void SetPermision(string permissionName)
         {
@@ -25,9 +26,9 @@ namespace AristBase.CRUDServices.CertificateGroupStatusServices
             UpdatePermissionName = $"{baseName}.Update";
             GetAllPermissionName = GetPermissionName = $"{baseName}.Read";
             DeletePermissionName = $"{baseName}.Delete";
-            LocalizationSourceName = AristBaseConsts.LocalizationSourceName;
+           
         }
-        public async ValueTask<CertificateGroupStatusDto> CreateList(CreateCertificateGroupStatusDto input)
+        public virtual async ValueTask<CertificateGroupStatusDto> CreateList(CreateCertificateGroupStatusDto input)
         {
             SetPermision(input.Group);
             CheckCreatePermission();
@@ -39,7 +40,7 @@ namespace AristBase.CRUDServices.CertificateGroupStatusServices
 
             return ObjectMapper.Map<CertificateGroupStatusDto>(entity);
         }
-        public async ValueTask<CertificateGroupStatusDto> UpdateOrInsert(CreateCertificateGroupStatusDto input)
+        public virtual async ValueTask<CertificateGroupStatusDto> UpdateOrInsert(UpdateCertificateGroupStatusDto input)
         {
             SetPermision(input.Group);
             CheckUpdatePermission();
@@ -48,12 +49,16 @@ namespace AristBase.CRUDServices.CertificateGroupStatusServices
             if (check != null)
             {
                 check.Content = input.Content;
+                check.UserId = AbpSession.UserId;
+                check.Status = GroupStatus.SUBMITTED;
                 await Repository.UpdateAsync(check);
                 await CurrentUnitOfWork.SaveChangesAsync();
 
                 return ObjectMapper.Map<CertificateGroupStatusDto>(check);
             }
-            await Repository.InsertAsync(ObjectMapper.Map<CertificateGroupStatus>(input));
+            var obj = ObjectMapper.Map<CertificateGroupStatus>(input);
+            obj.UserId = AbpSession.UserId;
+            await Repository.InsertAsync(obj);
             await CurrentUnitOfWork.SaveChangesAsync();
             return ObjectMapper.Map<CertificateGroupStatusDto>(input);
         }
