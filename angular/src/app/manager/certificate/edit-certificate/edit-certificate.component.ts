@@ -1,6 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { AppComponentBase } from '@shared/app-component-base';
 import { CertificateDto, CertificateServiceServiceProxy, ClientInfoDto, CreateCertificateDto, UpdateCertificateDto } from '@shared/service-proxies/service-proxies';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-edit-certificate',
@@ -11,7 +12,9 @@ export class EditCertificateComponent extends AppComponentBase implements OnInit
   certificate:UpdateCertificateDto;
   saving: boolean;
   id: string;
-  constructor(private certificateServiceServiceProxy: CertificateServiceServiceProxy, private injector: Injector) 
+  constructor(private certificateServiceServiceProxy: CertificateServiceServiceProxy,
+    public bsModalRef: BsModalRef,
+    private injector: Injector) 
   {
     super(injector);
    }
@@ -31,6 +34,7 @@ export class EditCertificateComponent extends AppComponentBase implements OnInit
       (result: CertificateDto) => {
         
         this.notify.info(this.l('SavedSuccessfully.'));
+        this.bsModalRef.hide();
       },
       () => {
         this.saving = false;

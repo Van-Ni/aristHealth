@@ -15,24 +15,10 @@ export class CreateCertificateComponent extends AppComponentBase implements OnIn
     private injector: Injector) {
     super(injector);
   }
-  options = ["Cục Cảnh sát quản lý hành chính về trật tự xã hội"];
-  filteredOptions = [];
   showDropdown = false;
   ngOnInit() {
     this.certificate = new CreateCertificateDto();
     this.certificate.clientInfo = new ClientInfoDto();
-    this.filterData('');
-  }
-  filterData(enteredData){
-    this.filteredOptions = this.options.filter(item => {
-      return item.toLowerCase().indexOf(enteredData.toLowerCase()) > -1
-    })
-    this.showDropdown = true;
-  }
-  selectOption(option: string) {
-    this.certificate.clientInfo.addressCCCD = option;
-    this.filteredOptions = [];
-    this.showDropdown = false;
   }
   save(): void {
     this.saving = true;
