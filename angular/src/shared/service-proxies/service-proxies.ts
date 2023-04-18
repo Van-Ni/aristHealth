@@ -3353,6 +3353,149 @@ export class PDFServiceServiceProxy {
 }
 
 @Injectable()
+export class RegionServiceServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param tinhId (optional) 
+     * @param huyenId (optional) 
+     * @return Success
+     */
+    getAll(tinhId: string | undefined, huyenId: string | undefined): Observable<RegionDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/RegionService/GetAll?";
+        if (tinhId === null)
+            throw new Error("The parameter 'tinhId' cannot be null.");
+        else if (tinhId !== undefined)
+            url_ += "tinhId=" + encodeURIComponent("" + tinhId) + "&";
+        if (huyenId === null)
+            throw new Error("The parameter 'huyenId' cannot be null.");
+        else if (huyenId !== undefined)
+            url_ += "huyenId=" + encodeURIComponent("" + huyenId) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<RegionDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<RegionDto[]>;
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<RegionDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(RegionDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    create(body: RegionDto[] | undefined): Observable<RegionDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/RegionService/Create";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreate(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<RegionDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<RegionDto[]>;
+        }));
+    }
+
+    protected processCreate(response: HttpResponseBase): Observable<RegionDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(RegionDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
 export class RoleServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -7889,6 +8032,57 @@ export class RefreshTokenModel implements IRefreshTokenModel {
 export interface IRefreshTokenModel {
     accessToken: string;
     refreshToken: string;
+}
+
+export class RegionDto implements IRegionDto {
+    id: string | undefined;
+    parentId: string | undefined;
+    name: string | undefined;
+
+    constructor(data?: IRegionDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.parentId = _data["parentId"];
+            this.name = _data["name"];
+        }
+    }
+
+    static fromJS(data: any): RegionDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new RegionDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["parentId"] = this.parentId;
+        data["name"] = this.name;
+        return data;
+    }
+
+    clone(): RegionDto {
+        const json = this.toJSON();
+        let result = new RegionDto();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IRegionDto {
+    id: string | undefined;
+    parentId: string | undefined;
+    name: string | undefined;
 }
 
 export class RegisterInput implements IRegisterInput {

@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./khoa-wrapper.component.css']
 })
 export class KhoaWrapperComponent implements OnInit {
-  expandStatus = false;
+  expandStatus = true;
   @Input() title: string;
   @Input() status: number;
   constructor() { }

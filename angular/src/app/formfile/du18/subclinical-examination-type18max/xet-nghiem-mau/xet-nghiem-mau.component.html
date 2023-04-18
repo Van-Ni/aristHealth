@@ -91,8 +91,13 @@
         <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"[(ngModel)]="inputModel.content['text_khac'].value"
         [ngModelOptions]="{standalone: true}"></textarea>
       </div>
-      <div class="form-group row">
-        <button class="btn btn-primary">Lưu thông tin</button>
+      <div class="form-group " style="display: flex !important;justify-content: space-around !important;">
+        <ng-container *ngIf="inputModel.status == 0 ||  inputModel.status == 2">
+          <button  class="btn btn-danger">Lưu thông tin</button>
+        </ng-container>
+        <ng-container *ngIf="inputModel.status == 1">
+          <button  class="btn btn-success">Đã nhập thông tin</button>
+        </ng-container>
       </div>
     </fieldset>
   </form>
