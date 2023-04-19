@@ -15,6 +15,7 @@ namespace AristBase.Services
         public const string RADIO_FIX = "_radio_";
         public const string CHECKBOX_FIX = "_checkbox_";
         public const string Hvt = "text_hovaten";
+        public const string HvtGuardian = "text_nguoigiamho";
         public const string Male = "checkbox_male";
         public const string Sex = "checkbox_sex";
         public const string Female = "checkbox_female";

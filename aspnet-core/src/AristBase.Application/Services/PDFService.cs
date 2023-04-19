@@ -78,6 +78,7 @@ namespace AristBase.Services
             dic[PDFFieldConst.CCCDTai] = new Values { Value = cer.ClientInfo.AddressCCCD };
             dic[PDFFieldConst.CCCDNC] = new Values { Value = cer.ClientInfo.CreateTimeCCCD };
             dic[PDFFieldConst.Sex] = new Values { Value = cer.ClientInfo.Sex};
+            dic[PDFFieldConst.HvtGuardian] = new Values { Value = cer.ClientInfo.GuardianName};
             var clientInfo = new CertificateGroupStatusDto
             {
                 Group = "client",
