@@ -17,7 +17,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host
             var tenantId = AristBaseConsts.MultiTenancyEnabled ? null : (int?)MultiTenancyConsts.DefaultTenantId;
             return new List<ApplicationLanguage>
             {
-                new ApplicationLanguage(tenantId, "vn", "Tiếng Việt", "famfamfam-flags vn"),
+                new ApplicationLanguage(tenantId, "vi", "Tiếng Việt", "famfamfam-flags vn"),
             };
         }
 
