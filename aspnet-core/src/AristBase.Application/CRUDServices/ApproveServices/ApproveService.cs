@@ -18,7 +18,9 @@ namespace AristBase.CRUDServices.ApproveServices
         private readonly IRepository<CertificateGroupStatus, Guid> repositoryGroupStatus;
         private readonly IRepository<Certificate, Guid> repositoryCertificate;
 
-        public ApproveService(IRepository<CertificateSync, int> repository, IRepository<CertificateGroupStatus, Guid> repositoryGroupStatus, IRepository<Certificate, Guid> repositoryCertificate)
+        public ApproveService(IRepository<CertificateSync, int> repository,
+                              IRepository<CertificateGroupStatus, Guid> repositoryGroupStatus,
+                              IRepository<Certificate, Guid> repositoryCertificate)
         {
             this.repository = repository;
             this.repositoryGroupStatus = repositoryGroupStatus;
@@ -88,6 +90,7 @@ namespace AristBase.CRUDServices.ApproveServices
             {
                 var queryCertificateSync = await repository.SingleAsync(i => i.CertificateId == cerId);
                 queryCertificateSync.syncStatus = SyncStatus.cancelled;
+                queryCertificateSync.EditState = true;
                 await repository.UpdateAsync(queryCertificateSync);
                 await CurrentUnitOfWork.SaveChangesAsync();
                 return ObjectMapper.Map<CertificateDto>(query);
