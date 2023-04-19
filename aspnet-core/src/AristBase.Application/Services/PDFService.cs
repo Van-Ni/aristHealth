@@ -2,7 +2,6 @@
 using Abp.Dependency;
 using Abp.Domain.Repositories;
 using Abp.Timing;
-using AristBase.Authorization.Users;
 using AristBase.BaseEntity;
 using AristBase.CRUDServices.CertificateGroupStatusServices.Dto;
 using iText.Forms;
@@ -77,8 +76,8 @@ namespace AristBase.Services
             dic[PDFFieldConst.CCCD] = new Values { Value = cer.ClientInfo.CCCD };
             dic[PDFFieldConst.CCCDTai] = new Values { Value = cer.ClientInfo.AddressCCCD };
             dic[PDFFieldConst.CCCDNC] = new Values { Value = cer.ClientInfo.CreateTimeCCCD };
-            dic[PDFFieldConst.Sex] = new Values { Value = cer.ClientInfo.Sex};
-            dic[PDFFieldConst.HvtGuardian] = new Values { Value = cer.ClientInfo.GuardianName};
+            dic[PDFFieldConst.Sex] = new Values { Value = cer.ClientInfo.Sex };
+            dic[PDFFieldConst.HvtGuardian] = new Values { Value = cer.ClientInfo.GuardianName };
             var clientInfo = new CertificateGroupStatusDto
             {
                 Group = "client",
@@ -165,8 +164,8 @@ namespace AristBase.Services
                             if (field.Value.GetFormType() == PdfName.Btn)
                             {
                                 field.Value.SetCheckType(PdfFormField.TYPE_CHECK);//PdfFormField.TYPE_CIRCLE,PdfFormField.TYPE_CROSS,PdfFormField.TYPE_DIAMOND,PdfFormField.TYPE_SQUARE,PdfFormField.TYPE_STAR,etc
-                                
-                                if(!string.IsNullOrEmpty(contentValue.Value))
+
+                                if (!string.IsNullOrEmpty(contentValue.Value))
                                     field.Value.SetValue(contentValue.Value, true);
                             }
                             else
@@ -180,7 +179,7 @@ namespace AristBase.Services
 
                 //field.Value.SetValue(string.Empty, font, 12f);
 
-                
+
             }
             form.FlattenFields();
         }
@@ -201,49 +200,5 @@ namespace AristBase.Services
             pdfCanvas.AddImageFittedIntoRectangle(ImageDataFactory.Create(imagePath), rect, false);
         }
 
-        //private static void SignPdf(string pathToCert, PdfStamper stamper, AcroFields.FieldPosition pos, string passCert = "1234")
-        //{
-        //    var pass = passCert.ToCharArray();
-
-        //    FileStream fs;
-        //    try
-        //    {
-        //        fs = new FileStream(pathToCert, FileMode.Open);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return;
-        //    }
-
-        //    var store = new Pkcs12Store(fs, pass);
-
-        //    fs.Close();
-
-        //    var alias = "";
-
-        //    // searching for private key
-        //    foreach (string al in store.Aliases)
-        //        if (store.IsKeyEntry(al) && store.GetKey(al).Key.IsPrivate)
-        //        {
-        //            alias = al;
-        //            break;
-        //        }
-
-        //    var pk = store.GetKey(alias);
-
-        //    var chain = store.GetCertificateChain(alias).Select(c => c.Certificate).ToList();
-
-        //    var parameters = pk.Key as RsaPrivateCrtKeyParameters;
-
-
-
-        //    var appearance = stamper.SignatureAppearance;
-        //    appearance.Reason = "MySign";
-
-        //    Rectangle rect = pos.position;
-        //    appearance.SetVisibleSignature(rect, pos.page, null);
-        //    IExternalSignature pks = new PrivateKeySignature(parameters, DigestAlgorithms.SHA256);
-        //    MakeSignature.SignDetached(appearance, pks, chain, null, null, null, 0, CryptoStandard.CMS);
-        //}
     }
 }

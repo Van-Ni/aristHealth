@@ -1,10 +1,6 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AristBase.BaseEntity
 {
@@ -17,6 +13,7 @@ namespace AristBase.BaseEntity
         public string XmlEncrypted { get; set; }
         public virtual Certificate Certificate { get; set; }
         public string Conclusion { get; set; }
+        public bool EditState { get; set; } = false;
         #region Audited
         public long? CreatorUserId { get; set; }
         public DateTime CreationTime { get; set; }

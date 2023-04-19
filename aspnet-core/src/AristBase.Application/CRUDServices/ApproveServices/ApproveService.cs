@@ -4,14 +4,10 @@ using Abp.UI;
 using AristBase.Authorization;
 using AristBase.BaseEntity;
 using AristBase.CRUDServices.ApproveServices.Dto;
-using AristBase.CRUDServices.CertificateGroupStatusServices.Dto;
 using AristBase.CRUDServices.CertificateServices.Dto;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AristBase.CRUDServices.ApproveServices
@@ -22,7 +18,9 @@ namespace AristBase.CRUDServices.ApproveServices
         private readonly IRepository<CertificateGroupStatus, Guid> repositoryGroupStatus;
         private readonly IRepository<Certificate, Guid> repositoryCertificate;
 
-        public ApproveService(IRepository<CertificateSync, int> repository, IRepository<CertificateGroupStatus, Guid> repositoryGroupStatus, IRepository<Certificate, Guid> repositoryCertificate)
+        public ApproveService(IRepository<CertificateSync, int> repository,
+                              IRepository<CertificateGroupStatus, Guid> repositoryGroupStatus,
+                              IRepository<Certificate, Guid> repositoryCertificate)
         {
             this.repository = repository;
             this.repositoryGroupStatus = repositoryGroupStatus;
@@ -85,6 +83,7 @@ namespace AristBase.CRUDServices.ApproveServices
             {
                 var queryCertificateSync = await repository.SingleAsync(i => i.CertificateId == cerId);
                 queryCertificateSync.syncStatus = SyncStatus.cancelled;
+                queryCertificateSync.EditState = true;
                 await repository.UpdateAsync(queryCertificateSync);
                 await CurrentUnitOfWork.SaveChangesAsync();
                 return ObjectMapper.Map<CertificateDto>(query);
