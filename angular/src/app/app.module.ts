@@ -17,7 +17,6 @@ import { AboutComponent } from '@app/about/about.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { ToastrModule } from 'ngx-toastr';
 // tenants
 import { TenantsComponent } from '@app/tenants/tenants.component';
 import { CreateTenantDialogComponent } from './tenants/create-tenant/create-tenant-dialog.component';
@@ -171,7 +170,7 @@ import {LoadingService} from './services/loader/loading.service'
         NgxPaginationModule,
         MatInputModule,
         MatAutocompleteModule,
-        ToastrModule,
+
     ],
     providers: [DataService,LoadingService]
 })
