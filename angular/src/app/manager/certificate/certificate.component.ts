@@ -49,6 +49,8 @@ export class CertificateComponent  extends PagedListingComponentBase<Certificate
       .subscribe((result: CertificateDtoPagedResultDto) => {
         this.Certificates = result.items;
         this.showPaging(result, pageNumber);
+        console.log(this.Certificates);
+        
       });
   }
 
@@ -73,6 +75,7 @@ export class CertificateComponent  extends PagedListingComponentBase<Certificate
   }
 
   createCertificate(): void {
+    
     this.showCreateOrEditCertificateDialog();
   }
 
@@ -82,7 +85,7 @@ export class CertificateComponent  extends PagedListingComponentBase<Certificate
 
   showCreateOrEditCertificateDialog(id?: string): void {
     let createOrEditCertificateDialog: BsModalRef;
-    if (id==null) {
+    if (id==undefined) {
       createOrEditCertificateDialog = this._modalService.show(
         CreateCertificateComponent,
         {
@@ -101,8 +104,11 @@ export class CertificateComponent  extends PagedListingComponentBase<Certificate
       );
     }
 
-    createOrEditCertificateDialog.content.onSave.subscribe(() => {
-      this.refresh();
-    });
+    if (createOrEditCertificateDialog.content) {
+      createOrEditCertificateDialog.content.onSave.subscribe(() => {
+        this.refresh();
+      });
+    }
+    
   }
 }

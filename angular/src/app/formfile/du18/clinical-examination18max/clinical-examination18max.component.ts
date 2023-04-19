@@ -25,6 +25,12 @@ export class ClinicalExamination18maxComponent  implements AfterContentInit {
     optionsKetLuan :["Đủ sức khỏe", "Bình thường"],
     optionsPhanLoai: ["Tiền sử mở lấy thai. Hiện tại ổn định","Bình thường","Loại 1", "Loại 2", "Loại 3", "Loại 4", "Loại 5"]
   }
+  nkModel: DefaultModel ={
+    ketluanTitle : "Kết luận",
+    phanloaiTitle: "Phân loại",
+    optionsKetLuan :["Bình thường", "Tiền sử mổ ruột thừa. Hiện tại ổn định"],
+    optionsPhanLoai: ["Loại 1", "Loại 2", "Loại 3", "Loại 4", "Loại 5"]
+  }
   ngAfterContentInit(): void {
   }
   

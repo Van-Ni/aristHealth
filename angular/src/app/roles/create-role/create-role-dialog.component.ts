@@ -43,7 +43,9 @@ export class CreateRoleDialogComponent extends AppComponentBase
       .subscribe((result: PermissionDtoListResultDto) => {
         this.permissions = result.items;
         this.setInitialPermissionsStatus();
+        console.log(result);
       });
+
   }
 
   setInitialPermissionsStatus(): void {

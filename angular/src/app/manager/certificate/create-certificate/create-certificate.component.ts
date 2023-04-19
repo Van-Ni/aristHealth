@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, EventEmitter, Injector, OnInit, Output } from '@angular/core';
 import { AppComponentBase } from '@shared/app-component-base';
 import { CertificateServiceServiceProxy, ClientInfoDto, CreateCertificateDto, RegionDto, RegionServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { BsModalRef } from 'ngx-bootstrap/modal';
@@ -13,7 +13,9 @@ export class CreateCertificateComponent extends AppComponentBase implements OnIn
   certificate: CreateCertificateDto;
   saving = false;
   provinces: RegionDtlFull[];
-
+  districts: RegionDtlFull[];
+  communes: RegionDtlFull[];
+  @Output() onSave = new EventEmitter<any>();
   constructor(private certificateServiceServiceProxy: CertificateServiceServiceProxy, public bsModalRef: BsModalRef,
     private regionService: RegionServiceServiceProxy,
     private injector: Injector) {
@@ -23,12 +25,16 @@ export class CreateCertificateComponent extends AppComponentBase implements OnIn
   ngOnInit() {
     this.certificate = new CreateCertificateDto();
     this.certificate.clientInfo = new ClientInfoDto();
-    //this.getRegions();
+    this.getRegions();
   }
   getRegions() {
-    this.regionService.getAll(this.certificate.clientInfo.district, this.certificate.clientInfo.commune).subscribe(
+
+    console.log("provinces",this.certificate.clientInfo.province);
+    console.log("district",this.certificate.clientInfo.district);
+    console.log("commune",this.certificate.clientInfo.commune);
+    this.regionService.getAll(this.certificate.clientInfo.province, this.certificate.clientInfo.district).subscribe(
       (result: RegionDto[]) => {
-        if (this.certificate.clientInfo.district == null && this.certificate.clientInfo.commune == null) {
+        if (this.certificate.clientInfo.province == null && this.certificate.clientInfo.district == null) {
           
           this.provinces = result.map(r => {
             return {
@@ -39,6 +45,29 @@ export class CreateCertificateComponent extends AppComponentBase implements OnIn
             };
           })
           console.log(this.provinces);
+        }
+        else if (this.certificate.clientInfo.province != null && this.certificate.clientInfo.district == null) {
+          
+          this.districts = result.map(r => {
+            return {
+              childrent: [],
+              name: r.name,
+              id: r.id,
+              parentId: r.parentId
+            };
+          })
+          console.log(this.districts);
+        }
+        else if (this.certificate.clientInfo.province != null && this.certificate.clientInfo.district != null){
+          this.communes = result.map(r => {
+            return {
+              childrent: [],
+              name: r.name,
+              id: r.id,
+              parentId: r.parentId
+            };
+          })
+          console.log(this.communes);
           
         }
       }
@@ -46,12 +75,12 @@ export class CreateCertificateComponent extends AppComponentBase implements OnIn
   }
   save(): void {
     this.saving = true;
-    console.log(this.certificate);
     this.certificateServiceServiceProxy.create(this.certificate).subscribe(
       (result: CreateCertificateDto) => {
 
         this.notify.info(this.l('SavedSuccessfully.'));
         this.bsModalRef.hide();
+        this.onSave.emit();
       },
       () => {
         this.saving = false;

@@ -22,6 +22,8 @@ namespace AristBase.CRUDServices.CertificateServices.Dto
         public ClientInfoDto ClientInfo { get; set; }
         public int ClientInfoId { get; set; }
         public decimal AmountPaid { get; set; }
+
         public string Reason { get; set; }
+        public DateTime CreationTime { get; set; }
     }
 }

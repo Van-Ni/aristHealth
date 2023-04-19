@@ -48,6 +48,8 @@ export class EditRoleDialogComponent extends AppComponentBase
         this.grantedPermissionNames = result.grantedPermissionNames;
         this.setInitialPermissionsStatus();
       });
+      console.log(this.permissions);
+      
   }
 
   setInitialPermissionsStatus(): void {

@@ -1,7 +1,7 @@
 <form autocomplete="off"
 #createxetnghiemkhac="ngForm"
 (ngSubmit)="mySave()">
-  <fieldset >
+  <fieldset [disabled]="this._permissionChecker.isGranted(this.inputModel.group)" >
   <div class="container">
     <p>2. Các xét nghiệm chỉ thực hiện khi có chỉ định của bác sĩ khám sức khỏe: Huyết học/sinh hóa/X.quang và các xét nghiệm khác:</p>
     <div class="form-group">

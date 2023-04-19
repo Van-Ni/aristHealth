@@ -5626,6 +5626,7 @@ export class CertificateDto implements ICertificateDto {
     clientInfoId: number;
     amountPaid: number;
     reason: string | undefined;
+    creationTime: moment.Moment;
 
     constructor(data?: ICertificateDto) {
         if (data) {
@@ -5647,6 +5648,7 @@ export class CertificateDto implements ICertificateDto {
             this.clientInfoId = _data["clientInfoId"];
             this.amountPaid = _data["amountPaid"];
             this.reason = _data["reason"];
+            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
         }
     }
 
@@ -5668,6 +5670,7 @@ export class CertificateDto implements ICertificateDto {
         data["clientInfoId"] = this.clientInfoId;
         data["amountPaid"] = this.amountPaid;
         data["reason"] = this.reason;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         return data;
     }
 
@@ -5689,6 +5692,7 @@ export interface ICertificateDto {
     clientInfoId: number;
     amountPaid: number;
     reason: string | undefined;
+    creationTime: moment.Moment;
 }
 
 export class CertificateDtoPagedResultDto implements ICertificateDtoPagedResultDto {
@@ -6008,6 +6012,7 @@ export class CertificateSync implements ICertificateSync {
     xmlEncrypted: string | undefined;
     certificate: Certificate;
     conclusion: string | undefined;
+    editState: boolean;
     creatorUserId: number | undefined;
     creationTime: moment.Moment;
     lastModifierUserId: number | undefined;
@@ -6037,6 +6042,7 @@ export class CertificateSync implements ICertificateSync {
             this.xmlEncrypted = _data["xmlEncrypted"];
             this.certificate = _data["certificate"] ? Certificate.fromJS(_data["certificate"]) : <any>undefined;
             this.conclusion = _data["conclusion"];
+            this.editState = _data["editState"];
             this.creatorUserId = _data["creatorUserId"];
             this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
             this.lastModifierUserId = _data["lastModifierUserId"];
@@ -6066,6 +6072,7 @@ export class CertificateSync implements ICertificateSync {
         data["xmlEncrypted"] = this.xmlEncrypted;
         data["certificate"] = this.certificate ? this.certificate.toJSON() : <any>undefined;
         data["conclusion"] = this.conclusion;
+        data["editState"] = this.editState;
         data["creatorUserId"] = this.creatorUserId;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         data["lastModifierUserId"] = this.lastModifierUserId;
@@ -6095,6 +6102,7 @@ export interface ICertificateSync {
     xmlEncrypted: string | undefined;
     certificate: Certificate;
     conclusion: string | undefined;
+    editState: boolean;
     creatorUserId: number | undefined;
     creationTime: moment.Moment;
     lastModifierUserId: number | undefined;

@@ -7,6 +7,7 @@ import { PagedRequestDto } from '@shared/paged-listing-component-base';
 import { CertificateGroupStatusDtoPagedResultDto, CertificateDto, CertificateServiceServiceProxy, GroupStatusServiceServiceProxy, KetLuanServicesServiceProxy, ApproveServiceServiceProxy, CertificateGroupStatusDto, UpdateCertificateGroupStatusDto } from '@shared/service-proxies/service-proxies';
 import { Du18Model } from '../du18/du18.component';
 import { DefaultModel } from '../share/KetLuanPhanLoai/KetLuanPhanLoai.component';
+import { finalize } from 'rxjs';
 export interface ChuaDu18Model{
   tuanhoan: CertificateGroupStatusDto,
   hohap: CertificateGroupStatusDto,
@@ -137,14 +138,23 @@ export class Chuadu18Component extends AppComponentBase implements OnInit {
       },
     )
   }
-  unapprove =()=>{
-    this.approveService.unApprove(this.route.snapshot.params['id']).subscribe(
-      ()=>{
-        this.notify.info('SavedSuccessfully.');
-        this.getAllData();
-      },
-      
-    )
+  unapprove = () => {
+    abp.message.confirm(
+      this.l('UnApprove'),
+      undefined,
+      (result: boolean) => {
+        if (result) {
+          this.approveService.unApprove(this.route.snapshot.params['id'])
+            .pipe(
+              finalize(() => {
+                abp.notify.success(this.l('SuccessfullyDeleted'));
+              })
+            )
+            .subscribe(() => { });
+        }
+      }
+    );
+
   }
 
 }

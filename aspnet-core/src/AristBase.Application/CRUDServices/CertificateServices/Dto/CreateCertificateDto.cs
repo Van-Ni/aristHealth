@@ -19,5 +19,6 @@ namespace AristBase.CRUDServices.CertificateServices.Dto
         public ClientInfoDto ClientInfo { get; set; }
         public decimal AmountPaid { get; set; }
         public string Reason { get; set; }
+
     }
 }

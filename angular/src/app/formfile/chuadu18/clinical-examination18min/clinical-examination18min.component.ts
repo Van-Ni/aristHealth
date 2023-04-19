@@ -26,6 +26,8 @@ export class ClinicalExamination18minComponent  implements AfterContentInit {
     optionsKetLuan :["Đủ sức khỏe", "Bình thường"],
     optionsPhanLoai: ["Tiền sử mở lấy thai. Hiện tại ổn định","Bình thường","Loại 1", "Loại 2", "Loại 3", "Loại 4", "Loại 5"]
   }
+ 
+
   ngAfterContentInit(): void {
   }
   

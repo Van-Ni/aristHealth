@@ -1,4 +1,5 @@
-<div class="container"*ngIf="tdv && Data">
+<fieldset [disabled]="(this._permissionChecker.isGranted(this.Data.group))">
+  <div class="container"*ngIf="tdv && Data">
     <div class="row" style="display: flex !important;justify-content: space-around !important">
       <div  *ngIf="tdv.status == 0">
         <button [disabled]="Data.status !=1" type="submit" class="btn btn-primary" (click)="approve()">Duyệt</button>
@@ -8,3 +9,5 @@
       </div>
     </div>
 </div>
+</fieldset>
+

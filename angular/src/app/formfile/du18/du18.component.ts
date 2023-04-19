@@ -7,6 +7,7 @@ import { PagedRequestDto } from '@shared/paged-listing-component-base';
 import { CertificateGroupStatusDtoPagedResultDto, CertificateDto, CertificateServiceServiceProxy, GroupStatusServiceServiceProxy, KetLuanServicesServiceProxy, ApproveServiceServiceProxy, CertificateGroupStatusDto, UpdateCertificateGroupStatusDto } from '@shared/service-proxies/service-proxies';
 import { ClinicalExaminationModel } from '../driver-health-check/clinical-examination1/clinical-examination1.component';
 import { DefaultModel } from '../share/KetLuanPhanLoai/KetLuanPhanLoai.component';
+import { finalize } from 'rxjs';
 export interface Du18Model{
   tuanhoan: CertificateGroupStatusDto,
   hohap: CertificateGroupStatusDto,
@@ -57,8 +58,8 @@ export class Du18Component extends AppComponentBase implements OnInit {
      du18Model: DefaultModel ={
       ketluanTitle : "Kết luận",
       phanloaiTitle: "Phân loại sức khỏe",
-      optionsKetLuan :[],
-      optionsPhanLoai: []
+      optionsKetLuan :["Đủ sức khỏe học tập","Đủ sức khỏe làm việc","Đủ sức khỏe học tập và làm việc", "Đủ sức khỏe thi đấu thể thao", "Đủ sức khỏe làm việc phù hợp"],
+      optionsPhanLoai: ["Loại 1", "Loại 2", "Loại 3", "Loại 4", "Loại 5"]
     }
   ngOnInit() {
       this.dataService.getAllKeyData().subscribe((result: CertificateGroupStatusDtoPagedResultDto) => {
@@ -157,14 +158,23 @@ export class Du18Component extends AppComponentBase implements OnInit {
       },
     )
   }
-  unapprove =()=>{
-    this.approveService.unApprove(this.route.snapshot.params['id']).subscribe(
-      ()=>{
-        this.notify.info('SavedSuccessfully.');
-        this.getAllData();
-      },
-      
-    )
+  unapprove = () => {
+    abp.message.confirm(
+      this.l('UnApprove'),
+      undefined,
+      (result: boolean) => {
+        if (result) {
+          this.approveService.unApprove(this.route.snapshot.params['id'])
+            .pipe(
+              finalize(() => {
+                abp.notify.success(this.l('SuccessfullyDeleted'));
+              })
+            )
+            .subscribe(() => { });
+        }
+      }
+    );
+
   }
 }
 

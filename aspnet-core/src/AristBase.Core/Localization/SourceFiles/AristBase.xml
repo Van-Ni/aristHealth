@@ -131,6 +131,9 @@
     <text name="name">Tên loại giấy</text>
     <text name="price">Giá tiền</text>
     <text name="Unready">Chưa khám {0}</text>
+    <text name="Details">Chi tiết</text>
+    <text name="CertificateType">Danh sách các loại giấy</text>
+    <text name="Certificate">Danh sách các ca khám</text>
 
   </texts>
 </localizationDictionary>

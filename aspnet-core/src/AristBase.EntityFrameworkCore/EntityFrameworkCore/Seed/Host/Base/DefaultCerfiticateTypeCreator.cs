@@ -49,7 +49,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                 {
                     Id = 1,
                     Price = 0,
-                    FilePath = "",
+                    FilePath = "./VolumeMap/Templates/GiayKhamLaiXeGialaiForm.pdf",
                     FinalResult ="",
                     IsNeedSync = true,
                     Name = "Giấy khám sức khỏe lái xe",
@@ -188,7 +188,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                 {
                     Id = 2,
                     Price = 0,
-                    FilePath = "",
+                    FilePath = "./VolumeMap/Templates/du18Form.pdf",
                     FinalResult ="",
                     IsNeedSync = false,
                     TenantId = 2,
@@ -347,7 +347,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                 {
                     Id = 3,
                     Price = 0,
-                    FilePath = "",
+                    FilePath = "./VolumeMap/Templates/duoi18Form.pdf",
                     FinalResult ="",
                     IsNeedSync = false,
                     TenantId = 2,
