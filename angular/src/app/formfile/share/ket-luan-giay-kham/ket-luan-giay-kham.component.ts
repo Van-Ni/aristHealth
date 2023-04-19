@@ -13,6 +13,13 @@ export class KetLuanGiayKhamComponent implements OnInit {
   @Input() Data: CertificateGroupStatusDto;
   @Input() huyketluan: Function;
   @Input() defaultModel: DefaultModel ;
+  isValid: boolean = true;
+  isValid1: boolean = true;
+
+  validateInput() {
+    this.isValid = !!this.Data.content['text_ketluan'].value;
+    this.isValid1=!!this.Data.content['text_noidung'].value
+  }
   constructor(protected _permissionChecker: PermissionCheckerService) { }
 
 

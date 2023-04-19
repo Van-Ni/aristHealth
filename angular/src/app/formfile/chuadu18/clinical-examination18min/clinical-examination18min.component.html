@@ -20,10 +20,10 @@
     <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.thankinh" [save]="save" [check]="checkgiay"></app-KetLuanPhanLoai>
   </app-khoa-wrapper>
 
-  <!-- <app-khoa-wrapper title="6. Khám lâm sàn khác" [status]="Data.kham.status">
-    <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.thantietnieu"
+<app-khoa-wrapper title="6. Khám lâm sàn khác" [status]="Data.khamlamsankhac.status" >
+    <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.khamlamsankhac"  [check]="checkgiay"
       [save]="save"></app-KetLuanPhanLoai>
-  </app-khoa-wrapper> -->
+  </app-khoa-wrapper> 
 
   <app-khoa-wrapper title="7. Mắt" [status]="Data.mat.status">
     <app-mat18 [inputModel]="Data.mat" [save]="save" [check]="checkgiay"></app-mat18>
@@ -36,4 +36,6 @@
   <app-khoa-wrapper title="9. Răng hàm mặt" [status]="Data.ranghammat.status">
     <app-rang-ham-mat [inputModel]="Data.ranghammat" [save]="save" [check]="checkgiay"></app-rang-ham-mat>
   </app-khoa-wrapper>
+
+
 </div>
