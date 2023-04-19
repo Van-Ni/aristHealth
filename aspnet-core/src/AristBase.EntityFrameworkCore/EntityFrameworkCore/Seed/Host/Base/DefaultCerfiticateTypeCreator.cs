@@ -27,17 +27,17 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
         };
         public static Dictionary<string, Values> TaiMuiHongKeyValue = new Dictionary<string, Values>
         {
-            { "text_taitrai" , new Values{ Value = "" }},
+            { "text_taitrai" , new Values{ Value = "05" }},
             { "text_taitrai_noitham" , new Values { Value = "" }},
-            { "text_taiphai" , new Values { Value = "" }},
+            { "text_taiphai" , new Values { Value = "05" }},
             { "text_taiphai_noitham" , new Values { Value = "" }},
             { "text_cbvtmh" , new Values { Value = "" }},
             { "text_phanloai" , new Values { Value = "" }},
         };
         public static Dictionary<string, Values> RangHamMatKeyValue = new Dictionary<string, Values>
         {
-            { "text_hamtren" , new Values{ Value = "" }},
-            { "text_hamduoi" , new Values { Value = "" }},
+            { "text_hamtren" , new Values{ Value = "Bình thường" }},
+            { "text_hamduoi" , new Values { Value = "Bình thường" }},
             { "text_cbvrhm" , new Values { Value = "" }},
             { "text_phanloai" , new Values { Value = "" }},
         };
@@ -171,8 +171,15 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                             DefaultContent = new Dictionary<string, Values>
                             {
                                 { "text_ketluan" , new Values { Value = "Đủ điều kiện sức khỏe lái xe hạng: " }},
+                                //{ "text_ngaykhamlai" , new Values { Value = "Đủ điều kiện sức khỏe lái xe hạng: " }},
+                                //{ "text_lydokham" , new Values { Value = "Đủ điều kiện sức khỏe lái xe hạng: " }},
                             },
                         },
+                        new TemplateGroup
+                        {
+                            GroupName = PermissionNames.tdv,
+                            DefaultStatus = GroupStatus.UNREADY,
+                        }
 
                     },
 
@@ -288,8 +295,8 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                             DefaultStatus = GroupStatus.UNREADY,
                             DefaultContent = new Dictionary<string, Values>
                             {
-                                { "text_duong" , new Values { Value = "" }},
-                                { "text_protein" , new Values { Value = "" }},
+                                { "text_duong" , new Values { Value = "Âm tính" }},
+                                { "text_protein" , new Values { Value = "Âm tính" }},
                                 { "text_khac" , new Values { Value = "" }},
                             },
                         },
@@ -313,6 +320,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                                 { "text_chisobmi" , new Values { Value = "" }},
                                 { "text_mach" , new Values { Value = "" }},
                                 { "text_huyetap" , new Values { Value = "" }},
+                                { "text_phanloai" , new Values { Value = "" }},
 
                             },
                         },
@@ -322,9 +330,15 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                             DefaultStatus = GroupStatus.UNREADY,
                             DefaultContent = new Dictionary<string, Values>
                             {
+                                { "text_noidung" , new Values { Value = "" }},
                                 { "text_ketluan" , new Values { Value = "" }},
                             },
                         },
+                        new TemplateGroup
+                        {
+                            GroupName = PermissionNames.tdv,
+                            DefaultStatus = GroupStatus.UNREADY,
+                        }
                     },
 
 
@@ -402,16 +416,35 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                                 { "text_ketqua" , new Values { Value = "" }},
                             },
                         },
+                         new TemplateGroup
+                        {
+                            GroupName = PermissionNames.KhamTheLuc,
+                            DefaultStatus = GroupStatus.UNREADY,
+                            DefaultContent = new Dictionary<string, Values>
+                            {
+                                { "text_chieucao" , new Values { Value = "" }},
+                                { "text_cannang" , new Values { Value = "" }},
+                                { "text_chisobmi" , new Values { Value = "" }},
+                                { "text_mach" , new Values { Value = "" }},
+                                { "text_huyetap" , new Values { Value = "" }},
+                                { "text_phanloai" , new Values { Value = "" }},
+                            },
+                        },
                         new TemplateGroup
                         {
                             GroupName = PermissionNames.KetLuan,
                             DefaultStatus = GroupStatus.UNREADY,
                             DefaultContent = new Dictionary<string, Values>
                             {
-                                { "text_skhientai" , new Values { Value = "" }},
-                                { "text_vande" , new Values { Value = "" }},
+                                { "text_noidung" , new Values { Value = "" }},
+                                { "text_ketluan" , new Values { Value = "" }},
                             },
                         },
+                        new TemplateGroup
+                        {
+                            GroupName = PermissionNames.tdv,
+                            DefaultStatus = GroupStatus.UNREADY,
+                        }
                     },
 
                 },

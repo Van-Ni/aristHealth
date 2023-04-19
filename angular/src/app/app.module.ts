@@ -78,6 +78,10 @@ import {ChanDoanHinhAnhComponent} from './formfile/du18/subclinical-examination-
 import {XetNghiemMauComponent} from './formfile/du18/subclinical-examination-type18max/xet-nghiem-mau/xet-nghiem-mau.component';
 import {XetNghiemNuocTieuComponent} from './formfile/du18/subclinical-examination-type18max/xet-nghiem-nuoc-tieu/xet-nghiem-nuoc-tieu.component';
 import {ThongTinCaNhanComponent} from './formfile/share/thong-tin-ca-nhan/thong-tin-ca-nhan.component';
+import {ClinicalExamination18minComponent} from './formfile/chuadu18/clinical-examination18min/clinical-examination18min.component';
+import {SubclinicalExaminationType18minComponent} from './formfile/chuadu18/subclinical-examination-type18min/subclinical-examination-type18min.component';
+import {XetNghiemKhacChua18Component} from './formfile/chuadu18/subclinical-examination-type18min/xet-nghiem-khac-chua18/xet-nghiem-khac-chua18.component';
+import {KetLuanGiayKhamComponent} from './formfile/share/ket-luan-giay-kham/ket-luan-giay-kham.component';
 //service
 import {DataService} from './services/data.service';
 import {LoadingService} from './services/loader/loading.service'
@@ -147,6 +151,8 @@ import {LoadingService} from './services/loader/loading.service'
         XetNghiemMauComponent,
         XetNghiemNuocTieuComponent,
         ThongTinCaNhanComponent,
+        ClinicalExamination18minComponent,
+        SubclinicalExaminationType18minComponent,XetNghiemKhacChua18Component,KetLuanGiayKhamComponent
     ],
     imports: [
         CommonModule,

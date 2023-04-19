@@ -12,7 +12,7 @@ export class SubclinicalExaminationType18maxComponent implements OnInit {
     console.log(this.Data);
     
   }
-
+  @Input() checkgiay: number;
   @Input() Data: Du18Model;
   @Input() save: Function;
   klplModel: DefaultModel ={

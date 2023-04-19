@@ -1,26 +1,18 @@
 import { Component, Injector } from '@angular/core';
 import { PagedListingComponentBase, PagedRequestDto } from '@shared/paged-listing-component-base';
-import { CertificateDtoPagedResultDto, CertificateServiceServiceProxy, PaymentStatus } from '@shared/service-proxies/service-proxies';
+import { CertificateDtoPagedResultDto, CertificateServiceServiceProxy, PaymentStatus, RegionDto } from '@shared/service-proxies/service-proxies';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CreateCertificateComponent } from './create-certificate/create-certificate.component';
 import { EditCertificateComponent } from './edit-certificate/edit-certificate.component';
 import { finalize } from 'rxjs';
-import { Status } from '@shared/service-proxies/service-proxies';
 import { CertificateDto } from '@shared/service-proxies/service-proxies';
-class CertificateViewModel{
-  id: string;
-  status: Status;
-  paymentStatus: PaymentStatus;
-  clientInfoId: number;
-  clientInfo_Name: string;
-  certificateTypeId: number;
-  certificateType_Name: string;
-  amountPaid: number;
-  reason: string;
-
-}
 class PagedCertificatesRequestDto extends PagedRequestDto {
   keyword: string;
+}
+export interface RegionDtlFull{
+  id: string | undefined;
+  name: string | undefined;
+  childrent: RegionDtlFull[]
 }
 
 @Component({

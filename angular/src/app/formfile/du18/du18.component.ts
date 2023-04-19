@@ -6,6 +6,7 @@ import { AppComponentBase } from '@shared/app-component-base';
 import { PagedRequestDto } from '@shared/paged-listing-component-base';
 import { CertificateGroupStatusDtoPagedResultDto, CertificateDto, CertificateServiceServiceProxy, GroupStatusServiceServiceProxy, KetLuanServicesServiceProxy, ApproveServiceServiceProxy, CertificateGroupStatusDto, UpdateCertificateGroupStatusDto } from '@shared/service-proxies/service-proxies';
 import { ClinicalExaminationModel } from '../driver-health-check/clinical-examination1/clinical-examination1.component';
+import { DefaultModel } from '../share/KetLuanPhanLoai/KetLuanPhanLoai.component';
 export interface Du18Model{
   tuanhoan: CertificateGroupStatusDto,
   hohap: CertificateGroupStatusDto,
@@ -25,7 +26,7 @@ export interface Du18Model{
   chandoanhinhanh: CertificateGroupStatusDto,
   khamtheluc: CertificateGroupStatusDto,
   ketluan: CertificateGroupStatusDto,
-
+  tdv: CertificateGroupStatusDto,
 }
 @Component({
   selector: 'app-du18',
@@ -53,7 +54,12 @@ export class Du18Component extends AppComponentBase implements OnInit {
      private ketluanService: KetLuanServicesServiceProxy, private approveService: ApproveServiceServiceProxy) {
       super(injecter)
      }
-
+     du18Model: DefaultModel ={
+      ketluanTitle : "Kết luận",
+      phanloaiTitle: "Phân loại sức khỏe",
+      optionsKetLuan :[],
+      optionsPhanLoai: []
+    }
   ngOnInit() {
       this.dataService.getAllKeyData().subscribe((result: CertificateGroupStatusDtoPagedResultDto) => {
       if(!result) return;
@@ -77,6 +83,7 @@ export class Du18Component extends AppComponentBase implements OnInit {
         chandoanhinhanh: this.certificateStatusResult.items.find(i=>i.group=="chandoanhinhanh"),
         khamtheluc: this.certificateStatusResult.items.find(i=>i.group=="khamtheluc"),
         ketluan: this.certificateStatusResult.items.find(i=>i.group=="ketluan"),
+        tdv: this.certificateStatusResult.items.find(i=>i.group=="tdv"),
       }
       console.log(this.dataModel);
       
@@ -123,8 +130,26 @@ export class Du18Component extends AppComponentBase implements OnInit {
       this.getAllData();
     },)
   }
+  huyketluan = (entity :CertificateGroupStatusDto) =>{
+    const inputEntity = new UpdateCertificateGroupStatusDto();
+    inputEntity.id = entity.id;
+    inputEntity.certificateId = entity.certificateId;
+    inputEntity.content = entity.content;
+    inputEntity.group = entity.group;
+    inputEntity.status = entity.status;
+    console.log("ss",inputEntity);
+    
+    this.ketluanService.huyKetLuan(inputEntity).subscribe(
+      () => {
+      this.notify.info('SavedSuccessfully.');
+      this.getAllData();
+      },
+      ()=>{
+        console.log("error");
+      }
+      )
+  }
   approve =()=>{
-    console.log();
     this.approveService.approve(this.route.snapshot.params['id']).subscribe(
       ()=>{
         this.notify.info('SavedSuccessfully.');
@@ -132,7 +157,15 @@ export class Du18Component extends AppComponentBase implements OnInit {
       },
     )
   }
-
+  unapprove =()=>{
+    this.approveService.unApprove(this.route.snapshot.params['id']).subscribe(
+      ()=>{
+        this.notify.info('SavedSuccessfully.');
+        this.getAllData();
+      },
+      
+    )
+  }
 }
 
 

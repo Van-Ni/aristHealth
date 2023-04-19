@@ -10,10 +10,7 @@ import { DefaultModel } from '@app/formfile/share/KetLuanPhanLoai/KetLuanPhanLoa
 export class ClinicalExamination18maxComponent  implements AfterContentInit {
   @Input() Data: Du18Model;
   @Input() save: Function;
-  @Input() statusDataCheck: any;
-  data:  any;
-  statusDataCheck1: any;
-
+  @Input() checkgiay: number;
   constructor() { }
   klplModel: DefaultModel ={
     ketluanTitle : "Kết luận",

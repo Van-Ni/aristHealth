@@ -118,15 +118,6 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="commune" class="col-sm-3 col-form-label">Xã</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control" id="commune" placeholder="Xã"
-                  [(ngModel)]="certificate.clientInfo.commune" #communeModel="ngModel" #communeEl
-                  [ngModelOptions]="{standalone: true}">
-                <abp-validation-summary [control]="communeModel" [controlEl]="communeEl"></abp-validation-summary>
-              </div>
-            </div>
-            <div class="form-group row">
               <label for="district" class="col-sm-3 col-form-label">Huyện</label>
               <div class="col-sm-9">
                 <input type="text" class="form-control" id="district" placeholder="Huyện"
@@ -135,6 +126,16 @@
                 <abp-validation-summary [control]="districtModel" [controlEl]="districtEl"></abp-validation-summary>
               </div>
             </div>
+            <div class="form-group row">
+              <label for="commune" class="col-sm-3 col-form-label">Xã</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="commune" placeholder="Xã"
+                  [(ngModel)]="certificate.clientInfo.commune" #communeModel="ngModel" #communeEl
+                  [ngModelOptions]="{standalone: true}">
+                <abp-validation-summary [control]="communeModel" [controlEl]="communeEl"></abp-validation-summary>
+              </div>
+            </div>
+            
             <div class="form-group row" *ngIf="certificate.certificateTypeId != 1">
               <label for="GuardianName" class="col-sm-3 col-form-label">Họ và tên bố, mẹ hoặc người giám hộ</label>
               <div class="col-sm-9">

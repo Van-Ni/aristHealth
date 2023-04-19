@@ -43,7 +43,7 @@ namespace AristBase.CRUDServices.CertificateGroupStatusServices
         public virtual async ValueTask<CertificateGroupStatusDto> UpdateOrInsert(UpdateCertificateGroupStatusDto input)
         {
             SetPermision(input.Group);
-            CheckUpdatePermission();
+            //CheckUpdatePermission();
             //CustomCheckPermission(input);
             var check = await Repository.GetAll().Where(w => w.CertificateId == input.CertificateId && w.Group == this._permissionName).FirstOrDefaultAsync();
             if (check != null)

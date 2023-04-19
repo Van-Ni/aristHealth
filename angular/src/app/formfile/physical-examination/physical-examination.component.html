@@ -1,12 +1,12 @@
 <div class="container">
     <form autocomplete="off"
     #createkhamtheluc="ngForm"
-    (ngSubmit)="save()">
-      <fieldset [disabled]="!isEditable">
+    (ngSubmit)="mySave()">
+      <fieldset >
         <div class="form-group row">
           <div class="input-group">
           <label for="chieucao" class="col-sm-2 col-form-label">Cân nặng</label>
-            <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)" [(ngModel)]="khamtheluc.khamtheluc_text_cannang"
+            <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)" [(ngModel)]="Data.content['text_cannang'].value"
             [ngModelOptions]="{standalone: true}">
             <div class="input-group-append">
               <span class="input-group-text">kg</span>
@@ -16,7 +16,17 @@
         <div class="form-group row">
           <div class="input-group">
           <label for="chieucao" class="col-sm-2 col-form-label">Chiều cao</label>
-            <input type="number" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="khamtheluc.khamtheluc_text_chieucao"
+            <input type="number" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="Data.content['text_chieucao'].value"
+            [ngModelOptions]="{standalone: true}">
+            <div class="input-group-append">
+              <span class="input-group-text">cm</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="input-group">
+          <label for="chieucao" class="col-sm-2 col-form-label">Chỉ số BMI</label>
+            <input type="number" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="Data.content['text_chisobmi'].value"
             [ngModelOptions]="{standalone: true}">
             <div class="input-group-append">
               <span class="input-group-text">cm</span>
@@ -26,7 +36,7 @@
         <div class="form-group row">
           <div class="input-group">
           <label for="chieucao" class="col-sm-2 col-form-label">Mạch</label>
-            <input type="number" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="khamtheluc.khamtheluc_text_mach"
+            <input type="number" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="Data.content['text_mach'].value"
             [ngModelOptions]="{standalone: true}">
             <div class="input-group-append">
               <span class="input-group-text">lần/phút</span>
@@ -36,7 +46,7 @@
         <div class="form-group row">
           <div class="input-group">
           <label for="chieucao" class="col-sm-2 col-form-label">Huyết áp</label>
-            <input type="number" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="khamtheluc.khamtheluc_text_huyetap"
+            <input type="number" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)"[(ngModel)]="Data.content['text_huyetap'].value"
             [ngModelOptions]="{standalone: true}">
             <div class="input-group-append">
               <span class="input-group-text">mmHg</span>
@@ -46,18 +56,17 @@
         <div class="form-group row">
           <div class="input-group">
           <label for="chieucao" class="col-sm-2 col-form-label">Phân loại thể lực</label>
-            <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)" [(ngModel)]="khamtheluc.khamtheluc_text_phanloaitheluc"
+            <input type="text" class="col-sm-10 form-control" aria-label="Amount (to the nearest dollar)" [(ngModel)]="Data.content['text_phanloai'].value"
             [ngModelOptions]="{standalone: true}">
           </div>
         </div>
-      <div class="form-group " style="display: flex !important;justify-content: space-around !important;">
-
-        <ng-container *ngIf="status==false">
-          <button  class="btn btn-primary">Lưu thông tin</button>
-        </ng-container>
-        <ng-container *ngIf="status==true">
-          <button  class="btn btn-success">Đã nhập thông tin</button>
-        </ng-container>
+        <div class="form-group " style="display: flex !important;justify-content: space-around !important;">
+          <ng-container *ngIf="Data.status != 1">
+            <button  class="btn btn-danger">Lưu thông tin</button>
+          </ng-container>
+          <ng-container *ngIf="Data.status ==1">
+            <button  class="btn btn-success">Đã nhập thông tin</button>
+          </ng-container>
         </div>
       </fieldset>
     </form>

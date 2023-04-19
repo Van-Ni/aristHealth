@@ -1,12 +1,12 @@
-<div style="display: flex;justify-content: flex-end;">
+<!-- <div style="display: flex;justify-content: flex-end;">
   <div *ngIf="inputModel.status ==1" >
     <button (click)="isEdited()" class="btn btn-primary">Nhấn để sửa</button>
   </div>
-</div>
+</div> -->
 <form autocomplete="off"
 #createtaimuihong1="ngForm"
 (ngSubmit)="mySave()">
-  <fieldset [disabled]="isEdited()">
+  <fieldset [disabled]="this._permissionChecker.isGranted(this.inputModel.group)">
     <div>
       <p>-Kết quả khám thính lực (Có thể sử dụng máy trợ thính):</p>
       <div class="row">

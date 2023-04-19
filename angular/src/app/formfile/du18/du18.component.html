@@ -4,24 +4,30 @@
     <app-profile [profile]="profile"></app-profile>
   </app-thong-tin-ca-nhan>
 
+  <app-khoa-wrapper title="Khám thể lực" [status]="-1">
+    <app-physical-examination  [Data]="dataModel.khamtheluc"
+    [save]="save"></app-physical-examination>
+  </app-khoa-wrapper>
+
+
   <app-khoa-wrapper title="Khám lâm sàn" [status]="-1">
-    <app-clinical-examination18max [Data]="dataModel"
+    <app-clinical-examination18max [Data]="dataModel" [checkgiay]="profile.certificateTypeId"
     [save]="save"
     ></app-clinical-examination18max>
   </app-khoa-wrapper>
 
-  <app-khoa-wrapper title="Khám cận lâm sàn" [status]="-1">
-    <app-subclinical-examination-type18max [Data]="dataModel"
+  <app-khoa-wrapper title="Khám cận lâm sàn" [status]="-1" >
+    <app-subclinical-examination-type18max [Data]="dataModel" [checkgiay]="profile.certificateTypeId"
     [save]="save"></app-subclinical-examination-type18max>
   </app-khoa-wrapper>
 
   <app-khoa-wrapper title="Kết luận" [status]="-1">
-    <app-current-conclusion-type1 [Data]="dataModel.ketluan"
-    [save]="saveKL" ></app-current-conclusion-type1>
+    <app-ket-luan-giay-kham [defaultModel]="du18Model" [Data]="dataModel.ketluan"  [huyketluan]="huyketluan"
+    [save]="saveKL" ></app-ket-luan-giay-kham>
   </app-khoa-wrapper>
 
-  <!-- <div class="row">
-    <app-appove1 [Data]="dataModel.ketluan"[save]="approve"
+  <div class="row">
+    <app-appove1 [Data]="dataModel.ketluan" [tdv]="dataModel.tdv" [approve]="approve" [unapprove]="unapprove" 
      ></app-appove1>
-  </div> -->
+  </div>
 </div>

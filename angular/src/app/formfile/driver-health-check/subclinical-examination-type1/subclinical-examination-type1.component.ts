@@ -12,11 +12,10 @@ export interface SubclinicalExaminationType1Model{
   styleUrls: ['./subclinical-examination-type1.component.css']
 })
 export class SubclinicalExaminationType1Component implements OnInit {
-  isXetNghiemMaTuy = true;
-  isXetNghiemKhac =true;
   @Input() SubclinicalExaminationType1Model: SubclinicalExaminationType1Model ;
   @Input() Data: ClinicalExaminationModel;
   @Input() save: Function;
+  @Input() checkgiay: number;
   constructor() { }
   ngOnInit() {
   }

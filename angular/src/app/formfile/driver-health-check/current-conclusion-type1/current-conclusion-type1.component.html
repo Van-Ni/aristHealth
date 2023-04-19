@@ -5,16 +5,55 @@
 (ngSubmit)="mySave()">
   <fieldset >
     <div class="form-group">
-      <label for="exampleFormControlTextarea1">Phân loại sức khỏe</label>
+      <!-- <label for="exampleFormControlTextarea1">Kết luận</label>
       <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" [(ngModel)]="Data.content['text_ketluan'].value"
-      [ngModelOptions]="{standalone: true}"></textarea>
+      [ngModelOptions]="{standalone: true}"></textarea> -->
+      <div class="form-check" (click)="check(true)">
+        <label class="form-check-label" >
+          <input type="radio" class="form-check-input" name="optradio" value="dudk">Đủ điều kiện lái xe hạng {{hang}}
+        </label>
+      </div>
+      <div class="form-check" (click)="check(false)">
+        <label class="form-check-label" >
+          <input type="radio" class="form-check-input" name="optradio" value="kdudk">Không đủ điều kiện lái xe hạng {{hang}}
+        </label>
+      </div>
+      <div class="form-check ">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="optradio" value="dudkkl">Đủ điều kiện lại xe hạng {{hang}} nhưng cần khám lại
+        </label>
+      </div>
     </div>
-    <div class="form-group " style="display: flex !important;justify-content: space-around !important;">
+    <div >
+      <div class="form-group row">
+        <label for="CCCD" class="col-sm-2 col-form-label">Ngày khám lại: </label>
+        <div class="col-sm">
+          <div>
+            <input type="text" placeholder="Ngày khám lại" class="form-control"
+               [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="CCCD" class="col-sm-2 col-form-label">Lý do khám: </label>
+        <div class="col-sm">
+          <div>
+            <input type="text" placeholder="Lý do khám" class="form-control">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group " style="display: flex;
+    justify-content: space-around;">
       <ng-container *ngIf="Data.status == 0 ||  Data.status == 2">
         <button  class="btn btn-danger">Lưu thông tin</button>
       </ng-container>
       <ng-container *ngIf="Data.status == 1">
-        <button  class="btn btn-success">Đã nhập thông tin</button>
+        <div class="row" >
+            <button class="btn btn-success">Đã nhập thông tin</button>
+          
+            <button (click)="huy()" class="btn btn-danger" style="margin-left: 10px;">Hủy kết luận</button>
+        </div>
       </ng-container>
     </div>
   </fieldset>

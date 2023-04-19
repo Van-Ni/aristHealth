@@ -1,7 +1,8 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CertificateDto, CertificateGroupStatusServiceServiceProxy, CertificateServiceServiceProxy, ClientInfoDto, CreateCertificateDto } from '@shared/service-proxies/service-proxies';
+import { CertificateServiceServiceProxy, ClientInfoDto, CreateCertificateDto, RegionDto, RegionServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { RegionDtlFull } from '../certificate.component';
 
 @Component({
   selector: 'app-create-certificate',
@@ -11,7 +12,10 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 export class CreateCertificateComponent extends AppComponentBase implements OnInit {
   certificate: CreateCertificateDto;
   saving = false;
+  provinces: RegionDtlFull[];
+
   constructor(private certificateServiceServiceProxy: CertificateServiceServiceProxy, public bsModalRef: BsModalRef,
+    private regionService: RegionServiceServiceProxy,
     private injector: Injector) {
     super(injector);
   }
@@ -19,6 +23,26 @@ export class CreateCertificateComponent extends AppComponentBase implements OnIn
   ngOnInit() {
     this.certificate = new CreateCertificateDto();
     this.certificate.clientInfo = new ClientInfoDto();
+    //this.getRegions();
+  }
+  getRegions() {
+    this.regionService.getAll(this.certificate.clientInfo.district, this.certificate.clientInfo.commune).subscribe(
+      (result: RegionDto[]) => {
+        if (this.certificate.clientInfo.district == null && this.certificate.clientInfo.commune == null) {
+          
+          this.provinces = result.map(r => {
+            return {
+              childrent: [],
+              name: r.name,
+              id: r.id,
+              parentId: r.parentId
+            };
+          })
+          console.log(this.provinces);
+          
+        }
+      }
+    );
   }
   save(): void {
     this.saving = true;

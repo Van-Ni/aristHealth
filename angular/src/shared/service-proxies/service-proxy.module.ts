@@ -24,6 +24,7 @@ import * as ApiServiceProxies from './service-proxies';
         ApiServiceProxies.PDFServiceServiceProxy,
         ApiServiceProxies.KetLuanServicesServiceProxy,
         ApiServiceProxies.ApproveServiceServiceProxy,
+        ApiServiceProxies.RegionServiceServiceProxy,
         { provide: HTTP_INTERCEPTORS, useClass: AbpHttpInterceptor, multi: true }
     ]
 })

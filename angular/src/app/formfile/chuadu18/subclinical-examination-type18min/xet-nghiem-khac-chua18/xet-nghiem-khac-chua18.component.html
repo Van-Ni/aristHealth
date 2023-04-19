@@ -1,0 +1,24 @@
+<form autocomplete="off"
+#createxetnghiemkhac="ngForm"
+(ngSubmit)="mySave()">
+  <fieldset >
+  <div class="container">
+    <p> Các xét nghiệm chỉ thực hiện khi có chỉ định của bác sĩ khám sức khỏe: Huyết học/sinh hóa/X.quang và các xét nghiệm khác:</p>
+    <div class="form-group row">
+      <label for="fullname" class="col-sm-2 col-form-label">Kết quả:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control"   [(ngModel)]="inputModel.content['text_ketqua'].value"
+        [ngModelOptions]="{standalone: true}">
+      </div>
+    </div>
+  </div>
+  <div class="form-group " style="display: flex !important;justify-content: space-around !important;">
+    <ng-container *ngIf="inputModel.status == 0 ||  inputModel.status == 2">
+      <button  class="btn btn-danger">Lưu thông tin</button>
+    </ng-container>
+    <ng-container *ngIf="inputModel.status == 1">
+      <button  class="btn btn-success">Đã nhập thông tin</button>
+    </ng-container>
+  </div>
+  </fieldset>
+</form>

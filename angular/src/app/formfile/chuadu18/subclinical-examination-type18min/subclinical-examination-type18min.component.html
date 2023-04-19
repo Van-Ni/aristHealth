@@ -1,0 +1,5 @@
+<div *ngIf="Data">
+  <app-khoa-wrapper title="Xét nghiệm khác" [status]="Data.xetnghiemkhac.status">
+    <app-xet-nghiem-khac-chua18 [inputModel]="Data.xetnghiemkhac" [save]="save"></app-xet-nghiem-khac-chua18>
+  </app-khoa-wrapper>
+</div>

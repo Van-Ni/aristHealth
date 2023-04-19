@@ -5,23 +5,23 @@
       <app-profile [profile]="profile"></app-profile>
     </app-thong-tin-ca-nhan>
 
-    <app-khoa-wrapper title="Khám lâm sàn">
-      <app-clinical-examination1 [Data]="dataModel"
+    <app-khoa-wrapper title="Khám lâm sàn" >
+      <app-clinical-examination1 [Data]="dataModel"[checkgiay]="profile.certificateTypeId"
       [save]="save"
       ></app-clinical-examination1>
     </app-khoa-wrapper>
 
-    <app-khoa-wrapper title="Khám cận lâm sàn">
-      <app-subclinical-examination-type1 [Data]="dataModel"
+    <app-khoa-wrapper title="Khám cận lâm sàn" >
+      <app-subclinical-examination-type1 [Data]="dataModel"[checkgiay]="profile.certificateTypeId"
       [save]="save"></app-subclinical-examination-type1>
     </app-khoa-wrapper>
     
     <app-khoa-wrapper title="Kết luận" >
-      <app-current-conclusion-type1 [Data]="dataModel.ketluan"
+      <app-current-conclusion-type1 [Data]="dataModel.ketluan" [huyketluan]="huyketluan" [hang]="profile.reason"
       [save]="saveKL" ></app-current-conclusion-type1>
     </app-khoa-wrapper>
-    <div class="row">
-      <app-appove1 [Data]="dataModel.ketluan"[save]="approve"
+    <div class="row" style="display: flex; justify-content: space-around;">
+      <app-appove1 [Data]="dataModel.ketluan" [tdv]="dataModel.tdv" [approve]="approve" [unapprove]="unapprove" 
        ></app-appove1>
     </div>
   </div>

@@ -1,0 +1,35 @@
+<h2 style="text-align: center;">KẾT LUẬN HIỆN TẠI</h2>
+<div class="container">
+  <form autocomplete="off"
+#createketluan2="ngForm"
+(ngSubmit)="mySave()">
+  <fieldset >
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">{{defaultModel.phanloaiTitle}}</label>
+      <input class="form-control" id="exampleFormControlTextarea1" rows="4" [(ngModel)]="Data.content['text_noidung'].value"
+      [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">{{defaultModel.ketluanTitle}}</label>
+      <input class="form-control" id="exampleFormControlTextarea1" rows="4" [(ngModel)]="Data.content['text_ketluan'].value"
+      [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="form-group " style="display: flex !important;justify-content: space-around !important;">
+      <ng-container *ngIf="Data.status == 0 ||  Data.status == 2">
+        <button  class="btn btn-danger">Lưu thông tin</button>
+      </ng-container>
+      <ng-container *ngIf="Data.status == 1">
+        <div class="row">
+          <div class="col-6">
+            <button  class="btn btn-success">Đã nhập thông tin</button>
+          </div>
+          <div class="col-6">
+            <button (click)="huy()" class="btn btn-danger">Hủy kết luận</button>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </fieldset>
+</form>
+  
+</div>

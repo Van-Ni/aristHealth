@@ -12,6 +12,7 @@ export class RangHamMatComponent {
   @Input() klplModel: DefaultModel ;
   @Input() inputModel: UpdateCertificateGroupStatusDto;
   @Input() save: Function;
+  @Input() check: number;
   editClicked = false;
   constructor(protected _permissionChecker: PermissionCheckerService) { }
   mySave() {

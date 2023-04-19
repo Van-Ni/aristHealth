@@ -41,7 +41,8 @@ namespace AristBase.CRUDServices.RegionsServices
                 await _repository.InsertRangeAsync(obj);
                 await CurrentUnitOfWork.SaveChangesAsync();
                 return ObjectMapper.Map<List<RegionDto>>(obj);
-            }catch (Exception ex) { throw; }
+            }
+            catch (Exception ex) { throw; }
         }
     }
 }

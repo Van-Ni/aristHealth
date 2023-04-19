@@ -1,3 +1,32 @@
-<p>
-  chuadu18 works!
-</p>
+<h2 style="text-align: center;">Giấy khám sức khỏe dùng cho người duới 18 tuổi </h2>
+<div class="container" *ngIf="dataModel ">
+  <app-thong-tin-ca-nhan *ngIf="profile && profile.clientInfo">
+    <app-profile [profile]="profile"></app-profile>
+  </app-thong-tin-ca-nhan>
+
+  <app-khoa-wrapper title="Khám thể lực" [status]="-1">
+    <app-physical-examination  [Data]="dataModel.khamtheluc"
+    [save]="save"></app-physical-examination>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="Khám lâm sàn" [status]="-1">
+    <app-clinical-examination18min [Data]="dataModel"  [checkgiay]="profile.certificateTypeId"
+    [save]="save"
+    ></app-clinical-examination18min>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="Khám cận lâm sàn" [status]="-1">
+    <app-subclinical-examination-type18min [Data]="dataModel"  [checkgiay]="profile.certificateTypeId"
+    [save]="save"></app-subclinical-examination-type18min>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="Kết luận" [status]="-1">
+    <app-ket-luan-giay-kham [defaultModel]="chuadu18Model" [Data]="dataModel.ketluan"  [huyketluan]="huyketluan"
+    [save]="saveKL" ></app-ket-luan-giay-kham>
+  </app-khoa-wrapper>
+
+  <div class="row">
+    <app-appove1 [Data]="dataModel.ketluan" [tdv]="dataModel.tdv" [approve]="approve" [unapprove]="unapprove" 
+     ></app-appove1>
+  </div>
+</div>

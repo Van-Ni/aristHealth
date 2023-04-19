@@ -16,6 +16,7 @@ export interface ClinicalExaminationModel{
   ketluan: CertificateGroupStatusDto;
   xetnghiemkhac: CertificateGroupStatusDto;
   timmach: CertificateGroupStatusDto;
+  tdv: CertificateGroupStatusDto;
 }
 
 @Component({
@@ -26,6 +27,7 @@ export interface ClinicalExaminationModel{
 export class ClinicalExamination1Component implements AfterContentInit {
   @Input() Data: ClinicalExaminationModel;
   @Input() save: Function;
+  @Input() checkgiay: number;
   @Input() statusDataCheck: any;
   data:  any;
   statusDataCheck1: any;

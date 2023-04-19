@@ -1,5 +1,17 @@
-<div (click)="expandStatus = !expandStatus" [attr.aria-expanded]="!expandStatus" aria-controls="collapseBasic" class="khoa-wrapper" [style.background-color]="getBackgroundColor(status)">
-  <h4>{{title}}</h4>
+<div (click)="expandStatus = !expandStatus" [attr.aria-expanded]="!expandStatus" aria-controls="collapseBasic" class="" >
+  <div class="row">
+    <div class="col-4">
+      <div class="row">
+        <div class="col-1" style="display: flex;align-items: center;"> <i class="fa fa-circle fa-sm"  [style.color]="getBackgroundColor(status)"></i></div>
+        <div class="col-11">
+      
+          <h4> {{title}} </h4>
+        </div>
+      </div>
+     
+    </div>
+    
+  </div>
 </div>
 <hr>
 <div id="collapseBasic" [collapse]="expandStatus" [isAnimated]="true">

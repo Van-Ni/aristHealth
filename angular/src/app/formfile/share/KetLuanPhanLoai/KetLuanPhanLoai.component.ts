@@ -16,29 +16,26 @@ export interface DefaultModel{
 export class KetLuanPhanLoaiComponent implements OnInit{
   @Input() defaultModel: DefaultModel ;
   @Input() inputModel: CertificateGroupStatusDto
+  @Input() check: number;
   @Input() save: Function;
-  editClicked = false;
+  editClicked : boolean;
   constructor(protected _permissionChecker: PermissionCheckerService,private cdr: ChangeDetectorRef) { }
   ngOnInit(): void {
+    
   }
-
-
+  editData(){
+    this.editClicked = true;
+  }
   mySave() {
     this.save(this.inputModel)
   }
-  isEdited() {
+  isEdited(edited = false) {
     if(this._permissionChecker.isGranted(this.inputModel.group))
     {
       if(this.inputModel.status!=1) return true;
-      else if (this.editClicked) return true;
+      else if (edited) return true;
     }
     return false;
-  }
-  onEditClicked() {
-    this.editClicked = !this.editClicked;
-    this.cdr.detectChanges(); // Force view update
-    console.log(this.editClicked);
-
   }
 
 }

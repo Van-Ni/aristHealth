@@ -1,7 +1,7 @@
 <form autocomplete="off"
 #createtimmach1="ngForm"
 (ngSubmit)="mySave()">
-  <fieldset  [disabled]="isEdited()">
+  <fieldset  [disabled]="this._permissionChecker.isGranted(this.inputModel.group)">
     <div>
       
       <div class="row">

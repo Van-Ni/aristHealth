@@ -17,11 +17,11 @@ export class KhoaWrapperComponent implements OnInit {
     switch(status)
     {
       case 0:
-        return '#FA8072';
+        return 'red';
       case 1:
-        return '#90EE90';
+        return 'green';
       case 2:
-        return '#FA8072';
+        return 'red';
       default:
         return 'black';
     }

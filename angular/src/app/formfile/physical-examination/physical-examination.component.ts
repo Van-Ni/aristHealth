@@ -1,73 +1,27 @@
-import { Component, Injector, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, Input, OnInit } from '@angular/core';
 import { CertificateKeyValueComponentBase } from '@app/manager/base-certificate';
 import { DataService } from '@app/services/data.service';
 import { CertificateGroupStatusDto, Values } from '@shared/service-proxies/service-proxies';
 import { PermissionCheckerService } from 'abp-ng2-module';
-class KhamTheLucViewModel {
-  khamtheluc_text_cannang: string;
-  khamtheluc_text_chieucao: string;
-  khamtheluc_text_mach: string;
-  khamtheluc_text_huyetap: string;
-  khamtheluc_text_phanloaitheluc: string;
-}
+import { Du18Model } from '../du18/du18.component';
+import { DefaultModel } from '../share/KetLuanPhanLoai/KetLuanPhanLoai.component';
 @Component({
   selector: 'app-physical-examination',
   templateUrl: './physical-examination.component.html',
   styleUrls: ['./physical-examination.component.css']
 })
-export class PhysicalExaminationComponent extends CertificateKeyValueComponentBase<KhamTheLucViewModel> implements OnInit {
-  setViewModel(model: any) {
-    let object = Object.fromEntries(new Map(model.items.map(obj=>{
-      return [obj.key, obj.value]})));
-      this.khamtheluc = object as unknown as KhamTheLucViewModel;
+export class PhysicalExaminationComponent implements OnInit {
+  @Input() save: Function;
+  @Input() Data: CertificateGroupStatusDto;
+  @Input() huyketluan: Function;
+  constructor(protected _permissionChecker: PermissionCheckerService) { }
+  ngOnInit(): void {
   }
-  khamtheluc: KhamTheLucViewModel;
-  @Input() Data: any;
-  @Input() statusDataCheck: any;
-  data:  any;
-  statusDataCheck1: any;
-  keys = [""];
-  isEditable= false;
-  certificateId: string;
-  certificateStatus: CertificateGroupStatusDto;
-  status = false;
-  constructor(private _permissionChecker: PermissionCheckerService,private dataservice: DataService,private injector: Injector) { 
-    super(injector, dataservice)
-    this.group = "khamtheluc";
-   }
-
-   ngOnInit() {
-    super.ngOnInit();
-    if(this._permissionChecker.isGranted("Pages.KhamTheLuc.Create")){
-      this.isEditable = true;
-      console.log(this.isEditable) 
-    }
+  mySave() {
+    this.save(this.Data)
   }
-  save(): void{
-    
-    // const input = new CreateCertificateGroupStatusDto(
-    //   {
-    //     userId : this.appSession.userId,
-    //     certificateId: this.certificateId,
-    //     group: this.group,
-    //     status : false,
-    //     content : new KeyValues(data),
-    //   }
-    // );
-    // if(this.status == true){
-    //   this.khamTheLucServiceServiceProxy.updateOrInsert(input).subscribe(
-    //     () => {
-    //       this.notify.info(this.l('SavedSuccessfully.'));
-    //       this.dataservice.refreshData(this.certificateId);
-    //     },
-    //   );
-    // }else{
-    //   this.khamTheLucServiceServiceProxy.createList(input).subscribe(
-    //     () => {
-    //       this.notify.info(this.l('SavedSuccessfully.'));
-    //       this.dataservice.refreshData(this.certificateId);
-    //     },
-    //   );
-    // }
+  huy()
+  {
+    this.huyketluan(this.Data)
   }
 }

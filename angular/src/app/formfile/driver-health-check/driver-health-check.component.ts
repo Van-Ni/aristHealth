@@ -7,6 +7,8 @@ import {  ApproveServiceServiceProxy, CertificateDto, CertificateGroupStatusDto,
 import { ClinicalExaminationModel } from './clinical-examination1/clinical-examination1.component';
 import { GroupStatusServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/app-component-base';
+import { error } from 'console';
+import { DefaultModel } from '../share/KetLuanPhanLoai/KetLuanPhanLoai.component';
 @Component({
   selector: 'app-driver-health-check',
   templateUrl: './driver-health-check.component.html',
@@ -33,7 +35,12 @@ export class DriverHealthCheckComponent extends AppComponentBase implements OnIn
      private ketluanService: KetLuanServicesServiceProxy, private approveService: ApproveServiceServiceProxy) {
       super(injecter)
      }
-
+     laixeModel: DefaultModel ={
+      ketluanTitle : "Kết luận",
+      phanloaiTitle: "Nội dung",
+      optionsKetLuan :[],
+      optionsPhanLoai: []
+    }
   ngOnInit() {
       this.dataService.getAllKeyData().subscribe((result: CertificateGroupStatusDtoPagedResultDto) => {
       if(!result) return;
@@ -51,6 +58,7 @@ export class DriverHealthCheckComponent extends AppComponentBase implements OnIn
         noitiet: this.certificateStatusResult.items.find(i=>i.group=="noitiet"),
         xetnghiemkhac: this.certificateStatusResult.items.find(i=>i.group=="xetnghiemkhac"),
         xetnghiemmatuyvamau: this.certificateStatusResult.items.find(i=>i.group=="xetnghiemmatuyvamau"),
+        tdv: this.certificateStatusResult.items.find(i=>i.group=="tdv"),
       }
       console.log(this.dataModel);
       
@@ -97,8 +105,24 @@ export class DriverHealthCheckComponent extends AppComponentBase implements OnIn
       this.getAllData();
     },)
   }
+  huyketluan = (entity :CertificateGroupStatusDto) =>{
+    const inputEntity = new UpdateCertificateGroupStatusDto();
+    inputEntity.id = entity.id;
+    inputEntity.certificateId = entity.certificateId;
+    inputEntity.content = entity.content;
+    inputEntity.group = entity.group;
+    inputEntity.status = entity.status;
+    this.ketluanService.huyKetLuan(inputEntity).subscribe(
+      () => {
+      this.notify.info('SavedSuccessfully.');
+      //this.getAllData();
+      },
+      ()=>{
+        console.log("error");
+      }
+      )
+  }
   approve =()=>{
-    console.log();
     this.approveService.approve(this.route.snapshot.params['id']).subscribe(
       ()=>{
         this.notify.info('SavedSuccessfully.');
@@ -106,7 +130,15 @@ export class DriverHealthCheckComponent extends AppComponentBase implements OnIn
       },
     )
   }
-
+  unapprove =()=>{
+    this.approveService.unApprove(this.route.snapshot.params['id']).subscribe(
+      ()=>{
+        this.notify.info('SavedSuccessfully.');
+        this.getAllData();
+      },
+      
+    )
+  }
 }
 
 

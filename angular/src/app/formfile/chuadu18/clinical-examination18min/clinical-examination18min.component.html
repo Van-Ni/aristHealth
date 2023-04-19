@@ -1,0 +1,39 @@
+<h2 style="text-align: center;">Khám lâm sàn</h2>
+<div class="container">
+  <app-khoa-wrapper title="1. Tuần hoàn" [status]="Data.tuanhoan.status">
+    <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.tuanhoan" [save]="save" [check]="checkgiay"></app-KetLuanPhanLoai>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="2. Hô hấp" [status]="Data.hohap.status">
+    <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.hohap" [save]="save" [check]="checkgiay"></app-KetLuanPhanLoai>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="3. Tiêu hóa" [status]="Data.tieuhoa.status">
+    <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.tieuhoa" [save]="save" [check]="checkgiay"></app-KetLuanPhanLoai>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="4. Thận tiết niệu" [status]="Data.thantietnieu.status">
+    <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.thantietnieu" [save]="save" [check]="checkgiay"></app-KetLuanPhanLoai>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="5. Thần kinh - Tâm thần" [status]="Data.thankinh.status">
+    <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.thankinh" [save]="save" [check]="checkgiay"></app-KetLuanPhanLoai>
+  </app-khoa-wrapper>
+
+  <!-- <app-khoa-wrapper title="6. Khám lâm sàn khác" [status]="Data.kham.status">
+    <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.thantietnieu"
+      [save]="save"></app-KetLuanPhanLoai>
+  </app-khoa-wrapper> -->
+
+  <app-khoa-wrapper title="7. Mắt" [status]="Data.mat.status">
+    <app-mat18 [inputModel]="Data.mat" [save]="save" [check]="checkgiay"></app-mat18>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="8. Tai mũi họng" [status]="Data.taimuihong.status">
+    <app-tai-mui-hong [inputModel]="Data.taimuihong" [save]="save" [check]="checkgiay"></app-tai-mui-hong>
+  </app-khoa-wrapper>
+
+  <app-khoa-wrapper title="9. Răng hàm mặt" [status]="Data.ranghammat.status">
+    <app-rang-ham-mat [inputModel]="Data.ranghammat" [save]="save" [check]="checkgiay"></app-rang-ham-mat>
+  </app-khoa-wrapper>
+</div>
