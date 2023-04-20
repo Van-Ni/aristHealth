@@ -39,7 +39,7 @@ namespace AristBase.Services
             this._certificateRepository = certificateRepository;
             this._certificateStatus = certificateStatus;
         }
-        public async Task<ActionResult> FillPDFWithCertificate(Guid cerId)
+        public async Task<FileStreamResult> FillPDFWithCertificate(Guid cerId)
         {
             var cerStatusData = await _certificateStatus.GetAll()
                  .Where(c => c.CertificateId == cerId).Include(c => c.User).ToListAsync();
@@ -47,6 +47,11 @@ namespace AristBase.Services
             {
                 throw new UserFriendlyException("Vui lòng khám đầy đủ");
             }
+            var unSignUser = cerStatusData.Where(c => c.Status == GroupStatus.SUBMITTED && string.IsNullOrEmpty(c.User.SignPath)).Select(c => c.User.FullName).Distinct();
+            if (unSignUser.Any())
+            {
+                throw new UserFriendlyException(string.Format("Chưa có chữ ký: {0}", string.Join(", ", unSignUser)));
+            };
             //var now = Clock.Now;
             var cerUserDic = cerStatusData.ToDictionary(c => c.Group, c => ObjectMapper.Map<CertificateGroupStatusDto>(c));
 
