@@ -8,6 +8,7 @@ import { finalize } from 'rxjs';
 import { CertificateDto } from '@shared/service-proxies/service-proxies';
 class PagedCertificatesRequestDto extends PagedRequestDto {
   keyword: string;
+  filter: string;
 }
 export interface RegionDtlFull{
   id: string | undefined;
@@ -23,7 +24,7 @@ export interface RegionDtlFull{
 export class CertificateComponent  extends PagedListingComponentBase<CertificateDto> {
   Certificates: CertificateDto[] = [];
   keyword = '';
-
+  filter='creationTime desc';
   constructor(
     injector: Injector,
     private _certificatesService: CertificateServiceServiceProxy,
@@ -39,9 +40,9 @@ export class CertificateComponent  extends PagedListingComponentBase<Certificate
     finishedCallback: Function
   ): void {
     request.keyword = this.keyword;
-
+    this.filter = request.filter;
     this._certificatesService
-      .getAll("creationTime desc","",request.keyword, request.skipCount, request.maxResultCount)
+      .getAll(this.filter,"",request.keyword, request.skipCount, request.maxResultCount)
       .pipe(
         finalize(() => {
           finishedCallback();
@@ -54,7 +55,22 @@ export class CertificateComponent  extends PagedListingComponentBase<Certificate
         
       });
   }
-
+  getIncrease():void{
+    const request = new PagedCertificatesRequestDto();
+    request.keyword = 'certificate';
+    request.filter = 'status desc';
+    console.log(request);
+    
+    this.list(request, this.pageNumber, () => {});
+  }
+  getReduce():void{
+    const request = new PagedCertificatesRequestDto();
+    request.keyword = 'certificate';
+    request.filter = 'status asc';
+    console.log(request);
+    
+    this.list(request, this.pageNumber, () => {});
+  }
   delete(Certificate: CertificateDto): void {
     abp.message.confirm(
       this.l('CertificateDeleteWarningMessage', Certificate.clientInfo.fullName),
