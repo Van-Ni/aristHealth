@@ -76,7 +76,8 @@ namespace AristBase.Services
             {
                 Value = cer.ClientInfo.DateOfBirth
             };
-            dic[PDFFieldConst.Address] = new Values { Value = cer.ClientInfo.Address };
+            dic[PDFFieldConst.Address] = new Values { Value = string.Join(", ", cer.ClientInfo.Address, cer.ClientInfo.Commune, " ") };
+            dic[PDFFieldConst.Address1] = new Values { Value = string.Join(", ", cer.ClientInfo.District, cer.ClientInfo.Province) };
             dic[PDFFieldConst.Reason] = new Values { Value = cer.Reason };
             dic[PDFFieldConst.CCCD] = new Values { Value = cer.ClientInfo.CCCD };
             dic[PDFFieldConst.CCCDTai] = new Values { Value = cer.ClientInfo.AddressCCCD };

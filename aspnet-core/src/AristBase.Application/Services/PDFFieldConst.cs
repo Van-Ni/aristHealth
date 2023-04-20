@@ -25,6 +25,7 @@ namespace AristBase.Services
         public const string CCCDNC = "text_cccdngaycap";
         public const string CCCDTai = "text_cccdtai";
         public const string Address = "text_address";
+        public const string Address1 = "text_address1";
         public const string Reason = "text_lidokham";
         public const string DayText = "text_thu";
         public const string Day = "text_ngay";
