@@ -42,7 +42,6 @@ namespace AristBase.BaseEntity
     public enum PaymentStatus : byte
     {
         Unpaid = 0,
-        Deposit = 1,
-        Paid = 2,
+        Paid = 1,
     }
 }

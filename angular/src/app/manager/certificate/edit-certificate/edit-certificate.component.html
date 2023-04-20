@@ -97,7 +97,7 @@
       <label for="province" class="col-sm-3 col-form-label">Tỉnh</label>
       <div class="col-sm-9">
         <select class="form-control" [(ngModel)]="certificate.clientInfo.province" [ngModelOptions]="{standalone: true}"
-          (change)="getRegions()">
+          >
           <option *ngFor="let item of provinces" value="{{item.id}}">{{item.id}}-{{item.name}}</option>
         </select>
       </div>
@@ -106,7 +106,7 @@
       <label for="district" class="col-sm-3 col-form-label">Huyện</label>
       <div class="col-sm-9">
         <select class="form-control" [(ngModel)]="certificate.clientInfo.district" [ngModelOptions]="{standalone: true}"
-          (change)="getRegions()">
+          >
           <option *ngFor="let item of districts " value="{{item.id}}">{{item.id}}-{{item.name}}</option>
         </select>
       </div>
@@ -120,7 +120,7 @@
       </div>
     </div>
 
-    <div class="form-group row" *ngIf="certificate.certificateTypeId != 1">
+    <div class="form-group row" *ngIf="certificate.certificateTypeId == 3">
       <label for="GuardianName" class="col-sm-3 col-form-label">Họ và tên bố, mẹ hoặc người giám hộ</label>
       <div class="col-sm-9">
         <input type="text" class="form-control" id="GuardianName" [(ngModel)]="certificate.clientInfo.guardianName"
@@ -133,18 +133,17 @@
       <div class="col-sm-9">
         <select class="form-control" [(ngModel)]="certificate.paymentStatus" [ngModelOptions]="{standalone: true}">
           <option value="0">Chưa thanh toán</option>
-          <option value="1">Đã đóng trước 1 phần</option>
-          <option value="2">Đã thanh toán</option>
+          <option value="1">Đã thanh toán</option>
         </select>
       </div>
     </div>
-    <div class="form-group row">
+    <!-- <div class="form-group row">
       <label for="amountPaid" class="col-sm-3 col-form-label">Số tiền đã thanh toán</label>
       <div class="col-sm-9">
         <input type="text" class="form-control" id="amountPaid" [(ngModel)]="certificate.amountPaid"
           [ngModelOptions]="{standalone: true}" placeholder="Số tiền đã thanh toán">
       </div>
-    </div>
+    </div> -->
     <div class="form-group row" *ngIf="certificate.certificateTypeId == 1">
       <label for="amountPaid" class="col-sm-3 col-form-label">Hạng</label>
       <div class="col-sm-9">

@@ -23,32 +23,32 @@ export class Appove1Component  {
   unapproveFc(){
     this.unapprove()
   }
-  // print(): void
-  // {
-  //   if(this.status)
-  //   {
-  //     this.PDFServiceServiceProxy.fillPDFWithCertificate(this.certificateId).subscribe(
-  //       (response: any) => {
-  //         console.log(response);
+  print(): void
+  {
+    // if(this.status)
+    // {
+    //   this.PDFServiceServiceProxy.fillPDFWithCertificate(this.certificateId).subscribe(
+    //     (response: any) => {
+    //       console.log(response);
 
-  //         if (response) { // Check if the response body is not null or undefined
-  //           //const blob = new Blob([response.body], { type: 'application/pdf' });
-  //           const url = URL.createObjectURL(response);
-  //           const link = document.createElement('a');
-  //           link.href = url;
-  //           link.download = 'filled_certificate.pdf';
-  //           link.target = '_blank';
-  //           link.click();
-  //         } else {
-  //           // Handle null or undefined response body
-  //           console.error('Response body is null or undefined');
-  //         }
-  //       },
-  //       error => {
-  //         // Handle error
-  //         console.error(error);
-  //       }
-  //     );
-  //   }
-  // }
+    //       if (response) { // Check if the response body is not null or undefined
+    //         //const blob = new Blob([response.body], { type: 'application/pdf' });
+    //         const url = URL.createObjectURL(response);
+    //         const link = document.createElement('a');
+    //         link.href = url;
+    //         link.download = 'filled_certificate.pdf';
+    //         link.target = '_blank';
+    //         link.click();
+    //       } else {
+    //         // Handle null or undefined response body
+    //         console.error('Response body is null or undefined');
+    //       }
+    //     },
+    //     error => {
+    //       // Handle error
+    //       console.error(error);
+    //     }
+    //   );
+    // }
+  }
 }

@@ -1,6 +1,9 @@
 ﻿using Abp.Application.Services;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Domain.Repositories;
+using Abp.UI;
+using AristBase.Authorization;
 using AristBase.BaseEntity;
 using AristBase.CRUDServices.CertificateGroupStatusServices.Dto;
 using AristBase.Interfaces;
@@ -43,24 +46,28 @@ namespace AristBase.CRUDServices.CertificateGroupStatusServices
         public virtual async ValueTask<CertificateGroupStatusDto> UpdateOrInsert(UpdateCertificateGroupStatusDto input)
         {
             SetPermision(input.Group);
-            //CheckUpdatePermission();
-            //CustomCheckPermission(input);
-            var check = await Repository.GetAll().Where(w => w.CertificateId == input.CertificateId && w.Group == this._permissionName).FirstOrDefaultAsync();
-            if (check != null)
+            CheckCreatePermission();
+            var checkKl = await Repository.GetAll().Where(w => w.CertificateId == input.CertificateId && w.Group == PermissionNames.KetLuan && w.Status == GroupStatus.SUBMITTED).FirstOrDefaultAsync();
+            if (checkKl == null)
             {
-                check.Content = input.Content;
-                check.UserId = AbpSession.UserId;
-                check.Status = GroupStatus.SUBMITTED;
-                await Repository.UpdateAsync(check);
-                await CurrentUnitOfWork.SaveChangesAsync();
+                var check = await Repository.GetAll().Where(w => w.CertificateId == input.CertificateId && w.Group == this._permissionName).FirstOrDefaultAsync();
+                if (check != null)
+                {
+                    check.Content = input.Content;
+                    check.UserId = AbpSession.UserId;
+                    check.Status = GroupStatus.SUBMITTED;
+                    await Repository.UpdateAsync(check);
+                    await CurrentUnitOfWork.SaveChangesAsync();
 
-                return ObjectMapper.Map<CertificateGroupStatusDto>(check);
+                    return ObjectMapper.Map<CertificateGroupStatusDto>(check);
+                }
+                var obj = ObjectMapper.Map<CertificateGroupStatus>(input);
+                obj.UserId = AbpSession.UserId;
+                await Repository.InsertAsync(obj);
+                await CurrentUnitOfWork.SaveChangesAsync();
+                return ObjectMapper.Map<CertificateGroupStatusDto>(input);
             }
-            var obj = ObjectMapper.Map<CertificateGroupStatus>(input);
-            obj.UserId = AbpSession.UserId;
-            await Repository.InsertAsync(obj);
-            await CurrentUnitOfWork.SaveChangesAsync();
-            return ObjectMapper.Map<CertificateGroupStatusDto>(input);
+            throw new UserFriendlyException("Đã kết luận, không được thay đổi dữ liệu");
         }
         public async override Task<PagedResultDto<CertificateGroupStatusDto>> GetAllAsync(ParentPagedAndSortedResultRequestDto input)
         {

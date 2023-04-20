@@ -47,7 +47,7 @@ namespace AristBase.CRUDServices.CertificateGroupStatusServices
                 await CurrentUnitOfWork.SaveChangesAsync();
                 return ObjectMapper.Map<CertificateGroupStatusDto>(getData);
             }
-            throw new UserFriendlyException("Error");
+            throw new UserFriendlyException("Đã duyệt nên không thể hủy kết luận.");
 
         }
     }

@@ -43,42 +43,42 @@ export class EditCertificateComponent extends AppComponentBase implements OnInit
     console.log("commune",this.certificate.clientInfo.commune);
     this.regionService.getAll(this.certificate.clientInfo.province, this.certificate.clientInfo.district).subscribe(
       (result: RegionDto[]) => {
-        if (this.certificate.clientInfo.province == null && this.certificate.clientInfo.district == null) {
+        // if (this.certificate.clientInfo.province == null && this.certificate.clientInfo.district == null) {
           
-          this.provinces = result.map(r => {
-            return {
-              childrent: [],
-              name: r.name,
-              id: r.id,
-              parentId: r.parentId
-            };
-          })
-          console.log(this.provinces);
-        }
-        else if (this.certificate.clientInfo.province != null && this.certificate.clientInfo.district == null) {
+        //   this.provinces = result.map(r => {
+        //     return {
+        //       childrent: [],
+        //       name: r.name,
+        //       id: r.id,
+        //       parentId: r.parentId
+        //     };
+        //   })
+        //   console.log(this.provinces);
+        // }
+        // else if (this.certificate.clientInfo.province != null && this.certificate.clientInfo.district == null) {
           
-          this.districts = result.map(r => {
-            return {
-              childrent: [],
-              name: r.name,
-              id: r.id,
-              parentId: r.parentId
-            };
-          })
-          console.log(this.districts);
-        }
-        else if (this.certificate.clientInfo.province != null && this.certificate.clientInfo.district != null){
-          this.communes = result.map(r => {
-            return {
-              childrent: [],
-              name: r.name,
-              id: r.id,
-              parentId: r.parentId
-            };
-          })
-          console.log(this.communes);
+        //   this.districts = result.map(r => {
+        //     return {
+        //       childrent: [],
+        //       name: r.name,
+        //       id: r.id,
+        //       parentId: r.parentId
+        //     };
+        //   })
+        //   console.log(this.districts);
+        // }
+        // else if (this.certificate.clientInfo.province != null && this.certificate.clientInfo.district != null){
+        //   this.communes = result.map(r => {
+        //     return {
+        //       childrent: [],
+        //       name: r.name,
+        //       id: r.id,
+        //       parentId: r.parentId
+        //     };
+        //   })
+        //   console.log(this.communes);
           
-        }
+        // }
       }
     );
   }
