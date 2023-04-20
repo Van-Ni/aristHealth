@@ -1,7 +1,7 @@
 <form autocomplete="off"
 #createxetnghiemmatuyvamau="ngForm"
 (ngSubmit)="mySave()">
-  <fieldset [disabled]="this._permissionChecker.isGranted(this.inputModel.group)" >
+  <fieldset [disabled]="!this._permissionChecker.isGranted('Pages.' +this.inputModel.group)" >
     <div class="container">
       <p>1. Các xét nghiệm bắt buộc</p>
       <p>a. Xét nghiệm ma túy</p>
@@ -61,6 +61,6 @@
         </ng-container>
       </div>
     </div>
-  
+
   </fieldset>
 </form>

@@ -4,7 +4,7 @@
   <form  autocomplete="off"
   #createTuanHoan1="ngForm"
   (ngSubmit)="mySave()">
-    <fieldset [disabled]="this._permissionChecker.isGranted(this.inputModel.group)">
+    <fieldset [disabled]="!this._permissionChecker.isGranted('Pages.' +this.inputModel.group)">
       <div class="form-group row">
         <div class="input-group">
           <label for="chieucao" class="col-sm-2 col-form-label">Số lượng HC</label>

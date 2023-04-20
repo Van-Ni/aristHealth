@@ -1,9 +1,9 @@
 <form autocomplete="off"
 #createtimmach1="ngForm"
 (ngSubmit)="mySave()">
-  <fieldset  [disabled]="this._permissionChecker.isGranted(this.inputModel.group)">
+  <fieldset  [disabled]="!this._permissionChecker.isGranted('Pages.' +this.inputModel.group)">
     <div>
-      
+
       <div class="row">
         <div class="col-6">
           <div class="form-group row">

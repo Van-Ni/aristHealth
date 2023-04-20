@@ -23,7 +23,7 @@ export class XetNghiemMauComponent implements OnInit{
   }
   isEdited() {
 
-    if(this._permissionChecker.isGranted(this.inputModel.group))
+    if(this._permissionChecker.isGranted('Pages.' +this.inputModel.group))
     {
       if(this.inputModel.status!=1) return true;
       else if (this.editClicked) return true;

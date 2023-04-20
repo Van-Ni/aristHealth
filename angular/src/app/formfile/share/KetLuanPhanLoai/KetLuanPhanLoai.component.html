@@ -7,7 +7,7 @@
 *ngIf="this.inputModel"
 #createCoXuongKhop="ngForm"
 (ngSubmit)="mySave()">
-  <fieldset [disabled]="(this._permissionChecker.isGranted(this.inputModel.group))">
+  <fieldset [disabled]="(!this._permissionChecker.isGranted('Pages.' +this.inputModel.group))">
     <div style="margin-top: 0.5rem;">
       <div class="form-group row" *ngIf="check!=3">
         <label for="" class="col-sm-2 col-form-label">{{defaultModel.phanloaiTitle}}</label>
@@ -26,11 +26,11 @@
             [ngModelOptions]="{standalone: true}"/>
             <datalist id="phanloaiCsk1" *ngIf="defaultModel.optionsKetLuan">
               <option *ngFor="let item of defaultModel.optionsKetLuan">{{item}}</option>
-  
+
             </datalist>
           </div>
       </div>
-      
+
       <div class="form-group " style="display: flex !important;justify-content: space-around !important;">
         <ng-container *ngIf="inputModel.status != 1">
           <button  class="btn btn-danger">Lưu thông tin</button>
@@ -39,7 +39,7 @@
           <button  class="btn btn-success">Đã nhập thông tin</button>
         </ng-container>
       </div>
-      
+
     </div>
   </fieldset>
 </form>

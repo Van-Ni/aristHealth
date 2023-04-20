@@ -2,7 +2,7 @@
   <form autocomplete="off"
   #createTuanHoan1="ngForm"
   (ngSubmit)="mySave()">
-    <fieldset [disabled]="this._permissionChecker.isGranted(this.inputModel.group)">
+    <fieldset [disabled]="!this._permissionChecker.isGranted('Pages.' +this.inputModel.group)">
       <div class="form-group">
         <label for="exampleFormControlTextarea1"></label>
         <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"[(ngModel)]="inputModel.content['text_chandoan'].value"

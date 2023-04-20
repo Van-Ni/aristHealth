@@ -1,11 +1,11 @@
-<!-- 
+<!--
 <div style="display: flex;justify-content: flex-end;">
   <div *ngIf="inputModel.status ==1" >
     <button (click)="isEdited()" class="btn btn-primary">Nhấn để sửa</button>
   </div>
 </div> -->
 <form autocomplete="off" #createMat1="ngForm" (ngSubmit)="mySave()">
-  <fieldset [disabled]="this._permissionChecker.isGranted(this.inputModel.group)">
+  <fieldset [disabled]="!this._permissionChecker.isGranted('Pages.' +this.inputModel.group)">
     <div>
       <p>3. Mắt</p>
       <p>-Thị lực nhìn xa từng mắt:</p>

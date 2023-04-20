@@ -20,7 +20,7 @@ export class TaiMuiHongComponent {
   }
   isEdited() {
     //
-    if(this._permissionChecker.isGranted(this.inputModel.group) && this.inputModel.status!=1) 
+    if(this._permissionChecker.isGranted('Pages.' +this.inputModel.group) && this.inputModel.status!=1)
     { return true;
     }
     return false;

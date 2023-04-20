@@ -1,7 +1,7 @@
 <form autocomplete="off" #createMat1="ngForm" (ngSubmit)="mySave()">
-  <fieldset [disabled]="this._permissionChecker.isGranted(this.inputModel.group)">
+  <fieldset [disabled]="!this._permissionChecker.isGranted('Pages.' +this.inputModel.group)">
     <div>
-      
+
       <p>-Kết quả khám :</p>
       <div class="row">
         <div class="col-12">

@@ -3,7 +3,7 @@
   <form autocomplete="off"
 #createketluan2="ngForm"
 (ngSubmit)="mySave()">
-  <fieldset [disabled]="this._permissionChecker.isGranted(this.Data.group)">
+  <fieldset [disabled]="!this._permissionChecker.isGranted('Pages.' +this.Data.group)">
     <div class="form-group">
       <label for="exampleFormControlTextarea1">{{defaultModel.phanloaiTitle}}</label>
       <input list="phanloaiCsk18" class="form-control" id="exampleFormControlTextarea1"  rows="4" [(ngModel)]="Data.content['text_noidung'].value"
@@ -30,12 +30,12 @@
       <ng-container *ngIf="Data.status == 1">
         <div class="row" >
             <button class="btn btn-success">Đã nhập thông tin</button>
-          
+
             <button (click)="huy()"  type="button"  class="btn btn-danger" style="margin-left: 10px;">Hủy kết luận</button>
         </div>
       </ng-container>
     </div>
   </fieldset>
 </form>
-  
+
 </div>
