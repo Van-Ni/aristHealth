@@ -3,13 +3,6 @@
   <form autocomplete="off" #createketluan2="ngForm" (ngSubmit)="mySave()" *ngIf="this.Data?.content['text_ketluan']">
     <fieldset [disabled]="this._permissionChecker.isGranted(this.Data.group)">
       <div class="form-group">
-        <!-- <label for="exampleFormControlTextarea1">Kết luận</label>
-      <input class="form-control" list="ketluanlaixe" id="exampleFormControlTextarea1" rows="4" [(ngModel)]="Data.content['text_ketluan'].value"
-      [ngModelOptions]="{standalone: true}"> 
-      <datalist id="ketluanlaixe">
-        <option value="Đủ điều kiện lái xe hạng {{hang}}">Đủ điều kiện lái xe hạng {{hang}}</option>
-        <option value="Không đủ điều kiện lái xe hạng {{hang}}">Không đủ điều kiện lái xe hạng {{hang}}</option>
-      </datalist> -->
         <div class="form-check" *ngFor="let item of options">
           <label class="form-check-label">
             <input type="radio" class="form-check-input" name="optradio" [(ngModel)]="Data.content['text_ketluan'].realValue"
@@ -22,7 +15,8 @@
           <label for="CCCD" class="col-sm-2 col-form-label">Ngày khám lại: </label>
           <div class="col-sm">
             <div>
-              <input type="text" placeholder="Ngày khám lại" class="form-control"
+              <input type="text" placeholder="Ngày khám lại" class="form-control"[(ngModel)]="Data.content['text_ngaykhamlai'].value"
+              [ngModelOptions]="{standalone: true}"
                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
             </div>
           </div>
@@ -31,7 +25,8 @@
           <label for="CCCD" class="col-sm-2 col-form-label">Lý do khám: </label>
           <div class="col-sm">
             <div>
-              <input type="text" placeholder="Lý do khám" class="form-control">
+              <input type="text" placeholder="Lý do khám" class="form-control" [(ngModel)]="Data.content['text_lydokham'].value"
+              [ngModelOptions]="{standalone: true}">
             </div>
           </div>
         </div>
@@ -44,7 +39,7 @@
         <ng-container *ngIf="Data.status == 1">
           <div class="row">
             <button class="btn btn-success">Đã nhập thông tin</button>
-            <button (click)="huy()" class="btn btn-danger" style="margin-left: 10px;">Hủy kết luận</button>
+            <button (click)="huy()" type="button" class="btn btn-danger" style="margin-left: 10px;">Hủy kết luận</button>
           </div>
         </ng-container>
       </div>

@@ -42,7 +42,6 @@ namespace AristBase.CRUDServices.CertificateServices
             query = query.Include(i => i.ClientInfo).Include(i => i.CertificateType).WhereIf(!input.Keyword.IsNullOrWhiteSpace(), x => x.ClientInfo.FullName.Contains(input.Keyword)
                 || x.CertificateType.Name.Contains(input.Keyword)
                 || x.ClientInfo.CCCD.Contains(input.Keyword)
-                || x.CreationTime.ToString("dd/MM/YYYY").Contains(input.Keyword)
                 );
             var totalCount = await AsyncQueryableExecuter.CountAsync(query);
 

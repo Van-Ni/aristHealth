@@ -3,10 +3,10 @@ import { PermissionCheckerService } from 'abp-ng2-module';
 import { ClinicalExaminationModel } from '../clinical-examination1/clinical-examination1.component';
 import { CertificateGroupStatusDto } from '@shared/service-proxies/service-proxies';
 import { DefaultModel } from '@app/formfile/share/KetLuanPhanLoai/KetLuanPhanLoai.component';
+import * as moment from 'moment';
 export class Selections {
   value: string;
   realvalue: string;
-  isSelected: boolean;
 }
 @Component({
   selector: 'app-current-conclusion-type1',
@@ -25,26 +25,20 @@ export class CurrentConclusionType1Component implements OnInit {
   showForm = false;
   constructor(protected _permissionChecker: PermissionCheckerService) { }
 
-  check(value: boolean) {
-    this.showForm = value;
-    console.log(this.showForm);
-  }
-
   ngOnInit(): void {
+    console.log("Data1", this.Data);
+    
     this.options = [
       {
         value: `Đủ điều kiện lái xe hạng ${this.hang}`,
-        isSelected: true,
         realvalue: `A0-1`,
       },
       {
         value: `Không đủ điều kiện lái xe hạng ${this.hang}`,
-        isSelected: false,
         realvalue: `A0-2`,
       },
       {
         value: `Đủ điều kiện lại xe hạng ${this.hang} nhưng cần khám lại`,
-        isSelected: false,
         realvalue: `A0-3`,
       }      
     ]
@@ -53,6 +47,12 @@ export class CurrentConclusionType1Component implements OnInit {
   mySave() {
     let title = this.options.find(o=>o.realvalue == this.Data.content['text_ketluan'].realValue)
     this.Data.content['text_ketluan'].value = title.value;
+    const dateString = this.Data.content['text_ngaykhamlai'].value;
+    const momentObj = moment(dateString, "YYYY-MM-DD"); 
+    const formattedDate = momentObj.format("DD/MM/YYYY"); 
+    this.Data.content['text_ngaykhamlai'].value = formattedDate; 
+    // const newLocal = this;
+    // newLocal.Data.content['text_ngaykhamlai'].value = formattedDate
     console.log(this.Data);
     this.save(this.Data)
   }

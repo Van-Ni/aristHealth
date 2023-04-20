@@ -170,9 +170,9 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                             DefaultStatus = GroupStatus.UNREADY,
                             DefaultContent = new Dictionary<string, Values>
                             {
-                                { "text_ketluan" , new Values { Value = "Đủ điều kiện sức khỏe lái xe hạng: " }},
-                                //{ "text_ngaykhamlai" , new Values { Value = "Đủ điều kiện sức khỏe lái xe hạng: " }},
-                                //{ "text_lydokham" , new Values { Value = "Đủ điều kiện sức khỏe lái xe hạng: " }},
+                                { "text_ketluan" , new Values { Value = "", RealValue = "A0-1" }},
+                                { "text_ngaykhamlai" , new Values { Value = "" }},
+                                { "text_lydokham" , new Values { Value = "" }},
                             },
                         },
                         new TemplateGroup

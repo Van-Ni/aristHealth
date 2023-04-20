@@ -83,7 +83,8 @@ import {XetNghiemKhacChua18Component} from './formfile/chuadu18/subclinical-exam
 import {KetLuanGiayKhamComponent} from './formfile/share/ket-luan-giay-kham/ket-luan-giay-kham.component';
 //service
 import {DataService} from './services/data.service';
-import {LoadingService} from './services/loader/loading.service'
+import {LoadingService} from './services/loader/loading.service';
+import {RegionsService} from './services/regions.service';
 @NgModule({
     declarations: [
         AppComponent,
@@ -172,6 +173,6 @@ import {LoadingService} from './services/loader/loading.service'
         MatAutocompleteModule,
 
     ],
-    providers: [DataService,LoadingService]
+    providers: [DataService,LoadingService,RegionsService,]
 })
 export class AppModule {}
