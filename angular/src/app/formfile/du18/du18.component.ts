@@ -114,7 +114,7 @@ export class Du18Component extends AppComponentBase implements OnInit {
     console.log(inputEntity);
     this.groupStatusService.updateOrInsert(inputEntity).subscribe(
       () => {
-      this.notify.info('SavedSuccessfully.');
+      this.notify.info('Lưu thành công.');
       this.getAllData();
     },)
   }
@@ -128,7 +128,7 @@ export class Du18Component extends AppComponentBase implements OnInit {
     console.log(inputEntity);
     this.ketluanService.updateOrInsert(inputEntity).subscribe(
       () => {
-      this.notify.info('SavedSuccessfully.');
+      this.notify.info('Lưu thành công.');
       this.getAllData();
     },)
   }
@@ -143,7 +143,7 @@ export class Du18Component extends AppComponentBase implements OnInit {
     
     this.ketluanService.huyKetLuan(inputEntity).subscribe(
       () => {
-      this.notify.info('SavedSuccessfully.');
+      this.notify.info('Lưu thành công.');
       this.getAllData();
       },
       ()=>{
@@ -154,7 +154,7 @@ export class Du18Component extends AppComponentBase implements OnInit {
   approve =()=>{
     this.approveService.approve(this.route.snapshot.params['id']).subscribe(
       ()=>{
-        this.notify.info('SavedSuccessfully.');
+        this.notify.info('Lưu thành công.');
         this.getAllData();
       },
     )

@@ -40,7 +40,7 @@ export class EditCertificateTypeComponent extends AppComponentBase implements On
       .update(certificateType)
       .subscribe(
         () => {
-          this.notify.info(this.l('SavedSuccessfully'));
+          this.notify.info(this.l('Lưu thành công'));
           this.bsModalRef.hide();
           this.onSave.emit();
         },

@@ -95,7 +95,7 @@ export class EditCertificateComponent extends AppComponentBase implements OnInit
     this.certificateServiceServiceProxy.update(this.certificate).subscribe(
       (result: CertificateDto) => {
         
-        this.notify.info(this.l('SavedSuccessfully.'));
+        this.notify.info(this.l('Lưu thành công.'));
         this.bsModalRef.hide();
         this.onSave.emit();
       },
