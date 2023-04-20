@@ -1,31 +1,21 @@
 <h2 style="text-align: center;">KẾT LUẬN HIỆN TẠI</h2>
 <div class="container">
-  <form autocomplete="off" #createketluan2="ngForm" (ngSubmit)="mySave()">
+  <form autocomplete="off" #createketluan2="ngForm" (ngSubmit)="mySave()" *ngIf="this.Data?.content['text_ketluan']">
     <fieldset [disabled]="this._permissionChecker.isGranted(this.Data.group)">
       <div class="form-group">
-        <label for="exampleFormControlTextarea1">Kết luận</label>
+        <!-- <label for="exampleFormControlTextarea1">Kết luận</label>
       <input class="form-control" list="ketluanlaixe" id="exampleFormControlTextarea1" rows="4" [(ngModel)]="Data.content['text_ketluan'].value"
       [ngModelOptions]="{standalone: true}"> 
       <datalist id="ketluanlaixe">
         <option value="Đủ điều kiện lái xe hạng {{hang}}">Đủ điều kiện lái xe hạng {{hang}}</option>
         <option value="Không đủ điều kiện lái xe hạng {{hang}}">Không đủ điều kiện lái xe hạng {{hang}}</option>
-      </datalist>
-        <!-- <div class="form-check" (click)="check(true)">
+      </datalist> -->
+        <div class="form-check" *ngFor="let item of options">
           <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="optradio" value="dudk">Đủ điều kiện lái xe hạng {{hang}}
+            <input type="radio" class="form-check-input" name="optradio" [(ngModel)]="Data.content['text_ketluan'].realValue"
+            [ngModelOptions]="{standalone: true}" value="{{item.realvalue}}"> {{item.value}}
           </label>
-        </div>
-        <div class="form-check" (click)="check(false)">
-          <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="optradio" value="kdudk">Không đủ điều kiện lái xe hạng {{hang}}
-          </label>
-        </div>
-        <div class="form-check ">
-          <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="optradio" value="dudkkl">Đủ điều kiện lại xe hạng
-            {{hang}} nhưng cần khám lại
-          </label>
-        </div>
+        </div>        
       </div>
       <div>
         <div class="form-group row">
@@ -44,7 +34,7 @@
               <input type="text" placeholder="Lý do khám" class="form-control">
             </div>
           </div>
-        </div> -->
+        </div>
       </div>
       <div class="form-group " style="display: flex;
     justify-content: space-around;">
