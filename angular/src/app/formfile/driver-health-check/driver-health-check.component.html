@@ -1,7 +1,7 @@
 
   <h2 style="text-align: center;">Giấy khám sức khỏe người lái xe</h2>
   <div class="container" *ngIf="dataModel">
-    <app-thong-tin-ca-nhan *ngIf="profile && profile.clientInfo">
+    <app-thong-tin-ca-nhan *ngIf="profile && profile.clientInfo" [profile]="profile">
       <app-profile [profile]="profile"></app-profile>
     </app-thong-tin-ca-nhan>
 

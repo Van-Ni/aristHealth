@@ -1,4 +1,4 @@
-﻿    using Abp.Application.Services;
+﻿using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
 using Abp.EntityFrameworkCore.Repositories;
@@ -67,7 +67,7 @@ namespace AristBase.CRUDServices.CertificateServices
                 DateTime date = DateTime.ParseExact(input.ClientInfo.DateOfBirth, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture);
                 input.ClientInfo.DateOfBirth = date.ToString("dd/MM/yyyy");
                 var entity = MapToEntity(input);
-                if(entity.PaymentStatus == PaymentStatus.Paid)
+                if (entity.PaymentStatus == PaymentStatus.Paid)
                 {
                     entity.AmountPaid = cerType.Price;
                 }

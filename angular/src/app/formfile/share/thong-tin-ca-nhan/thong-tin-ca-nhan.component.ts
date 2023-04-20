@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CertificateDto } from '@shared/service-proxies/service-proxies';
 
 @Component({
   selector: 'app-thong-tin-ca-nhan',
@@ -7,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ThongTinCaNhanComponent implements OnInit {
   expandStatus = false;
+  @Input()profile: CertificateDto;
   @Input() title: string;
   @Input() status: number;
   constructor() { }

@@ -1,5 +1,5 @@
-<div (click)="expandStatus = !expandStatus" [attr.aria-expanded]="!expandStatus" aria-controls="collapseBasic">
-  <h4>Thông tin cá nhân.</h4>
+<div (click)="expandStatus = !expandStatus" [attr.aria-expanded]="!expandStatus" aria-controls="collapseBasic" *ngIf="profile && profile.clientInfo">
+  <h4>Thông tin cá nhân. [Họ tên: {{profile.clientInfo.fullName}}]-[Visa/CCCD/CMND: {{profile.clientInfo.cccd}}]</h4>
 </div>
 <hr>
 <div id="collapseBasic" [collapse]="expandStatus" [isAnimated]="true">
