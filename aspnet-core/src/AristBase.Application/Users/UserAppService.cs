@@ -255,19 +255,26 @@ namespace AristBase.Users
         public async Task<UserDto> UploadSignPath([Required] IFormFile file, long id)
         {
 
-            var getData = await Repository.FirstOrDefaultAsync(i => i.Id == id);
-
-            if (getData != null)
+            if (file.ContentType.StartsWith("image/"))
             {
-                var data = await storageService.UploadFileAsync(file.FileName, getData.Id.ToString(), stream: file.OpenReadStream());
-                getData.SignPath = data;
-                await Repository.UpdateAsync(getData);
-                await CurrentUnitOfWork.SaveChangesAsync();
-                return ObjectMapper.Map<UserDto>(getData);
+                var getData = await Repository.FirstOrDefaultAsync(i => i.Id == id);
+
+                if (getData != null)
+                {
+                    var data = await storageService.UploadFileAsync(file.FileName, getData.Id.ToString(), stream: file.OpenReadStream());
+                    getData.SignPath = data;
+                    await Repository.UpdateAsync(getData);
+                    await CurrentUnitOfWork.SaveChangesAsync();
+                    return ObjectMapper.Map<UserDto>(getData);
+                }
+                else
+                {
+                    throw new Exception("Data not found.");
+                }
             }
             else
             {
-                throw new Exception("Data not found.");
+                throw new Exception("Invalid file type. Please upload an image file.");
             }
 
         }

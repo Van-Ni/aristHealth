@@ -101,6 +101,30 @@
             ></abp-validation-summary>
           </div>
         </div>
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="emailAddress">
+            {{ "UploadFile" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="file"
+              class="form-control"
+              name="signPath"
+              id="signPath"
+              required
+              maxlength="256"
+               accept=".png,.jpg,.jpeg,.gif"
+               #fileInput id="fileInput" type='file' (click)="fileInput.value = null" value="" (change)="onSelectFile($event.target.files)"
+              [(ngModel)]="user.signPath"
+              #signPathModel="ngModel"
+              #signPathEl
+            />
+            <abp-validation-summary
+              [control]="signPathModel"
+              [controlEl]="signPathEl"
+            ></abp-validation-summary>
+          </div>
+        </div>
         <div class="form-group row mb-0">
           <label class="col-md-3 col-form-label">
             {{ "IsActive" | localize }}
