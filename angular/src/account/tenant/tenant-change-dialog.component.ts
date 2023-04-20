@@ -13,7 +13,7 @@ import {
 })
 export class TenantChangeDialogComponent extends AppComponentBase {
   saving = false;
-  tenancyName = '';
+  tenancyName = 'ttgdyk';
 
   constructor(
     injector: Injector,
