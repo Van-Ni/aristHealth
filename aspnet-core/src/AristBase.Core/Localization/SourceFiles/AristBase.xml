@@ -135,5 +135,34 @@
     <text name="CertificateType">Danh sách các loại giấy</text>
     <text name="Certificate">Danh sách các ca khám</text>
 
+    <text name="tuanhoan">Tuần hoàn</text>
+    <text name="tamthan">Tâm thần</text>
+    <text name="thankinh">Thần kinh</text>
+    <text name="mat">Mắt</text>
+    <text name="taimuihong">Tai mũi họng</text>
+    <text name="timmach">Tim mạch</text>
+    <text name="hohap">Hô hấp</text>
+    <text name="coxuongkhop">Cơ xương khớp</text>
+    <text name="thaisan">Thai sản</text>
+    <text name="noitiet">Nội tiết</text>
+    <text name="nhikhoa">Nhi khoa</text>
+    <text name="ranghammat">Răng hàm mặt</text>
+    <text name="xetnghiemmatuyvamau">Xét nghiệm ma túy và máu</text>
+    <text name="xetnghiemmau">Xét nghiệm máu</text>
+    <text name="xetnghiemkhac">Xét nghiệm khác</text>
+    <text name="xetnghiemnuoctieu">Xét nghiệm nước tiểu</text>
+    <text name="chandoanhinhanh">Chẩn đoán hình ảnh</text>
+    <text name="khamtheluc">Khám thể lực</text>
+    <text name="tdv">Trưởng đơn vị</text>
+    <text name="ketluan">Kết luận</text>
+    <text name="tieuhoa">Tiêu hóa</text>
+    <text name="khamlamsankhac">Khám lâm sàn khác</text>
+    <text name="thantietnieu">Thận tiết niệu</text>
+    <text name="ngoaikhoa">Ngoại khoa</text>
+    <text name="dalieu">Da liễu</text>
+
+
+
+
   </texts>
 </localizationDictionary>
