@@ -5,6 +5,7 @@ using AristBase.Authorization;
 using AristBase.BaseEntity;
 using AristBase.CRUDServices.ApproveServices.Dto;
 using AristBase.CRUDServices.CertificateServices.Dto;
+using AristBase.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -88,6 +89,7 @@ namespace AristBase.CRUDServices.ApproveServices
             await repositoryCertificate.UpdateAsync(query);
             if (query.CertificateType.IsNeedSync)
             {
+                query.FileResult = "";
                 var queryCertificateSync = await repository.SingleAsync(i => i.CertificateId == cerId);
                 queryCertificateSync.syncStatus = SyncStatus.cancelled;
                 queryCertificateSync.EditState = true;

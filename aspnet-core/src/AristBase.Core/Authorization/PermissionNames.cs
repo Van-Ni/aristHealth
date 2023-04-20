@@ -37,8 +37,9 @@ namespace AristBase.Authorization
         public const string KetLuan = "ketluan";
         public const string tdv = "tdv";
         public const string KhamLamSanKhac = "khamlamsankhac";
+        public const string PageReadIn = "Pages.In.Read";
 
-        public static List<string> Pages = new List<string>
+        public static List<string> Pages = new List<string>        
         { TamThan, ThanKinh, Mat, TaiMuiHong, TimMach, HoHap, CoXuongKhop, ThaiSan, NoiTiet,NhiKhoa, RangHamMat,XetNghiemMaTuyVaMau, XetNghiemMau,XetNghiemKhac,XetNghiemNuocTieu, ChanDoanHinhAnh,KhamTheLuc,tdv, KetLuan,KhamLamSanKhac};
     }
     public class CRUDPermissionName
