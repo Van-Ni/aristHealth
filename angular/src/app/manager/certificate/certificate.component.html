@@ -79,24 +79,31 @@
                   </td>
                   <td>
                       <p *ngIf="Certificate.paymentStatus == 0" style=" border: 2px solid #000000; border-radius: 15px; background-color: rgb(230, 138, 138); text-align: center;">Chưa thanh toán</p>
-                      <p *ngIf="Certificate.paymentStatus == 1" style=" border: 2px solid #000000; border-radius: 15px; background-color: rgb(230, 227, 138); text-align: center;">Đã thanh toán trước 1 phần</p>
-                      <p *ngIf="Certificate.paymentStatus == 2" style=" border: 2px solid #000000; border-radius: 15px; background-color: rgb(109, 247, 116); text-align: center;">Đã thanh toán</p>
+                      <p *ngIf="Certificate.paymentStatus == 1" style=" border: 2px solid #000000; border-radius: 15px; background-color: rgb(109, 247, 116); text-align: center;">Đã thanh toán</p>
                   </td>
                   <td>{{ Certificate.reason }}</td>
                   <td>{{Certificate.creationTime.format('DD/MM/YYYY')}}</td>
                   <td>
-                    <button type="button"
+                    <div class="row">
+                      <button type="button"
                       class="btn btn-sm bg-secondary"
                       (click)="editCertificate(Certificate)">
                       <i class="fas fa-pencil-alt"></i>
                       {{ "Edit" | localize }}
                     </button>
                     <button type="button"
-                      class="btn btn-sm bg-danger mx-2"
+                      class="btn btn-sm bg-danger"
                       (click)="delete(Certificate)">
                       <i class="fas fa-trash"></i>
                       {{ "Delete" | localize }}
                     </button>
+                    <button *ngIf="Certificate.status == 2" type="button"
+                      class="btn btn-sm bg-success"
+                      (click)="print(Certificate)">
+                      <i class="fas fa-print"></i>
+                      {{ "Print" | localize }}
+                    </button>
+                    </div>
                   </td>
                 </tr>
               </tbody>

@@ -2,7 +2,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <form class="form-horizontal" autocomplete="off" #createProfile="ngForm" (ngSubmit)="save()">
   <abp-modal-header [title]="'Thông tin người khám' | localize" (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
-  <div class="modal-body">
+  <div class="modal-body" *ngIf="certificate && certificate.clientInfo">
     <div class="form-group row">
       <label for="certificate" class="col-sm-3 col-form-label">Chọn loại giấy</label>
       <div class="col-sm-9">
@@ -96,26 +96,29 @@
     <div class="form-group row">
       <label for="province" class="col-sm-3 col-form-label">Tỉnh</label>
       <div class="col-sm-9">
-        <select class="form-control" [(ngModel)]="certificate.clientInfo.province" [ngModelOptions]="{standalone: true}"
+        <select class="form-control" [(ngModel)]="certificate.clientInfo.provinceId" [ngModelOptions]="{standalone: true}"
+          onmousedown="getProvice()"
           >
-          <option *ngFor="let item of provinces" value="{{item.id}}">{{item.id}}-{{item.name}}</option>
+          <option *ngFor="let item of provinces" value="{{item.id}}">{{item.name}}</option>
         </select>
       </div>
     </div>
     <div class="form-group row">
       <label for="district" class="col-sm-3 col-form-label">Huyện</label>
       <div class="col-sm-9">
-        <select class="form-control" [(ngModel)]="certificate.clientInfo.district" [ngModelOptions]="{standalone: true}"
-          >
-          <option *ngFor="let item of districts " value="{{item.id}}">{{item.id}}-{{item.name}}</option>
+        <select class="form-control" [(ngModel)]="certificate.clientInfo.districtId" [ngModelOptions]="{standalone: true}"
+          (mousedown)="getDictrict()">
+          <option  *ngFor="let item of districts" value="{{item.id}}">{{item.name}}</option>
         </select>
       </div>
     </div>
     <div class="form-group row">
       <label for="commune" class="col-sm-3 col-form-label">Xã</label>
       <div class="col-sm-9">
-        <select class="form-control" [(ngModel)]="certificate.clientInfo.commune" [ngModelOptions]="{standalone: true}">
-          <option *ngFor="let item of communes" value="{{item.id}}">{{item.id}}-{{item.name}}</option>
+        <select class="form-control" [(ngModel)]="certificate.clientInfo.communeId" [ngModelOptions]="{standalone: true}"
+        (click)="getCommune()"
+        >
+          <option *ngFor="let item of communes" ngValue="{{item.id}}">{{item.name}}</option>
         </select>
       </div>
     </div>
@@ -137,13 +140,6 @@
         </select>
       </div>
     </div>
-    <!-- <div class="form-group row">
-      <label for="amountPaid" class="col-sm-3 col-form-label">Số tiền đã thanh toán</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="amountPaid" [(ngModel)]="certificate.amountPaid"
-          [ngModelOptions]="{standalone: true}" placeholder="Số tiền đã thanh toán">
-      </div>
-    </div> -->
     <div class="form-group row" *ngIf="certificate.certificateTypeId == 1">
       <label for="amountPaid" class="col-sm-3 col-form-label">Hạng</label>
       <div class="col-sm-9">

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Injector, OnInit, Output } from '@angular/core';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CertificateServiceServiceProxy, ClientInfoDto, CreateCertificateDto, RegionDto, RegionServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CertificateServiceServiceProxy, ClientInfoDto, CreateCertificateDto, RegionDto } from '@shared/service-proxies/service-proxies';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { RegionDtlFull } from '../certificate.component';
 import { RegionsService } from '@app/services/regions.service';
@@ -13,7 +13,11 @@ import { RegionsService } from '@app/services/regions.service';
 export class CreateCertificateComponent extends AppComponentBase implements OnInit {
   certificate: CreateCertificateDto;
   saving = false;
-  provinces: RegionDtlFull[];
+  provinces: RegionDtlFull[] = [{
+    id: '64',
+    name: 'Tỉnh Gia Lai',
+    childrent: []
+  }];
   districts: RegionDtlFull[];
   communes: RegionDtlFull[];
   @Output() onSave = new EventEmitter<any>();
@@ -26,66 +30,54 @@ export class CreateCertificateComponent extends AppComponentBase implements OnIn
   ngOnInit() {
     this.certificate = new CreateCertificateDto();
     this.certificate.clientInfo = new ClientInfoDto();
+    this.certificate.clientInfo.provinceId = "64";
+    this.certificate.clientInfo.addressCCCD = "Cục Cảnh sát quản lý hành chính về trật tự xã hội";
+    this.getProvince();
+    this.getDictrict();
+    this.getCommune();
   }
-  getProvince(){
-    console.log("province");
-
+  getProvince() {
+   this.regionsService.getProvince().subscribe((result:RegionDto[])=>{
+    this.provinces = result.map(r => {
+      return {
+        childrent: [],
+        name: r.name,
+        id: r.id,
+        parentId: r.parentId
+      };
+    })
+   })
   }
   getDictrict(){
-    console.log("district");
-    this.regionsService.getDictrict(this.certificate.clientInfo.district);
+    this.regionsService.getDictrict(this.certificate.clientInfo.provinceId).subscribe((result:RegionDto[])=>{
+      this.districts = result.map(r => {
+        return {
+          childrent: [],
+          name: r.name,
+          id: r.id,
+          parentId: r.parentId
+        };
+      })
+     })
   }
   getCommune(){
-    console.log("commune");
-    this.regionsService.getCommune(this.certificate.clientInfo.district,this.certificate.clientInfo.commune);
+    this.regionsService.getCommune(this.certificate.clientInfo.provinceId, this.certificate.clientInfo.districtId).subscribe((result:RegionDto[])=>{
+      this.communes = result.map(r => {
+        return {
+          childrent: [],
+          name: r.name,
+          id: r.id,
+          parentId: r.parentId
+        };
+      })
+     })
   }
-  // getRegions() {
-  //   console.log("provinces",this.certificate.clientInfo.province);
-  //   console.log("district",this.certificate.clientInfo.district);
-  //   console.log("commune",this.certificate.clientInfo.commune);
-  //   this.regionService.getAll(this.certificate.clientInfo.province, this.certificate.clientInfo.district).subscribe(
-  //     (result: RegionDto[]) => {
-  //       if (this.certificate.clientInfo.province == null && this.certificate.clientInfo.district == null) {
-
-  //         this.provinces = result.map(r => {
-  //           return {
-  //             childrent: [],
-  //             name: r.name,
-  //             id: r.id,
-  //             parentId: r.parentId
-  //           };
-  //         })
-  //         console.log(this.provinces);
-  //       }
-  //       else if (this.certificate.clientInfo.province != null && this.certificate.clientInfo.district == null) {
-
-  //         this.districts = result.map(r => {
-  //           return {
-  //             childrent: [],
-  //             name: r.name,
-  //             id: r.id,
-  //             parentId: r.parentId
-  //           };
-  //         })
-  //         console.log(this.districts);
-  //       }
-  //       else if (this.certificate.clientInfo.province != null && this.certificate.clientInfo.district != null){
-  //         this.communes = result.map(r => {
-  //           return {
-  //             childrent: [],
-  //             name: r.name,
-  //             id: r.id,
-  //             parentId: r.parentId
-  //           };
-  //         })
-  //         console.log(this.communes);
-
-  //       }
-  //     }
-  //   );
-  // }
   save(): void {
     this.saving = true;
+    this.certificate.clientInfo.commune = this.communes.find(c=>c.id == this.certificate.clientInfo.communeId).name;
+    this.certificate.clientInfo.district = this.districts.find(c=>c.id == this.certificate.clientInfo.districtId).name;
+    this.certificate.clientInfo.province = this.provinces.find(c=>c.id == this.certificate.clientInfo.provinceId).name;
+    
     this.certificateServiceServiceProxy.create(this.certificate).subscribe(
       (result: CreateCertificateDto) => {
 

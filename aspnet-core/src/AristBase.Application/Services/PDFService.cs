@@ -26,17 +26,18 @@ namespace AristBase.Services
         }
 
         public async Task<ActionResult> GetCertificatePdfPrintedFile(Guid cerId)
-        {          
+        {
             var path = await _certificateRepository.GetAll()
-                .Where(c => c.Id == cerId).Select(c=>c.FileResult)
+                .Where(c => c.Id == cerId).Select(c => c.FileResult)
                 .SingleAsync();
-            if(string.IsNullOrEmpty(path)) {
-                return await _internalPDFService.FillPDFWithCertificate(cerId);          
+            if (string.IsNullOrEmpty(path))
+            {
+                return await _internalPDFService.FillPDFWithCertificate(cerId);
             }
-            FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+            using FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
             return new FileStreamResult(fileStream, "application/pdf")
             {
-               FileDownloadName = Path.GetFileName(path)
+                FileDownloadName = Path.GetFileName(path)
             };
         }
 

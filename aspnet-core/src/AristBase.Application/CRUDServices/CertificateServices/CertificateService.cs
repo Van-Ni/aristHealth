@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -66,7 +67,10 @@ namespace AristBase.CRUDServices.CertificateServices
                 DateTime date = DateTime.ParseExact(input.ClientInfo.DateOfBirth, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture);
                 input.ClientInfo.DateOfBirth = date.ToString("dd/MM/yyyy");
                 var entity = MapToEntity(input);
-
+                if(entity.PaymentStatus == PaymentStatus.Paid)
+                {
+                    entity.AmountPaid = cerType.Price;
+                }
                 //Insert into table CertificateGroupStatus with status = unready|optional
                 await Repository.InsertAsync(entity);
                 var templateGroups = cerType.TemplateGroups.Select(tg => new CertificateGroupStatus
@@ -100,6 +104,12 @@ namespace AristBase.CRUDServices.CertificateServices
             }
             var entity = await GetEntityByIdAsync(input.Id);
             MapToEntity(input, entity);
+            var cerType = await _cerTypeRepo.GetAll().Where(w => w.Id == input.CertificateTypeId).FirstOrDefaultAsync();
+
+            if (entity.PaymentStatus == PaymentStatus.Paid)
+            {
+                entity.AmountPaid = cerType.Price;
+            }
             entity.ClientInfo.TenantId = AbpSession.TenantId.Value;
             entity.TenantId = AbpSession.TenantId.Value;
             await CurrentUnitOfWork.SaveChangesAsync();

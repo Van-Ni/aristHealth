@@ -77,7 +77,9 @@ namespace AristBase.Authorization
             Read = $"{prefix}.{baseName}.Read";
             Update = $"{prefix}.{baseName}.Update";
             Delete = $"{prefix}.{baseName}.Delete";
+            this.BaseName = baseName;
         }
+        public string BaseName { get; }
         public string Create { get; }
         public string Read { get; }
         public string Update { get; }

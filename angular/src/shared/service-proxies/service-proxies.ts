@@ -1473,14 +1473,17 @@ export class ClientInfoServiceServiceProxy {
      * @param createTimeCCCD (optional) 
      * @param addressCCCD (optional) 
      * @param address (optional) 
+     * @param provinceId (optional) 
      * @param province (optional) 
+     * @param communeId (optional) 
      * @param commune (optional) 
+     * @param districtId (optional) 
      * @param district (optional) 
      * @param guardianName (optional) 
      * @param id (optional) 
      * @return Success
      */
-    getAll(fullName: string | undefined, sex: string | undefined, cCCD: string | undefined, dateOfBirth: string | undefined, createTimeCCCD: string | undefined, addressCCCD: string | undefined, address: string | undefined, province: string | undefined, commune: string | undefined, district: string | undefined, guardianName: string | undefined, id: number | undefined): Observable<ClientInfoDtoPagedResultDto> {
+    getAll(fullName: string | undefined, sex: string | undefined, cCCD: string | undefined, dateOfBirth: string | undefined, createTimeCCCD: string | undefined, addressCCCD: string | undefined, address: string | undefined, provinceId: string | undefined, province: string | undefined, communeId: string | undefined, commune: string | undefined, districtId: string | undefined, district: string | undefined, guardianName: string | undefined, id: number | undefined): Observable<ClientInfoDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/ClientInfoService/GetAll?";
         if (fullName === null)
             throw new Error("The parameter 'fullName' cannot be null.");
@@ -1510,14 +1513,26 @@ export class ClientInfoServiceServiceProxy {
             throw new Error("The parameter 'address' cannot be null.");
         else if (address !== undefined)
             url_ += "Address=" + encodeURIComponent("" + address) + "&";
+        if (provinceId === null)
+            throw new Error("The parameter 'provinceId' cannot be null.");
+        else if (provinceId !== undefined)
+            url_ += "ProvinceId=" + encodeURIComponent("" + provinceId) + "&";
         if (province === null)
             throw new Error("The parameter 'province' cannot be null.");
         else if (province !== undefined)
             url_ += "Province=" + encodeURIComponent("" + province) + "&";
+        if (communeId === null)
+            throw new Error("The parameter 'communeId' cannot be null.");
+        else if (communeId !== undefined)
+            url_ += "CommuneId=" + encodeURIComponent("" + communeId) + "&";
         if (commune === null)
             throw new Error("The parameter 'commune' cannot be null.");
         else if (commune !== undefined)
             url_ += "Commune=" + encodeURIComponent("" + commune) + "&";
+        if (districtId === null)
+            throw new Error("The parameter 'districtId' cannot be null.");
+        else if (districtId !== undefined)
+            url_ += "DistrictId=" + encodeURIComponent("" + districtId) + "&";
         if (district === null)
             throw new Error("The parameter 'district' cannot be null.");
         else if (district !== undefined)
@@ -3307,8 +3322,8 @@ export class PDFServiceServiceProxy {
      * @param cerId (optional) 
      * @return Success
      */
-    fillPDFWithCertificate(cerId: string | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/PDFService/FillPDFWithCertificate?";
+    getCertificatePdfPrintedFile(cerId: string | undefined): Observable<any> {
+        let url_ = this.baseUrl + "/api/services/app/PDFService/GetCertificatePdfPrintedFile?";
         if (cerId === null)
             throw new Error("The parameter 'cerId' cannot be null.");
         else if (cerId !== undefined)
@@ -3322,64 +3337,12 @@ export class PDFServiceServiceProxy {
             })
         };
 
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processFillPDFWithCertificate(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processFillPDFWithCertificate(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<void>;
-        }));
-    }
-
-    protected processFillPDFWithCertificate(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param path (optional) 
-     * @return Success
-     */
-    getPDFFile(path: string | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/PDFService/GetPDFFile?";
-        if (path === null)
-            throw new Error("The parameter 'path' cannot be null.");
-        else if (path !== undefined)
-            url_ += "path=" + encodeURIComponent("" + path) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetPDFFile(response_);
+            return this.processGetCertificatePdfPrintedFile(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetPDFFile(response_ as any);
+                    return this.processGetCertificatePdfPrintedFile(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -3388,7 +3351,7 @@ export class PDFServiceServiceProxy {
         }));
     }
 
-    protected processGetPDFFile(response: HttpResponseBase): Observable<void> {
+    protected processGetCertificatePdfPrintedFile(response: HttpResponseBase): Observable<any> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -3396,9 +3359,10 @@ export class PDFServiceServiceProxy {
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
-            }));
+            // return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            // return _observableOf(null as any);
+            // }));
+            return _observableOf(responseBlob);
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -6580,8 +6544,11 @@ export class ClientInfo implements IClientInfo {
     createTimeCCCD: string | undefined;
     addressCCCD: string | undefined;
     address: string | undefined;
+    provinceId: string | undefined;
     province: string | undefined;
+    communeId: string | undefined;
     commune: string | undefined;
+    districtId: string | undefined;
     district: string | undefined;
     guardianName: string | undefined;
     certificates: Certificate[] | undefined;
@@ -6614,8 +6581,11 @@ export class ClientInfo implements IClientInfo {
             this.createTimeCCCD = _data["createTimeCCCD"];
             this.addressCCCD = _data["addressCCCD"];
             this.address = _data["address"];
+            this.provinceId = _data["provinceId"];
             this.province = _data["province"];
+            this.communeId = _data["communeId"];
             this.commune = _data["commune"];
+            this.districtId = _data["districtId"];
             this.district = _data["district"];
             this.guardianName = _data["guardianName"];
             if (Array.isArray(_data["certificates"])) {
@@ -6652,8 +6622,11 @@ export class ClientInfo implements IClientInfo {
         data["createTimeCCCD"] = this.createTimeCCCD;
         data["addressCCCD"] = this.addressCCCD;
         data["address"] = this.address;
+        data["provinceId"] = this.provinceId;
         data["province"] = this.province;
+        data["communeId"] = this.communeId;
         data["commune"] = this.commune;
+        data["districtId"] = this.districtId;
         data["district"] = this.district;
         data["guardianName"] = this.guardianName;
         if (Array.isArray(this.certificates)) {
@@ -6690,8 +6663,11 @@ export interface IClientInfo {
     createTimeCCCD: string | undefined;
     addressCCCD: string | undefined;
     address: string | undefined;
+    provinceId: string | undefined;
     province: string | undefined;
+    communeId: string | undefined;
     commune: string | undefined;
+    districtId: string | undefined;
     district: string | undefined;
     guardianName: string | undefined;
     certificates: Certificate[] | undefined;
@@ -6715,8 +6691,11 @@ export class ClientInfoDto implements IClientInfoDto {
     createTimeCCCD: string | undefined;
     addressCCCD: string | undefined;
     address: string | undefined;
+    provinceId: string | undefined;
     province: string | undefined;
+    communeId: string | undefined;
     commune: string | undefined;
+    districtId: string | undefined;
     district: string | undefined;
     guardianName: string | undefined;
 
@@ -6739,8 +6718,11 @@ export class ClientInfoDto implements IClientInfoDto {
             this.createTimeCCCD = _data["createTimeCCCD"];
             this.addressCCCD = _data["addressCCCD"];
             this.address = _data["address"];
+            this.provinceId = _data["provinceId"];
             this.province = _data["province"];
+            this.communeId = _data["communeId"];
             this.commune = _data["commune"];
+            this.districtId = _data["districtId"];
             this.district = _data["district"];
             this.guardianName = _data["guardianName"];
         }
@@ -6763,8 +6745,11 @@ export class ClientInfoDto implements IClientInfoDto {
         data["createTimeCCCD"] = this.createTimeCCCD;
         data["addressCCCD"] = this.addressCCCD;
         data["address"] = this.address;
+        data["provinceId"] = this.provinceId;
         data["province"] = this.province;
+        data["communeId"] = this.communeId;
         data["commune"] = this.commune;
+        data["districtId"] = this.districtId;
         data["district"] = this.district;
         data["guardianName"] = this.guardianName;
         return data;
@@ -6787,8 +6772,11 @@ export interface IClientInfoDto {
     createTimeCCCD: string | undefined;
     addressCCCD: string | undefined;
     address: string | undefined;
+    provinceId: string | undefined;
     province: string | undefined;
+    communeId: string | undefined;
     commune: string | undefined;
+    districtId: string | undefined;
     district: string | undefined;
     guardianName: string | undefined;
 }
@@ -7058,8 +7046,11 @@ export class CreateClientInfoDto implements ICreateClientInfoDto {
     addressCCCD: string | undefined;
     address: string | undefined;
     guardianName: string | undefined;
+    provinceId: string | undefined;
     province: string | undefined;
+    communeId: string | undefined;
     commune: string | undefined;
+    districtId: string | undefined;
     district: string | undefined;
 
     constructor(data?: ICreateClientInfoDto) {
@@ -7081,8 +7072,11 @@ export class CreateClientInfoDto implements ICreateClientInfoDto {
             this.addressCCCD = _data["addressCCCD"];
             this.address = _data["address"];
             this.guardianName = _data["guardianName"];
+            this.provinceId = _data["provinceId"];
             this.province = _data["province"];
+            this.communeId = _data["communeId"];
             this.commune = _data["commune"];
+            this.districtId = _data["districtId"];
             this.district = _data["district"];
         }
     }
@@ -7104,8 +7098,11 @@ export class CreateClientInfoDto implements ICreateClientInfoDto {
         data["addressCCCD"] = this.addressCCCD;
         data["address"] = this.address;
         data["guardianName"] = this.guardianName;
+        data["provinceId"] = this.provinceId;
         data["province"] = this.province;
+        data["communeId"] = this.communeId;
         data["commune"] = this.commune;
+        data["districtId"] = this.districtId;
         data["district"] = this.district;
         return data;
     }
@@ -7127,8 +7124,11 @@ export interface ICreateClientInfoDto {
     addressCCCD: string | undefined;
     address: string | undefined;
     guardianName: string | undefined;
+    provinceId: string | undefined;
     province: string | undefined;
+    communeId: string | undefined;
     commune: string | undefined;
+    districtId: string | undefined;
     district: string | undefined;
 }
 
@@ -7942,7 +7942,6 @@ export interface IIsTenantAvailableOutput {
 export enum PaymentStatus {
     _0 = 0,
     _1 = 1,
-    _2 = 2,
 }
 
 export class PermissionDto implements IPermissionDto {
@@ -9131,7 +9130,6 @@ export class User implements IUser {
     emailAddress: string;
     name: string;
     surname: string;
-    readonly fullName: string | undefined;
     password: string;
     emailConfirmationCode: string | undefined;
     passwordResetCode: string | undefined;
@@ -9159,6 +9157,7 @@ export class User implements IUser {
     signPath: string | undefined;
     fullVNMName: string | undefined;
     prefix: string | undefined;
+    readonly fullName: string | undefined;
 
     constructor(data?: IUser) {
         if (data) {
@@ -9185,7 +9184,6 @@ export class User implements IUser {
             this.emailAddress = _data["emailAddress"];
             this.name = _data["name"];
             this.surname = _data["surname"];
-            (<any>this).fullName = _data["fullName"];
             this.password = _data["password"];
             this.emailConfirmationCode = _data["emailConfirmationCode"];
             this.passwordResetCode = _data["passwordResetCode"];
@@ -9237,6 +9235,7 @@ export class User implements IUser {
             this.signPath = _data["signPath"];
             this.fullVNMName = _data["fullVNMName"];
             this.prefix = _data["prefix"];
+            (<any>this).fullName = _data["fullName"];
         }
     }
 
@@ -9263,7 +9262,6 @@ export class User implements IUser {
         data["emailAddress"] = this.emailAddress;
         data["name"] = this.name;
         data["surname"] = this.surname;
-        data["fullName"] = this.fullName;
         data["password"] = this.password;
         data["emailConfirmationCode"] = this.emailConfirmationCode;
         data["passwordResetCode"] = this.passwordResetCode;
@@ -9315,6 +9313,7 @@ export class User implements IUser {
         data["signPath"] = this.signPath;
         data["fullVNMName"] = this.fullVNMName;
         data["prefix"] = this.prefix;
+        data["fullName"] = this.fullName;
         return data;
     }
 
@@ -9341,7 +9340,6 @@ export interface IUser {
     emailAddress: string;
     name: string;
     surname: string;
-    fullName: string | undefined;
     password: string;
     emailConfirmationCode: string | undefined;
     passwordResetCode: string | undefined;
@@ -9369,6 +9367,7 @@ export interface IUser {
     signPath: string | undefined;
     fullVNMName: string | undefined;
     prefix: string | undefined;
+    fullName: string | undefined;
 }
 
 export class UserClaim implements IUserClaim {

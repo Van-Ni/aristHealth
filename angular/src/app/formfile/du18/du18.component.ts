@@ -4,7 +4,7 @@ import { DataService } from '@app/services/data.service';
 import { LoadingService } from '@app/services/loader/loading.service';
 import { AppComponentBase } from '@shared/app-component-base';
 import { PagedRequestDto } from '@shared/paged-listing-component-base';
-import { CertificateGroupStatusDtoPagedResultDto, CertificateDto, CertificateServiceServiceProxy, GroupStatusServiceServiceProxy, KetLuanServicesServiceProxy, ApproveServiceServiceProxy, CertificateGroupStatusDto, UpdateCertificateGroupStatusDto } from '@shared/service-proxies/service-proxies';
+import { CertificateGroupStatusDtoPagedResultDto, CertificateDto, CertificateServiceServiceProxy, GroupStatusServiceServiceProxy, KetLuanServicesServiceProxy, ApproveServiceServiceProxy, CertificateGroupStatusDto, UpdateCertificateGroupStatusDto, PDFServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { ClinicalExaminationModel } from '../driver-health-check/clinical-examination1/clinical-examination1.component';
 import { DefaultModel } from '../share/KetLuanPhanLoai/KetLuanPhanLoai.component';
 import { finalize } from 'rxjs';
@@ -51,6 +51,7 @@ export class Du18Component extends AppComponentBase implements OnInit {
     private certificateServiceServiceProxy: CertificateServiceServiceProxy,
     private route: ActivatedRoute, 
     private groupStatusService: GroupStatusServiceServiceProxy,
+    private PDFService: PDFServiceServiceProxy,
      private injecter: Injector,
      private ketluanService: KetLuanServicesServiceProxy, private approveService: ApproveServiceServiceProxy) {
       super(injecter)
@@ -176,6 +177,30 @@ export class Du18Component extends AppComponentBase implements OnInit {
     );
 
   }
+  Print = () =>{
+    this.PDFService.getCertificatePdfPrintedFile(this.route.snapshot.params['id']).subscribe(
+      (response: any) => {
+        console.log(response);
+
+        if (response) { // Check if the response body is not null or undefined
+          //const blob = new Blob([response.body], { type: 'application/pdf' });
+          const url = URL.createObjectURL(response);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = 'filled_certificate.pdf';
+          link.target = '_blank';
+          link.click();
+        } else {
+          // Handle null or undefined response body
+          console.error('Response body is null or undefined');
+        }
+      },
+      error => {
+        // Handle error
+        console.error(error);
+      }
+    );
+}
 }
 
 
