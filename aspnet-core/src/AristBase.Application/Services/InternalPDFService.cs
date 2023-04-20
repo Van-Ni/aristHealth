@@ -25,7 +25,7 @@ using Abp.UI;
 
 namespace AristBase.Services
 {
-    public class InternalPDFService: AbpServiceBase, ITransientDependency 
+    public class InternalPDFService : AbpServiceBase, ITransientDependency
     {
         private readonly IRepository<Certificate, Guid> _certificateRepository;
         private readonly IRepository<CertificateGroupStatus, Guid> _certificateStatus;
@@ -43,7 +43,7 @@ namespace AristBase.Services
         {
             var cerStatusData = await _certificateStatus.GetAll()
                  .Where(c => c.CertificateId == cerId).Include(c => c.User).ToListAsync();
-            if(cerStatusData.Any(c=>c.Status == GroupStatus.UNREADY))
+            if (cerStatusData.Any(c => c.Status == GroupStatus.UNREADY))
             {
                 throw new UserFriendlyException("Vui lòng khám đầy đủ");
             }
@@ -86,7 +86,8 @@ namespace AristBase.Services
             var clientInfo = new CertificateGroupStatusDto
             {
                 Group = "client",
-                Content = dic
+                Content = dic,
+                Status = GroupStatus.SUBMITTED
             };
             cerUserDic[clientInfo.Group] = clientInfo;
             // Prepare datetimedata
@@ -100,14 +101,15 @@ namespace AristBase.Services
             var sys = new CertificateGroupStatusDto
             {
                 Group = "sys",
-                Content = dic
+                Content = dic,
+                Status = GroupStatus.SUBMITTED
             };
             cerUserDic[sys.Group] = sys;
             //dic[PDFFieldConst.TTNBTH] = new Values { Value = dic["mat_radio_thitruong_ngang"] == "bth" ? "true" : "false" };
             //dic[PDFFieldConst.TTNHC] = dic["mat_radio_thitruong_ngang"] == "hc" ? "true" : "false";
             //dic[PDFFieldConst.TTDBTH] = dic["mat_radio_thitruong_dung"] == "bth" ? "true" : "false";
             //dic[PDFFieldConst.TTDHC] = dic["mat_radio_thitruong_dung"] == "hc" ? "true" : "false";
-            var cername = cer.ClientInfo.FullName.RemoveDiacritics() + Clock.Now.ToString("ddMMyyyhhmmsssss")+".pdf";
+            var cername = cer.ClientInfo.FullName.RemoveDiacritics() + Clock.Now.ToString("ddMMyyyhhmmsssss") + ".pdf";
             var path = PathHelper.GetOutputPath(cername, cer.CertificateTypeId.ToString());
             FiledPDF(cer.CertificateType.FilePath, path, cerUserDic);
 
@@ -121,19 +123,13 @@ namespace AristBase.Services
 
 
         }
-
-        public async Task<FileResult> GetPDFFile(string path)
-        {
-            FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
-
-            return new FileStreamResult(fileStream, "application/pdf");
-        }
         void FiledPDF(string templatePath, string outputPath, Dictionary<string, CertificateGroupStatusDto> cerUserDic)
         {
-            PdfDocument pdfDoc = new PdfDocument(new PdfReader(templatePath), new PdfWriter(outputPath));
+            using var read = new PdfReader(templatePath);
+            using var write = new PdfWriter(outputPath);
+            using PdfDocument pdfDoc = new PdfDocument(read, write);
             PdfAcroForm form = PdfAcroForm.GetAcroForm(pdfDoc, true);
             FillPDF(form, cerUserDic, pdfDoc);
-            pdfDoc.Close();
         }
         protected void FillPDF(PdfAcroForm form, Dictionary<string, CertificateGroupStatusDto> cerUserDic, PdfDocument pdfDoc)
         {
@@ -155,13 +151,13 @@ namespace AristBase.Services
                     }
                     if (field.Key.EndsWith(PDFFieldConst.SignImage))
                     {
-                        
-                            FillImage(form, field.Value, group.User.SignPath, pdfDoc);
+
+                        FillImage(form, field.Value, group.User.SignPath, pdfDoc);
                         continue;
                     }
                     else if (field.Key.EndsWith(PDFFieldConst.SignName))
-                    {                        
-                            field.Value.SetValue(group.User.FullName, font, 12f);
+                    {
+                        field.Value.SetValue(group.User.FullName, font, 12f);
                         continue;
                     }
                     else
@@ -170,15 +166,34 @@ namespace AristBase.Services
                         var contentKey = string.Join("_", keys.Skip(1));
                         if (group.Content.TryGetValue(contentKey, out var contentValue) && contentValue != null)
                         {
-                            if (field.Value.GetFormType() == PdfName.Btn)
+                            if (string.IsNullOrEmpty(contentValue.Value))
+                            {
+                                continue;
+                            }
+                            else if (field.Value.GetFormType() == PdfName.Btn)
                             {
                                 field.Value.SetCheckType(PdfFormField.TYPE_CHECK);//PdfFormField.TYPE_CIRCLE,PdfFormField.TYPE_CROSS,PdfFormField.TYPE_DIAMOND,PdfFormField.TYPE_SQUARE,PdfFormField.TYPE_STAR,etc
 
-                                if (!string.IsNullOrEmpty(contentValue.Value))
-                                    field.Value.SetValue(contentValue.Value, true);
+
+                                field.Value.SetValue(contentValue.Value, true);
                             }
                             else
                             {
+                                //var skip = PDFFieldConst.MaxLength;
+                                //var valueStr = contentValue.Value.Split(" ");
+                                //var currentKey = field.Key;
+                                //var currentValue = contentValue.Value;
+                                //do
+                                //{
+                                //    valueStr = valueStr.Skip(skip).to;
+                                //}
+                                //while(valueStr.Length > skip)
+                                //{
+
+                                    
+                                //}
+                                
+                                
                                 field.Value.SetValue(contentValue.Value, font, 12f);
                             }
                             continue;

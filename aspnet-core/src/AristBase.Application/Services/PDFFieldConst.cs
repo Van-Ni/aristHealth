@@ -8,6 +8,7 @@ namespace AristBase.Services
 {
     public static class PDFFieldConst
     {
+        public static int MaxLength { get; set; } = 10;
         public const string SignatureField = "Signature";
         public const string SignImage = "sign_image";
         public const string SignName = "sign_chuki";

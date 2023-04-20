@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Authorization.Users;
 using Abp.Extensions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -12,6 +13,8 @@ namespace AristBase.Authorization.Users
         public string SignPath {get;set;}
         public string FullVNMName { get;set;}
         public string Prefix { get;set;}
+        [NotMapped]
+        public override string FullName => Surname + " " + Name;
         public static string CreateRandomPassword()
         {
             return Guid.NewGuid().ToString("N").Truncate(16);

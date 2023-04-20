@@ -40,7 +40,8 @@ namespace AristBase.CRUDServices.CertificateGroupStatusServices
             && i.Group == PermissionNames.tdv);
             if(check.Status != GroupStatus.SUBMITTED)
             {
-                var getData = await Repository.GetAll().SingleAsync(i => i.CertificateId == input.CertificateId
+                var getData = await Repository.GetAll().SingleAsync(i => 
+                i.CertificateId == input.CertificateId
                  && i.Group == PermissionNames.KetLuan);
                 getData.Status = GroupStatus.UNREADY;
                 await Repository.UpdateAsync(getData);

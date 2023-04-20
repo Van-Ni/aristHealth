@@ -80,6 +80,7 @@ namespace AristBase.CRUDServices.ApproveServices
         {
             var query = await repositoryCertificate.GetAll().Include(i => i.CertificateType).SingleAsync(id => id.Id == cerId);
             query.Status = Status.Start;
+            query.FileResult = "";
             var queryCertificateGr = await repositoryGroupStatus.GetAll().Where(i => i.CertificateId == cerId && (i.Group == PermissionNames.KetLuan || i.Group == PermissionNames.tdv)).ToListAsync();
             foreach (var item in queryCertificateGr)
             {
@@ -88,8 +89,7 @@ namespace AristBase.CRUDServices.ApproveServices
             }
             await repositoryCertificate.UpdateAsync(query);
             if (query.CertificateType.IsNeedSync)
-            {
-                query.FileResult = "";
+            {                
                 var queryCertificateSync = await repository.SingleAsync(i => i.CertificateId == cerId);
                 queryCertificateSync.syncStatus = SyncStatus.cancelled;
                 queryCertificateSync.EditState = true;
