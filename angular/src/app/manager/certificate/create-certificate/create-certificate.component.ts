@@ -13,11 +13,7 @@ import { RegionsService } from '@app/services/regions.service';
 export class CreateCertificateComponent extends AppComponentBase implements OnInit {
   certificate: CreateCertificateDto;
   saving = false;
-  provinces: RegionDtlFull[] = [{
-    id: '64',
-    name: 'Tỉnh Gia Lai',
-    childrent: []
-  }];
+  provinces: RegionDtlFull[];
   districts: RegionDtlFull[];
   communes: RegionDtlFull[];
   @Output() onSave = new EventEmitter<any>();

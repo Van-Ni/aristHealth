@@ -1,3 +1,4 @@
+
 <div [@routerTransition]>
   <section class="content-header">
     <div class="container-fluid">
@@ -50,7 +51,28 @@
                   <th>{{ "Họ tên" | localize }}</th>
                   <th>{{ "CMND/CCCD/Hộ chiếu" | localize }}</th>
                   <th>{{ "Tên loại giấy khám" | localize }}</th>
-                  <th>{{ "status" | localize }}</th>
+                  <!-- <th>{{ "status" | localize }}</th> -->
+                  <th>
+                    <div class="btn-group" dropdown>
+                      <button id="button-animated" dropdownToggle type="button" class="btn btn-light dropdown-toggle"
+                              aria-controls="dropdown-animated" style="font-weight: bold;">
+                      {{ "Status" | localize }} <span class="caret"></span>
+                      </button>
+                      <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu"
+                          role="menu" aria-labelledby="button-animated">
+                        <li role="menuitem" (click)="getIncrease()">
+                          <a class="dropdown-item" >Hoàn thành
+                            
+                          </a>
+                        </li>
+                        <li role="menuitem" (click)="getReduce()">
+                          <a class="dropdown-item" >Bắt đầu
+
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </th>
                   <th>{{ "paymentStatus" | localize }}</th>
                   <th>{{ "reason" | localize }}</th>
                   <th>{{"creationTime" | localize}}</th>
@@ -66,7 +88,7 @@
                           itemsPerPage: pageSize,
                           currentPage: pageNumber,
                           totalItems: totalItems
-                        }
+                        } 
                 ">
                   <td>{{ Certificate.clientInfo.fullName }}</td>
                   <td>{{ Certificate.clientInfo.cccd }}</td>
