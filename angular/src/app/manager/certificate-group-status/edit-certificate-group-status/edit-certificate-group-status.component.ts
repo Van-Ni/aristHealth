@@ -40,7 +40,7 @@ export class EditCertificateGroupStatusComponent extends AppComponentBase implem
       .update(certificateGroup)
       .subscribe(
         () => {
-          this.notify.info(this.l('SavedSuccessfully'));
+          this.notify.info(this.l('Lưu thành công'));
           this.bsModalRef.hide();
           this.onSave.emit();
         },

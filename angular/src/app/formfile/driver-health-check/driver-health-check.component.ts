@@ -89,7 +89,7 @@ export class DriverHealthCheckComponent extends AppComponentBase implements OnIn
     console.log(inputEntity);
     this.groupStatusService.updateOrInsert(inputEntity).subscribe(
       () => {
-        this.notify.info('SavedSuccessfully.');
+        this.notify.info('Lưu thành công.');
         this.getAllData();
       },)
   }
@@ -103,7 +103,7 @@ export class DriverHealthCheckComponent extends AppComponentBase implements OnIn
     console.log(inputEntity);
     this.ketluanService.updateOrInsert(inputEntity).subscribe(
       () => {
-        this.notify.info('SavedSuccessfully.');
+        this.notify.info('Lưu thành công.');
         this.getAllData();
       },)
   }
@@ -140,7 +140,7 @@ export class DriverHealthCheckComponent extends AppComponentBase implements OnIn
   //   inputEntity.status = entity.status;
   //   this.ketluanService.huyKetLuan(inputEntity).subscribe(
   //     () => {
-  //       this.notify.info('SavedSuccessfully.');
+  //       this.notify.info('Lưu thành công.');
   //       this.getAllData();
   //     },
   //     () => {
@@ -151,7 +151,7 @@ export class DriverHealthCheckComponent extends AppComponentBase implements OnIn
   approve = () => {
     this.approveService.approve(this.route.snapshot.params['id']).subscribe(
       () => {
-        this.notify.info('SavedSuccessfully.');
+        this.notify.info('Lưu thành công.');
         this.getAllData();
       },
     )

@@ -77,7 +77,7 @@ export class CreateCertificateComponent extends AppComponentBase implements OnIn
     this.certificateServiceServiceProxy.create(this.certificate).subscribe(
       (result: CreateCertificateDto) => {
 
-        this.notify.info(this.l('SavedSuccessfully.'));
+        this.notify.info(this.l('Lưu thành công.'));
         this.bsModalRef.hide();
         this.onSave.emit();
       },

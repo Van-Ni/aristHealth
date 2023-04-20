@@ -39,7 +39,7 @@ export class CreateTenantDialogComponent extends AppComponentBase
 
     this._tenantService.create(this.tenant).subscribe(
       () => {
-        this.notify.info(this.l('SavedSuccessfully'));
+        this.notify.info(this.l('Lưu thành công'));
         this.bsModalRef.hide();
         this.onSave.emit();
       },

@@ -79,7 +79,7 @@ export class EditUserDialogComponent extends AppComponentBase
 
     this._userService.update(this.user).subscribe(
       () => {
-        this.notify.info(this.l('SavedSuccessfully'));
+        this.notify.info(this.l('Lưu thành công'));
         this.bsModalRef.hide();
         this.onSave.emit();
       },

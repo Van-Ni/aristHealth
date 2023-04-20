@@ -22,17 +22,20 @@
       </div>
     </div>
     <div class="form-group row">
-      <label for="sex" class="col-sm-5 col-form-label">Giới tính</label>
-      <div class="col-sm-7">
+      <label for="sex" class="col-sm-3 col-form-label">Giới tính</label>
+      <div class="col-sm-9" style="font-size: 1.2rem;">
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" [(ngModel)]="certificate.clientInfo.sex" value="nam" name="sex"
-            id="sex">
+            id="sex" required>
           <label class="form-check-label" for="sex">Nam</label>
         </div>
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" [(ngModel)]="certificate.clientInfo.sex" value="nu" name="sex"
-            id="sex">
+            id="sex" required>
           <label class="form-check-label" for="sex">Nữ</label>
+        </div>
+        <div *ngIf="!certificate.clientInfo.sex" style="color: red; font-size: small;">
+          Vui lòng chọn giới tính
         </div>
       </div>
     </div>
