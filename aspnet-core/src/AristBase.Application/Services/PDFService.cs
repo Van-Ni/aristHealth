@@ -25,7 +25,7 @@ namespace AristBase.Services
             this._internalPDFService = internalPDFService;
         }
 
-        public async Task<ActionResult> FillPDFWithCertificate(Guid cerId)
+        public async Task<ActionResult> GetCertificatePdfPrintedFile(Guid cerId)
         {          
             var path = await _certificateRepository.GetAll()
                 .Where(c => c.Id == cerId).Select(c=>c.FileResult)

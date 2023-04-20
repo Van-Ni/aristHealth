@@ -21,6 +21,7 @@ using Abp;
 using Microsoft.EntityFrameworkCore;
 using AristBase.Extensions;
 using iText.Kernel.Geom;
+using Abp.UI;
 
 namespace AristBase.Services
 {
@@ -42,6 +43,10 @@ namespace AristBase.Services
         {
             var cerStatusData = await _certificateStatus.GetAll()
                  .Where(c => c.CertificateId == cerId).Include(c => c.User).ToListAsync();
+            if(cerStatusData.Any(c=>c.Status == GroupStatus.UNREADY))
+            {
+                throw new UserFriendlyException("Vui lòng khám đầy đủ");
+            }
             //var now = Clock.Now;
             var cerUserDic = cerStatusData.ToDictionary(c => c.Group, c => ObjectMapper.Map<CertificateGroupStatusDto>(c));
 
@@ -144,14 +149,19 @@ namespace AristBase.Services
                 var keys = field.Key.Split("_");
                 if (cerUserDic.TryGetValue(keys[0], out var group))
                 {
+                    if (group.Status != GroupStatus.SUBMITTED)
+                    {
+                        continue;
+                    }
                     if (field.Key.EndsWith(PDFFieldConst.SignImage))
                     {
-                        FillImage(form, field.Value, group.User.SignPath, pdfDoc);
+                        
+                            FillImage(form, field.Value, group.User.SignPath, pdfDoc);
                         continue;
                     }
                     else if (field.Key.EndsWith(PDFFieldConst.SignName))
-                    {
-                        field.Value.SetValue(group.User.FullName, font, 12f);
+                    {                        
+                            field.Value.SetValue(group.User.FullName, font, 12f);
                         continue;
                     }
                     else
