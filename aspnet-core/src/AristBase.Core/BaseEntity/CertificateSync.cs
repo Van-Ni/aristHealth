@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
+using AristBase.BaseEntity.XML;
 using System;
 
 namespace AristBase.BaseEntity
@@ -8,7 +9,7 @@ namespace AristBase.BaseEntity
     {
         public int SyncId { get; set; }
         public SyncStatus syncStatus { get; set; }
-        public string MetaData { get; set; }
+        public CertificateDataSync MetaData { get; set; }
         public Guid CertificateId { get; set; }
         public string XmlEncrypted { get; set; }
         public virtual Certificate Certificate { get; set; }
