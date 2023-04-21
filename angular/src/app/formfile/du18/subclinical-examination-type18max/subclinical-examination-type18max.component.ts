@@ -19,6 +19,6 @@ export class SubclinicalExaminationType18maxComponent implements OnInit {
     ketluanTitle : "Kết luận",
     phanloaiTitle: "Phân loại",
     optionsKetLuan :["Đủ sức khỏe", "Bình thường"],
-    optionsPhanLoai: ["Bình thường","Loại 1", "Loại 2", "Loại 3", "Loại 4", "Loại 5"]
+    optionsPhanLoai: ["Bình thường","Loại I", "Loại II", "Loại III", "Loại IV", "Loại V"]
   }
 }
