@@ -134,7 +134,7 @@
     <div class="form-group row">
       <label for="certificate" class="col-sm-3 col-form-label">Trạng thái thanh toán</label>
       <div class="col-sm-9">
-        <select class="form-control" [(ngModel)]="certificate.paymentStatus" [ngModelOptions]="{standalone: true}">
+        <select  (change)="setPrice($event)" class="form-control" [(ngModel)]="certificate.paymentStatus" [ngModelOptions]="{standalone: true}">
           <option value="0">Chưa thanh toán</option>
           <option value="1">Đã thanh toán</option>
         </select>

@@ -16,6 +16,8 @@ namespace AristBase.CRUDServices.CertificateServices.Dto
     public class UpdateCertificateDto : EntityDto<Guid>
     {
         public int CertificateTypeId { get; set; }
+        public CertificateType? CertificateType { get; set; }
+
         public Status Status { get; set; }
         public PaymentStatus PaymentStatus { get; set; }
         public int ClientInfoId { get; set; }

@@ -12,10 +12,12 @@ import { RegionsService } from '@app/services/regions.service';
 })
 export class CreateCertificateComponent extends AppComponentBase implements OnInit {
   certificate: CreateCertificateDto;
+  certificateTypeDto: CertificateTypeDto;
   saving = false;
   provinces: RegionDtlFull[];
   districts: RegionDtlFull[];
   communes: RegionDtlFull[];
+  container: any;
   @Output() onSave = new EventEmitter<any>();
   constructor(private certificateServiceServiceProxy: CertificateServiceServiceProxy, 
     public bsModalRef: BsModalRef,
@@ -37,12 +39,26 @@ export class CreateCertificateComponent extends AppComponentBase implements OnIn
     this.getCommune();
    // this.setgiatien();
   }
-  // setgiatien(){
-  //   this.certificateType.get(this.certificate.certificateTypeId).subscribe(
-  //     (result: CertificateTypeDto)=>{
-  //     console.log(result);
-  //   })
-  // }
+  getApi(data: any){
+    console.log(data.target.value);
+    this.certificateType.get(data.target.value).subscribe(
+      (result: CertificateTypeDto)=> {
+        console.log(result);
+        this.certificate.amountPaid = result.price;
+        this.container=result.price;
+      }
+    )
+  }
+  setPrice(event: any){
+    if(event.target.value == 0)
+    {
+      this.certificate.amountPaid = 0;
+    }
+    if(event.target.value == 1)
+    {
+      this.certificate.amountPaid = this.container;
+    }
+  }
   getProvince() {
    this.regionsService.getProvince().subscribe((result:RegionDto[])=>{
     this.provinces = result.map(r => {
