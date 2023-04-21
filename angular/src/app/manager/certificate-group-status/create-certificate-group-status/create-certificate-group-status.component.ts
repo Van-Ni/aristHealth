@@ -33,7 +33,7 @@ export class CreateCertificateGroupStatusComponent  extends AppComponentBase imp
       .create(createCertificateGroup)
       .subscribe(
         () => {
-          this.notify.info(this.l('SavedSuccessfully'));
+          this.notify.info(this.l('Lưu thành công'));
           this.bsModalRef.hide();
           this.onSave.emit();
         },

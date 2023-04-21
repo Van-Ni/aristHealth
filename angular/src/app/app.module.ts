@@ -15,8 +15,6 @@ import { SharedModule } from '@shared/shared.module';
 import { HomeComponent } from '@app/home/home.component';
 import { AboutComponent } from '@app/about/about.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 // tenants
 import { TenantsComponent } from '@app/tenants/tenants.component';
 import { CreateTenantDialogComponent } from './tenants/create-tenant/create-tenant-dialog.component';
@@ -169,9 +167,6 @@ import {RegionsService} from './services/regions.service';
         ServiceProxyModule,
         SharedModule,
         NgxPaginationModule,
-        MatInputModule,
-        MatAutocompleteModule,
-
     ],
     providers: [DataService,LoadingService,RegionsService,]
 })
