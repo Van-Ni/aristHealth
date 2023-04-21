@@ -1,4 +1,4 @@
-<h2 style="text-align: center;">Giấy khám sức khỏe dùng cho người đủ 18 tuổi trở lên</h2>
+<h2 style="text-align: center;">Giấy khám sức khỏe(Học tập & Làm Việc ...)</h2>
 <div class="container" *ngIf="dataModel ">
   <app-thong-tin-ca-nhan *ngIf="profile && profile.clientInfo" [profile]="profile">
     <app-profile [profile]="profile"></app-profile>
@@ -27,7 +27,7 @@
   </app-khoa-wrapper>
 
   <div class="row" style="display: flex; justify-content: space-around;">
-    <app-appove1 [Data]="dataModel.ketluan" [tdv]="dataModel.tdv" [approve]="approve" [unapprove]="unapprove" 
+    <app-appove1 [Data]="dataModel.ketluan" [tdv]="dataModel.tdv" [approve]="approve" [unapprove]="unapprove"
      ></app-appove1>
      <button class="btn btn-primary" (click)="Print()" *ngIf="dataModel.tdv.status">Print</button>
   </div>

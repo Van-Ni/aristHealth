@@ -18,7 +18,7 @@ namespace AristBase.Extensions.Storage
     public class StorageService : IStorageService
     {
         private readonly IWebHostEnvironment hostEnvironment;
-        private string uploadFolder = @"VolumeMap/sign/";
+        private string uploadFolder = "./VolumeMap/sign/";
         public StorageService(IWebHostEnvironment hostEnvironment)
         {
             this.hostEnvironment = hostEnvironment;

@@ -124,12 +124,12 @@ namespace AristBase.Web.Host.Startup
                     .GetManifestResourceStream("AristBase.Web.Host.wwwroot.swagger.ui.index.html");
                 options.DisplayRequestDuration(); // Controls the display of the request duration (in milliseconds) for "Try it out" requests.  
             }); // URL: /swagger
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                Path.Combine(Directory.GetCurrentDirectory(), "/source/aristhealth/aspnet-core/src/AristBase.Web.Host/VolumeMap/sign")),
-                RequestPath = "/images"
-            });
+            //app.UseStaticFiles(new StaticFileOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(
+            //    Path.Combine(Directory.GetCurrentDirectory(), "/source/aristhealth/aspnet-core/src/AristBase.Web.Host/VolumeMap/sign")),
+            //    RequestPath = "/images"
+            //});
         }
         
         private void ConfigureSwagger(IServiceCollection services)
