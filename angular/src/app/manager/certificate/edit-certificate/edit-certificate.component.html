@@ -140,6 +140,13 @@
         </select>
       </div>
     </div>
+    <div class="form-group row">
+      <label for="certificate" class="col-sm-3 col-form-label">Giá tiền</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" [(ngModel)]="certificate.amountPaid" [ngModelOptions]="{standalone: true}">
+      </div>
+    </div>
+
     <div class="form-group row" *ngIf="certificate.certificateTypeId == 1">
       <label for="amountPaid" class="col-sm-3 col-form-label">Hạng</label>
       <div class="col-sm-9">
