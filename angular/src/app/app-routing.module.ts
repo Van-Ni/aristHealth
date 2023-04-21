@@ -8,8 +8,6 @@ import { UsersComponent } from './users/users.component';
 import { TenantsComponent } from './tenants/tenants.component';
 import { RolesComponent } from 'app/roles/roles.component';
 import { ChangePasswordComponent } from './users/change-password/change-password.component';
-import { ProfileComponent } from './formfile/profile/profile.component';
-import { PhysicalExaminationComponent } from './formfile/physical-examination/physical-examination.component';
 import { DriverHealthCheckComponent } from './formfile/driver-health-check/driver-health-check.component';
 import { CertificateTypeComponent } from './manager/certificate-type/certificate-type.component';
 import { CertificateGroupStatusComponent } from './manager/certificate-group-status/certificate-group-status.component';
@@ -29,14 +27,11 @@ import { Chuadu18Component } from './formfile/chuadu18/chuadu18.component';
                     { path: 'tenants', component: TenantsComponent, data: { permission: 'Pages.Tenants' }, canActivate: [AppRouteGuard] },
                     { path: 'about', component: AboutComponent, canActivate: [AppRouteGuard] },
                     { path: 'certificates', component: CertificateComponent, canActivate: [AppRouteGuard] },
-                    { path: 'physical-examinations', component: PhysicalExaminationComponent, canActivate: [AppRouteGuard] },
                     { path: 'certificate-types', component: CertificateTypeComponent, canActivate: [AppRouteGuard] },
                     { path: '1/:id', component: DriverHealthCheckComponent, canActivate: [AppRouteGuard] },
                     { path: '2/:id', component: Du18Component, canActivate: [AppRouteGuard] },
                     { path: '3/:id', component: Chuadu18Component, canActivate: [AppRouteGuard] },
                     { path: 'certificate-group-status', component: CertificateGroupStatusComponent, canActivate: [AppRouteGuard] },
-                    { path: 'profiles', component: ProfileComponent, canActivate: [AppRouteGuard] },
-                    { path: 'driver-health-check', component: DriverHealthCheckComponent, canActivate: [AppRouteGuard] },
                     { path: 'update-password', component: ChangePasswordComponent, canActivate: [AppRouteGuard] }
                 ]
             }

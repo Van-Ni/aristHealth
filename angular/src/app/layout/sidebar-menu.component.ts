@@ -42,7 +42,6 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
     }
     getMenuItems(): MenuItem[] {
         return [
-            // new MenuItem(this.l('About'), '/app/about', 'fas fa-info-circle'),
             new MenuItem(this.l('HomePage'), '/app/home', 'fas fa-home'),
             new MenuItem(
                 this.l('Roles'),
@@ -76,21 +75,6 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                     '',
                 ),
             ]),
-            // new MenuItem(this.l('Quản lý Form word'), '', 'fas fa-circle', '', [
-            //     new MenuItem(
-            //         this.l('Giấy khám sức khỏe người lái xe'),
-            //         '/app/driver-health-check',
-            //         'far fa-circle',
-            //         '',
-            //     ),
-            //     new MenuItem(
-            //         this.l('Giấy khám sức khỏe 1'),
-            //         '/app/health-certification',
-            //         'far fa-circle',
-            //         '',
-            //     ),
-
-            // ])
         ];
     }
 
