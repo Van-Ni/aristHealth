@@ -40,7 +40,7 @@ namespace AristBase.CRUDServices.CertificateServices
             CheckGetAllPermission();
 
             var query = CreateFilteredQuery(input);
-            query = query.Include(i => i.ClientInfo).Include(i => i.CertificateType).WhereIf(!input.Keyword.IsNullOrWhiteSpace(), x => x.ClientInfo.FullName.Contains(input.Keyword)
+            query = query.Include(i => i.ClientInfo).Include(i=>i.CertificateType).Include(i => i.CertificateType).WhereIf(!input.Keyword.IsNullOrWhiteSpace(), x => x.ClientInfo.FullName.Contains(input.Keyword)
                 || x.CertificateType.Name.Contains(input.Keyword)
                 || x.ClientInfo.CCCD.Contains(input.Keyword)
                 );
@@ -95,12 +95,12 @@ namespace AristBase.CRUDServices.CertificateServices
             {
 
                 DateTime date = DateTime.ParseExact(input.ClientInfo.DateOfBirth, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture);
-                input.ClientInfo.DateOfBirth = date.ToString("dd-MM-yyyy");
+                input.ClientInfo.DateOfBirth = date.ToString("dd/MM/yyyy");
             }
             if (DateTime.TryParseExact(input.ClientInfo.CreateTimeCCCD, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate2))
             {
                 DateTime date1 = DateTime.ParseExact(input.ClientInfo.CreateTimeCCCD, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture);
-                input.ClientInfo.CreateTimeCCCD = date1.ToString("dd-MM-yyyy");
+                input.ClientInfo.CreateTimeCCCD = date1.ToString("dd/MM/yyyy");
             }
             var entity = await GetEntityByIdAsync(input.Id);
             MapToEntity(input, entity);
