@@ -53,13 +53,31 @@ namespace AristBase.CRUDServices.CertificateGroupStatusServices
                 var check = await Repository.GetAll().Where(w => w.CertificateId == input.CertificateId && w.Group == this._permissionName).FirstOrDefaultAsync();
                 if (check != null)
                 {
-                    check.Content = input.Content;
-                    check.UserId = AbpSession.UserId;
-                    check.Status = GroupStatus.SUBMITTED;
-                    await Repository.UpdateAsync(check);
-                    await CurrentUnitOfWork.SaveChangesAsync();
-
-                    return ObjectMapper.Map<CertificateGroupStatusDto>(check);
+                    if(check.Group == PermissionNames.KhamTheLucInput)
+                    {
+                        if(check.Status == GroupStatus.SUBMITTED)
+                        {
+                            throw new UserFriendlyException("Đã được duyệt bạn không thể nhập");
+                        }
+                        else
+                        {
+                            check.Content = input.Content;
+                            check.UserId = AbpSession.UserId;
+                            check.Status = GroupStatus.UNREADY;
+                            await Repository.UpdateAsync(check);
+                            await CurrentUnitOfWork.SaveChangesAsync();
+                            return ObjectMapper.Map<CertificateGroupStatusDto>(check);
+                        }    
+                    }
+                    else
+                    {
+                        check.Content = input.Content;
+                        check.UserId = AbpSession.UserId;
+                        check.Status = GroupStatus.SUBMITTED;
+                        await Repository.UpdateAsync(check);
+                        await CurrentUnitOfWork.SaveChangesAsync();
+                        return ObjectMapper.Map<CertificateGroupStatusDto>(check);
+                    }
                 }
                 var obj = ObjectMapper.Map<CertificateGroupStatus>(input);
                 obj.UserId = AbpSession.UserId;

@@ -34,6 +34,7 @@ namespace AristBase.Authorization
         public const string XetNghiemKhac = "xetnghiemkhac";
         public const string ChanDoanHinhAnh = "chandoanhinhanh";
         public const string KhamTheLuc = "khamtheluc";
+        public const string KhamTheLucInput = "khamthelucinput";
         public const string KetLuan = "ketluan";
         public const string tdv = "tdv";
         public const string KhamLamSanKhac = "khamlamsankhac";

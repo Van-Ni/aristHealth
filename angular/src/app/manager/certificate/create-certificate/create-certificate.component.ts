@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Injector, OnInit, Output } from '@angular/core';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CertificateServiceServiceProxy, ClientInfoDto, CreateCertificateDto, RegionDto } from '@shared/service-proxies/service-proxies';
+import { CertificateServiceServiceProxy, CertificateTypeDto, CertificateTypeServiceServiceProxy, ClientInfoDto, CreateCertificateDto, RegionDto } from '@shared/service-proxies/service-proxies';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { RegionDtlFull } from '../certificate.component';
 import { RegionsService } from '@app/services/regions.service';
@@ -17,13 +17,17 @@ export class CreateCertificateComponent extends AppComponentBase implements OnIn
   districts: RegionDtlFull[];
   communes: RegionDtlFull[];
   @Output() onSave = new EventEmitter<any>();
-  constructor(private certificateServiceServiceProxy: CertificateServiceServiceProxy, public bsModalRef: BsModalRef,
+  constructor(private certificateServiceServiceProxy: CertificateServiceServiceProxy, 
+    public bsModalRef: BsModalRef,
+    private certificateType: CertificateTypeServiceServiceProxy,
     private regionsService: RegionsService,
     private injector: Injector) {
     super(injector);
   }
   showDropdown = false;
   ngOnInit() {
+    console.log(this.certificate);
+    
     this.certificate = new CreateCertificateDto();
     this.certificate.clientInfo = new ClientInfoDto();
     this.certificate.clientInfo.provinceId = "64";
@@ -31,7 +35,14 @@ export class CreateCertificateComponent extends AppComponentBase implements OnIn
     this.getProvince();
     this.getDictrict();
     this.getCommune();
+   // this.setgiatien();
   }
+  // setgiatien(){
+  //   this.certificateType.get(this.certificate.certificateTypeId).subscribe(
+  //     (result: CertificateTypeDto)=>{
+  //     console.log(result);
+  //   })
+  // }
   getProvince() {
    this.regionsService.getProvince().subscribe((result:RegionDto[])=>{
     this.provinces = result.map(r => {
