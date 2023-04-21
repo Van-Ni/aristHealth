@@ -63,6 +63,7 @@
     <text name="Roles">Quyền</text>
     <text name="DisplayName">Tên hiển thị</text>
     <text name="Edit">Chỉnh sửa</text>
+    <text name="Print">In</text>
     <text name="Delete">Xóa</text>
     <text name="CreateNewRole">Thêm vai trò</text>
     <text name="RoleName">Tên vai trò</text>

@@ -13,23 +13,23 @@ export class ClinicalExamination18maxComponent  implements AfterContentInit {
   @Input() checkgiay: number;
   constructor() { }
   klplModel: DefaultModel ={
-    ketluanTitle : "Kết luận",
-    phanloaiTitle: "Phân loại",
-    optionsKetLuan :["Đủ sức khỏe", "Bình thường"],
-    optionsPhanLoai: ["Bình thường","Loại 1", "Loại 2", "Loại 3", "Loại 4", "Loại 5"]
+    ketluanTitle : "Phân loại",
+    phanloaiTitle: "Đánh giá",
+    optionsKetLuan :["Loại I", "Loại II", "Loại III", "Loại IV", "Loại V"],
+    optionsPhanLoai: ["Đủ sức khỏe"]
   }
 
   tsModel: DefaultModel ={
     ketluanTitle : "Kết luận",
     phanloaiTitle: "Phân loại",
     optionsKetLuan :["Đủ sức khỏe", "Bình thường"],
-    optionsPhanLoai: ["Tiền sử mở lấy thai. Hiện tại ổn định","Bình thường","Loại 1", "Loại 2", "Loại 3", "Loại 4", "Loại 5"]
+    optionsPhanLoai: ["Tiền sử mở lấy thai. Hiện tại ổn định","Bình thường","Loại I", "Loại II", "Loại III", "Loại IV", "Loại V"]
   }
   nkModel: DefaultModel ={
     ketluanTitle : "Kết luận",
     phanloaiTitle: "Phân loại",
     optionsKetLuan :["Bình thường", "Tiền sử mổ ruột thừa. Hiện tại ổn định"],
-    optionsPhanLoai: ["Loại 1", "Loại 2", "Loại 3", "Loại 4", "Loại 5"]
+    optionsPhanLoai: ["Loại I", "Loại II", "Loại III", "Loại IV", "Loại V"]
   }
   ngAfterContentInit(): void {
   }
