@@ -20,5 +20,7 @@ namespace AristBase.Interfaces
         public string Sorting { get; set; }
         public string filter { get; set; }
         public string Keyword { get; set; }
+        public DateTime DateFrom { get; set; }
+        public DateTime DateTo { get; set; }
     }
 }

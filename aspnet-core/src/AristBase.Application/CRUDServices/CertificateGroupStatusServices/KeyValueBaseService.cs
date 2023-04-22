@@ -29,7 +29,7 @@ namespace AristBase.CRUDServices.CertificateGroupStatusServices
             UpdatePermissionName = $"{baseName}.Update";
             GetAllPermissionName = GetPermissionName = $"{baseName}.Read";
             DeletePermissionName = $"{baseName}.Delete";
-           
+
         }
         public virtual async ValueTask<CertificateGroupStatusDto> CreateList(CreateCertificateGroupStatusDto input)
         {
@@ -50,12 +50,12 @@ namespace AristBase.CRUDServices.CertificateGroupStatusServices
             var checkKl = await Repository.GetAll().Where(w => w.CertificateId == input.CertificateId && w.Group == PermissionNames.KetLuan && w.Status == GroupStatus.SUBMITTED).FirstOrDefaultAsync();
             if (checkKl == null)
             {
-                var check = await Repository.GetAll().Where(w => w.CertificateId == input.CertificateId && w.Group == this._permissionName).FirstOrDefaultAsync();
+                var check = await Repository.GetAll().Where(w => w.CertificateId == input.CertificateId && input.Group.StartsWith(w.Group)).FirstOrDefaultAsync();
                 if (check != null)
                 {
-                    if(check.Group == PermissionNames.KhamTheLucInput)
+                    if (input.Group == PermissionNames.KhamTheLucInput)
                     {
-                        if(check.Status == GroupStatus.SUBMITTED)
+                        if (check.Status == GroupStatus.SUBMITTED)
                         {
                             throw new UserFriendlyException("Đã được duyệt bạn không thể nhập");
                         }
@@ -67,7 +67,7 @@ namespace AristBase.CRUDServices.CertificateGroupStatusServices
                             await Repository.UpdateAsync(check);
                             await CurrentUnitOfWork.SaveChangesAsync();
                             return ObjectMapper.Map<CertificateGroupStatusDto>(check);
-                        }    
+                        }
                     }
                     else
                     {

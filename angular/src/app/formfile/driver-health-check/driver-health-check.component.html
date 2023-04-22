@@ -6,13 +6,13 @@
     </app-thong-tin-ca-nhan>
 
     <app-khoa-wrapper title="Khám lâm sàng" >
-      <app-clinical-examination1 [Data]="dataModel"[checkgiay]="profile.certificateTypeId"
+      <app-clinical-examination1 *ngIf="profile && profile.clientInfo" [Data]="dataModel"[checkgiay]="profile.certificateTypeId"
       [save]="save"
       ></app-clinical-examination1>
     </app-khoa-wrapper>
 
     <app-khoa-wrapper title="Khám cận lâm sàng" >
-      <app-subclinical-examination-type1 [Data]="dataModel"[checkgiay]="profile.certificateTypeId"
+      <app-subclinical-examination-type1 *ngIf="profile && profile.clientInfo" [Data]="dataModel"[checkgiay]="profile.certificateTypeId"
       [save]="save"></app-subclinical-examination-type1>
     </app-khoa-wrapper>
     

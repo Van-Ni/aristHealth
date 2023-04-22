@@ -7,16 +7,24 @@ using Abp.Linq.Extensions;
 using AristBase.BaseEntity;
 using AristBase.CRUDServices.CertificateServices.Dto;
 using AristBase.Interfaces;
-using Microsoft.AspNetCore.Components.Forms;
+using CsvHelper;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+using iText.Layout.Element;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
+using System.Formats.Asn1;
 using System.Globalization;
+using System.IO;
+using System.IO.Packaging;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
+
 
 namespace AristBase.CRUDServices.CertificateServices
 {
@@ -44,6 +52,14 @@ namespace AristBase.CRUDServices.CertificateServices
                 || x.CertificateType.Name.Contains(input.Keyword)
                 || x.ClientInfo.CCCD.Contains(input.Keyword)
                 );
+            if (input.DateFrom != DateTime.MinValue)
+            {
+                query.Where(w => w.CreationTime == input.DateFrom);
+            }
+            if (input.DateTo != DateTime.MinValue)
+            {
+                query.Where(w => w.CreationTime == input.DateTo);
+            }
             var totalCount = await AsyncQueryableExecuter.CountAsync(query);
 
             query = ApplySorting(query, input);
@@ -55,6 +71,27 @@ namespace AristBase.CRUDServices.CertificateServices
                 totalCount,
                 entities.Select(MapToEntityDto).ToList()
             );
+        }
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public byte[] ExportToCsv(List<CertificateDto> certificates)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                using (var writer = new StreamWriter(memoryStream))
+                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
+                    csv.WriteRecords(certificates);
+                }
+                return memoryStream.ToArray();
+            }
+        }
+        public async Task<FileContentResult> GetExportCsvList(PagedAndSortedAndSearchResultDto input)
+        {
+            var certificates = await GetAllAsync(input);
+            var certificate = certificates.Items.Select(e => ObjectMapper.Map<CertificateDto>(e)).ToList();
+            var data = ExportToCsv(certificate);
+            var fileName = "Certificate.csv";
+            return new FileContentResult(data, "text/csv") { FileDownloadName = fileName };
         }
         public async override Task<CertificateDto> CreateAsync(CreateCertificateDto input)
         {

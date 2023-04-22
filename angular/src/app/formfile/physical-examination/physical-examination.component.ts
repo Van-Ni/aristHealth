@@ -10,8 +10,28 @@ export class PhysicalExaminationComponent implements OnInit {
   @Input() save: Function;
   @Input() Data: CertificateGroupStatusDto;
   @Input() huyketluan: Function;
+  isDisabled : boolean;
   constructor(protected _permissionChecker: PermissionCheckerService) { }
   ngOnInit(): void {
+    console.log('Pages.' +this.Data.group+'_input');
+    console.log('Pages.' +this.Data.group);
+    if(this._permissionChecker.isGranted('Pages.' + this.Data.group))
+    {
+      this.isDisabled = false;
+      console.log("1");
+      
+
+    }else if(this._permissionChecker.isGranted('Pages.' + this.Data.group + '_input'))
+    {
+      this.isDisabled = false;
+      this.Data.group = this.Data.group + '_input';
+      console.log("2");
+      
+    }
+    else
+    {
+      this.isDisabled = true;
+    }
   }
   mySave() {
     this.save(this.Data)

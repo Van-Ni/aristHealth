@@ -48,7 +48,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                 new CertificateType
                 {
                     Id = 1,
-                    Price = 0,
+                    Price = 294000,
                     FilePath = "./VolumeMap/Templates/GiayKhamLaiXeGialaiForm.pdf",
                     FinalResult ="",
                     IsNeedSync = true,
@@ -146,6 +146,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                             DefaultStatus = GroupStatus.UNREADY,
                             DefaultContent = new Dictionary<string, Values>
                             {
+                                { "text_stt" , new Values{ Value = "" }},
                                 { "text_morphin" , new Values{ Value = "Âm tính" }},
                                 { "text_amphetamin" , new Values { Value = "Âm tính" }},
                                 { "text_methamphetamin" , new Values { Value = "Âm tính" }},
@@ -187,7 +188,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                 new CertificateType
                 {
                     Id = 2,
-                    Price = 0,
+                    Price = 260000,
                     FilePath = "./VolumeMap/Templates/du18Form.pdf",
                     FinalResult ="",
                     IsNeedSync = false,
@@ -385,7 +386,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                 new CertificateType
                 {
                     Id = 3,
-                    Price = 0,
+                    Price = 87000,
                     FilePath = "./VolumeMap/Templates/duoi18Form.pdf",
                     FinalResult ="",
                     IsNeedSync = false,
