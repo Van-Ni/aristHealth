@@ -20,14 +20,14 @@ export class ClinicalExamination18maxComponent  implements AfterContentInit {
   }
 
   tsModel: DefaultModel ={
-    ketluanTitle : "Kết luận",
-    phanloaiTitle: "Phân loại",
+    ketluanTitle : "Phân loại",
+    phanloaiTitle: "Đánh giá",
     optionsKetLuan :["Đủ sức khỏe", "Bình thường"],
     optionsPhanLoai: ["Tiền sử mở lấy thai. Hiện tại ổn định","Bình thường","Loại I", "Loại II", "Loại III", "Loại IV", "Loại V"]
   }
   nkModel: DefaultModel ={
-    ketluanTitle : "Kết luận",
-    phanloaiTitle: "Phân loại",
+    ketluanTitle : "Phân loại",
+    phanloaiTitle: "Đánh giá",
     optionsKetLuan :["Bình thường", "Tiền sử mổ ruột thừa. Hiện tại ổn định"],
     optionsPhanLoai: ["Loại I", "Loại II", "Loại III", "Loại IV", "Loại V"]
   }
