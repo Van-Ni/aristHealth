@@ -124,7 +124,7 @@
     <text name="clientInfo_Name">Họ tên</text>
     <text name="paymentStatus">Trạng thái thanh toán</text>
     <text name="reason">Lý do</text>
-    <text name="status">Trạng thái</text>
+    <text name="Status">Trạng thái</text>
     <text name="certificate-types">Loại giấy khám</text>
     <text name="certificates">Giấy khám</text>
     <text name="filePath">Đường dẫn lưu trữ</text>
@@ -161,6 +161,7 @@
     <text name="thantietnieu">Thận tiết niệu</text>
     <text name="ngoaikhoa">Ngoại khoa</text>
     <text name="dalieu">Da liễu</text>
+    <text name="creationTime">Thời gian khám</text>
 
 
 
