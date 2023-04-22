@@ -34,10 +34,11 @@ namespace AristBase.Services
             {
                 return await _internalPDFService.FillPDFWithCertificate(cerId);
             }
-            using FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+            FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+
             return new FileStreamResult(fileStream, "application/pdf")
             {
-                FileDownloadName = Path.GetFileName(path)
+                FileDownloadName = System.IO.Path.GetFileName(path)
             };
         }
 
