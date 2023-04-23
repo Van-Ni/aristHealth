@@ -16,6 +16,12 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
             { "text_ketluan" , new Values{ Value = "Đủ sức khỏe"}},
             { "text_phanloai" , new Values { Value = "Bình thường" }},
         };
+        public static Dictionary<string, Values> DefaultAbove18KeyValue = new Dictionary<string, Values>
+        {
+
+                                { "text_ketluan" , new Values{ Value = "Loại I"}},
+                                { "text_phanloai" , new Values { Value = "Bình thường" }},
+        };
         public static Dictionary<string, Values> DefaultUnder18KeyValue = new Dictionary<string, Values>
         {
             { "text_ketluan" , new Values{ Value = "Bình thường"}},
@@ -29,6 +35,15 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
             { "text_ck_mp" , new Values { Value = "10/10" }},
             { "text_cbvm" , new Values { Value = "Không" }},
             { "text_phanloai" , new Values { Value = "Đủ sức khỏe" }},
+        };
+        public static Dictionary<string, Values> MatAbove18KeyValue = new Dictionary<string, Values>
+        {
+            { "text_kk_mt" , new Values{ Value = "10/10" }},
+            { "text_kk_mp" , new Values { Value = "10/10" }},
+            { "text_ck_mt" , new Values { Value = "10/10" }},
+            { "text_ck_mp" , new Values { Value = "10/10" }},
+            { "text_cbvm" , new Values { Value = "Không" }},
+            { "text_phanloai" , new Values { Value = "Loại I" }},
         };
         public static Dictionary<string, Values> TaiMuiHongKeyValue = new Dictionary<string, Values>
         {
@@ -117,7 +132,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                             {
                                 { "text_mach" , new Values{ Value = "" }},
                                 { "text_huyetap" , new Values { Value = "" }},
-                                { "text_phanloai" , new Values { Value = "" }},
+                                { "text_phanloai" , new Values { Value = "Bình thường" }},
                                 { "text_ketluan" , new Values { Value = "Đủ sức khỏe" }},
                             },
                         },
@@ -198,103 +213,67 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                     FinalResult ="",
                     IsNeedSync = false,
                     TenantId = 2,
-                    Name = "Giấy khám sức khỏe dành cho người trên 18 tuổi",
+                    Name = "Giấy khám sức khỏe dành cho người trên 18 tuổi(Học tập & làm việc)",
                     TemplateGroups = new List<TemplateGroup> {
                         new TemplateGroup
                         {
                             GroupName = PermissionNames.TuanHoan,
                             DefaultStatus = GroupStatus.UNREADY,
-                            DefaultContent = new Dictionary<string, Values>
-                            {
-                                { "text_ketluan" , new Values{ Value = "Loại I"}},
-                                { "text_phanloai" , new Values { Value = "Đủ sức khỏe" }},
-                            },
+                            DefaultContent = DefaultAbove18KeyValue
                         },
                         new TemplateGroup
                         {
                             GroupName = PermissionNames.HoHap,
                             DefaultStatus = GroupStatus.UNREADY,
-                            DefaultContent = new Dictionary<string, Values>
-                            {
-                                { "text_ketluan" , new Values{ Value = "Loại I"}},
-                                { "text_phanloai" , new Values { Value = "Đủ sức khỏe" }},
-                            },
+                            DefaultContent = DefaultAbove18KeyValue
                         },
                         new TemplateGroup
                         {
                             GroupName = PermissionNames.TieuHoa,
                             DefaultStatus = GroupStatus.UNREADY,
-                            DefaultContent = new Dictionary<string, Values>
-                            {
-                                { "text_ketluan" , new Values{ Value = "Loại I"}},
-                                { "text_phanloai" , new Values { Value = "Đủ sức khỏe" }},
-                            },
+                            DefaultContent = DefaultAbove18KeyValue
                         },
                         new TemplateGroup
                         {
                             GroupName = PermissionNames.ThanTietNieu,
                             DefaultStatus = GroupStatus.UNREADY,
-                            DefaultContent = new Dictionary<string, Values>
-                            {
-                                { "text_ketluan" , new Values{ Value = "Loại I"}},
-                                { "text_phanloai" , new Values { Value = "Đủ sức khỏe" }},
-                            },
+                            DefaultContent =DefaultAbove18KeyValue
                         },
                         new TemplateGroup
                         {
                             GroupName = PermissionNames.CoXuongKhop,
                             DefaultStatus = GroupStatus.UNREADY,
-                            DefaultContent = new Dictionary<string, Values>
-                            {
-                                { "text_ketluan" , new Values{ Value = "Loại I"}},
-                                { "text_phanloai" , new Values { Value = "Đủ sức khỏe" }},
-                            },
+                            DefaultContent = DefaultAbove18KeyValue
                         },
                         new TemplateGroup
                         {
                             GroupName = PermissionNames.ThanKinh,
                             DefaultStatus = GroupStatus.UNREADY,
-                            DefaultContent = new Dictionary<string, Values>
-                            {
-                                { "text_ketluan" , new Values{ Value = "Loại I"}},
-                                { "text_phanloai" , new Values { Value = "Đủ sức khỏe" }},
-                            },
+                            DefaultContent = DefaultAbove18KeyValue
                         },
                         new TemplateGroup
                         {
                             GroupName = PermissionNames.TamThan,
                             DefaultStatus = GroupStatus.UNREADY,
-                            DefaultContent = new Dictionary<string, Values>
-                            {
-                                { "text_ketluan" , new Values{ Value = "Loại I"}},
-                                { "text_phanloai" , new Values { Value = "Đủ sức khỏe" }},
-                            },
+                            DefaultContent = DefaultAbove18KeyValue
                         },
                         new TemplateGroup
                         {
                             GroupName = PermissionNames.NgoaiKhoa,
                             DefaultStatus = GroupStatus.UNREADY,
-                            DefaultContent = new Dictionary<string, Values>
-                            {
-                                { "text_ketluan" , new Values{ Value = "Loại I"}},
-                                { "text_phanloai" , new Values { Value = "Đủ sức khỏe" }},
-                            },
+                            DefaultContent = DefaultAbove18KeyValue
                         },
                         new TemplateGroup
                         {
                             GroupName = PermissionNames.ThaiSan,
                             DefaultStatus = GroupStatus.OPTIONAL,
-                            DefaultContent = new Dictionary<string, Values>
-                            {
-                                { "text_ketluan" , new Values{ Value = "Loại I"}},
-                                { "text_phanloai" , new Values { Value = "Đủ sức khỏe" }},
-                            },
+                            DefaultContent = DefaultAbove18KeyValue
                         },
                         new TemplateGroup
                         {
                             GroupName = PermissionNames.Mat,
                             DefaultStatus = GroupStatus.UNREADY,
-                            DefaultContent = MatKeyValue,
+                            DefaultContent = MatAbove18KeyValue,
                         },
                         new TemplateGroup
                         {
@@ -392,7 +371,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                 {
                     Id = 3,
                     Price = 87000,
-                    FilePath = "./VolumeMap/Templates/duoi18Form.pdf",
+                    FilePath = "./VolumeMap/Templates/duoi18FormNoChuki.pdf",
                     FinalResult ="",
                     IsNeedSync = false,
                     TenantId = 2,
