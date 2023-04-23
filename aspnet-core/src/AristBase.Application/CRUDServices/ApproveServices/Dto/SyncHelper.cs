@@ -12,7 +12,7 @@ namespace AristBase.CRUDServices.ApproveServices.Dto
     static class SyncHelper
     {
         public static string IDBV = "64A01";
-        public static string TenBV = "TRUNG TÂM GIÁM ĐỊNH Y KHÓA";
+        public static string TenBV = "TRUNG TÂM GIÁM ĐỊNH Y KHOA";
         public static string DatimeFormat = "dd/MM/yyyy";
         public static string GetRealValue(Values values)
         {
