@@ -131,6 +131,7 @@
     <text name="name">Tên loại giấy</text>
     <text name="price">Giá tiền</text>
     <text name="Unready">Chưa khám {0}</text>
-
+    <text name="creationTime">Thời gian khám</text>
+    <text name="Status">Trạng thái</text>
   </texts>
 </localizationDictionary>

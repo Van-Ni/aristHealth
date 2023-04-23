@@ -32,14 +32,14 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
             { "text_taiphai" , new Values { Value = "05" }},
             { "text_taiphai_noitham" , new Values { Value = "" }},
             { "text_cbvtmh" , new Values { Value = "" }},
-            { "text_phanloai" , new Values { Value = "" }},
+            { "text_phanloai" , new Values { Value = "Loại I" }},
         };
         public static Dictionary<string, Values> RangHamMatKeyValue = new Dictionary<string, Values>
         {
             { "text_hamtren" , new Values{ Value = "Bình thường" }},
             { "text_hamduoi" , new Values { Value = "Bình thường" }},
             { "text_cbvrhm" , new Values { Value = "" }},
-            { "text_phanloai" , new Values { Value = "" }},
+            { "text_phanloai" , new Values { Value = "Loại I" }},
         };
         protected override List<CertificateType> GetInitial()
         {
@@ -147,11 +147,11 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                             DefaultContent = new Dictionary<string, Values>
                             {
                                 { "text_stt" , new Values{ Value = "" }},
-                                { "text_morphin" , new Values{ Value = "Âm tính" }},
-                                { "text_amphetamin" , new Values { Value = "Âm tính" }},
-                                { "text_methamphetamin" , new Values { Value = "Âm tính" }},
-                                { "text_marijuana" , new Values { Value = "Âm tính" }},
-                                { "text_nongdomau" , new Values { Value = "0,0mg/l" }},
+                                { "text_morphin" , new Values{ Value = "Âm tính" , RealValue = "0"}},
+                                { "text_amphetamin" , new Values { Value = "Âm tính" , RealValue = "0"}},
+                                { "text_methamphetamin" , new Values { Value = "Âm tính", RealValue = "0" }},
+                                { "text_marijuana" , new Values { Value = "Âm tính", RealValue = "0" }},
+                                { "text_nongdomau" , new Values { Value = "0,0", RealValue = "mg/l"}},
                             },
                         },
                         new TemplateGroup

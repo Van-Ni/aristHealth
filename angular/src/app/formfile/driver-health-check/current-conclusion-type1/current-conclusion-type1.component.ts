@@ -51,8 +51,6 @@ export class CurrentConclusionType1Component implements OnInit {
     const momentObj = moment(dateString, "YYYY-MM-DD"); 
     const formattedDate = momentObj.format("DD/MM/YYYY"); 
     this.Data.content['text_ngaykhamlai'].value = formattedDate; 
-    // const newLocal = this;
-    // newLocal.Data.content['text_ngaykhamlai'].value = formattedDate
     console.log(this.Data);
     this.save(this.Data)
   }

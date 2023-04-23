@@ -103,7 +103,7 @@
       <div class="col-sm-9">
         <select class="form-control" [(ngModel)]="certificate.clientInfo.provinceId" [ngModelOptions]="{standalone: true}"
           (change)="getDictrict()">
-          <option *ngFor="let item of provinces" value="{{item.id}}">{{item.id}}-{{item.name}}</option>
+          <option *ngFor="let item of provinces" value="{{item.id}}">{{item.name}}</option>
         </select>
       </div>
     </div>
@@ -112,7 +112,7 @@
       <div class="col-sm-9">
         <select class="form-control" [(ngModel)]="certificate.clientInfo.districtId" [ngModelOptions]="{standalone: true}"
           (change)="getCommune()">
-          <option *ngFor="let item of districts" value="{{item.id}}">{{item.id}}-{{item.name}}</option>
+          <option *ngFor="let item of districts" value="{{item.id}}">{{item.name}}</option>
         </select>
       </div>
     </div>
@@ -120,7 +120,7 @@
       <label for="commune" class="col-sm-3 col-form-label">Xã</label>
       <div class="col-sm-9">
         <select class="form-control" [(ngModel)]="certificate.clientInfo.communeId" [ngModelOptions]="{standalone: true}">
-          <option *ngFor="let item of communes" value="{{item.id}}">{{item.id}}-{{item.name}}</option>
+          <option *ngFor="let item of communes" value="{{item.id}}">{{item.name}}</option>
         </select>
       </div>
     </div>

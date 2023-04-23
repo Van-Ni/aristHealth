@@ -13,50 +13,55 @@
         </div>
       </div>
       <div class="form-group row">
-        <label for="fullname" class="col-sm-2 col-form-label">Test Morphin/Heroin</label>
-        <div class="col-sm-10">
-          <input type="text" list="morpin" class="form-control"[(ngModel)]="inputModel.content['text_morphin'].value"
-          [ngModelOptions]="{standalone: true}">
-          <datalist id="morpin">
-            <option value="Âm tính">Âm tính</option>
-            <option value="Dương tính">Dương tính</option>
-          </datalist>
+        <label for="fullname" class="col-sm-3 col-form-label">Test Morphin/Heroin</label>
+        <div class="col-sm-9 row">
+          <div class="form-check col-6" *ngFor="let item of optionXetNghiemMaTuys">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="text_morphin " [(ngModel)]="inputModel.content['text_morphin'].realValue"
+              [ngModelOptions]="{standalone: true}" value="{{item.realvalue}}"> {{item.value}}
+            </label>
+          </div>
         </div>
       </div><div class="form-group row">
-        <label for="fullname" class="col-sm-2 col-form-label">Test Amphetamin</label>
-        <div class="col-sm-10">
-          <input type="text" list="Amphetamin" class="form-control" [(ngModel)]="inputModel.content['text_amphetamin'].value"
-          [ngModelOptions]="{standalone: true}">
-          <datalist id="Amphetamin">
-            <option value="Âm tính">Âm tính</option>
-            <option value="Dương tính">Dương tính</option>
-          </datalist>
+        <label for="fullname" class="col-sm-3 col-form-label">Test Amphetamin</label>
+        <div class="col-sm-9 row">
+          <div class="form-check col-6" *ngFor="let item of optionXetNghiemMaTuys">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="text_amphetamin" [(ngModel)]="inputModel.content['text_amphetamin'].realValue"
+              [ngModelOptions]="{standalone: true}" value="{{item.realvalue}}"> {{item.value}}
+            </label>
+          </div>
         </div>
       </div><div class="form-group row">
-        <label for="fullname" class="col-sm-2 col-form-label">Test Methamphetamin</label>
-        <div class="col-sm-10">
-          <input type="text" list="Methamphetamin" class="form-control" [(ngModel)]="inputModel.content['text_methamphetamin'].value"
-          [ngModelOptions]="{standalone: true}">
-          <datalist id="Methamphetamin">
-            <option value="Âm tính">Âm tính</option>
-            <option value="Dương tính">Dương tính</option>
-          </datalist>
+        <label for="fullname" class="col-sm-3 col-form-label">Test Methamphetamin</label>
+        <div class="col-sm-9 row">
+          <div class="form-check col-6" *ngFor="let item of optionXetNghiemMaTuys">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="text_methamphetamin" [(ngModel)]="inputModel.content['text_methamphetamin'].realValue"
+              [ngModelOptions]="{standalone: true}" value="{{item.realvalue}}"> {{item.value}}
+            </label>
+          </div>
         </div>
       </div><div class="form-group row">
-        <label for="fullname" class="col-sm-2 col-form-label">Test Marijuana (cần sa)</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control"  list="Marijuana"  [(ngModel)]="inputModel.content['text_marijuana'].value"
-          [ngModelOptions]="{standalone: true}">
-          <datalist id="Marijuana">
-            <option value="Âm tính">Âm tính</option>
-            <option value="Dương tính">Dương tính</option>
-          </datalist>
+        <label for="fullname" class="col-sm-3 col-form-label">Test Marijuana (cần sa)</label>
+        <div class="col-sm-9 row">
+          <div class="form-check col-6" *ngFor="let item of optionXetNghiemMaTuys">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="text_marijuana" [(ngModel)]="inputModel.content['text_marijuana'].realValue"
+              [ngModelOptions]="{standalone: true}" value="{{item.realvalue}}"> {{item.value}}
+            </label>
+          </div>
         </div>
       </div>
       <div class="form-group">
         <p>b. Xét nghiệm nồng độ máu hoặc hơi thở</p>
-      <input type="text" class="form-control" [(ngModel)]="inputModel.content['text_nongdomau'].value"
+      <div class="input-group">
+        <input type="text" class="form-control" [(ngModel)]="inputModel.content['text_nongdomau'].value"
       [ngModelOptions]="{standalone: true}">
+      <div class="input-group-append">
+        <span class="input-group-text">mg/l</span>
+      </div>
+      </div>
       </div>
 
       <div class="form-group " style="display: flex !important;justify-content: space-around !important;">

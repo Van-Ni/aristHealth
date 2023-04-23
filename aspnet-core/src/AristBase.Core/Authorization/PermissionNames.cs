@@ -12,6 +12,8 @@ namespace AristBase.Authorization
         public const string Pages_Users_Activation = "Pages.Users.Activation";
 
         public const string Pages_Roles = "Pages.Roles";
+        public const string Pages_Certificates = "Pages.Certificates";
+        public const string Pages_CertificateTypes = "Pages.CertificateTypes";
         public const string TamThan = "tamthan";
         public const string ThanKinh = "thankinh";
         public const string Mat = "mat";
@@ -67,7 +69,9 @@ namespace AristBase.Authorization
             ThanTietNieu,
             NgoaiKhoa,
             DaLieu,
-            KhamTheLucInput
+            KhamTheLucInput,
+            Pages_CertificateTypes,
+            Pages_Certificates
         };
     }
     public class CRUDPermissionName
