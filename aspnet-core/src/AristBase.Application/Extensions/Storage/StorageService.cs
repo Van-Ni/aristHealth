@@ -25,12 +25,12 @@ namespace AristBase.Extensions.Storage
         }
         public async ValueTask<string> UploadFileAsync(string filename, string folderPath = "", byte[] imageBuffer = null, Stream stream = null)
         {
-            var filePath = Path.Combine(hostEnvironment.ContentRootPath, uploadFolder, folderPath);
+            var filePath = Path.Combine(uploadFolder, folderPath);
             if (!Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
+            var file = filePath+ "/"+Guid.NewGuid().ToString("N") + filename;
+            await File.WriteAllBytesAsync(file, stream.ToByteArray());
 
-            await File.WriteAllBytesAsync(Path.Combine(filePath, filename), stream.ToByteArray());
-
-            return Path.Combine("/", uploadFolder, folderPath, filename);
+            return file;
         }
     }
 }

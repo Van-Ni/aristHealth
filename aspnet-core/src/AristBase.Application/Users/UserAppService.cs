@@ -252,25 +252,17 @@ namespace AristBase.Users
 
             return true;
         }
-        public async Task<UserDto> UploadSignPath([Required] IFormFile file, long id)
+        public async Task<UserDto> UploadSignPath([Required] IFormFile file)
         {
-
             if (file.ContentType.StartsWith("image/"))
             {
-                var getData = await Repository.FirstOrDefaultAsync(i => i.Id == id);
+                var data = await storageService.UploadFileAsync(file.FileName, _abpSession.GetUserId().ToString(), stream: file.OpenReadStream());
 
-                if (getData != null)
+                return new UserDto
                 {
-                    var data = await storageService.UploadFileAsync(file.FileName, getData.Id.ToString(), stream: file.OpenReadStream());
-                    getData.SignPath = data;
-                    await Repository.UpdateAsync(getData);
-                    await CurrentUnitOfWork.SaveChangesAsync();
-                    return ObjectMapper.Map<UserDto>(getData);
-                }
-                else
-                {
-                    throw new Exception("Data not found.");
-                }
+                    SignPath = data,
+                };
+
             }
             else
             {
