@@ -177,7 +177,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                         new TemplateGroup
                         {
                             GroupName = PermissionNames.XetNghiemKhac,
-                            DefaultStatus = GroupStatus.UNREADY,
+                            DefaultStatus = GroupStatus.OPTIONAL,
                             DefaultContent = new Dictionary<string, Values>
                             {
                                 { "text_phanloai" , new Values{ Value = "" }},
@@ -291,11 +291,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                         {
                             GroupName = PermissionNames.DaLieu,
                             DefaultStatus = GroupStatus.UNREADY,
-                            DefaultContent = new Dictionary<string, Values>
-                            {
-                                { "text_ketluan" , new Values{ Value = "Loại I"}},
-                                { "text_phanloai" , new Values { Value = "Đủ sức khỏe" }},
-                            },
+                            DefaultContent = DefaultAbove18KeyValue
                         },
                         new TemplateGroup
                         {
@@ -328,7 +324,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                         new TemplateGroup
                         {
                             GroupName = PermissionNames.ChanDoanHinhAnh,
-                            DefaultStatus = GroupStatus.UNREADY,
+                            DefaultStatus = GroupStatus.OPTIONAL,
                             DefaultContent = new Dictionary<string, Values>
                             {
                                 { "text_chandoan" , new Values { Value = "" }},
@@ -354,7 +350,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                             DefaultStatus = GroupStatus.UNREADY,
                             DefaultContent = new Dictionary<string, Values>
                             {
-                                { "text_noidung" , new Values { Value = "" }},
+                                { "text_noidung" , new Values { Value = "Loại I" }},
                                 { "text_ketluan" , new Values { Value = "" }},
                             },
                         },
