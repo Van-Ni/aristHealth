@@ -1,11 +1,11 @@
-<fieldset [disabled]="(!this._permissionChecker.isGranted('Pages.' +this.Data.group))">
+<fieldset [disabled]="(!this._permissionChecker.isGranted('Pages.' +this.tdv.group))">
   <div class="container"*ngIf="tdv && Data">
     <div class="row" style="display: flex !important;justify-content: space-around !important">
       <div  *ngIf="tdv.status == 0">
         <button [disabled]="Data.status !=1" type="submit" class="btn btn-primary" (click)="approve()">Duyệt</button>
       </div>
       <div  *ngIf="tdv.status == 1">
-        <button [disabled]="Data.status !=1" type="submit" class="btn btn-primary" (click)="unapprove()">Hủy duyệt</button>
+        <button [disabled]="Data.status !=1 && _permissionChecker.isGranted('Pages.' +this.tdv.group + '.Update')" type="submit" class="btn btn-primary" (click)="unapprove()">Hủy duyệt</button>
       </div>
     </div>
 </div>

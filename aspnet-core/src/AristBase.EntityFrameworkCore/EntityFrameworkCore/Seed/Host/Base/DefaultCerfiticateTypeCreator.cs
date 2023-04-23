@@ -16,6 +16,11 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
             { "text_ketluan" , new Values{ Value = "Đủ sức khỏe"}},
             { "text_phanloai" , new Values { Value = "Bình thường" }},
         };
+        public static Dictionary<string, Values> DefaultUnder18KeyValue = new Dictionary<string, Values>
+        {
+            { "text_ketluan" , new Values{ Value = "Bình thường"}},
+            { "text_phanloai" , new Values { Value = "" }},
+        };
         public static Dictionary<string, Values> MatKeyValue = new Dictionary<string, Values>
         {
             { "text_kk_mt" , new Values{ Value = "10/10" }},
@@ -49,7 +54,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                 {
                     Id = 1,
                     Price = 294000,
-                    FilePath = "./VolumeMap/Templates/GiayKhamLaiXeGialaiForm.pdf",
+                    FilePath = "./VolumeMap/Templates/GiayKhamLaiXeGialaiFormNoChuki.pdf",
                     FinalResult ="",
                     IsNeedSync = true,
                     Name = "Giấy khám sức khỏe lái xe",
@@ -189,7 +194,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                 {
                     Id = 2,
                     Price = 260000,
-                    FilePath = "./VolumeMap/Templates/du18Form.pdf",
+                    FilePath = "./VolumeMap/Templates/du18FormNoChuki.pdf",
                     FinalResult ="",
                     IsNeedSync = false,
                     TenantId = 2,
@@ -397,37 +402,37 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                         {
                             GroupName = PermissionNames.TuanHoan,
                             DefaultStatus = GroupStatus.UNREADY,
-                            DefaultContent = DefaultKeyValue
+                            DefaultContent = DefaultUnder18KeyValue
                         },
                         new TemplateGroup
                         {
                             GroupName = PermissionNames.HoHap,
                             DefaultStatus = GroupStatus.UNREADY,
-                            DefaultContent = DefaultKeyValue
+                            DefaultContent = DefaultUnder18KeyValue
                         },
                         new TemplateGroup
                         {
                             GroupName = PermissionNames.TieuHoa,
                             DefaultStatus = GroupStatus.UNREADY,
-                            DefaultContent = DefaultKeyValue
+                            DefaultContent = DefaultUnder18KeyValue
                         },
                         new TemplateGroup
                         {
                             GroupName = PermissionNames.ThanTietNieu,
                             DefaultStatus = GroupStatus.UNREADY,
-                            DefaultContent = DefaultKeyValue
+                            DefaultContent = DefaultUnder18KeyValue
                         },
                         new TemplateGroup
                         {
                             GroupName = PermissionNames.ThanKinh,
                             DefaultStatus = GroupStatus.UNREADY,
-                            DefaultContent = DefaultKeyValue
+                            DefaultContent = DefaultUnder18KeyValue
                         },
                         new TemplateGroup
                         {
                             GroupName = PermissionNames.KhamLamSanKhac,
                             DefaultStatus = GroupStatus.UNREADY,
-                            DefaultContent = DefaultKeyValue
+                            DefaultContent = DefaultUnder18KeyValue
                         },
                         new TemplateGroup
                         {
@@ -450,7 +455,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                          new TemplateGroup
                         {
                             GroupName = PermissionNames.XetNghiemKhac,
-                            DefaultStatus = GroupStatus.UNREADY,
+                            DefaultStatus = GroupStatus.OPTIONAL,
                             DefaultContent = new Dictionary<string, Values>
                             {
                                 { "text_ketqua" , new Values { Value = "" }},

@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services;
+using Abp.Authorization;
 using Abp.Domain.Repositories;
 using Abp.UI;
 using AristBase.Authorization;
@@ -35,6 +36,7 @@ namespace AristBase.CRUDServices.ApproveServices
             return ObjectMapper.Map<CertificateSyncDto>(entity);
         }
         //To-Do: Check ketluanGroup status == submited
+        [AbpAuthorize($"Pages.{PermissionNames.tdv}.Create")]
         public async ValueTask<CertificateDto> ApproveAsync(Guid cerId)
         {
             var klStatus = await repositoryGroupStatus.GetAll().AnyAsync(w => w.CertificateId == cerId && w.Status == GroupStatus.SUBMITTED && w.Group == PermissionNames.KetLuan);
@@ -119,6 +121,7 @@ namespace AristBase.CRUDServices.ApproveServices
             }
             throw new UserFriendlyException(L("ChuaKetLuan"));
         }
+        [AbpAuthorize($"Pages.{PermissionNames.tdv}.Update")]
         public async ValueTask<CertificateDto> UnApproveAsync(Guid cerId)
         {
             var query = await repositoryCertificate.GetAll().Include(i => i.CertificateType).SingleAsync(id => id.Id == cerId);
