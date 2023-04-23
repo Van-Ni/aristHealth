@@ -29,15 +29,17 @@ namespace AristBase.Services
     {
         private readonly IRepository<Certificate, Guid> _certificateRepository;
         private readonly IRepository<CertificateGroupStatus, Guid> _certificateStatus;
+        private readonly IRepository<CertificateSync> _syncRepo;
 
         public InternalPDFService(
             IRepository<Certificate, Guid> certificateRepository,
-            IRepository<CertificateGroupStatus, Guid> certificateStatus
-
+            IRepository<CertificateGroupStatus, Guid> certificateStatus,
+            IRepository<CertificateSync> syncRepo
             )
         {
             this._certificateRepository = certificateRepository;
             this._certificateStatus = certificateStatus;
+            this._syncRepo = syncRepo;
         }
         public async Task<FileStreamResult> FillPDFWithCertificate(Guid cerId)
         {
@@ -72,6 +74,7 @@ namespace AristBase.Services
             // dic[PDFFieldConst.TT] = "TRUNG TÂM GIÁM ĐỊNH Y KHOA";
             //Set clientInfo status 
 
+
             var dic = new Dictionary<string, Values>();
             dic[PDFFieldConst.Hvt] = new Values
             {
@@ -104,6 +107,10 @@ namespace AristBase.Services
             dic[PDFFieldConst.Day] = new Values { Value = now.ToString("dd") };
             dic[PDFFieldConst.Month] = new Values { Value = now.ToString("MM") };
             dic[PDFFieldConst.Year] = new Values { Value = now.ToString("yyyy") };
+            if (cer.CertificateType.IsNeedSync)
+            {
+                var xml = await _syncRepo.GetAll().Where(s => s.CertificateId == cerId).Select(c => c.MetaData).SingleAsync();
+                dic[PDFFieldConst.So] = new Values { Value = xml.SO };            }
             var sys = new CertificateGroupStatusDto
             {
                 Group = "sys",
@@ -180,8 +187,8 @@ namespace AristBase.Services
                             {
                                 field.Value.SetCheckType(PdfFormField.TYPE_CHECK);//PdfFormField.TYPE_CIRCLE,PdfFormField.TYPE_CROSS,PdfFormField.TYPE_DIAMOND,PdfFormField.TYPE_SQUARE,PdfFormField.TYPE_STAR,etc
 
-                                if(!string.Equals(contentValue.Value, "false", StringComparison.OrdinalIgnoreCase))
-                                field.Value.SetValue(contentValue.Value, true);
+                                if (!string.Equals(contentValue.Value, "false", StringComparison.OrdinalIgnoreCase))
+                                    field.Value.SetValue(contentValue.Value, true);
                             }
                             else
                             {
@@ -196,10 +203,10 @@ namespace AristBase.Services
                                 //while(valueStr.Length > skip)
                                 //{
 
-                                    
+
                                 //}
-                                
-                                
+
+
                                 field.Value.SetValue(contentValue.Value, font, 12f);
                             }
                             continue;
