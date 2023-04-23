@@ -19,6 +19,28 @@ export class Mat1Component {
   editClicked = false;
   constructor(protected _permissionChecker: PermissionCheckerService) { }
   mySave() {
+    console.log("a",this.inputModel.content['checkbox_mumau_xanh'].value);
+    
+    if(!this.inputModel.content['checkbox_mumau_xanh'].value)
+    {
+      this.inputModel.content['checkbox_mumau_xanh'].value = null;
+    }
+    if(!this.inputModel.content['checkbox_bth'].value)
+    {
+      this.inputModel.content['checkbox_bth'].value = null;
+    }
+    if(!this.inputModel.content['checkbox_mumau_all'].value)
+    {
+      this.inputModel.content['checkbox_mumau_all'].value = null;
+    }
+    if(!this.inputModel.content['checkbox_mumau_do'].value)
+    {
+      this.inputModel.content['checkbox_mumau_do'].value = null;
+    }
+    if(!this.inputModel.content['checkbox_mumau_vang'].value)
+    {
+      this.inputModel.content['checkbox_mumau_vang'].value = null;
+    }
     this.save(this.inputModel)
   }
   isEdited() {
