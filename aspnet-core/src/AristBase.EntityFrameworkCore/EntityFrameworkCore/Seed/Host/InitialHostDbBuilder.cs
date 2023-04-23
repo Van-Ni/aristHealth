@@ -19,7 +19,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host
             new DefaultSettingsCreator(_context).Create();
             new DefaultCerfiticateTypeCreator(_context).Create();
             new DefaultTenantCreator(_context).Create();
-            new DefaultRolesCreator(_context).Create();
+            //new DefaultRolesCreator(_context).Create();
             _context.SaveChanges();
         }
     }

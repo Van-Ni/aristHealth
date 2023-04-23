@@ -180,7 +180,7 @@ namespace AristBase.Services
                             {
                                 field.Value.SetCheckType(PdfFormField.TYPE_CHECK);//PdfFormField.TYPE_CIRCLE,PdfFormField.TYPE_CROSS,PdfFormField.TYPE_DIAMOND,PdfFormField.TYPE_SQUARE,PdfFormField.TYPE_STAR,etc
 
-
+                                if(!string.Equals(contentValue.Value, "false", StringComparison.OrdinalIgnoreCase))
                                 field.Value.SetValue(contentValue.Value, true);
                             }
                             else
