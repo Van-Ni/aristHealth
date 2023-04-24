@@ -51,14 +51,14 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
             { "text_taitrai_noitham" , new Values { Value = "" }},
             { "text_taiphai" , new Values { Value = "05" }},
             { "text_taiphai_noitham" , new Values { Value = "" }},
-            { "text_cbvtmh" , new Values { Value = "" }},
+            { "text_cbvtmh" , new Values { Value = "Không" }},
             { "text_phanloai" , new Values { Value = "Loại I" }},
         };
         public static Dictionary<string, Values> RangHamMatKeyValue = new Dictionary<string, Values>
         {
             { "text_hamtren" , new Values{ Value = "Bình thường" }},
             { "text_hamduoi" , new Values { Value = "Bình thường" }},
-            { "text_cbvrhm" , new Values { Value = "" }},
+            { "text_cbvrhm" , new Values { Value = "Không" }},
             { "text_phanloai" , new Values { Value = "Loại I" }},
         };
         protected override List<CertificateType> GetInitial()

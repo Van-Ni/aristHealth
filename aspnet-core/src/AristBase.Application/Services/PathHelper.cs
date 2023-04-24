@@ -7,6 +7,7 @@ namespace AristBase.Services
     {
         public const string BaseOutputPath = "./VolumeMap/pdf/output/{0}/{1}";
         public const string FontPath = "./Data/arial.ttf";
+        public const string CrossPath = "./VolumeMap/Templates/cross.png";
         public static string GetOutputPath(string fileName, string type)
         {
             var now = Clock.Now;

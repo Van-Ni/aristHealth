@@ -28,6 +28,7 @@ export class ClinicalExamination1Component implements AfterContentInit {
   @Input() Data: ClinicalExaminationModel;
   @Input() save: Function;
   @Input() checkgiay: number;
+  @Input() sex: string;
   @Input() statusDataCheck: any;
   data:  any;
   statusDataCheck1: any;
@@ -47,6 +48,8 @@ export class ClinicalExamination1Component implements AfterContentInit {
     optionsPhanLoai: ["Tiền sử mở lấy thai. Hiện tại ổn định","Bình thường","Loại I", "Loại II", "Loại III", "Loại IV", "Loại V"]
   }
   ngAfterContentInit(): void {
+    console.log(this.sex);
+    
   }
   
 }

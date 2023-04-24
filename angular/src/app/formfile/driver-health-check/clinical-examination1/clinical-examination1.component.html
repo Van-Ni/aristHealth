@@ -1,40 +1,44 @@
 <h2 style="text-align: center;">Khám lâm sàng</h2>
 <div class="container">
-  <app-khoa-wrapper title="1. Tâm thần" [status]="Data.tamthan.status">
+  <app-khoa-wrapper title="1. Tâm thần" [userInput]="Data.tamthan" [status]="Data.tamthan.status">
     <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.tamthan" [save]="save"></app-KetLuanPhanLoai>
   </app-khoa-wrapper>
 
-  <app-khoa-wrapper title="2. Thần kinh" [status]="Data.thankinh.status">
+  <app-khoa-wrapper title="2. Thần kinh" [userInput]="Data.thankinh" [status]="Data.thankinh.status">
     <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.thankinh" [save]="save"></app-KetLuanPhanLoai>
   </app-khoa-wrapper>
 
-  <app-khoa-wrapper title="3. Mắt" [status]="Data.mat.status">
+  <app-khoa-wrapper title="3. Mắt" [userInput]="Data.mat" [status]="Data.mat.status">
     <app-mat1 [inputModel]="Data.mat" [save]="save"></app-mat1>
   </app-khoa-wrapper>
 
-  <app-khoa-wrapper title="4. Tai mũi họng" [status]="Data.taimuihong.status">
+  <app-khoa-wrapper title="4. Tai mũi họng" [userInput]="Data.taimuihong" [status]="Data.taimuihong.status">
       <app-tai-mui-hong-laixe [inputModel]="Data.taimuihong" [save]="save"></app-tai-mui-hong-laixe>
   </app-khoa-wrapper>
 
-  <app-khoa-wrapper title="5. Tim mạch" [status]="Data.timmach.status">
+  <app-khoa-wrapper title="5. Tim mạch" [userInput]="Data.timmach" [status]="Data.timmach.status">
     <app-tim-mach [inputModel]="Data.timmach" [save]="save"></app-tim-mach>
   </app-khoa-wrapper>
 
-  <app-khoa-wrapper title="6. Hô hấp" [status]="Data.coxuongkhop.status">
+  <app-khoa-wrapper title="6. Hô hấp" [userInput]="Data.hohap" [status]="Data.coxuongkhop.status">
     <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.hohap"
         [save]="save"></app-KetLuanPhanLoai>
   </app-khoa-wrapper>
 
-  <app-khoa-wrapper title="7. Cơ xương khớp ngoại" [status]="Data.coxuongkhop.status">
+  <app-khoa-wrapper title="7. Cơ xương khớp ngoại" [userInput]="Data.coxuongkhop" [status]="Data.coxuongkhop.status">
     <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.coxuongkhop"
         [save]="save"></app-KetLuanPhanLoai>
   </app-khoa-wrapper>
 
-  <app-khoa-wrapper title="8. Nội tiết" [status]="Data.noitiet.status">
+  <app-khoa-wrapper title="8. Nội tiết" [userInput]="Data.noitiet" [status]="Data.noitiet.status">
     <app-KetLuanPhanLoai [defaultModel]="klplModel" [inputModel]="Data.noitiet" [save]="save"></app-KetLuanPhanLoai>
   </app-khoa-wrapper>
 
-  <app-khoa-wrapper title="9. Thai sản" [status]="Data.thaisan.status">
-    <app-KetLuanPhanLoai [defaultModel]="tsModel" [inputModel]="Data.thaisan" [save]="save"></app-KetLuanPhanLoai>
-  </app-khoa-wrapper>
+  <div *ngIf="sex">
+    <div *ngIf="sex == 'nu'">
+      <app-khoa-wrapper title="9. Thai sản" [userInput]="Data.thaisan" [status]="Data.thaisan.status">
+        <app-KetLuanPhanLoai [defaultModel]="tsModel" [inputModel]="Data.thaisan" [save]="save"></app-KetLuanPhanLoai>
+      </app-khoa-wrapper>
+    </div>
+  </div>
 </div>

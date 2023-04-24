@@ -56,7 +56,30 @@ namespace AristBase.Services
             };
             //var now = Clock.Now;
             var cerUserDic = cerStatusData.ToDictionary(c => c.Group, c => ObjectMapper.Map<CertificateGroupStatusDto>(c));
-
+            if(cerUserDic.TryGetValue("mat", out var mat))
+            {
+                if(mat.Content.TryGetValue(PDFFieldConst.TTD,out var ttdValue))
+                {
+                    if (ttdValue.Value.Equals("bth"))
+                    {
+                        mat.Content[PDFFieldConst.TTDBTH] = new Values { Value = "X" };
+                    }else
+                    {
+                        mat.Content[PDFFieldConst.TTDHC] = new Values { Value = "X" };
+                    }
+                }
+                if (mat.Content.TryGetValue(PDFFieldConst.TTN, out var ttnValue))
+                {
+                    if (ttnValue.Value.Equals("bth"))
+                    {
+                        mat.Content[PDFFieldConst.TTNBTH] = new Values { Value = "X" };
+                    }
+                    else
+                    {
+                        mat.Content[PDFFieldConst.TTNHC] = new Values { Value = "X" };
+                    }
+                }
+            };
 
             var cer = await _certificateRepository.GetAll()
                 .Where(c => c.Id == cerId)
@@ -91,6 +114,11 @@ namespace AristBase.Services
             dic[PDFFieldConst.CCCDTai] = new Values { Value = cer.ClientInfo.AddressCCCD };
             dic[PDFFieldConst.CCCDNC] = new Values { Value = cer.ClientInfo.CreateTimeCCCD };
             dic[PDFFieldConst.Sex] = new Values { Value = cer.ClientInfo.Sex };
+            dic[PDFFieldConst.CrossNam] = new Values
+            {
+                Value = cer.ClientInfo.Sex.Equals("nam", StringComparison.OrdinalIgnoreCase) 
+                ? PathHelper.CrossPath : ""
+            };
             dic[PDFFieldConst.HvtGuardian] = new Values { Value = cer.ClientInfo.GuardianName };
             var clientInfo = new CertificateGroupStatusDto
             {
@@ -158,13 +186,24 @@ namespace AristBase.Services
                 var keys = field.Key.Split("_");
                 if (cerUserDic.TryGetValue(keys[0], out var group))
                 {
+                    if (field.Key.Contains(PDFFieldConst.CrossNam))
+                    {
+                        var contentKey = string.Join("_", keys.Skip(1));
+                        if (group.Content.TryGetValue(contentKey, out var contentValue) && contentValue != null)
+                        {
+                            if (!string.IsNullOrEmpty(contentValue.Value))
+                            {
+                                field.Value.SetValue("X", font, 50f);
+                                continue;
+                            }
+                        }
+                    }
                     if (group.Status != GroupStatus.SUBMITTED)
                     {
                         continue;
                     }
                     if (field.Key.EndsWith(PDFFieldConst.SignImage))
                     {
-
                         FillImage(form, field.Value, group.User.SignPath, pdfDoc);
                         continue;
                     }
@@ -185,10 +224,10 @@ namespace AristBase.Services
                             }
                             else if (field.Value.GetFormType() == PdfName.Btn)
                             {
-                                field.Value.SetCheckType(PdfFormField.TYPE_CHECK);//PdfFormField.TYPE_CIRCLE,PdfFormField.TYPE_CROSS,PdfFormField.TYPE_DIAMOND,PdfFormField.TYPE_SQUARE,PdfFormField.TYPE_STAR,etc
-
+                                field.Value.SetCheckType(PdfFormField.TYPE_CROSS);//PdfFormField.TYPE_CIRCLE,PdfFormField.TYPE_CROSS,PdfFormField.TYPE_DIAMOND,PdfFormField.TYPE_SQUARE,PdfFormField.TYPE_STAR,etc
+                              
                                 if (!string.Equals(contentValue.Value, "false", StringComparison.OrdinalIgnoreCase))
-                                    field.Value.SetValue(contentValue.Value, true);
+                                    field.Value.SetValue(contentValue.Value, false);
                             }
                             else
                             {
@@ -234,7 +273,7 @@ namespace AristBase.Services
 
             PdfCanvas pdfCanvas = new PdfCanvas(pdfDoc, pdfDoc.GetPageNumber(field.GetWidgets()[0].GetPage()));
 
-            pdfCanvas.AddImageFittedIntoRectangle(ImageDataFactory.Create(imagePath), rect, false);
+            pdfCanvas.AddImageFittedIntoRectangle(ImageDataFactory.Create("./VolumeMap/sign/sigh.png"), rect, false);
         }
     }
 }

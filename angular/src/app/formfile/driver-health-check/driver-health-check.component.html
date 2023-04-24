@@ -6,7 +6,7 @@
     </app-thong-tin-ca-nhan>
 
     <app-khoa-wrapper title="Khám lâm sàng" >
-      <app-clinical-examination1 *ngIf="profile && profile.clientInfo" [Data]="dataModel"[checkgiay]="profile.certificateTypeId"
+      <app-clinical-examination1 *ngIf="profile && profile.clientInfo" [Data]="dataModel"[checkgiay]="profile.certificateTypeId" [sex]="profile.clientInfo.sex"
       [save]="save"
       ></app-clinical-examination1>
     </app-khoa-wrapper>
@@ -16,7 +16,7 @@
       [save]="save"></app-subclinical-examination-type1>
     </app-khoa-wrapper>
     
-    <app-khoa-wrapper title="Kết luận" >
+    <app-khoa-wrapper title="Kết luận"  [status]="dataModel.ketluan.status" [userInput]="dataModel.ketluan">
       <app-current-conclusion-type1 [Data]="dataModel.ketluan" [huyketluan]="huyketluan" [hang]="profile.reason"
       [save]="saveKL" ></app-current-conclusion-type1>
     </app-khoa-wrapper>

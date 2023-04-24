@@ -19,6 +19,7 @@ namespace AristBase.Services
         public const string HvtGuardian = "text_nguoigiamho";
         public const string Male = "checkbox_male";
         public const string Sex = "checkbox_sex";
+        public const string CrossNam = "cross_nam";
         public const string Female = "checkbox_female";
         public const string Dob = "text_dob";
         public const string CCCD = "text_cccd";
@@ -35,10 +36,12 @@ namespace AristBase.Services
         public const string TT = "text_branchName";
         public const string So = "text_so";
 
-        public const string TTNBTH = "mat_radio_thitruong_ngang_bth";
-        public const string TTNHC = "mat_radio_thitruong_ngang_hc";
-        public const string TTDBTH = "mat_radio_thitruong_dung_bth";
-        public const string TTDHC = "mat_radio_thitruong_dung_hc";
+        public const string TTN = "radio_thitruong_ngang";
+        public const string TTD = "radio_thitruong_dung";
+        public const string TTNBTH = "text_thitruong_ngang_bth";
+        public const string TTNHC = "text_thitruong_ngang_hc";
+        public const string TTDBTH = "text_thitruong_dung_bth";
+        public const string TTDHC = "text_thitruong_dung_hc";
 
 
     }
