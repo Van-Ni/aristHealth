@@ -35,12 +35,8 @@ export interface Du18Model{
   styleUrls: ['./du18.component.css']
 })
 export class Du18Component extends AppComponentBase implements OnInit {
-  isProfile1 = false;
-  isTSBCDTKSK1 =true;
-  isKhamTheLuc1 = true;
-  isKhamLamSan1= true;
-  isKhamCanLamSan1 = true;
-  isKetLuan1 = true;
+  isPrint = true;
+  print = "In";
   request: PagedRequestDto;
   certificateStatusResult : CertificateGroupStatusDtoPagedResultDto ;
   profile: CertificateDto;
@@ -178,10 +174,13 @@ export class Du18Component extends AppComponentBase implements OnInit {
 
   }
   Print = () =>{
+    this.isPrint = false;
+    this.print = "Đang in";
     this.PDFService.getCertificatePdfPrintedFile(this.route.snapshot.params['id']).subscribe(
       (response: any) => {
         console.log(response);
-
+        this.isPrint = true;
+        this.print = "In";
         if (response) { // Check if the response body is not null or undefined
           //const blob = new Blob([response.body], { type: 'application/pdf' });
           const url = URL.createObjectURL(response);
@@ -197,6 +196,8 @@ export class Du18Component extends AppComponentBase implements OnInit {
       },
       error => {
         // Handle error
+        this.isPrint = true;
+        this.print = "In";
         console.error(error);
       }
     );
