@@ -25,7 +25,7 @@ export class KhoaWrapperComponent implements OnInit {
       case 1:
         return '#28a745';
       case 2:
-        return '#dc3545';
+        return 'yellow';
       default:
         return 'black';
     }
