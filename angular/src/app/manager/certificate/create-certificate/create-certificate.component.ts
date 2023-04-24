@@ -141,7 +141,7 @@ export class CreateCertificateComponent
         });
   }
   save(): void {
-    this.saving = true;
+
     this.certificate.clientInfo.commune = this.communes.find(
       (c) => c.id == this.certificate.clientInfo.communeId
     ).name;
@@ -151,7 +151,7 @@ export class CreateCertificateComponent
     this.certificate.clientInfo.province = this.provinces.find(
       (c) => c.id == this.certificate.clientInfo.provinceId
     ).name;
-
+    this.saving = true;
     this.certificateServiceServiceProxy.create(this.certificate).subscribe(
       (result: CreateCertificateDto) => {
         this.notify.info(this.l("Lưu thành công."));
