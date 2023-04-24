@@ -25,6 +25,7 @@ export class CertificateComponent  extends PagedListingComponentBase<Certificate
   Certificates: CertificateDto[] = [];
   keyword = '';
   filter='creationTime desc';
+  in = false;
   constructor(
     injector: Injector,
     private _certificatesService: CertificateServiceServiceProxy,
@@ -52,7 +53,7 @@ export class CertificateComponent  extends PagedListingComponentBase<Certificate
         this.Certificates = result.items;
         this.showPaging(result, pageNumber);
         console.log(this.Certificates);
-        
+
       });
   }
   getIncrease():void{
@@ -60,7 +61,7 @@ export class CertificateComponent  extends PagedListingComponentBase<Certificate
     request.keyword = 'certificate';
     request.filter = 'status desc';
     console.log(request);
-    
+
     this.list(request, this.pageNumber, () => {});
   }
   getReduce():void{
@@ -68,7 +69,7 @@ export class CertificateComponent  extends PagedListingComponentBase<Certificate
     request.keyword = 'certificate';
     request.filter = 'status asc';
     console.log(request);
-    
+
     this.list(request, this.pageNumber, () => {});
   }
   delete(Certificate: CertificateDto): void {
@@ -91,10 +92,11 @@ export class CertificateComponent  extends PagedListingComponentBase<Certificate
     );
   }
   print(Certificate: CertificateDto): void{
+    this.in =true;
     this.PDFService.getCertificatePdfPrintedFile(Certificate.id).subscribe(
       (response: any) => {
         console.log(response);
-
+        this.in = false;
         if (response) { // Check if the response body is not null or undefined
           //const blob = new Blob([response.body], { type: 'application/pdf' });
           const url = URL.createObjectURL(response);
@@ -115,7 +117,7 @@ export class CertificateComponent  extends PagedListingComponentBase<Certificate
     );
 }
   createCertificate(): void {
-    
+
     this.showCreateOrEditCertificateDialog();
   }
 
@@ -149,6 +151,6 @@ export class CertificateComponent  extends PagedListingComponentBase<Certificate
         this.refresh();
       });
     }
-    
+
   }
 }
