@@ -3,10 +3,7 @@ import {
   Injector,
   OnInit,
   EventEmitter,
-  Output,
-  ElementRef,
-  ViewChild
-} from '@angular/core';
+  Output} from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { forEach as _forEach, includes as _includes, map as _map } from 'lodash-es';
 import { AppComponentBase } from '@shared/app-component-base';
@@ -27,7 +24,8 @@ import {
     fileToUpload: File = null;
     checkedRolesMap: { [key: string]: boolean } = {};
     id: number;
-    url: string = '';    files: Array<any> = new Array<any>();
+    url: string = '';
+    files: Array<any> = new Array<any>();
     @Output() onSave = new EventEmitter<any>();
 
     constructor(
@@ -41,7 +39,6 @@ import {
     ngOnInit(): void {
       this._userService.get(this.id).subscribe((result) => {
         this.user = result;
-
         this._userService.getRoles().subscribe((result2) => {
           this.roles = result2.items;
           this.setInitialRolesStatus();
@@ -105,7 +102,7 @@ import {
           this.notify.info(this.l('Lưu thành công'));
           this.bsModalRef.hide();
           this.onSave.emit();
-          
+
         },
         () => {
           this.saving = false;
