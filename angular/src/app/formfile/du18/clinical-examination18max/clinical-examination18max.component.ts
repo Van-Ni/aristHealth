@@ -11,6 +11,7 @@ export class ClinicalExamination18maxComponent  implements AfterContentInit {
   @Input() Data: Du18Model;
   @Input() save: Function;
   @Input() checkgiay: number;
+  @Input() sex: string;
   constructor() { }
   klplModel: DefaultModel ={
     ketluanTitle : "Phân loại",

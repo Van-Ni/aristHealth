@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CertificateGroupStatusDto } from '@shared/service-proxies/service-proxies';
 
 @Component({
   selector: 'app-khoa-wrapper',
@@ -9,9 +10,12 @@ export class KhoaWrapperComponent implements OnInit {
   expandStatus = true;
   @Input() title: string;
   @Input() status: number;
+
+  @Input() userInput: CertificateGroupStatusDto;
   constructor() { }
 
   ngOnInit() {
+ 
   }
   getBackgroundColor(status: number){
     switch(status)
