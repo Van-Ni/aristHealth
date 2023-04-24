@@ -4,7 +4,7 @@
     <app-profile [profile]="profile"></app-profile>
   </app-thong-tin-ca-nhan>
   
-  <app-khoa-wrapper title="Khám thể lực" [status]="-1">
+  <app-khoa-wrapper title="Khám thể lực" [userInput]="dataModel.khamtheluc"  [status]="dataModel.khamtheluc.status" [userInput]="dataModel.khamtheluc">
     <app-physical-examination  [Data]="dataModel.khamtheluc"
     [save]="save"></app-physical-examination>
   </app-khoa-wrapper>
@@ -15,12 +15,12 @@
     ></app-clinical-examination18min>
   </app-khoa-wrapper>
 
-  <app-khoa-wrapper title="Khám cận lâm sàng" [status]="-1">
+  <app-khoa-wrapper title="Khám cận lâm sàng"  [status]="-1">
     <app-subclinical-examination-type18min *ngIf="profile && profile.clientInfo" [Data]="dataModel"  [checkgiay]="profile.certificateTypeId"
     [save]="save"></app-subclinical-examination-type18min>
   </app-khoa-wrapper>
 
-  <app-khoa-wrapper title="Kết luận" [status]="-1">
+  <app-khoa-wrapper title="Kết luận"  [status]="dataModel.ketluan.status" [userInput]="dataModel.ketluan">
     <app-ket-luan-giay-kham [defaultModel]="chuadu18Model" [Data]="dataModel.ketluan"  [huyketluan]="huyketluan"
     [save]="saveKL" ></app-ket-luan-giay-kham>
   </app-khoa-wrapper>

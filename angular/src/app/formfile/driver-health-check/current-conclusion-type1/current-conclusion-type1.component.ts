@@ -30,17 +30,17 @@ export class CurrentConclusionType1Component implements OnInit {
     
     this.options = [
       {
-        value: `Đủ điều kiện lái xe hạng ${this.hang}`,
+        value: `Đủ điều kiện sức khỏe lái xe hạng ${this.hang}`,
         realvalue: `A0-1`,
       },
       {
-        value: `Không đủ điều kiện lái xe hạng ${this.hang}`,
+        value: `Không đủ điều kiện sức khỏe lái xe hạng ${this.hang}`,
         realvalue: `A0-2`,
       },
       {
-        value: `Đủ điều kiện lại xe hạng ${this.hang} nhưng cần khám lại`,
+        value: `Đủ điều kiện sức khỏe lái xe hạng ${this.hang} nhưng cần khám lại`,
         realvalue: `A0-3`,
-      }      
+      }        
     ]
     console.log(this.options, this.Data?.content["text_ketluan"])
   }
