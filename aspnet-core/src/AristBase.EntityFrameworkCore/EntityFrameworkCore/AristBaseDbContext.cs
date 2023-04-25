@@ -6,6 +6,7 @@ using AristBase.MultiTenancy;
 using Abp.Localization;
 using AristBase.BaseEntity;
 using AristBase.Authorization;
+using Abp.Timing;
 
 namespace AristBase.EntityFrameworkCore
 {
@@ -42,7 +43,12 @@ namespace AristBase.EntityFrameworkCore
             modelBuilder.Entity<CertificateGroupStatus>().Property(r => r.Content).HasColumnType("jsonb");
             modelBuilder.Entity<CertificateSync>().Property(r => r.MetaData).HasColumnType("jsonb");
             modelBuilder.Entity<CertificateType>().Property(r => r.TemplateGroups).HasColumnType("jsonb");
-
+            modelBuilder.Entity<ClientInfo>().HasKey(r =>
+            new {
+                r.Id,
+                r.Year
+            });
+            modelBuilder.Entity<ClientInfo>().Property(c => c.Id).UseIdentityAlwaysColumn();
             modelBuilder.Entity<Region>().HasMany(r => r.ChildRegions).WithOne(cr => cr.ParentRegion).HasForeignKey(r => r.ParentId);
 
 

@@ -11,7 +11,11 @@
 
 
   <app-khoa-wrapper title="Khám lâm sàng" [status]="-1">
-    <app-clinical-examination18max *ngIf="profile && profile.clientInfo" [Data]="dataModel" [checkgiay]="profile.certificateTypeId"
+    <app-clinical-examination18max
+    *ngIf="profile && profile.clientInfo"
+    [sex]="profile.clientInfo.sex"
+    [Data]="dataModel"
+    [checkgiay]="profile.certificateTypeId"
     [save]="save"
     ></app-clinical-examination18max>
   </app-khoa-wrapper>

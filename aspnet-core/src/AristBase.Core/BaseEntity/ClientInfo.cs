@@ -3,11 +3,13 @@ using Abp.Domain.Entities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Abp.Timing;
 
 namespace AristBase.BaseEntity
 {
-    public class ClientInfo : Entity<int>, IFullAudited, IPassivable, ISoftDelete, IMustHaveTenant
+    public class ClientInfo : IFullAudited, IPassivable, ISoftDelete, IMustHaveTenant
     {
+        public int Id { get; set; }
         public string FullName { get; set; }
         //Male = true
         public string Sex { get; set; }
@@ -23,6 +25,7 @@ namespace AristBase.BaseEntity
         public string DistrictId { get; set; }
         public string District { get; set; }
         public string? GuardianName { get; set; }
+        public string Year { get; private set; } = Clock.Now.ToString("yyyy");
         //public string? Avatar { get; set; }
         public virtual ICollection<Certificate> Certificates { get; set; }
         #region Audited
