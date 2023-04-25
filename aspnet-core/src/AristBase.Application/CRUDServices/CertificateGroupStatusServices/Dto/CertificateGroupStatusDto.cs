@@ -18,4 +18,13 @@ namespace AristBase.CRUDServices.CertificateGroupStatusServices.Dto
         public long? UserId { get; set; }
         public UserDto User { get; set; }
     }
+    [AutoMapFrom(typeof(CertificateGroupStatus))]
+    public class CertificateGroupStatusToPrintDto
+    {
+        public Dictionary<string, Values> Content { get; set; }
+        public string Group { get; set; }
+        public GroupStatus Status { get; set; }
+        public UserDto User { get; set; }
+        public DateTime? LastModificationTime { get; set; }
+    }
 }

@@ -7,6 +7,7 @@ using AristBase.BaseEntity;
 using AristBase.BaseEntity.XML;
 using AristBase.CRUDServices.ApproveServices.Dto;
 using AristBase.CRUDServices.CertificateServices.Dto;
+using AristBase.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -86,7 +87,7 @@ namespace AristBase.CRUDServices.ApproveServices
                         .ToDictionaryAsync(c=>c.Group, c=>c);
                     var syncXml = new CertificateDataSync()
                     {
-                        SO = SyncHelper.GetNumberTitle(certificateSync.Id, SyncHelper.IDBV),
+                        SO = SyncHelper.GetNumberTitle(certificate.ClientInfo.Id, SyncHelper.IDBV),
                         NGAYKHAM = certificate.CreationTime.ToString("dd/MM/yyyy"),
                         HOTEN = certificate.ClientInfo.FullName,
                         GIOITINHVAL = certificate.ClientInfo.Sex == "nam" ? "0" : "1",
@@ -101,10 +102,8 @@ namespace AristBase.CRUDServices.ApproveServices
                         HANGBANGLAI = certificate.Reason,
                         IDBENHVIEN = SyncHelper.IDBV,
                         BENHVIEN = SyncHelper.TenBV,
-                        NGAYKETLUAN = dataDic[PermissionNames.KetLuan].LastModificationTime.HasValue ?
-                        dataDic[PermissionNames.KetLuan].LastModificationTime.Value.ToString(SyncHelper.DatimeFormat) :
-                        dataDic[PermissionNames.KetLuan].CreationTime.ToString(SyncHelper.DatimeFormat),
-                        NONGDOCON = dataDic[PermissionNames.XetNghiemMaTuyVaMau].Content["text_nongdomau"].Value.Replace("mg/l", ""),
+                        NGAYKETLUAN = dataDic[PermissionNames.KetLuan].LastModificationTime.Value.ToVNTime().ToString("dd/MM/yyyy"),
+                        NONGDOCON = dataDic[PermissionNames.XetNghiemMaTuyVaMau].Content["text_nongdomau"].Value.Replace("mg/l", "").Trim(),
                         DVINONGDOCON = "1",
                         MATUY = SyncHelper.GetRealValue(dataDic[PermissionNames.XetNghiemMaTuyVaMau].Content["text_morphin"]),
                         BACSYKETLUAN = dataDic[PermissionNames.KetLuan].User.FullName,

@@ -192,7 +192,7 @@ namespace AristBase.Users
         {
             identityResult.CheckErrors(LocalizationManager);
         }
-
+        [AbpAuthorize(PermissionNames.ChangePassword)]
         public async Task<bool> ChangePassword(ChangePasswordDto input)
         {
             await _userManager.InitializeOptionsAsync(AbpSession.TenantId);

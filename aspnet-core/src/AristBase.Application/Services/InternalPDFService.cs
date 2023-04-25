@@ -22,17 +22,20 @@ using Microsoft.EntityFrameworkCore;
 using AristBase.Extensions;
 using iText.Kernel.Geom;
 using Abp.UI;
+using AristBase.Authorization;
+using AristBase.CRUDServices.ApproveServices.Dto;
+using Org.BouncyCastle.Crypto.Tls;
 
 namespace AristBase.Services
 {
     public class InternalPDFService : AbpServiceBase, ITransientDependency
     {
-        private readonly IRepository<Certificate, Guid> _certificateRepository;
+        private readonly IRepository<BaseEntity.Certificate, Guid> _certificateRepository;
         private readonly IRepository<CertificateGroupStatus, Guid> _certificateStatus;
         private readonly IRepository<CertificateSync> _syncRepo;
 
         public InternalPDFService(
-            IRepository<Certificate, Guid> certificateRepository,
+            IRepository<BaseEntity.Certificate, Guid> certificateRepository,
             IRepository<CertificateGroupStatus, Guid> certificateStatus,
             IRepository<CertificateSync> syncRepo
             )
@@ -44,7 +47,9 @@ namespace AristBase.Services
         public async Task<FileStreamResult> FillPDFWithCertificate(Guid cerId)
         {
             var cerStatusData = await _certificateStatus.GetAll()
-                 .Where(c => c.CertificateId == cerId).Include(c => c.User).ToListAsync();
+                 .Where(c => c.CertificateId == cerId).Include(c => c.User)
+                 .Select(c => ObjectMapper.Map<CertificateGroupStatusToPrintDto>(c))
+                 .ToListAsync();
             if (cerStatusData.Any(c => c.Status == GroupStatus.UNREADY))
             {
                 throw new UserFriendlyException("Vui lòng khám đầy đủ");
@@ -55,15 +60,16 @@ namespace AristBase.Services
                 throw new UserFriendlyException(string.Format("Chưa có chữ ký: {0}", string.Join(", ", unSignUser)));
             };
             //var now = Clock.Now;
-            var cerUserDic = cerStatusData.ToDictionary(c => c.Group, c => ObjectMapper.Map<CertificateGroupStatusDto>(c));
-            if(cerUserDic.TryGetValue("mat", out var mat))
+            var cerUserDic = cerStatusData.ToDictionary(c => c.Group, c => c);
+            if (cerUserDic.TryGetValue("mat", out var mat))
             {
-                if(mat.Content.TryGetValue(PDFFieldConst.TTD,out var ttdValue))
+                if (mat.Content.TryGetValue(PDFFieldConst.TTD, out var ttdValue))
                 {
                     if (ttdValue.Value.Equals("bth"))
                     {
                         mat.Content[PDFFieldConst.TTDBTH] = new Values { Value = "X" };
-                    }else
+                    }
+                    else
                     {
                         mat.Content[PDFFieldConst.TTDHC] = new Values { Value = "X" };
                     }
@@ -116,11 +122,11 @@ namespace AristBase.Services
             dic[PDFFieldConst.Sex] = new Values { Value = cer.ClientInfo.Sex };
             dic[PDFFieldConst.CrossNam] = new Values
             {
-                Value = cer.ClientInfo.Sex.Equals("nam", StringComparison.OrdinalIgnoreCase) 
+                Value = cer.ClientInfo.Sex.Equals("nam", StringComparison.OrdinalIgnoreCase)
                 ? PathHelper.CrossPath : ""
             };
             dic[PDFFieldConst.HvtGuardian] = new Values { Value = cer.ClientInfo.GuardianName };
-            var clientInfo = new CertificateGroupStatusDto
+            var clientInfo = new CertificateGroupStatusToPrintDto
             {
                 Group = "client",
                 Content = dic,
@@ -128,7 +134,9 @@ namespace AristBase.Services
             };
             cerUserDic[clientInfo.Group] = clientInfo;
             // Prepare datetimedata
-            var now = Clock.Now;
+
+            var now = cerUserDic[PermissionNames.tdv].LastModificationTime.Value.ToVNTime();
+
             dic = new Dictionary<string, Values>();
             // dic[PDFFieldConst.So] = "";
             dic[PDFFieldConst.DayText] = new Values { Value = now.ToString("dddd", new CultureInfo("vi-VN")) };
@@ -136,10 +144,14 @@ namespace AristBase.Services
             dic[PDFFieldConst.Month] = new Values { Value = now.ToString("MM") };
             dic[PDFFieldConst.Year] = new Values { Value = now.ToString("yyyy") };
             if (cer.CertificateType.IsNeedSync)
+            {                
+                dic[PDFFieldConst.So] = new Values { Value = SyncHelper.GetNumberTitle(cer.ClientInfo.Id, SyncHelper.IDBV) };
+            }
+            else
             {
-                var xml = await _syncRepo.GetAll().Where(s => s.CertificateId == cerId).Select(c => c.MetaData).SingleAsync();
-                dic[PDFFieldConst.So] = new Values { Value = xml.SO };            }
-            var sys = new CertificateGroupStatusDto
+                dic[PDFFieldConst.So] = new Values { Value = SyncHelper.GetNumberTitleNormal(cer.ClientInfo.Id)};
+            }
+            var sys = new CertificateGroupStatusToPrintDto
             {
                 Group = "sys",
                 Content = dic,
@@ -164,7 +176,7 @@ namespace AristBase.Services
 
 
         }
-        void FiledPDF(string templatePath, string outputPath, Dictionary<string, CertificateGroupStatusDto> cerUserDic)
+        void FiledPDF(string templatePath, string outputPath, Dictionary<string, CertificateGroupStatusToPrintDto> cerUserDic)
         {
             using var read = new PdfReader(templatePath);
             using var write = new PdfWriter(outputPath);
@@ -172,7 +184,7 @@ namespace AristBase.Services
             PdfAcroForm form = PdfAcroForm.GetAcroForm(pdfDoc, true);
             FillPDF(form, cerUserDic, pdfDoc);
         }
-        protected void FillPDF(PdfAcroForm form, Dictionary<string, CertificateGroupStatusDto> cerUserDic, PdfDocument pdfDoc)
+        protected void FillPDF(PdfAcroForm form, Dictionary<string, CertificateGroupStatusToPrintDto> cerUserDic, PdfDocument pdfDoc)
         {
             // BaseFont font = BaseFont.CreateFont("./file/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 
@@ -193,7 +205,7 @@ namespace AristBase.Services
                         {
                             if (!string.IsNullOrEmpty(contentValue.Value))
                             {
-                                field.Value.SetValue("X", font, 50f);
+                                field.Value.SetValue("/");
                                 continue;
                             }
                         }
@@ -225,27 +237,12 @@ namespace AristBase.Services
                             else if (field.Value.GetFormType() == PdfName.Btn)
                             {
                                 field.Value.SetCheckType(PdfFormField.TYPE_CROSS);//PdfFormField.TYPE_CIRCLE,PdfFormField.TYPE_CROSS,PdfFormField.TYPE_DIAMOND,PdfFormField.TYPE_SQUARE,PdfFormField.TYPE_STAR,etc
-                              
+
                                 if (!string.Equals(contentValue.Value, "false", StringComparison.OrdinalIgnoreCase))
                                     field.Value.SetValue(contentValue.Value, false);
                             }
                             else
                             {
-                                //var skip = PDFFieldConst.MaxLength;
-                                //var valueStr = contentValue.Value.Split(" ");
-                                //var currentKey = field.Key;
-                                //var currentValue = contentValue.Value;
-                                //do
-                                //{
-                                //    valueStr = valueStr.Skip(skip).to;
-                                //}
-                                //while(valueStr.Length > skip)
-                                //{
-
-
-                                //}
-
-
                                 field.Value.SetValue(contentValue.Value, font, 12f);
                             }
                             continue;

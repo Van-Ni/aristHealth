@@ -406,7 +406,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                         new TemplateGroup
                         {
                             GroupName = PermissionNames.KhamLamSanKhac,
-                            DefaultStatus = GroupStatus.UNREADY,
+                            DefaultStatus = GroupStatus.OPTIONAL,
                             DefaultContent = DefaultUnder18KeyValue
                         },
                         new TemplateGroup
