@@ -273,7 +273,7 @@ namespace AristBase.Services
 
             PdfCanvas pdfCanvas = new PdfCanvas(pdfDoc, pdfDoc.GetPageNumber(field.GetWidgets()[0].GetPage()));
 
-            pdfCanvas.AddImageFittedIntoRectangle(ImageDataFactory.Create("./VolumeMap/sign/sigh.png"), rect, false);
+            pdfCanvas.AddImageFittedIntoRectangle(ImageDataFactory.Create(imagePath), rect, false);
         }
     }
 }
