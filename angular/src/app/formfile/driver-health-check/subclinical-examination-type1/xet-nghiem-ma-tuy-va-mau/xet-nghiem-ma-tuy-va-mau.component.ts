@@ -36,8 +36,7 @@ export class XetNghiemMaTuyVaMauComponent implements OnInit {
     this.inputModel.content['text_methamphetamin'].value = title3.value;
     let title4 = this.optionXetNghiemMaTuys.find(o=>o.realvalue == this.inputModel.content['text_marijuana'].realValue)
     this.inputModel.content['text_marijuana'].value = title4.value;
-    this.inputModel.content['text_nongdomau'].realValue = this.inputModel.content['text_nongdomau'].realValue;
-    this.inputModel.content['text_nongdomau'].value += " mg/l"
+    this.inputModel.content['text_nongdomau'].realValue = this.inputModel.content['text_nongdomau'].value;
     this.save(this.inputModel)
   }
 
