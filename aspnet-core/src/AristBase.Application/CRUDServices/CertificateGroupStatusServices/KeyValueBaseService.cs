@@ -69,16 +69,6 @@ namespace AristBase.CRUDServices.CertificateGroupStatusServices
                             return ObjectMapper.Map<CertificateGroupStatusDto>(check);
                         }
                     }
-                    if(input.Group == PermissionNames.KhamTheLuc)
-                    {
-                        foreach (var kv in input.Content)
-                        {
-                            if (!string.IsNullOrEmpty(kv.Value.Value))
-                            {
-                                check.Content[kv.Key] = kv.Value;
-                            }
-                        }
-                    }
                     else
                     {
                         check.Content = input.Content;
