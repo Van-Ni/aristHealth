@@ -249,6 +249,10 @@ namespace AristBase.Services
                             }
                             else
                             {
+                                while(contentValue.Value.Contains("mg/l"))
+                                {
+                                    contentValue.Value = contentValue.Value.Replace("mg/l", "").Trim();
+                                }
                                 field.Value.SetValue(contentValue.Value, font, 12f);
                             }
                             continue;
