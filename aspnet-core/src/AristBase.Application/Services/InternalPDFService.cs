@@ -24,25 +24,22 @@ using iText.Kernel.Geom;
 using Abp.UI;
 using AristBase.Authorization;
 using AristBase.CRUDServices.ApproveServices.Dto;
-using Org.BouncyCastle.Crypto.Tls;
 
 namespace AristBase.Services
 {
     public class InternalPDFService : AbpServiceBase, ITransientDependency
     {
-        private readonly IRepository<BaseEntity.Certificate, Guid> _certificateRepository;
+        private readonly IRepository<Certificate, Guid> _certificateRepository;
         private readonly IRepository<CertificateGroupStatus, Guid> _certificateStatus;
-        private readonly IRepository<CertificateSync> _syncRepo;
+
 
         public InternalPDFService(
-            IRepository<BaseEntity.Certificate, Guid> certificateRepository,
-            IRepository<CertificateGroupStatus, Guid> certificateStatus,
-            IRepository<CertificateSync> syncRepo
+            IRepository<Certificate, Guid> certificateRepository,
+            IRepository<CertificateGroupStatus, Guid> certificateStatus
             )
         {
             this._certificateRepository = certificateRepository;
             this._certificateStatus = certificateStatus;
-            this._syncRepo = syncRepo;
         }
         public async Task<FileStreamResult> FillPDFWithCertificate(Guid cerId)
         {
@@ -113,8 +110,17 @@ namespace AristBase.Services
             {
                 Value = cer.ClientInfo.DateOfBirth
             };
-            dic[PDFFieldConst.Address] = new Values { Value = string.Join(", ", cer.ClientInfo.Address, cer.ClientInfo.Commune, " ") };
-            dic[PDFFieldConst.Address1] = new Values { Value = string.Join(", ", cer.ClientInfo.District, cer.ClientInfo.Province) };
+            if(!string.IsNullOrEmpty(cer.ClientInfo.Address))
+            {
+                dic[PDFFieldConst.Address] = new Values { Value = string.Join(", ", cer.ClientInfo.Address, cer.ClientInfo.Commune, " ") };
+                dic[PDFFieldConst.Address1] = new Values { Value = string.Join(", ", cer.ClientInfo.District, cer.ClientInfo.Province) };
+            }
+            else
+            {
+                dic[PDFFieldConst.Address] = new Values { Value = string.Join(", ", cer.ClientInfo.Commune, cer.ClientInfo.District," ") };
+                dic[PDFFieldConst.Address1] = new Values { Value = cer.ClientInfo.Province };
+            }
+            
             dic[PDFFieldConst.Reason] = new Values { Value = cer.Reason };
             dic[PDFFieldConst.CCCD] = new Values { Value = cer.ClientInfo.CCCD };
             dic[PDFFieldConst.CCCDTai] = new Values { Value = cer.ClientInfo.AddressCCCD };
