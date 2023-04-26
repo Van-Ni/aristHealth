@@ -102,7 +102,7 @@ export class CertificateComponent  extends PagedListingComponentBase<Certificate
           const url = URL.createObjectURL(response);
           const link = document.createElement('a');
           link.href = url;
-          link.download = 'filled_certificate.pdf';
+          link.download = Certificate.clientInfo.fullName.normalize("NFC").replace(/\p{Diacritic}/gu, "").replace(/ /g, '_'); +'.pdf';
           link.target = '_blank';
           link.click();
         } else {

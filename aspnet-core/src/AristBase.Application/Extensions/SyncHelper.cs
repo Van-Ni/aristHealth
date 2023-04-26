@@ -1,13 +1,7 @@
 ﻿using Abp.Timing;
 using AristBase.BaseEntity;
-using AristBase.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AristBase.CRUDServices.ApproveServices.Dto
+namespace AristBase.Extensions
 {
     static class SyncHelper
     {
@@ -20,9 +14,9 @@ namespace AristBase.CRUDServices.ApproveServices.Dto
             {
                 return values.RealValue;
             }
-            return string.Equals("duong tinh", values.Value.RemoveDiacritics().ToLower())?"1":"0";
+            return string.Equals("duong tinh", values.Value.RemoveDiacritics().ToLower()) ? "1" : "0";
         }
         static public string GetNumberTitle(int number, string hospitalId) => string.Format("{0:D5}/GKSKLX/{1}/{2}", number, hospitalId, Clock.Now.ToString("yy"));
-        static public string GetNumberTitleNormal(int number) => string.Format("{0:D5}/GKSK-GDYK", number);
+        static public string GetNumberTitleNormal(int number) => string.Format("{0:D5}/GKSK-GĐYK", number);
     }
 }

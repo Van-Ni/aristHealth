@@ -23,7 +23,6 @@ using AristBase.Extensions;
 using iText.Kernel.Geom;
 using Abp.UI;
 using AristBase.Authorization;
-using AristBase.CRUDServices.ApproveServices.Dto;
 
 namespace AristBase.Services
 {

@@ -11,6 +11,13 @@ export class PhysicalExaminationComponent implements OnInit {
   @Input() Data: CertificateGroupStatusDto;
   @Input() huyketluan: Function;
   isDisabled : boolean;
+  calculateBMI(){
+    let cc = +this.Data.content['text_chieucao'].value/100;
+    let cn = +this.Data.content['text_cannang'].value
+    if(cc != 0){
+      this.Data.content['text_chisobmi'].value =''+ Math.round(cn/(cc*cc) * 100) / 100;
+    }
+  };
   constructor(protected _permissionChecker: PermissionCheckerService) { }
   ngOnInit(): void {
     console.log('Pages.' +this.Data.group+'_input');
@@ -19,14 +26,14 @@ export class PhysicalExaminationComponent implements OnInit {
     {
       this.isDisabled = false;
       console.log("1");
-      
+
 
     }else if(this._permissionChecker.isGranted('Pages.' + this.Data.group + '_input'))
     {
       this.isDisabled = false;
       this.Data.group = this.Data.group + '_input';
       console.log("2");
-      
+
     }
     else
     {
