@@ -20,6 +20,21 @@ namespace AristBase.Interfaces
         public string Sorting { get; set; }
         public string filter { get; set; }
         public string Keyword { get; set; }
+    }
+    public class PagedAndSortedAndSearchAndDateResultDto : PagedResultRequestDto, IPagedAndSortedResultRequest
+    {
+        public string Sorting { get; set; }
+        public string filter { get; set; }
+        public string Keyword { get; set; }
+        public DateTime DateFrom { get; set; }
+        public DateTime DateTo { get; set; }
+    }
+    public class PagedAndSortedAndSearchAndDateAndCerResultDto : PagedResultRequestDto, IPagedAndSortedResultRequest
+    {
+        public int CertificateTypeId { get; set; }
+        public string Sorting { get; set; }
+        public string filter { get; set; }
+        public string Keyword { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
     }

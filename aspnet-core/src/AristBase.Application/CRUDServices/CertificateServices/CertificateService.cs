@@ -5,30 +5,40 @@ using Abp.EntityFrameworkCore.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using AristBase.BaseEntity;
+using AristBase.CRUDServices.CertificateGroupStatusServices.Dto;
 using AristBase.CRUDServices.CertificateServices.Dto;
+using AristBase.Extensions;
 using AristBase.Interfaces;
 using CsvHelper;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
-using iText.Layout.Element;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
-using System.Formats.Asn1;
 using System.Globalization;
 using System.IO;
-using System.IO.Packaging;
 using System.Linq;
 using System.Threading.Tasks;
 
 
 namespace AristBase.CRUDServices.CertificateServices
 {
-    public class CertificateService : AsyncCrudAppService<Certificate, CertificateDto, Guid, PagedAndSortedAndSearchResultDto, CreateCertificateDto, UpdateCertificateDto>
+    public class CertificateCsvDto
+    {
+        public int MaKhachHang { get; set; }
+        public string HoTen { get; set; }
+        public string DiaChi { get; set; }
+        public string HinhThuc { get; set; }
+        public string SanPham { get; set; }
+        public string DonViTinh { get; set; }
+        public decimal Tien { get; set; }
+        public string ThueSuat { get; set; }
+        public decimal TongCong { get; set; }
+        public string DonViTienTe { get; set; }
+    }
+    public class CertificateService : AsyncCrudAppService<Certificate, CertificateDto, Guid, PagedAndSortedAndSearchAndDateResultDto, CreateCertificateDto, UpdateCertificateDto>
     {
         private readonly IRepository<CertificateType, int> _cerTypeRepo;
         private readonly IRepository<CertificateGroupStatus, Guid> _cerGroupStatus;
@@ -43,23 +53,24 @@ namespace AristBase.CRUDServices.CertificateServices
             _cerTypeRepo = cerTypeRepo;
             _cerGroupStatus = cerGroupStatus;
         }
-        public async override Task<PagedResultDto<CertificateDto>> GetAllAsync(PagedAndSortedAndSearchResultDto input)
+        public async override Task<PagedResultDto<CertificateDto>> GetAllAsync(PagedAndSortedAndSearchAndDateResultDto input)
         {
             CheckGetAllPermission();
 
             var query = CreateFilteredQuery(input);
+            if (input.DateFrom != DateTime.MinValue)
+            {
+                query = query.Where(w => w.CreationTime.Date >= input.DateFrom.Date);
+            }
+            if (input.DateTo != DateTime.MinValue)
+            {
+                query = query.Where(w => w.CreationTime.Date <= input.DateTo.Date);
+            }
             query = query.Include(i => i.ClientInfo).Include(i => i.CertificateType).Include(i => i.CertificateType).WhereIf(!input.Keyword.IsNullOrWhiteSpace(), x => x.ClientInfo.FullName.Contains(input.Keyword)
                 || x.CertificateType.Name.Contains(input.Keyword)
                 || x.ClientInfo.CCCD.Contains(input.Keyword)
                 );
-            if (input.DateFrom != DateTime.MinValue)
-            {
-                query.Where(w => w.CreationTime == input.DateFrom);
-            }
-            if (input.DateTo != DateTime.MinValue)
-            {
-                query.Where(w => w.CreationTime == input.DateTo);
-            }
+
             var totalCount = await AsyncQueryableExecuter.CountAsync(query);
 
             query = ApplySorting(query, input);
@@ -72,27 +83,34 @@ namespace AristBase.CRUDServices.CertificateServices
                 entities.Select(MapToEntityDto).ToList()
             );
         }
-        [ApiExplorerSettings(IgnoreApi = true)]
-        public byte[] ExportToCsv(List<CertificateDto> certificates)
-        {
-            using (var memoryStream = new MemoryStream())
-            {
-                using (var writer = new StreamWriter(memoryStream))
-                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-                {
-                    csv.WriteRecords(certificates);
-                }
-                return memoryStream.ToArray();
-            }
-        }
-        public async Task<FileContentResult> GetExportCsvList(PagedAndSortedAndSearchResultDto input)
+        public async Task<FileContentResult> GetExportCsvList(PagedAndSortedAndSearchAndDateResultDto input)
         {
             var certificates = await GetAllAsync(input);
-            var certificate = certificates.Items.Select(e => ObjectMapper.Map<CertificateDto>(e)).ToList();
-            var data = ExportToCsv(certificate);
+            var certificate = certificates.Items.Select(e => new CertificateCsvDto
+            {
+                MaKhachHang = e.ClientInfo.Id,
+                HoTen = e.ClientInfo.FullName,
+                DiaChi = e.ClientInfo.Address,
+                HinhThuc = "TM",
+                SanPham = e.CertificateType.Name,
+                DonViTinh = "Nguoi",
+                Tien = e.AmountPaid,
+                ThueSuat = "-1.00",
+                TongCong = e.AmountPaid,
+                DonViTienTe = "VND"
+            }).ToList();
+            var data = ExportExcelCSV.ExportToCsv(certificate);
             var fileName = "Certificate.csv";
             return new FileContentResult(data, "text/csv") { FileDownloadName = fileName };
         }
+
+        //public async Task<FileContentResult> GetExportCsvListWork(PagedAndSortedAndSearchAndDateResultDto input)
+        //{
+        //    var getData = await 
+        //    var data = ExportExcelCSV.ExportToCsv(certificate);
+        //    var fileName = "Certificate.csv";
+        //    return new FileContentResult(data, "text/csv") { FileDownloadName = fileName };
+        //}
         public async override Task<CertificateDto> CreateAsync(CreateCertificateDto input)
         {
             CheckCreatePermission();
@@ -170,5 +188,6 @@ namespace AristBase.CRUDServices.CertificateServices
             var get = await Repository.GetAll().Where(i => i.Id == id).Include(i => i.ClientInfo).FirstOrDefaultAsync();
             return MapToEntityDto(get);
         }
+        
     }
 }
