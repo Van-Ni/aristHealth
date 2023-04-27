@@ -81,7 +81,7 @@
                           role="menu" aria-labelledby="button-animated">
                         <li role="menuitem" (click)="getIncrease()">
                           <a class="dropdown-item" >Hoàn thành
-                            
+
                           </a>
                         </li>
                         <li role="menuitem" (click)="getReduce()">
@@ -107,7 +107,7 @@
                           itemsPerPage: pageSize,
                           currentPage: pageNumber,
                           totalItems: totalItems
-                        } 
+                        }
                 ">
                   <td>{{ Certificate.clientInfo.fullName }}</td>
                   <td>{{ Certificate.clientInfo.cccd }}</td>
@@ -116,14 +116,14 @@
                       <p *ngIf="Certificate.status == 0" style=" border: 2px solid #000000; border-radius: 15px; background-color: rgb(239, 244, 121); text-align: center;">Bắt đầu</p>
                       <p *ngIf="Certificate.status == 1" style=" border: 2px solid #000000; border-radius: 15px; background-color: rgb(177, 177, 231); text-align: center;">Đang tiến hành</p>
                       <p *ngIf="Certificate.status == 2" style=" border: 2px solid #000000; border-radius: 15px; background-color: rgb(109, 247, 116); text-align: center;">Hoàn thành</p>
-                   
+
                   </td>
                   <td>
                       <p *ngIf="Certificate.paymentStatus == 0" style=" border: 2px solid #000000; border-radius: 15px; background-color: rgb(230, 138, 138); text-align: center;">Chưa thanh toán</p>
                       <p *ngIf="Certificate.paymentStatus == 1" style=" border: 2px solid #000000; border-radius: 15px; background-color: rgb(109, 247, 116); text-align: center;">Đã thanh toán</p>
                   </td>
                   <td>{{ Certificate.reason }}</td>
-                  <td>{{Certificate.creationTime.format('DD/MM/YYYY')}}</td>
+                  <td>{{Certificate.creationTime| date:'dd/MM HH:mm'}}</td>
                   <td>
                     <div class="row">
                       <button type="button"
