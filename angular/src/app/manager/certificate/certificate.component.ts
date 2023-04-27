@@ -1,8 +1,4 @@
-import {
-  Component,
-  Injector,
-  OnInit,
-} from "@angular/core";
+import { Component, Injector, OnInit } from "@angular/core";
 import {
   PagedListingComponentBase,
   PagedRequestDto,
@@ -62,8 +58,8 @@ export class CertificateComponent
         this.filter,
         "",
         request.keyword,
-        this.converDate(this.dateFrom),
-        this.converDate(this.dateTo),
+        this.getBegin(this.dateFrom),
+        this.getEnd(this.dateTo),
         request.skipCount,
         request.maxResultCount
       )
@@ -182,8 +178,8 @@ export class CertificateComponent
         this.filter,
         "",
         "",
-        this.converDate(this.dateFrom),
-        this.converDate(this.dateTo),
+        this.getBegin(this.dateFrom),
+        this.getEnd(this.dateTo),
         0,
         100000
       )
@@ -220,6 +216,8 @@ export class CertificateComponent
     this.dateTo = dateend;
     this.list(request, this.pageNumber, () => {});
   }
-  converDate = (date: Date) =>
-    moment(new Date( date.getFullYear(), date.getMonth(),date.getDate()));
+  getBegin = (date: Date) =>
+    moment(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
+  getEnd = (date: Date) =>
+    moment(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1));
 }
