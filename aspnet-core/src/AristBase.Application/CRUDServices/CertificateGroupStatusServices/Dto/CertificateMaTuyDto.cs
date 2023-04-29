@@ -10,25 +10,20 @@ namespace AristBase.CRUDServices.CertificateGroupStatusServices.Dto
 {
     [AutoMapFrom(typeof(CertificateGroupStatus))]
     [AutoMapTo(typeof(CertificateGroupStatus))]
-    public class CertificateGroupStatusCSVDto
+    public class CertificateMaTuyDto
     {
         public int STT { get; set; }
         public string NgayThang { get; set; }
         public string HoTen { get; set; }
         public string Tuoi { get; set; }
         public string DiaChi { get; set; }
-        public string HC { get; set; }
-        public string BC { get; set; }
-        public string TC { get; set; }
-        public string DuongMau { get; set; }
-        public string Ure { get; set; }
-        public string Cre { get; set; }
-        public string ASAT { get; set; }
-        public string ALAT { get; set; }
-        public string Duong { get; set; }
-        public string Protein { get; set; }
-        public string XetNghiemMauKhac { get; set; }
-        public string XetNuocTieuKhac { get; set; }
+        public string Hang { get; set; }
+        public string Morphine { get; set; }
+        public string Amphetamin { get; set; }
+        public string Methaphetamin { get; set; }
+        public string Marijiana { get; set; }
+        public string NongDoCon { get; set; }
+        public string MaSoDoiTuong { get; set; }
 
     }
 }

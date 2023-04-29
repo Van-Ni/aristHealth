@@ -29,9 +29,8 @@ namespace AristBase.Interfaces
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
     }
-    public class PagedAndSortedAndSearchAndDateAndCerResultDto : PagedResultRequestDto, IPagedAndSortedResultRequest
+    public class PagedAndSortedAndSearchAndDateAndStatusResultDto : PagedResultRequestDto, IPagedAndSortedResultRequest
     {
-        public int CertificateTypeId { get; set; }
         public string Sorting { get; set; }
         public string filter { get; set; }
         public string Keyword { get; set; }

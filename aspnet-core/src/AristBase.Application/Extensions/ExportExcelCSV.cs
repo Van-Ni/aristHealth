@@ -1,28 +1,27 @@
 ﻿using AristBase.CRUDServices.CertificateServices;
 using CsvHelper;
-using System;
+using DocumentFormat.OpenXml.Spreadsheet;
+using OfficeOpenXml;
+using OfficeOpenXml.Table;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using LicenseContext = OfficeOpenXml.LicenseContext;
 namespace AristBase.Extensions
 {
     public static class ExportExcelCSV
     {
-        public static byte[] ExportToCsv(List<CertificateCsvDto> certificates)
+        public static byte[] ExporttoExcel<T>(List<T> table, string filename)
         {
-            using (var memoryStream = new MemoryStream())
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using ExcelPackage pack = new ExcelPackage();
+            ExcelWorksheet ws = pack.Workbook.Worksheets.Add(filename);
+            if (table.Count > 0)
             {
-                using (var writer = new StreamWriter(memoryStream))
-                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-                {
-                    csv.WriteRecords(certificates);
-                }
-                return memoryStream.ToArray();
+                ws.Cells["A1"].LoadFromCollection(table, true, OfficeOpenXml.Table.TableStyles.Light18);
             }
+            return pack.GetAsByteArray();
         }
     }
 }

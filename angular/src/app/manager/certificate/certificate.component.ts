@@ -34,6 +34,7 @@ export class CertificateComponent
   dateFrom = new Date();
   dateTo = new Date();
   filter = "creationTime desc";
+  status: number;
   constructor(
     injector: Injector,
     private _certificatesService: serviceProxies.CertificateServiceServiceProxy,
@@ -41,9 +42,6 @@ export class CertificateComponent
     private PDFService: serviceProxies.PDFServiceServiceProxy
   ) {
     super(injector);
-    // const currentDate = new Date();
-    // this.dateFrom = formatDate(new Date().toISOString(), 'dd/MM/yyyy', 'en');
-    // this.dateTo = formatDate(new Date().toISOString(), 'dd/MM/yyyy', 'en');
   }
 
   list(
@@ -174,14 +172,10 @@ export class CertificateComponent
   }
   ExportData(): void {
     this._certificatesService
-      .getExportCsvList(
-        this.filter,
-        "",
-        "",
+      .getExportCertificateList(
         this.getBegin(this.dateFrom),
         this.getEnd(this.dateTo),
-        0,
-        100000
+        this.status,
       )
       .subscribe(
         (response: any) => {
@@ -205,6 +199,66 @@ export class CertificateComponent
           console.error(error);
         }
       );
+  }
+  ExportData1(): void{
+    this._certificatesService
+      .getExportCertificateList(
+        this.getBegin(this.dateFrom),
+        this.getEnd(this.dateTo),
+        this.status,
+      )
+      .subscribe(
+        (response: any) => {
+          console.log(response);
+
+          if (response) {
+            // Check if the response body is not null or undefined
+            const url = URL.createObjectURL(response);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "data.csv";
+            link.target = "_blank";
+            link.click();
+          } else {
+            // Handle null or undefined response body
+            console.error("Response body is null or undefined");
+          }
+        },
+        (error) => {
+          // Handle error
+          console.error(error);
+        }
+      );
+  }
+  ExportData3(): void{
+    this._certificatesService
+    .getExportCertificateList(
+      this.getBegin(this.dateFrom),
+      this.getEnd(this.dateTo),
+      this.status,
+    )
+    .subscribe(
+      (response: any) => {
+        console.log(response);
+
+        if (response) {
+          // Check if the response body is not null or undefined
+          const url = URL.createObjectURL(response);
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = "data.csv";
+          link.target = "_blank";
+          link.click();
+        } else {
+          // Handle null or undefined response body
+          console.error("Response body is null or undefined");
+        }
+      },
+      (error) => {
+        // Handle error
+        console.error(error);
+      }
+    );
   }
   getDateFrom(datestart: any) {
     const request = new PagedCertificatesRequestDto();

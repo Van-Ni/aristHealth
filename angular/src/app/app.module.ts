@@ -80,6 +80,8 @@ import {SubclinicalExaminationType18minComponent} from './formfile/chuadu18/subc
 import {XetNghiemKhacChua18Component} from './formfile/chuadu18/subclinical-examination-type18min/xet-nghiem-khac-chua18/xet-nghiem-khac-chua18.component';
 import {KetLuanGiayKhamComponent} from './formfile/share/ket-luan-giay-kham/ket-luan-giay-kham.component';
 import {ThongTinLienThongGiayLaiXeComponent} from './manager/thong-tin-lien-thong-giay-lai-xe/thong-tin-lien-thong-giay-lai-xe.component';
+import {ExportDataComponent} from './manager/export-data/export-data.component';
+import {CreateExportComponent} from './manager/export-data/create-export/create-export.component';
 //service
 import {DataService} from './services/data.service';
 import {LoadingService} from './services/loader/loading.service';
@@ -150,7 +152,7 @@ import {RegionsService} from './services/regions.service';
         XetNghiemMauComponent,
         XetNghiemNuocTieuComponent,
         ThongTinCaNhanComponent,
-        ClinicalExamination18minComponent,
+        ClinicalExamination18minComponent,ExportDataComponent,CreateExportComponent,
         SubclinicalExaminationType18minComponent,XetNghiemKhacChua18Component,KetLuanGiayKhamComponent,ThongTinLienThongGiayLaiXeComponent
     ],
     imports: [

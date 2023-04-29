@@ -18,13 +18,13 @@ import * as ApiServiceProxies from './service-proxies';
         ApiServiceProxies.ClientInfoServiceServiceProxy,
         ApiServiceProxies.CertificateTypeServiceServiceProxy,
         ApiServiceProxies.CertificateServiceServiceProxy,
-        ApiServiceProxies.GetDataServiceServiceProxy,
         ApiServiceProxies.CertificateGroupStatusServiceServiceProxy,
         ApiServiceProxies.GroupStatusServiceServiceProxy,
         ApiServiceProxies.PDFServiceServiceProxy,
         ApiServiceProxies.KetLuanServicesServiceProxy,
         ApiServiceProxies.ApproveServiceServiceProxy,
         ApiServiceProxies.RegionServiceServiceProxy,
+        ApiServiceProxies.HistoryExportServiceServiceProxy,
         { provide: HTTP_INTERCEPTORS, useClass: AbpHttpInterceptor, multi: true }
     ]
 })
