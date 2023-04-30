@@ -14,7 +14,7 @@ namespace AristBase.Authorization
 
         public const string Pages_Roles = "Pages.Roles";
         public const string Pages_Certificates = "Pages.Certificates";
-        public const string Pages_CertificateTypes = "Pages.CertificateTypes";
+        public const string Pages_CertificateTypes = "Pages.Certificatetypes";
         public const string TamThan = "tamthan";
         public const string ThanKinh = "thankinh";
         public const string Mat = "mat";

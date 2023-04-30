@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 using AristBase.BaseEntity;
+using AristBase.CRUDServices.CertificateServices.Dto;
 using AristBase.Users.Dto;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace AristBase.CRUDServices.CertificateGroupStatusServices.Dto
     public class CertificateGroupStatusDto : EntityDto<Guid>
     {
         public Guid CertificateId { get; set; }
+        public  CertificateDto Certificate { get; set; } 
         public Dictionary<string, Values> Content { get; set; }
         public string Group { get; set; }
         public GroupStatus Status { get; set; }

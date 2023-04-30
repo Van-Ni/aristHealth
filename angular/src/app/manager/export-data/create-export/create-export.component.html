@@ -1,0 +1,52 @@
+<link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<form class="form-horizontal" autocomplete="off" #createProfile="ngForm" (ngSubmit)="save()">
+  <abp-modal-header [title]="'Xuất báo cáo' | localize" (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+  <div class="modal-body">
+    <div class="form-group row">
+      <label for="certificate" class="col-sm-3 col-form-label">Chọn loại báo cáo</label>
+      <div class="col-sm-9">
+        <select  class="form-control" [(ngModel)]="exportDto.loaibaocao" [ngModelOptions]="{standalone: true}">
+          <option value="1">Báo cáo doanh thu</option>
+          <option value="2">Báo cáo xét nghiệm (Lái xe)</option>
+          <option value="3">Báo cáo xét nghiệm (Trên 18)</option>
+
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="CCCD" class="col-sm-3 col-form-label">Từ ngày: </label>
+      <div class="col-sm-9">
+        <div>
+          <input type="text" placeholder="Từ ngày" class="form-control" (ngModelChange)="getDateFrom($event)"
+            [(ngModel)]="exportDto.dateFrom" #ngaybatdauModel="ngModel" #ngaybatdauEl
+            [ngModelOptions]="{standalone: true}" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+          <abp-validation-summary [control]="ngaybatdauModel" [controlEl]="ngaybatdauEl"></abp-validation-summary>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="CCCD" class="col-sm-3 col-form-label">Đến ngày: </label>
+      <div class="col-sm-9">
+        <div>
+          <input type="text" placeholder="Đến ngày" class="form-control" (ngModelChange)="getDateTo($event)"
+            [(ngModel)]="exportDto.dateTo" #ngayketthucModel="ngModel" #ngayketthucEl
+            [ngModelOptions]="{standalone: true}" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+          <abp-validation-summary [control]="ngayketthucModel" [controlEl]="ngayketthucEl"></abp-validation-summary>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="certificate" class="col-sm-3 col-form-label">Trạng thái tờ khám</label>
+      <div class="col-sm-9">
+        <select  class="form-control" [(ngModel)]="exportDto.status" [ngModelOptions]="{standalone: true}">
+          <option value="0">Bắt đầu</option>
+          <!-- <option value="1">Giấy khám sức khỏe dành cho người trên 18 tuổi</option> -->
+          <option value="2">Hoàn thành</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <abp-modal-footer [cancelDisabled]="saving" [saveDisabled]="!createProfile.form.valid || saving"
+    (onCancelClick)="bsModalRef.hide()"></abp-modal-footer>
+</form>

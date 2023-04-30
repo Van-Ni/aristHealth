@@ -1,4 +1,5 @@
-
+<link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <div [@routerTransition]>
   <section class="content-header">
     <div class="container-fluid">
@@ -7,12 +8,36 @@
           <h1>{{ "Certificate" | localize }}</h1>
         </div>
         <div class="col-6 text-right">
-          <a href="javascript:;"
-            class="btn bg-blue"
-            (click)="createCertificate()">
-            <i class="fa fa-plus-square"></i>
-            {{ "Create" | localize }}
-          </a>
+          <div class="row">
+            <div class="col-6">
+                <!-- <div class="btn-group" dropdown>
+                  <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                          aria-controls="dropdown-basic">
+                    Xuất Excel <span class="caret"></span>
+                  </button>
+                  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                      role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem"><a class="dropdown-item" (click)="ExportData()">Xuất Excel</a></li>
+                    <li class="divider dropdown-divider"></li>
+
+                    <li role="menuitem"><a class="dropdown-item"  (click)="ExportData1()">Xuất Excel giấy khám lái xe</a></li>
+                    <li class="divider dropdown-divider"></li>
+
+                    <li role="menuitem"><a class="dropdown-item"  (click)="ExportData3()">Xuất Excel giấy khám dành cho người đủ 18 tuổi</a></li>
+                
+                  </ul>
+                </div> -->
+              
+            </div>
+            <div class="col-6">
+              <a href="javascript:;"
+              class="btn bg-blue"
+              (click)="createCertificate()">
+              <i class="fa fa-plus-square"></i>
+              {{ "Create" | localize }}
+            </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -22,7 +47,18 @@
       <div class="card">
         <div class="card-header">
           <div class="row">
-            <div class="col-md-6">&emsp;</div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-6">
+                  <input type="text" [(ngModel)]="dateFrom" [ngModelOptions]="{standalone: true}" placeholder="Ngày bắt đầu" class="form-control"(ngModelChange)="getDateFrom($event)"
+                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+                </div>
+                <div class="col-md-6">
+                  <input type="text"[(ngModel)]="dateTo" [ngModelOptions]="{standalone: true}" placeholder="Ngày kết thúc" class="form-control" (ngModelChange)="getDateTo($event)"
+                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+                </div>
+              </div>
+            </div>
             <div class="col-md-6">
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -104,7 +140,7 @@
                       <p *ngIf="Certificate.paymentStatus == 1" style=" border: 2px solid #000000; border-radius: 15px; background-color: rgb(109, 247, 116); text-align: center;">Đã thanh toán</p>
                   </td>
                   <td>{{ Certificate.reason }}</td>
-                  <td>{{Certificate.creationTime.format('DD/MM/YYYY')}}</td>
+                  <td>{{Certificate.creationTime| date:'dd/MM HH:mm'}}</td>
                   <td>
                     <div class="row">
                       <button type="button"

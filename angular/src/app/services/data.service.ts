@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CertificateGroupStatusDtoPagedResultDto, CertificateGroupStatusServiceServiceProxy, CertificateServiceServiceProxy, GetDataServiceServiceProxy } from '@shared/service-proxies/service-proxies';
-import { BehaviorSubject, Observable, Observer, Subject } from 'rxjs';
+import { CertificateGroupStatusDtoPagedResultDto, CertificateGroupStatusServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

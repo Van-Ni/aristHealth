@@ -4,62 +4,80 @@ using Abp.Domain.Repositories;
 using Abp.EntityFrameworkCore.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
+using Abp.Runtime.Session;
 using AristBase.BaseEntity;
 using AristBase.CRUDServices.CertificateServices.Dto;
+using AristBase.Extensions;
+using AristBase.Extensions.Storage;
 using AristBase.Interfaces;
 using CsvHelper;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Spreadsheet;
-using iText.Layout.Element;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
-using System.Formats.Asn1;
 using System.Globalization;
 using System.IO;
-using System.IO.Packaging;
 using System.Linq;
 using System.Threading.Tasks;
 
 
 namespace AristBase.CRUDServices.CertificateServices
 {
-    public class CertificateService : AsyncCrudAppService<Certificate, CertificateDto, Guid, PagedAndSortedAndSearchResultDto, CreateCertificateDto, UpdateCertificateDto>
+    public class CertificateCsvDto
+    {
+        public int STT { get; set; }
+        public int MaKhachHang { get; set; }
+        public string TenNguoiMua { get; set; }
+        public string DiaChiKhachHang { get; set; }
+        public string HinhThucTT { get; set; }
+        public string SanPham { get; set; }
+        public string DonViTinh { get; set; }
+        public decimal TienBan { get; set; }
+        public string ThueSuat { get; set; }
+        public decimal TongCong { get; set; }
+        public string DonViTienTe { get; set; }
+    }
+    public class CertificateService : AsyncCrudAppService<Certificate, CertificateDto, Guid, PagedAndSortedAndSearchAndDateResultDto, CreateCertificateDto, UpdateCertificateDto>
     {
         private readonly IRepository<CertificateType, int> _cerTypeRepo;
         private readonly IRepository<CertificateGroupStatus, Guid> _cerGroupStatus;
+        private readonly IRepository<HistoryExport, Guid> _historyRepo;
+        private readonly IStorageService storageService;
+
+
 
         public CertificateService(
             IRepository<Certificate, Guid> repository,
             IRepository<CertificateType, int> cerTypeRepo
 ,
             IRepository<CertificateGroupStatus, Guid> cerGroupStatus
-            ) : base(repository)
+,
+            IRepository<HistoryExport, Guid> historyRepo,
+            IStorageService storageService) : base(repository)
         {
             _cerTypeRepo = cerTypeRepo;
             _cerGroupStatus = cerGroupStatus;
+            _historyRepo = historyRepo;
+            this.storageService = storageService;
         }
-        public async override Task<PagedResultDto<CertificateDto>> GetAllAsync(PagedAndSortedAndSearchResultDto input)
+        public async override Task<PagedResultDto<CertificateDto>> GetAllAsync(PagedAndSortedAndSearchAndDateResultDto input)
         {
             CheckGetAllPermission();
 
             var query = CreateFilteredQuery(input);
+            if (input.DateFrom != DateTime.MinValue)
+            {
+                query = query.Where(w => w.CreationTime >= input.DateFrom);
+            }
+            if (input.DateTo != DateTime.MinValue)
+            {
+                query = query.Where(w => w.CreationTime <= input.DateTo);
+            }
             query = query.Include(i => i.ClientInfo).Include(i => i.CertificateType).Include(i => i.CertificateType).WhereIf(!input.Keyword.IsNullOrWhiteSpace(), x => x.ClientInfo.FullName.Contains(input.Keyword)
                 || x.CertificateType.Name.Contains(input.Keyword)
                 || x.ClientInfo.CCCD.Contains(input.Keyword)
                 );
-            if (input.DateFrom != DateTime.MinValue)
-            {
-                query.Where(w => w.CreationTime == input.DateFrom);
-            }
-            if (input.DateTo != DateTime.MinValue)
-            {
-                query.Where(w => w.CreationTime == input.DateTo);
-            }
+
             var totalCount = await AsyncQueryableExecuter.CountAsync(query);
 
             query = ApplySorting(query, input);
@@ -72,26 +90,67 @@ namespace AristBase.CRUDServices.CertificateServices
                 entities.Select(MapToEntityDto).ToList()
             );
         }
-        [ApiExplorerSettings(IgnoreApi = true)]
-        public byte[] ExportToCsv(List<CertificateDto> certificates)
+        public async ValueTask<IEnumerable<CertificateDto>> GetCertificateByDate(DateTime DateFrom, DateTime DateTo, Status status)
         {
-            using (var memoryStream = new MemoryStream())
+            var query = Repository.GetAll();
+            if (DateFrom != DateTime.MinValue)
             {
-                using (var writer = new StreamWriter(memoryStream))
-                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-                {
-                    csv.WriteRecords(certificates);
-                }
-                return memoryStream.ToArray();
+                query = query.Where(w => w.CreationTime >= DateFrom);
             }
+            if (DateTo != DateTime.MinValue)
+            {
+                query = query.Where(w => w.CreationTime <= DateTo);
+            }
+            if (status != null)
+            {
+                query = query.Where(w => w.Status == status);
+            }
+            query = query.Include(i => i.ClientInfo).Include(i => i.CertificateType);
+            var entities = await AsyncQueryableExecuter.ToListAsync(query);
+            return ObjectMapper.Map<IEnumerable<CertificateDto>>(entities);
         }
-        public async Task<FileContentResult> GetExportCsvList(PagedAndSortedAndSearchResultDto input)
+        public async Task<FileContentResult> GetExportCertificateList(DateTime DateFrom, DateTime DateTo, Status status)
         {
-            var certificates = await GetAllAsync(input);
-            var certificate = certificates.Items.Select(e => ObjectMapper.Map<CertificateDto>(e)).ToList();
-            var data = ExportToCsv(certificate);
-            var fileName = "Certificate.csv";
-            return new FileContentResult(data, "text/csv") { FileDownloadName = fileName };
+            try
+            {
+                string reportname = $"Danhsach_{Guid.NewGuid():N}.xlsx";
+                var list = await GetCertificateByDate(DateFrom, DateTo, status);
+
+                var certificate = list.Select((e, index) => new CertificateCsvDto
+                {
+                    STT = index + 1,
+                    MaKhachHang = e.ClientInfo.Id,
+                    TenNguoiMua = e.ClientInfo.FullName,
+                    DiaChiKhachHang = e.ClientInfo.Address,
+                    HinhThucTT = "TM",
+                    SanPham = e.CertificateType.Name,
+                    DonViTinh = "Nguoi",
+                    TienBan = e.AmountPaid,
+                    ThueSuat = "-1.00",
+                    TongCong = e.AmountPaid,
+                    DonViTienTe = "VND"
+                }).ToList();
+                var exportbytes = ExportExcelCSV.ExporttoExcel<CertificateCsvDto>(certificate, reportname);
+
+                var data = await storageService.SaveFileExcelAsync(reportname, "Excel", stream: new MemoryStream(exportbytes));
+                var obj = new HistoryExport()
+                {
+                    filePath = data,
+                    End = DateTo,
+                    Start = DateFrom,
+                    Status = Status.Finish,
+                    Type = "Báo cáo doanh thu",
+                    UserId = AbpSession.UserId,
+
+                };
+                await _historyRepo.InsertAsync(obj);
+                await CurrentUnitOfWork.SaveChangesAsync();
+                return new FileContentResult(exportbytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                {
+                    FileDownloadName = reportname
+                };
+            }
+            catch (Exception ex) { throw; }
         }
         public async override Task<CertificateDto> CreateAsync(CreateCertificateDto input)
         {
@@ -170,5 +229,6 @@ namespace AristBase.CRUDServices.CertificateServices
             var get = await Repository.GetAll().Where(i => i.Id == id).Include(i => i.ClientInfo).FirstOrDefaultAsync();
             return MapToEntityDto(get);
         }
+
     }
 }

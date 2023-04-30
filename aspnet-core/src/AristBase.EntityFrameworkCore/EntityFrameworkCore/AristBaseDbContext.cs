@@ -20,6 +20,7 @@ namespace AristBase.EntityFrameworkCore
         public DbSet<CertificateSync> CertificateSync { get; set; }
 
         public DbSet<ClientInfo> ClientInfo { get; set; }
+        public DbSet<HistoryExport> HistoryExports { get; set; }
 
         public DbSet<CertificateGroupStatus> CertificateGroupStatuses { get; set; }
         public DbSet<Region> Regions { get; set; }

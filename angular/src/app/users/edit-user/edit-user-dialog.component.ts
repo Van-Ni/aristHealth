@@ -87,7 +87,7 @@ import {
 
       this.files.push({ data: this.fileToUpload, fileName: this.fileToUpload.name });
 
-      this._userService.uploadSignPath(this.user.id,this.files[0])
+      this._userService.uploadSignPath(this.files[0])
         .subscribe((result: UserDto) => {
           this.user.signPath = result.signPath;
       });
