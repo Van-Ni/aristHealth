@@ -24,10 +24,10 @@
                     <li class="divider dropdown-divider"></li>
 
                     <li role="menuitem"><a class="dropdown-item"  (click)="ExportData3()">Xuất Excel giấy khám dành cho người đủ 18 tuổi</a></li>
-                
+
                   </ul>
                 </div> -->
-              
+
             </div>
             <div class="col-6">
               <a href="javascript:;"
@@ -156,7 +156,6 @@
                       {{ "Delete" | localize }}
                     </button>
                     <button
-                    [disabled]="in"
                     *ngIf="Certificate.status == 2" type="button"
                       class="btn btn-sm bg-success"
                       (click)="print(Certificate)">

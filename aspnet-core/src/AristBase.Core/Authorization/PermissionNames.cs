@@ -43,10 +43,12 @@ namespace AristBase.Authorization
         public const string KhamLamSanKhac = "khamlamsankhac";
 
         public const string PageReadIn = "Pages.In.Read";
-        public const string Pages_Report = "Pages.Report";
+        public const string Report = "Report";
 
         public static List<string> Pages = new List<string>
-        { TuanHoan,
+        {
+            Report,
+            TuanHoan,
             TamThan,
             ThanKinh,
             Mat,

@@ -28,7 +28,7 @@ import { ExportDataComponent } from './manager/export-data/export-data.component
                     { path: 'tenants', component: TenantsComponent, data: { permission: 'Pages.Tenants' }, canActivate: [AppRouteGuard] },
                     { path: 'about', component: AboutComponent, canActivate: [AppRouteGuard] },
                     { path: 'certificates', component: CertificateComponent, canActivate: [AppRouteGuard] },
-                    { path: 'export-data', component: ExportDataComponent, canActivate: [AppRouteGuard] },
+                    { path: 'export-data', component: ExportDataComponent,data: { permission: 'Pages.Report' }, canActivate: [AppRouteGuard] },
                     { path: 'certificate-types', component: CertificateTypeComponent, canActivate: [AppRouteGuard] },
                     { path: '1/:id', component: DriverHealthCheckComponent, canActivate: [AppRouteGuard] },
                     { path: '2/:id', component: Du18Component, canActivate: [AppRouteGuard] },

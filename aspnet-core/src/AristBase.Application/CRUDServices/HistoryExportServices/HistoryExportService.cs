@@ -1,10 +1,5 @@
-﻿using Abp.Application.Services;
-using Abp.Application.Services.Dto;
+﻿using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
-using Abp.Extensions;
-using Abp.Linq.Extensions;
-using AristBase.Authorization;
-using AristBase.Authorization.Users;
 using AristBase.BaseEntity;
 using AristBase.CRUDServices.CertificateGroupStatusServices.Dto;
 using AristBase.CRUDServices.CertificateServices.Dto;
@@ -19,20 +14,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Dynamic.Core;
-using System.Text;
 using System.Threading.Tasks;
 using AristBase.CRUDServices.CertificateServices;
-using Abp.Authorization;
+using AristBase.Authorization;
 
 namespace AristBase.CRUDServices.HistoryExportServices
 {
-    [AbpAuthorize(PermissionNames.Pages_Report)]
-    public class HistoryExportService : AsyncCrudAppService<HistoryExport, HistoryExportDto, Guid, PagedAndSortedAndSearchAndDateResultDto>
+    public class HistoryExportService : AsyncCrudPermissonAppService<HistoryExport, HistoryExportDto, Guid, PagedAndSortedAndSearchAndDateResultDto>
     {
         private readonly IRepository<CertificateGroupStatus, Guid> _repositoryGr;
         private readonly IRepository<Certificate, Guid> _repositoryCer;
         private readonly IStorageService storageService;
-        public HistoryExportService(IRepository<HistoryExport, Guid> repository, IRepository<CertificateGroupStatus, Guid> repositoryGr, IRepository<Certificate, Guid> repositoryCer, IStorageService storageService) : base(repository)
+        public HistoryExportService(IRepository<HistoryExport, Guid> repository, IRepository<CertificateGroupStatus, Guid> repositoryGr, IRepository<Certificate, Guid> repositoryCer, IStorageService storageService) : base(repository, PermissionNames.Report)
         {
             _repositoryGr = repositoryGr;
             _repositoryCer = repositoryCer;
@@ -40,7 +33,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
         }
         public async ValueTask<IEnumerable<CertificateDto>> GetCertificateByDate(DateTime DateFrom, DateTime DateTo, Status status)
         {
-            CheckCreatePermission();
+            CheckDeletePermission();
             var query = _repositoryCer.GetAll();
             if (DateFrom != DateTime.MinValue)
             {
@@ -60,6 +53,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
         }
         public async Task<FileContentResult> GetExportCertificateList(DateTime DateFrom, DateTime DateTo, Status status)
         {
+            CheckCreatePermission();
             string reportname = $"Danhsach_{Guid.NewGuid():N}.xlsx";
             var list = await GetCertificateByDate(DateFrom, DateTo, status);
 
@@ -77,7 +71,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 TongCong = e.AmountPaid,
                 DonViTienTe = "VND"
             }).ToList();
-            var exportbytes = ExportExcelCSV.ExporttoExcel<CertificateCsvDto>(certificate, reportname);
+            var exportbytes = ExportExcelCSV.ExporttoExcel(certificate, reportname);
 
             var data = await storageService.SaveFileExcelAsync(reportname, "Excel", stream: new MemoryStream(exportbytes));
             var obj = new HistoryExport()
@@ -86,9 +80,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 End = DateTo,
                 Start = DateFrom,
                 Status = Status.Finish,
-                Type = "Báo cáo doanh thu",
-                UserId = AbpSession.UserId.Value,
-
+                Type = "Báo cáo doanh thu"
             };
             await Repository.InsertAsync(obj);
             await CurrentUnitOfWork.SaveChangesAsync();
@@ -120,6 +112,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
         }
         public async Task<FileContentResult> GetExportCertificate3List(DateTime DateFrom, DateTime DateTo, Status status)
         {
+            CheckCreatePermission();
             string reportname = $"Danhsach_{Guid.NewGuid():N}.xlsx";
             var list = await GetCertificateGroupStatusByDate(DateFrom, DateTo, status);
             var certificategr = list.Where(x => x.Group == "xetnghiemmau" || x.Group == "xetnghiemnuoctieu")
@@ -158,8 +151,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 End = DateTo,
                 Start = DateFrom,
                 Status = Status.Finish,
-                Type = "Báo cáo xét nghiệm (Trên 18)",
-                UserId = AbpSession.UserId.Value,
+                Type = "Báo cáo xét nghiệm (Trên 18)"
 
             };
             await Repository.InsertAsync(obj);
@@ -171,6 +163,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
         }
         public async Task<FileContentResult> GetExportCertificateMaTuyList(DateTime DateFrom, DateTime DateTo, Status status)
         {
+            CheckCreatePermission();
             string reportname = $"Danhsach_{Guid.NewGuid():N}.xlsx";
             var list = await GetCertificateGroupStatusByDate(DateFrom, DateTo, status);
             var certificategr = list.Where(x => x.Group == "xetnghiemmatuyvamau")
@@ -206,8 +199,6 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 Start = DateFrom,
                 Status = Status.Finish,
                 Type = "Báo cáo xét nghiệm (Lái xe)",
-                UserId = AbpSession.UserId.Value,
-
             };
             await Repository.InsertAsync(obj);
             await CurrentUnitOfWork.SaveChangesAsync();
@@ -230,7 +221,8 @@ namespace AristBase.CRUDServices.HistoryExportServices
             {
                 query = query.Where(w => w.CreationTime <= input.DateTo);
             }
-            query = query.Include(i => i.User).WhereIf(!input.Keyword.IsNullOrWhiteSpace(), x => x.Type.Contains(input.Keyword));
+            //query = query.Include(i => i.User).WhereIf(!input.Keyword.IsNullOrWhiteSpace(), x => x.Type.Contains(input.Keyword));
+            query = query.Include(i => i.CreatorUser);
             var totalCount = await AsyncQueryableExecuter.CountAsync(query);
 
             query = ApplySorting(query, input);
@@ -245,7 +237,8 @@ namespace AristBase.CRUDServices.HistoryExportServices
         }
         public async Task<IActionResult> DownloadFilePath(string filePath)
         {
-            var fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
+            CheckGetPermission();
+            var fileBytes = await File.ReadAllBytesAsync(filePath);
             return new FileContentResult(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
             {
                 FileDownloadName = Path.GetFileName(filePath)

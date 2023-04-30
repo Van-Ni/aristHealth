@@ -16,10 +16,9 @@ namespace AristBase.BaseEntity
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public Status Status { get; set; }
-        public long UserId { get; set; }
-        public virtual User User { get; set; }
         #region Audited
         public long? CreatorUserId { get; set; }
+        public User CreatorUser { get; set; }
         public DateTime CreationTime { get; set; }
         public long? LastModifierUserId { get; set; }
         public DateTime? LastModificationTime { get; set; }
