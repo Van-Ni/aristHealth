@@ -65,7 +65,7 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                 this.l('certificate-types'),
                 '/app/certificate-types',
                 'far fa-circle',
-                '',
+                'Pages.Certificatetypes',
             ),
             new MenuItem(
                 this.l('certificates'),
@@ -76,7 +76,7 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                 this.l('ExportData'),
                 '/app/export-data',
                 'far fa-circle',
-                '',
+                'Pages.Report',
             ),
             // new MenuItem(this.l('Quản lý Form word'), '', 'fas fa-circle', '', [
             //     new MenuItem(

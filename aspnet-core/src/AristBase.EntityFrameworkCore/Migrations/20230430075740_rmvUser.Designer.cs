@@ -6,6 +6,7 @@ using AristBase.BaseEntity.XML;
 using AristBase.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -14,9 +15,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AristBase.Migrations
 {
     [DbContext(typeof(AristBaseDbContext))]
-    partial class AristBaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230430075740_rmvUser")]
+    partial class rmvUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1636,10 +1639,6 @@ namespace AristBase.Migrations
                     b.Property<int>("ClientInfoId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("ClientInfoYear")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("timestamp with time zone");
 
@@ -1683,7 +1682,7 @@ namespace AristBase.Migrations
 
                     b.HasIndex("CertificateTypeId");
 
-                    b.HasIndex("ClientInfoId", "ClientInfoYear");
+                    b.HasIndex("ClientInfoId");
 
                     b.ToTable("Certificate");
                 });
@@ -1872,10 +1871,7 @@ namespace AristBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Year")
-                        .HasColumnType("text");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
                         .HasColumnType("text");
@@ -1946,7 +1942,7 @@ namespace AristBase.Migrations
                     b.Property<int>("TenantId")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id", "Year");
+                    b.HasKey("Id");
 
                     b.ToTable("ClientInfo");
                 });
@@ -2037,15 +2033,12 @@ namespace AristBase.Migrations
                     b.Property<string>("Type")
                         .HasColumnType("text");
 
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("filePath")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("CreatorUserId");
 
                     b.ToTable("HistoryExports");
                 });
@@ -2378,7 +2371,7 @@ namespace AristBase.Migrations
 
                     b.HasOne("AristBase.BaseEntity.ClientInfo", "ClientInfo")
                         .WithMany("Certificates")
-                        .HasForeignKey("ClientInfoId", "ClientInfoYear")
+                        .HasForeignKey("ClientInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2417,13 +2410,11 @@ namespace AristBase.Migrations
 
             modelBuilder.Entity("AristBase.BaseEntity.HistoryExport", b =>
                 {
-                    b.HasOne("AristBase.Authorization.Users.User", "User")
+                    b.HasOne("AristBase.Authorization.Users.User", "CreatorUser")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CreatorUserId");
 
-                    b.Navigation("User");
+                    b.Navigation("CreatorUser");
                 });
 
             modelBuilder.Entity("AristBase.BaseEntity.Region", b =>

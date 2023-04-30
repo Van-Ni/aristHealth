@@ -389,205 +389,6 @@ export class CertificateGroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param dateFrom (optional) 
-     * @param dateTo (optional) 
-     * @param status (optional) 
-     * @return Success
-     */
-    getCertificateGroupStatusByDate(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<CertificateGroupStatusDto[]> {
-        let url_ = this.baseUrl + "/api/services/app/CertificateGroupStatusService/GetCertificateGroupStatusByDate?";
-        if (dateFrom === null)
-            throw new Error("The parameter 'dateFrom' cannot be null.");
-        else if (dateFrom !== undefined)
-            url_ += "DateFrom=" + encodeURIComponent(dateFrom ? "" + dateFrom.toISOString() : "") + "&";
-        if (dateTo === null)
-            throw new Error("The parameter 'dateTo' cannot be null.");
-        else if (dateTo !== undefined)
-            url_ += "DateTo=" + encodeURIComponent(dateTo ? "" + dateTo.toISOString() : "") + "&";
-        if (status === null)
-            throw new Error("The parameter 'status' cannot be null.");
-        else if (status !== undefined)
-            url_ += "status=" + encodeURIComponent("" + status) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetCertificateGroupStatusByDate(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetCertificateGroupStatusByDate(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<CertificateGroupStatusDto[]>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<CertificateGroupStatusDto[]>;
-        }));
-    }
-
-    protected processGetCertificateGroupStatusByDate(response: HttpResponseBase): Observable<CertificateGroupStatusDto[]> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200.push(CertificateGroupStatusDto.fromJS(item));
-            }
-            else {
-                result200 = <any>null;
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param dateFrom (optional) 
-     * @param dateTo (optional) 
-     * @param status (optional) 
-     * @return Success
-     */
-    getExportCertificate3List(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<any> {
-        let url_ = this.baseUrl + "/api/services/app/CertificateGroupStatusService/GetExportCertificate3List?";
-        if (dateFrom === null)
-            throw new Error("The parameter 'dateFrom' cannot be null.");
-        else if (dateFrom !== undefined)
-            url_ += "DateFrom=" + encodeURIComponent(dateFrom ? "" + dateFrom.toISOString() : "") + "&";
-        if (dateTo === null)
-            throw new Error("The parameter 'dateTo' cannot be null.");
-        else if (dateTo !== undefined)
-            url_ += "DateTo=" + encodeURIComponent(dateTo ? "" + dateTo.toISOString() : "") + "&";
-        if (status === null)
-            throw new Error("The parameter 'status' cannot be null.");
-        else if (status !== undefined)
-            url_ += "status=" + encodeURIComponent("" + status) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetExportCertificate3List(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetExportCertificate3List(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<void>;
-        }));
-    }
-
-    protected processGetExportCertificate3List(response: HttpResponseBase): Observable<any> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            // return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            // return _observableOf(null as any);
-            // }));
-            return _observableOf(responseBlob);
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param dateFrom (optional) 
-     * @param dateTo (optional) 
-     * @param status (optional) 
-     * @return Success
-     */
-    getExportCertificateMaTuyList(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<any> {
-        let url_ = this.baseUrl + "/api/services/app/CertificateGroupStatusService/GetExportCertificateMaTuyList?";
-        if (dateFrom === null)
-            throw new Error("The parameter 'dateFrom' cannot be null.");
-        else if (dateFrom !== undefined)
-            url_ += "DateFrom=" + encodeURIComponent(dateFrom ? "" + dateFrom.toISOString() : "") + "&";
-        if (dateTo === null)
-            throw new Error("The parameter 'dateTo' cannot be null.");
-        else if (dateTo !== undefined)
-            url_ += "DateTo=" + encodeURIComponent(dateTo ? "" + dateTo.toISOString() : "") + "&";
-        if (status === null)
-            throw new Error("The parameter 'status' cannot be null.");
-        else if (status !== undefined)
-            url_ += "status=" + encodeURIComponent("" + status) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetExportCertificateMaTuyList(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetExportCertificateMaTuyList(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<void>;
-        }));
-    }
-
-    protected processGetExportCertificateMaTuyList(response: HttpResponseBase): Observable<any> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            // return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            // return _observableOf(null as any);
-            // }));
-            return _observableOf(responseBlob);
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
      * @param body (optional) 
      * @return Success
      */
@@ -897,142 +698,6 @@ export class CertificateServiceServiceProxy {
             result200 = CertificateDtoPagedResultDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param dateFrom (optional) 
-     * @param dateTo (optional) 
-     * @param status (optional) 
-     * @return Success
-     */
-    getCertificateByDate(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<CertificateDto[]> {
-        let url_ = this.baseUrl + "/api/services/app/CertificateService/GetCertificateByDate?";
-        if (dateFrom === null)
-            throw new Error("The parameter 'dateFrom' cannot be null.");
-        else if (dateFrom !== undefined)
-            url_ += "DateFrom=" + encodeURIComponent(dateFrom ? "" + dateFrom.toISOString() : "") + "&";
-        if (dateTo === null)
-            throw new Error("The parameter 'dateTo' cannot be null.");
-        else if (dateTo !== undefined)
-            url_ += "DateTo=" + encodeURIComponent(dateTo ? "" + dateTo.toISOString() : "") + "&";
-        if (status === null)
-            throw new Error("The parameter 'status' cannot be null.");
-        else if (status !== undefined)
-            url_ += "status=" + encodeURIComponent("" + status) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetCertificateByDate(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetCertificateByDate(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<CertificateDto[]>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<CertificateDto[]>;
-        }));
-    }
-
-    protected processGetCertificateByDate(response: HttpResponseBase): Observable<CertificateDto[]> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200.push(CertificateDto.fromJS(item));
-            }
-            else {
-                result200 = <any>null;
-            }
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param dateFrom (optional) 
-     * @param dateTo (optional) 
-     * @param status (optional) 
-     * @return Success
-     */
-    getExportCertificateList(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<any> {
-        let url_ = this.baseUrl + "/api/services/app/CertificateService/GetExportCertificateList?";
-        if (dateFrom === null)
-            throw new Error("The parameter 'dateFrom' cannot be null.");
-        else if (dateFrom !== undefined)
-            url_ += "DateFrom=" + encodeURIComponent(dateFrom ? "" + dateFrom.toISOString() : "") + "&";
-        if (dateTo === null)
-            throw new Error("The parameter 'dateTo' cannot be null.");
-        else if (dateTo !== undefined)
-            url_ += "DateTo=" + encodeURIComponent(dateTo ? "" + dateTo.toISOString() : "") + "&";
-        if (status === null)
-            throw new Error("The parameter 'status' cannot be null.");
-        else if (status !== undefined)
-            url_ += "status=" + encodeURIComponent("" + status) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetExportCertificateList(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetExportCertificateList(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<void>;
-        }));
-    }
-
-    protected processGetExportCertificateList(response: HttpResponseBase): Observable<any> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            // return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            // return _observableOf(null as any);
-            // }));
-            return _observableOf(responseBlob);
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -2838,6 +2503,341 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
+     * @param dateFrom (optional) 
+     * @param dateTo (optional) 
+     * @param status (optional) 
+     * @return Success
+     */
+    getCertificateByDate(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<CertificateDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/HistoryExportService/GetCertificateByDate?";
+        if (dateFrom === null)
+            throw new Error("The parameter 'dateFrom' cannot be null.");
+        else if (dateFrom !== undefined)
+            url_ += "DateFrom=" + encodeURIComponent(dateFrom ? "" + dateFrom.toISOString() : "") + "&";
+        if (dateTo === null)
+            throw new Error("The parameter 'dateTo' cannot be null.");
+        else if (dateTo !== undefined)
+            url_ += "DateTo=" + encodeURIComponent(dateTo ? "" + dateTo.toISOString() : "") + "&";
+        if (status === null)
+            throw new Error("The parameter 'status' cannot be null.");
+        else if (status !== undefined)
+            url_ += "status=" + encodeURIComponent("" + status) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCertificateByDate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCertificateByDate(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CertificateDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CertificateDto[]>;
+        }));
+    }
+
+    protected processGetCertificateByDate(response: HttpResponseBase): Observable<CertificateDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(CertificateDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param dateFrom (optional) 
+     * @param dateTo (optional) 
+     * @param status (optional) 
+     * @return Success
+     */
+    getExportCertificateList(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<any> {
+        let url_ = this.baseUrl + "/api/services/app/HistoryExportService/GetExportCertificateList?";
+        if (dateFrom === null)
+            throw new Error("The parameter 'dateFrom' cannot be null.");
+        else if (dateFrom !== undefined)
+            url_ += "DateFrom=" + encodeURIComponent(dateFrom ? "" + dateFrom.toISOString() : "") + "&";
+        if (dateTo === null)
+            throw new Error("The parameter 'dateTo' cannot be null.");
+        else if (dateTo !== undefined)
+            url_ += "DateTo=" + encodeURIComponent(dateTo ? "" + dateTo.toISOString() : "") + "&";
+        if (status === null)
+            throw new Error("The parameter 'status' cannot be null.");
+        else if (status !== undefined)
+            url_ += "status=" + encodeURIComponent("" + status) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetExportCertificateList(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetExportCertificateList(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processGetExportCertificateList(response: HttpResponseBase): Observable<any> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            // return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            // return _observableOf(null as any);
+            // }));
+            return _observableOf(responseBlob);
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param dateFrom (optional) 
+     * @param dateTo (optional) 
+     * @param status (optional) 
+     * @return Success
+     */
+    getCertificateGroupStatusByDate(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<CertificateGroupStatusDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/HistoryExportService/GetCertificateGroupStatusByDate?";
+        if (dateFrom === null)
+            throw new Error("The parameter 'dateFrom' cannot be null.");
+        else if (dateFrom !== undefined)
+            url_ += "DateFrom=" + encodeURIComponent(dateFrom ? "" + dateFrom.toISOString() : "") + "&";
+        if (dateTo === null)
+            throw new Error("The parameter 'dateTo' cannot be null.");
+        else if (dateTo !== undefined)
+            url_ += "DateTo=" + encodeURIComponent(dateTo ? "" + dateTo.toISOString() : "") + "&";
+        if (status === null)
+            throw new Error("The parameter 'status' cannot be null.");
+        else if (status !== undefined)
+            url_ += "status=" + encodeURIComponent("" + status) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCertificateGroupStatusByDate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCertificateGroupStatusByDate(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CertificateGroupStatusDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CertificateGroupStatusDto[]>;
+        }));
+    }
+
+    protected processGetCertificateGroupStatusByDate(response: HttpResponseBase): Observable<CertificateGroupStatusDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200.push(CertificateGroupStatusDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param dateFrom (optional) 
+     * @param dateTo (optional) 
+     * @param status (optional) 
+     * @return Success
+     */
+    getExportCertificate3List(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<any> {
+        let url_ = this.baseUrl + "/api/services/app/HistoryExportService/GetExportCertificate3List?";
+        if (dateFrom === null)
+            throw new Error("The parameter 'dateFrom' cannot be null.");
+        else if (dateFrom !== undefined)
+            url_ += "DateFrom=" + encodeURIComponent(dateFrom ? "" + dateFrom.toISOString() : "") + "&";
+        if (dateTo === null)
+            throw new Error("The parameter 'dateTo' cannot be null.");
+        else if (dateTo !== undefined)
+            url_ += "DateTo=" + encodeURIComponent(dateTo ? "" + dateTo.toISOString() : "") + "&";
+        if (status === null)
+            throw new Error("The parameter 'status' cannot be null.");
+        else if (status !== undefined)
+            url_ += "status=" + encodeURIComponent("" + status) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetExportCertificate3List(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetExportCertificate3List(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processGetExportCertificate3List(response: HttpResponseBase): Observable<any> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            // return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            // return _observableOf(null as any);
+            // }));
+            return _observableOf(responseBlob);
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param dateFrom (optional) 
+     * @param dateTo (optional) 
+     * @param status (optional) 
+     * @return Success
+     */
+    getExportCertificateMaTuyList(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<any> {
+        let url_ = this.baseUrl + "/api/services/app/HistoryExportService/GetExportCertificateMaTuyList?";
+        if (dateFrom === null)
+            throw new Error("The parameter 'dateFrom' cannot be null.");
+        else if (dateFrom !== undefined)
+            url_ += "DateFrom=" + encodeURIComponent(dateFrom ? "" + dateFrom.toISOString() : "") + "&";
+        if (dateTo === null)
+            throw new Error("The parameter 'dateTo' cannot be null.");
+        else if (dateTo !== undefined)
+            url_ += "DateTo=" + encodeURIComponent(dateTo ? "" + dateTo.toISOString() : "") + "&";
+        if (status === null)
+            throw new Error("The parameter 'status' cannot be null.");
+        else if (status !== undefined)
+            url_ += "status=" + encodeURIComponent("" + status) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetExportCertificateMaTuyList(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetExportCertificateMaTuyList(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processGetExportCertificateMaTuyList(response: HttpResponseBase): Observable<any> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            // return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            // return _observableOf(null as any);
+            // }));
+            return _observableOf(responseBlob);
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
      * @param sorting (optional) 
      * @param filter (optional) 
      * @param keyword (optional) 
@@ -2915,6 +2915,59 @@ export class HistoryExportServiceServiceProxy {
             result200 = HistoryExportDtoPagedResultDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param filePath (optional) 
+     * @return Success
+     */
+    downloadFilePath(filePath: string | undefined): Observable<any> {
+        let url_ = this.baseUrl + "/api/services/app/HistoryExportService/DownloadFilePath?";
+        if (filePath === null)
+            throw new Error("The parameter 'filePath' cannot be null.");
+        else if (filePath !== undefined)
+            url_ += "filePath=" + encodeURIComponent("" + filePath) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDownloadFilePath(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDownloadFilePath(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processDownloadFilePath(response: HttpResponseBase): Observable<any> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            // return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            // return _observableOf(null as any);
+            // }));
+            return _observableOf(responseBlob);
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -8268,7 +8321,7 @@ export class HistoryExportDto implements IHistoryExportDto {
     end: moment.Moment;
     status: Status;
     userId: number | undefined;
-    user: User;
+    user: UserDto;
     creationTime: moment.Moment;
 
     constructor(data?: IHistoryExportDto) {
@@ -8289,7 +8342,7 @@ export class HistoryExportDto implements IHistoryExportDto {
             this.end = _data["end"] ? moment(_data["end"].toString()) : <any>undefined;
             this.status = _data["status"];
             this.userId = _data["userId"];
-            this.user = _data["user"] ? User.fromJS(_data["user"]) : <any>undefined;
+            this.user = _data["user"] ? UserDto.fromJS(_data["user"]) : <any>undefined;
             this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
         }
     }
@@ -8331,7 +8384,7 @@ export interface IHistoryExportDto {
     end: moment.Moment;
     status: Status;
     userId: number | undefined;
-    user: User;
+    user: UserDto;
     creationTime: moment.Moment;
 }
 
