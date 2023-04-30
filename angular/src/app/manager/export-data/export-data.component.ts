@@ -80,11 +80,13 @@ showCreateHistoryExportDialog(id?: string): void {
     );
   }
 
-  // if (createOrEditCertificateDialog.content) {
-  //   createOrEditCertificateDialog.content.onSave.subscribe(() => {
-  //     this.refresh();
-  //   });
-  // }
+  setTimeout(() => {
+    if (createOrEditCertificateDialog.content) {
+      createOrEditCertificateDialog.content.onSave.subscribe(() => {
+        this.refresh();
+      });
+    }
+  }, 100);
 }
 downloadFilePath(file: any){
   this.historyExportService.downloadFilePath(file).subscribe(

@@ -15,7 +15,6 @@ import * as ApiServiceProxies from './service-proxies';
         ApiServiceProxies.ConfigurationServiceProxy,
         ApiServiceProxies.DepartmentServiceServiceProxy,
         ApiServiceProxies.CertificateGroupStatusServiceServiceProxy,
-        ApiServiceProxies.ClientInfoServiceServiceProxy,
         ApiServiceProxies.CertificateTypeServiceServiceProxy,
         ApiServiceProxies.CertificateServiceServiceProxy,
         ApiServiceProxies.CertificateGroupStatusServiceServiceProxy,

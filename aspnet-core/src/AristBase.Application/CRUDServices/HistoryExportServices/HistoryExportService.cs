@@ -80,7 +80,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 End = DateTo,
                 Start = DateFrom,
                 Status = Status.Finish,
-                Type = "Báo cáo doanh thu"
+                Type = "RevenueReport"
             };
             await Repository.InsertAsync(obj);
             await CurrentUnitOfWork.SaveChangesAsync();
@@ -151,7 +151,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 End = DateTo,
                 Start = DateFrom,
                 Status = Status.Finish,
-                Type = "Báo cáo xét nghiệm (Trên 18)"
+                Type = "DriverReport"
 
             };
             await Repository.InsertAsync(obj);
@@ -198,7 +198,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 End = DateTo,
                 Start = DateFrom,
                 Status = Status.Finish,
-                Type = "Báo cáo xét nghiệm (Lái xe)",
+                Type = "HeroinReport",
             };
             await Repository.InsertAsync(obj);
             await CurrentUnitOfWork.SaveChangesAsync();
