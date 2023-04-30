@@ -86,6 +86,30 @@ showCreateHistoryExportDialog(id?: string): void {
   //   });
   // }
 }
+downloadFilePath(file: any){
+  this.historyExportService.downloadFilePath(file).subscribe(
+    (response: any) => {
+      console.log(response);
+
+      if (response) {
+        // Check if the response body is not null or undefined
+        const url = URL.createObjectURL(response);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "BaoCao.xlsx";
+        link.target = "_blank";
+        link.click();
+      } else {
+        // Handle null or undefined response body
+        console.error("Response body is null or undefined");
+      }
+    },
+    (error) => {
+      // Handle error
+      console.error(error);
+    }
+  );
+}
 getDateFrom(datestart: any) {
   const request = new PagedHistoryExportRequestDto();
   this.dateFrom = datestart;

@@ -13,7 +13,7 @@ namespace AristBase.Authorization
 
         public const string Pages_Roles = "Pages.Roles";
         public const string Pages_Certificates = "Pages.Certificates";
-        public const string Pages_CertificateTypes = "Pages.Certificatetypes";
+        public const string Pages_Certificatetypes = "Pages.Certificatetypes";
         public const string TamThan = "tamthan";
         public const string ThanKinh = "thankinh";
         public const string Mat = "mat";
@@ -42,27 +42,28 @@ namespace AristBase.Authorization
         public const string KhamLamSanKhac = "khamlamsankhac";
 
         public const string PageReadIn = "Pages.In.Read";
+        public const string Pages_Report = "Pages.Report";
 
-        public static List<string> Pages = new List<string>        
-        { TuanHoan, 
-            TamThan, 
+        public static List<string> Pages = new List<string>
+        { TuanHoan,
+            TamThan,
             ThanKinh,
-            Mat, 
-            TaiMuiHong, 
+            Mat,
+            TaiMuiHong,
             TimMach,
             HoHap,
-            CoXuongKhop, 
-            ThaiSan, 
+            CoXuongKhop,
+            ThaiSan,
             NoiTiet,
-            NhiKhoa, 
+            NhiKhoa,
             RangHamMat,
-            XetNghiemMaTuyVaMau, 
+            XetNghiemMaTuyVaMau,
             XetNghiemMau,
             XetNghiemKhac,
-            XetNghiemNuocTieu, 
+            XetNghiemNuocTieu,
             ChanDoanHinhAnh,
             KhamTheLuc,
-            tdv, 
+            tdv,
             KetLuan,
             TieuHoa,
             KhamLamSanKhac,
@@ -70,8 +71,6 @@ namespace AristBase.Authorization
             NgoaiKhoa,
             DaLieu,
             KhamTheLucInput,
-            Pages_CertificateTypes,
-            Pages_Certificates
         };
     }
     public class CRUDPermissionName

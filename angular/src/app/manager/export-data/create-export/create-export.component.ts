@@ -51,7 +51,7 @@ implements OnInit{
     }
   }
   ExportData(): void {
-    this._certificatesService
+    this.historyExportService
       .getExportCertificateList(
         this.getBegin(this.exportDto.dateFrom),
         this.getEnd(this.exportDto.dateTo),
@@ -81,7 +81,7 @@ implements OnInit{
       );
   }
   ExportData1(): void{
-    this._certificateGrService
+    this.historyExportService
       .getExportCertificateMaTuyList(
         this.getBegin(this.exportDto.dateFrom),
         this.getEnd(this.exportDto.dateTo),
@@ -111,7 +111,7 @@ implements OnInit{
       );
   }
   ExportData3(): void{
-    this._certificateGrService
+    this.historyExportService
     .getExportCertificate3List(
       this.getBegin(this.exportDto.dateFrom),
       this.getEnd(this.exportDto.dateTo),

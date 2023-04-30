@@ -90,68 +90,7 @@ namespace AristBase.CRUDServices.CertificateServices
                 entities.Select(MapToEntityDto).ToList()
             );
         }
-        public async ValueTask<IEnumerable<CertificateDto>> GetCertificateByDate(DateTime DateFrom, DateTime DateTo, Status status)
-        {
-            var query = Repository.GetAll();
-            if (DateFrom != DateTime.MinValue)
-            {
-                query = query.Where(w => w.CreationTime >= DateFrom);
-            }
-            if (DateTo != DateTime.MinValue)
-            {
-                query = query.Where(w => w.CreationTime <= DateTo);
-            }
-            if (status != null)
-            {
-                query = query.Where(w => w.Status == status);
-            }
-            query = query.Include(i => i.ClientInfo).Include(i => i.CertificateType);
-            var entities = await AsyncQueryableExecuter.ToListAsync(query);
-            return ObjectMapper.Map<IEnumerable<CertificateDto>>(entities);
-        }
-        public async Task<FileContentResult> GetExportCertificateList(DateTime DateFrom, DateTime DateTo, Status status)
-        {
-            try
-            {
-                string reportname = $"Danhsach_{Guid.NewGuid():N}.xlsx";
-                var list = await GetCertificateByDate(DateFrom, DateTo, status);
 
-                var certificate = list.Select((e, index) => new CertificateCsvDto
-                {
-                    STT = index + 1,
-                    MaKhachHang = e.ClientInfo.Id,
-                    TenNguoiMua = e.ClientInfo.FullName,
-                    DiaChiKhachHang = e.ClientInfo.Address,
-                    HinhThucTT = "TM",
-                    SanPham = e.CertificateType.Name,
-                    DonViTinh = "Nguoi",
-                    TienBan = e.AmountPaid,
-                    ThueSuat = "-1.00",
-                    TongCong = e.AmountPaid,
-                    DonViTienTe = "VND"
-                }).ToList();
-                var exportbytes = ExportExcelCSV.ExporttoExcel<CertificateCsvDto>(certificate, reportname);
-
-                var data = await storageService.SaveFileExcelAsync(reportname, "Excel", stream: new MemoryStream(exportbytes));
-                var obj = new HistoryExport()
-                {
-                    filePath = data,
-                    End = DateTo,
-                    Start = DateFrom,
-                    Status = Status.Finish,
-                    Type = "Báo cáo doanh thu",
-                    UserId = AbpSession.UserId,
-
-                };
-                await _historyRepo.InsertAsync(obj);
-                await CurrentUnitOfWork.SaveChangesAsync();
-                return new FileContentResult(exportbytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-                {
-                    FileDownloadName = reportname
-                };
-            }
-            catch (Exception ex) { throw; }
-        }
         public async override Task<CertificateDto> CreateAsync(CreateCertificateDto input)
         {
             CheckCreatePermission();

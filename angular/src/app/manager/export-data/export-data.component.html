@@ -119,7 +119,9 @@
                       Hoàn thành</p>
 
                   </td>
-                  <td style="text-align: center;"><a [href]="history.filePath" download><i class="fa fa-download" ></i>Tải xuống</a></td>
+                  <td style="text-align: center;">
+                    <button class="btn btn-primary"(click)="downloadFilePath(history.filePath)"><i class="fa fa-download" ></i>Tải xuống</button>
+                    </td>
                 </tr>
               </tbody>
             </table>
