@@ -1,8 +1,6 @@
-import { Component, Injector, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Injector, Input } from '@angular/core';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CertificateDto, ClientInfoDto, ClientInfoServiceServiceProxy, CreateClientInfoDto } from '@shared/service-proxies/service-proxies';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { CertificateDto } from '@shared/service-proxies/service-proxies';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +13,7 @@ export class ProfileComponent extends AppComponentBase{
   onSave: any;
   saving: boolean;
   isEditProfile: true;
-  constructor(private injector: Injector,private bsModalRef: BsModalRef, private clientInfoServiceProxy: ClientInfoServiceServiceProxy) { 
+  constructor(injector: Injector) { 
     super(injector);
   }
 

@@ -70,21 +70,21 @@ createHistory(): void {
   this.showCreateHistoryExportDialog();
 }
 showCreateHistoryExportDialog(id?: string): void {
-  let createOrEditCertificateDialog: BsModalRef;
+  let createExportDialog: BsModalRef;
   if (id == undefined) {
-    createOrEditCertificateDialog = this._modalService.show(
+    createExportDialog = this._modalService.show(
       CreateExportComponent,
       {
         class: "modal-lg",
       }
     );
   }
-
-  // if (createOrEditCertificateDialog.content) {
-  //   createOrEditCertificateDialog.content.onSave.subscribe(() => {
-  //     this.refresh();
-  //   });
-  // }
+  
+  if (createExportDialog.content) {
+    createExportDialog.content.onSave.subscribe(() => {
+      this.refresh();
+    });
+  }
 }
 downloadFilePath(file: any){
   this.historyExportService.downloadFilePath(file).subscribe(

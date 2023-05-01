@@ -15,8 +15,8 @@ namespace AristBase.CRUDServices.HistoryExportServices.Dto
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public Status Status { get; set; }
-        public long? UserId { get; set; }
-        public virtual UserDto User { get; set; }
+        public long? CreatorUserId { get; set; }
+        public virtual UserDto CreatorUser { get; set; }
         public DateTime CreationTime { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from "@angular/core";
+import { Component, EventEmitter, Injector, OnInit, Output } from "@angular/core";
 import { AppComponentBase } from "@shared/app-component-base";
 import {
   HistoryExportServiceServiceProxy,
@@ -19,6 +19,7 @@ export class ExportDto {
 export class CreateExportComponent extends AppComponentBase implements OnInit {
   saving = false;
   exportDto: ExportDto;
+  @Output() onSave = new EventEmitter<any>();
   constructor(
     public bsModalRef: BsModalRef,
     injector: Injector,
@@ -53,7 +54,8 @@ export class CreateExportComponent extends AppComponentBase implements OnInit {
       .subscribe(
         (response: any) => {
           console.log(response);
-
+          this.bsModalRef.hide();
+          this.onSave.emit();
           if (response) {
             // Check if the response body is not null or undefined
             const url = URL.createObjectURL(response);
@@ -83,7 +85,8 @@ export class CreateExportComponent extends AppComponentBase implements OnInit {
       .subscribe(
         (response: any) => {
           console.log(response);
-
+          this.bsModalRef.hide();
+          this.onSave.emit();
           if (response) {
             // Check if the response body is not null or undefined
             const url = URL.createObjectURL(response);
@@ -113,7 +116,8 @@ export class CreateExportComponent extends AppComponentBase implements OnInit {
       .subscribe(
         (response: any) => {
           console.log(response);
-
+          this.bsModalRef.hide();
+          this.onSave.emit();
           if (response) {
             // Check if the response body is not null or undefined
             const url = URL.createObjectURL(response);

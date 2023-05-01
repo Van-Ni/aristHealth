@@ -1353,364 +1353,6 @@ export class CertificateTypeServiceServiceProxy {
 }
 
 @Injectable()
-export class ClientInfoServiceServiceProxy {
-    private http: HttpClient;
-    private baseUrl: string;
-    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
-        this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
-    }
-
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    create(body: CreateClientInfoDto | undefined): Observable<ClientInfoDto> {
-        let url_ = this.baseUrl + "/api/services/app/ClientInfoService/Create";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processCreate(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processCreate(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<ClientInfoDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<ClientInfoDto>;
-        }));
-    }
-
-    protected processCreate(response: HttpResponseBase): Observable<ClientInfoDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = ClientInfoDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    get(id: number | undefined): Observable<ClientInfoDto> {
-        let url_ = this.baseUrl + "/api/services/app/ClientInfoService/Get?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGet(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGet(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<ClientInfoDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<ClientInfoDto>;
-        }));
-    }
-
-    protected processGet(response: HttpResponseBase): Observable<ClientInfoDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = ClientInfoDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param fullName (optional) 
-     * @param sex (optional) 
-     * @param cCCD (optional) 
-     * @param dateOfBirth (optional) 
-     * @param createTimeCCCD (optional) 
-     * @param addressCCCD (optional) 
-     * @param address (optional) 
-     * @param provinceId (optional) 
-     * @param province (optional) 
-     * @param communeId (optional) 
-     * @param commune (optional) 
-     * @param districtId (optional) 
-     * @param district (optional) 
-     * @param guardianName (optional) 
-     * @param id (optional) 
-     * @return Success
-     */
-    getAll(fullName: string | undefined, sex: string | undefined, cCCD: string | undefined, dateOfBirth: string | undefined, createTimeCCCD: string | undefined, addressCCCD: string | undefined, address: string | undefined, provinceId: string | undefined, province: string | undefined, communeId: string | undefined, commune: string | undefined, districtId: string | undefined, district: string | undefined, guardianName: string | undefined, id: number | undefined): Observable<ClientInfoDtoPagedResultDto> {
-        let url_ = this.baseUrl + "/api/services/app/ClientInfoService/GetAll?";
-        if (fullName === null)
-            throw new Error("The parameter 'fullName' cannot be null.");
-        else if (fullName !== undefined)
-            url_ += "FullName=" + encodeURIComponent("" + fullName) + "&";
-        if (sex === null)
-            throw new Error("The parameter 'sex' cannot be null.");
-        else if (sex !== undefined)
-            url_ += "Sex=" + encodeURIComponent("" + sex) + "&";
-        if (cCCD === null)
-            throw new Error("The parameter 'cCCD' cannot be null.");
-        else if (cCCD !== undefined)
-            url_ += "CCCD=" + encodeURIComponent("" + cCCD) + "&";
-        if (dateOfBirth === null)
-            throw new Error("The parameter 'dateOfBirth' cannot be null.");
-        else if (dateOfBirth !== undefined)
-            url_ += "DateOfBirth=" + encodeURIComponent("" + dateOfBirth) + "&";
-        if (createTimeCCCD === null)
-            throw new Error("The parameter 'createTimeCCCD' cannot be null.");
-        else if (createTimeCCCD !== undefined)
-            url_ += "CreateTimeCCCD=" + encodeURIComponent("" + createTimeCCCD) + "&";
-        if (addressCCCD === null)
-            throw new Error("The parameter 'addressCCCD' cannot be null.");
-        else if (addressCCCD !== undefined)
-            url_ += "AddressCCCD=" + encodeURIComponent("" + addressCCCD) + "&";
-        if (address === null)
-            throw new Error("The parameter 'address' cannot be null.");
-        else if (address !== undefined)
-            url_ += "Address=" + encodeURIComponent("" + address) + "&";
-        if (provinceId === null)
-            throw new Error("The parameter 'provinceId' cannot be null.");
-        else if (provinceId !== undefined)
-            url_ += "ProvinceId=" + encodeURIComponent("" + provinceId) + "&";
-        if (province === null)
-            throw new Error("The parameter 'province' cannot be null.");
-        else if (province !== undefined)
-            url_ += "Province=" + encodeURIComponent("" + province) + "&";
-        if (communeId === null)
-            throw new Error("The parameter 'communeId' cannot be null.");
-        else if (communeId !== undefined)
-            url_ += "CommuneId=" + encodeURIComponent("" + communeId) + "&";
-        if (commune === null)
-            throw new Error("The parameter 'commune' cannot be null.");
-        else if (commune !== undefined)
-            url_ += "Commune=" + encodeURIComponent("" + commune) + "&";
-        if (districtId === null)
-            throw new Error("The parameter 'districtId' cannot be null.");
-        else if (districtId !== undefined)
-            url_ += "DistrictId=" + encodeURIComponent("" + districtId) + "&";
-        if (district === null)
-            throw new Error("The parameter 'district' cannot be null.");
-        else if (district !== undefined)
-            url_ += "District=" + encodeURIComponent("" + district) + "&";
-        if (guardianName === null)
-            throw new Error("The parameter 'guardianName' cannot be null.");
-        else if (guardianName !== undefined)
-            url_ += "GuardianName=" + encodeURIComponent("" + guardianName) + "&";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAll(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetAll(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<ClientInfoDtoPagedResultDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<ClientInfoDtoPagedResultDto>;
-        }));
-    }
-
-    protected processGetAll(response: HttpResponseBase): Observable<ClientInfoDtoPagedResultDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = ClientInfoDtoPagedResultDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    update(body: ClientInfoDto | undefined): Observable<ClientInfoDto> {
-        let url_ = this.baseUrl + "/api/services/app/ClientInfoService/Update";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processUpdate(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processUpdate(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<ClientInfoDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<ClientInfoDto>;
-        }));
-    }
-
-    protected processUpdate(response: HttpResponseBase): Observable<ClientInfoDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = ClientInfoDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    delete(id: number | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/ClientInfoService/Delete?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processDelete(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processDelete(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<void>;
-        }));
-    }
-
-    protected processDelete(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-}
-
-@Injectable()
 export class ConfigurationServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -7058,6 +6700,7 @@ export class ClientInfo implements IClientInfo {
     districtId: string | undefined;
     district: string | undefined;
     guardianName: string | undefined;
+    readonly year: string | undefined;
     certificates: Certificate[] | undefined;
     creatorUserId: number | undefined;
     creationTime: moment.Moment;
@@ -7095,6 +6738,7 @@ export class ClientInfo implements IClientInfo {
             this.districtId = _data["districtId"];
             this.district = _data["district"];
             this.guardianName = _data["guardianName"];
+            (<any>this).year = _data["year"];
             if (Array.isArray(_data["certificates"])) {
                 this.certificates = [] as any;
                 for (let item of _data["certificates"])
@@ -7136,6 +6780,7 @@ export class ClientInfo implements IClientInfo {
         data["districtId"] = this.districtId;
         data["district"] = this.district;
         data["guardianName"] = this.guardianName;
+        data["year"] = this.year;
         if (Array.isArray(this.certificates)) {
             data["certificates"] = [];
             for (let item of this.certificates)
@@ -7177,6 +6822,7 @@ export interface IClientInfo {
     districtId: string | undefined;
     district: string | undefined;
     guardianName: string | undefined;
+    year: string | undefined;
     certificates: Certificate[] | undefined;
     creatorUserId: number | undefined;
     creationTime: moment.Moment;
@@ -7286,61 +6932,6 @@ export interface IClientInfoDto {
     districtId: string | undefined;
     district: string | undefined;
     guardianName: string | undefined;
-}
-
-export class ClientInfoDtoPagedResultDto implements IClientInfoDtoPagedResultDto {
-    items: ClientInfoDto[] | undefined;
-    totalCount: number;
-
-    constructor(data?: IClientInfoDtoPagedResultDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items.push(ClientInfoDto.fromJS(item));
-            }
-            this.totalCount = _data["totalCount"];
-        }
-    }
-
-    static fromJS(data: any): ClientInfoDtoPagedResultDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new ClientInfoDtoPagedResultDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        data["totalCount"] = this.totalCount;
-        return data;
-    }
-
-    clone(): ClientInfoDtoPagedResultDto {
-        const json = this.toJSON();
-        let result = new ClientInfoDtoPagedResultDto();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IClientInfoDtoPagedResultDto {
-    items: ClientInfoDto[] | undefined;
-    totalCount: number;
 }
 
 export class CreateCertificateDto implements ICreateCertificateDto {
@@ -7542,101 +7133,6 @@ export interface ICreateCertificateTypeDto {
     isNeedSync: boolean;
     filePath: string | undefined;
     finalResult: string | undefined;
-}
-
-export class CreateClientInfoDto implements ICreateClientInfoDto {
-    fullName: string | undefined;
-    sex: string | undefined;
-    cccd: string | undefined;
-    dateOfBirth: string | undefined;
-    createTimeCCCD: string | undefined;
-    addressCCCD: string | undefined;
-    address: string | undefined;
-    guardianName: string | undefined;
-    provinceId: string | undefined;
-    province: string | undefined;
-    communeId: string | undefined;
-    commune: string | undefined;
-    districtId: string | undefined;
-    district: string | undefined;
-
-    constructor(data?: ICreateClientInfoDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.fullName = _data["fullName"];
-            this.sex = _data["sex"];
-            this.cccd = _data["cccd"];
-            this.dateOfBirth = _data["dateOfBirth"];
-            this.createTimeCCCD = _data["createTimeCCCD"];
-            this.addressCCCD = _data["addressCCCD"];
-            this.address = _data["address"];
-            this.guardianName = _data["guardianName"];
-            this.provinceId = _data["provinceId"];
-            this.province = _data["province"];
-            this.communeId = _data["communeId"];
-            this.commune = _data["commune"];
-            this.districtId = _data["districtId"];
-            this.district = _data["district"];
-        }
-    }
-
-    static fromJS(data: any): CreateClientInfoDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new CreateClientInfoDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["fullName"] = this.fullName;
-        data["sex"] = this.sex;
-        data["cccd"] = this.cccd;
-        data["dateOfBirth"] = this.dateOfBirth;
-        data["createTimeCCCD"] = this.createTimeCCCD;
-        data["addressCCCD"] = this.addressCCCD;
-        data["address"] = this.address;
-        data["guardianName"] = this.guardianName;
-        data["provinceId"] = this.provinceId;
-        data["province"] = this.province;
-        data["communeId"] = this.communeId;
-        data["commune"] = this.commune;
-        data["districtId"] = this.districtId;
-        data["district"] = this.district;
-        return data;
-    }
-
-    clone(): CreateClientInfoDto {
-        const json = this.toJSON();
-        let result = new CreateClientInfoDto();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface ICreateClientInfoDto {
-    fullName: string | undefined;
-    sex: string | undefined;
-    cccd: string | undefined;
-    dateOfBirth: string | undefined;
-    createTimeCCCD: string | undefined;
-    addressCCCD: string | undefined;
-    address: string | undefined;
-    guardianName: string | undefined;
-    provinceId: string | undefined;
-    province: string | undefined;
-    communeId: string | undefined;
-    commune: string | undefined;
-    districtId: string | undefined;
-    district: string | undefined;
 }
 
 export class CreateDepartmentDto implements ICreateDepartmentDto {
@@ -8320,8 +7816,8 @@ export class HistoryExportDto implements IHistoryExportDto {
     start: moment.Moment;
     end: moment.Moment;
     status: Status;
-    userId: number | undefined;
-    user: UserDto;
+    creatorUserId: number | undefined;
+    creatorUser: UserDto;
     creationTime: moment.Moment;
 
     constructor(data?: IHistoryExportDto) {
@@ -8341,8 +7837,8 @@ export class HistoryExportDto implements IHistoryExportDto {
             this.start = _data["start"] ? moment(_data["start"].toString()) : <any>undefined;
             this.end = _data["end"] ? moment(_data["end"].toString()) : <any>undefined;
             this.status = _data["status"];
-            this.userId = _data["userId"];
-            this.user = _data["user"] ? UserDto.fromJS(_data["user"]) : <any>undefined;
+            this.creatorUserId = _data["creatorUserId"];
+            this.creatorUser = _data["creatorUser"] ? UserDto.fromJS(_data["creatorUser"]) : <any>undefined;
             this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
         }
     }
@@ -8362,8 +7858,8 @@ export class HistoryExportDto implements IHistoryExportDto {
         data["start"] = this.start ? this.start.toISOString() : <any>undefined;
         data["end"] = this.end ? this.end.toISOString() : <any>undefined;
         data["status"] = this.status;
-        data["userId"] = this.userId;
-        data["user"] = this.user ? this.user.toJSON() : <any>undefined;
+        data["creatorUserId"] = this.creatorUserId;
+        data["creatorUser"] = this.creatorUser ? this.creatorUser.toJSON() : <any>undefined;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         return data;
     }
@@ -8383,8 +7879,8 @@ export interface IHistoryExportDto {
     start: moment.Moment;
     end: moment.Moment;
     status: Status;
-    userId: number | undefined;
-    user: UserDto;
+    creatorUserId: number | undefined;
+    creatorUser: UserDto;
     creationTime: moment.Moment;
 }
 

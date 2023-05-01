@@ -163,7 +163,7 @@ export class CertificateComponent
         }
       );
     }
-
+    console.log("a", createOrEditCertificateDialog.content);
     if (createOrEditCertificateDialog.content) {
       createOrEditCertificateDialog.content.onSave.subscribe(() => {
         this.refresh();
