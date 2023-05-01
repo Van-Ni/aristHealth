@@ -55,6 +55,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
         {
             CheckCreatePermission();
             string reportname = $"Danhsach_{Guid.NewGuid():N}.xlsx";
+            string nameSheet = "Báo cáo doanh thu";
             var list = await GetCertificateByDate(DateFrom, DateTo, status);
 
             var certificate = list.Select((e, index) => new CertificateCsvDto
@@ -71,7 +72,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 TongCong = e.AmountPaid,
                 DonViTienTe = "VND"
             }).ToList();
-            var exportbytes = ExportExcelCSV.ExporttoExcel(certificate, reportname);
+            var exportbytes = ExportExcelCSV.ExporttoExcel(certificate, nameSheet);
 
             var data = await storageService.SaveFileExcelAsync(reportname, "Excel", stream: new MemoryStream(exportbytes));
             var obj = new HistoryExport()
@@ -114,6 +115,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
         {
             CheckCreatePermission();
             string reportname = $"Danhsach_{Guid.NewGuid():N}.xlsx";
+            string nameSheet = "Làm việc";
             var list = await GetCertificateGroupStatusByDate(DateFrom, DateTo, status);
             var certificategr = list.Where(x => x.Group == "xetnghiemmau" || x.Group == "xetnghiemnuoctieu")
             .GroupBy(col => col.CertificateId)
@@ -143,7 +145,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 XetNuocTieuKhac = s.Certificate.FirstOrDefault(x => x.Group == "xetnghiemnuoctieu")?.Content.ContainsKey("text_khac") == true ? s.Certificate.FirstOrDefault(x => x.Group == "xetnghiemnuoctieu").Content["text_khac"].Value : null,
             })
             .ToList();
-            var exportbytes = ExportExcelCSV.ExporttoExcel<CertificateGroupStatusCSVDto>(certificategr, reportname);
+            var exportbytes = ExportExcelCSV.ExporttoExcel<CertificateGroupStatusCSVDto>(certificategr, nameSheet);
             var data = await storageService.SaveFileExcelAsync(reportname, "Excel", stream: new MemoryStream(exportbytes));
             var obj = new HistoryExport()
             {
@@ -165,6 +167,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
         {
             CheckCreatePermission();
             string reportname = $"Danhsach_{Guid.NewGuid():N}.xlsx";
+            string nameSheet = "Lái xe";
             var list = await GetCertificateGroupStatusByDate(DateFrom, DateTo, status);
             var certificategr = list.Where(x => x.Group == "xetnghiemmatuyvamau")
             .GroupBy(col => col.CertificateId)
@@ -181,16 +184,16 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 Tuoi = s.Group.First().Certificate.ClientInfo.DateOfBirth.ToString(),
                 DiaChi = s.Group.First().Certificate.ClientInfo.Address,
                 Hang = s.Group.First().Certificate.Reason,
-                Morphine = s.Group.First().Content.ContainsKey("text_morphin") ? s.Group.First().Content["text_morphin"].Value : null,
-                Amphetamin = s.Group.First().Content.ContainsKey("text_amphetamin") ? s.Group.First().Content["text_amphetamin"].Value : null,
-                Marijiana = s.Group.First().Content.ContainsKey("text_marijuana") ? s.Group.First().Content["text_marijuana"].Value : null,
-                Methaphetamin = s.Group.First().Content.ContainsKey("text_methamphetamin") ? s.Group.First().Content["text_methamphetamin"].Value : null,
+                Morphine = s.Group.First().Content.ContainsKey("text_morphin") ? s.Group.First().Content["text_morphin"].RealValue == "1" ? "+" : "-" : null,
+                Amphetamin = s.Group.First().Content.ContainsKey("text_amphetamin") ? s.Group.First().Content["text_amphetamin"].RealValue == "1" ? "+" : "-" : null,
+                Marijiana = s.Group.First().Content.ContainsKey("text_marijuana") ? s.Group.First().Content["text_marijuana"].RealValue == "1" ? "+" : "-" : null,
+                Methaphetamin = s.Group.First().Content.ContainsKey("text_methamphetamin") ? s.Group.First().Content["text_methamphetamin"].RealValue == "1" ? "+" : "-" : null,
                 NongDoCon = s.Group.First().Content.ContainsKey("text_nongdomau") ? s.Group.First().Content["text_nongdomau"].Value : null,
                 MaSoDoiTuong = s.Group.First().Content.ContainsKey("text_stt") ? s.Group.First().Content["text_stt"].Value : null,
 
             })
             .ToList();
-            var exportbytes = ExportExcelCSV.ExporttoExcel<CertificateMaTuyDto>(certificategr, reportname);
+            var exportbytes = ExportExcelCSV.ExporttoExcel<CertificateMaTuyDto>(certificategr, nameSheet);
             var data = await storageService.SaveFileExcelAsync(reportname, "Excel", stream: new MemoryStream(exportbytes));
             var obj = new HistoryExport()
             {
@@ -207,7 +210,56 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 FileDownloadName = reportname
             };
         }
+        public async Task<FileContentResult> GetExportCertificateMaTuyListDuongTinh(DateTime DateFrom, DateTime DateTo, Status status)
+        {
+            CheckCreatePermission();
+            string reportname = $"Danhsach_{Guid.NewGuid():N}.xlsx";
+            string nameSheet = "Dương tính";
+            var list = await GetCertificateGroupStatusByDate(DateFrom, DateTo, status);
+            var certificategr = list.Where(x => x.Group == "xetnghiemmatuyvamau")
+            .GroupBy(col => col.CertificateId)
+            .Join(
+               list.Where(x => x.Group == "xetnghiemmatuyvamau").GroupBy(x => x.CertificateId),
+                x => x.Key,
+                y => y.Key,
+                (x, y) => new { Group = x, Certificate = y }
+            ) 
+            .Where(s=>s.Group.First().Content["text_morphin"].RealValue == "1" || s.Group.First().Content["text_amphetamin"].RealValue == "1"
+            || s.Group.First().Content["text_marijuana"].RealValue == "1" || s.Group.First().Content["text_methamphetamin"].RealValue == "1")
+            .Select((s, index) => new CertificateMaTuyDto
+            {
+                NgayThang = s.Group.First().Certificate.CreationTime.Date.ToString("dd/MM/yyyy"),
+                STT = index + 1,
+                HoTen = s.Group.First().Certificate.ClientInfo.FullName,
+                Tuoi = s.Group.First().Certificate.ClientInfo.DateOfBirth.ToString(),
+                DiaChi = s.Group.First().Certificate.ClientInfo.Address,
+                Hang = s.Group.First().Certificate.Reason,
+                Morphine = s.Group.First().Content.ContainsKey("text_morphin") ? s.Group.First().Content["text_morphin"].RealValue == "1" ? "+" : "-" : null,
+                Amphetamin = s.Group.First().Content.ContainsKey("text_amphetamin") ? s.Group.First().Content["text_amphetamin"].RealValue == "1" ? "+" : "-" : null,
+                Marijiana = s.Group.First().Content.ContainsKey("text_marijuana") ? s.Group.First().Content["text_marijuana"].RealValue == "1" ? "+" : "-" : null,
+                Methaphetamin = s.Group.First().Content.ContainsKey("text_methamphetamin") ? s.Group.First().Content["text_methamphetamin"].RealValue == "1" ? "+" : "-" : null,
+                NongDoCon = s.Group.First().Content.ContainsKey("text_nongdomau") ? s.Group.First().Content["text_nongdomau"].Value : null,
+                MaSoDoiTuong = s.Group.First().Content.ContainsKey("text_stt") ? s.Group.First().Content["text_stt"].Value : null,
 
+            })
+            .ToList();
+            var exportbytes = ExportExcelCSV.ExporttoExcel<CertificateMaTuyDto>(certificategr, nameSheet);
+            var data = await storageService.SaveFileExcelAsync(reportname, "Excel", stream: new MemoryStream(exportbytes));
+            var obj = new HistoryExport()
+            {
+                filePath = data,
+                End = DateTo,
+                Start = DateFrom,
+                Status = Status.Finish,
+                Type = "HeroinReport",
+            };
+            await Repository.InsertAsync(obj);
+            await CurrentUnitOfWork.SaveChangesAsync();
+            return new FileContentResult(exportbytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+            {
+                FileDownloadName = reportname
+            };
+        }
         public async override Task<PagedResultDto<HistoryExportDto>> GetAllAsync(PagedAndSortedAndSearchAndDateResultDto input)
         {
             CheckGetAllPermission();
