@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RegionDtlFull } from '@app/manager/certificate/certificate.component';
-import { RegionDto, RegionServiceServiceProxy } from '@shared/service-proxies/service-proxies';
+import { RegionDto, RegionFull, RegionServiceServiceProxy } from '@shared/service-proxies/service-proxies';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -19,5 +19,8 @@ export class RegionsService {
   }
   getCommune(province: string, district: string): Observable<RegionDto[]> {
     return this.regionService.getAll(province, district);
+  }
+  getAddress(address: string):Observable<RegionFull>{
+    return this.regionService.getByName(address);
   }
 }

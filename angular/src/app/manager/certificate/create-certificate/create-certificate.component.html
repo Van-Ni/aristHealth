@@ -1,6 +1,13 @@
 <link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<form class="form-horizontal" autocomplete="off" #createProfile="ngForm" (ngSubmit)="save()">
+<form
+class="form-horizontal"
+autocomplete="off"
+#createProfile="ngForm"
+(ngSubmit)="save()"
+(paste)="onPaste($event)"
+
+>
   <abp-modal-header [title]="'Thông tin người khám' | localize" (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
   <div class="modal-body">
     <div class="form-group row">

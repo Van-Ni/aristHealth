@@ -17,4 +17,10 @@ namespace AristBase.CRUDServices.RegionsServices.Dto
         public string? ParentId { get; set; }
         public string Name { get; set; }
     }
+    public class RegionFull
+    {
+        public RegionDto Province { get; set; }
+        public RegionDto Dictrict { get; set; }
+        public RegionDto Commute { get; set; }
+    }
 }

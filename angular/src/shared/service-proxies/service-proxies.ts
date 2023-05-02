@@ -29,7 +29,7 @@ export class AccountServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     isTenantAvailable(body: IsTenantAvailableInput | undefined): Observable<IsTenantAvailableOutput> {
@@ -85,7 +85,7 @@ export class AccountServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     register(body: RegisterInput | undefined): Observable<RegisterOutput> {
@@ -153,7 +153,7 @@ export class ApproveServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: number | undefined): Observable<CertificateSyncDto> {
@@ -209,7 +209,7 @@ export class ApproveServiceServiceProxy {
     }
 
     /**
-     * @param cerId (optional) 
+     * @param cerId (optional)
      * @return Success
      */
     approve(cerId: string | undefined): Observable<CertificateDto> {
@@ -265,7 +265,7 @@ export class ApproveServiceServiceProxy {
     }
 
     /**
-     * @param cerId (optional) 
+     * @param cerId (optional)
      * @return Success
      */
     unApprove(cerId: string | undefined): Observable<CertificateDto> {
@@ -333,7 +333,7 @@ export class CertificateGroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param input (optional) 
+     * @param input (optional)
      * @return Success
      */
     getAll(input: string | undefined): Observable<CertificateGroupStatusDtoPagedResultDto> {
@@ -389,7 +389,7 @@ export class CertificateGroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -445,7 +445,7 @@ export class CertificateGroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<CertificateGroupStatusDto> {
@@ -501,7 +501,7 @@ export class CertificateGroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: CertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -557,7 +557,7 @@ export class CertificateGroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -621,13 +621,13 @@ export class CertificateServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param filter (optional) 
-     * @param keyword (optional) 
-     * @param dateFrom (optional) 
-     * @param dateTo (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param filter (optional)
+     * @param keyword (optional)
+     * @param dateFrom (optional)
+     * @param dateTo (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, filter: string | undefined, keyword: string | undefined, dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateDtoPagedResultDto> {
@@ -707,7 +707,7 @@ export class CertificateServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateCertificateDto | undefined): Observable<CertificateDto> {
@@ -763,7 +763,7 @@ export class CertificateServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: UpdateCertificateDto | undefined): Observable<CertificateDto> {
@@ -819,7 +819,7 @@ export class CertificateServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     getProfile(id: string | undefined): Observable<CertificateDto> {
@@ -875,7 +875,7 @@ export class CertificateServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<CertificateDto> {
@@ -931,7 +931,7 @@ export class CertificateServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -995,11 +995,11 @@ export class CertificateTypeServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param filter (optional) 
-     * @param keyword (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param filter (optional)
+     * @param keyword (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, filter: string | undefined, keyword: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateTypeDtoPagedResultDto> {
@@ -1071,8 +1071,8 @@ export class CertificateTypeServiceServiceProxy {
     }
 
     /**
-     * @param typeId (optional) 
-     * @param price (optional) 
+     * @param typeId (optional)
+     * @param price (optional)
      * @return Success
      */
     updatePrice(typeId: number | undefined, price: number | undefined): Observable<CertificateTypeDto> {
@@ -1132,7 +1132,7 @@ export class CertificateTypeServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: number | undefined): Observable<CertificateTypeDto> {
@@ -1188,7 +1188,7 @@ export class CertificateTypeServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateCertificateTypeDto | undefined): Observable<CertificateTypeDto> {
@@ -1244,7 +1244,7 @@ export class CertificateTypeServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: CertificateTypeDto | undefined): Observable<CertificateTypeDto> {
@@ -1300,7 +1300,7 @@ export class CertificateTypeServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -1364,7 +1364,7 @@ export class ConfigurationServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     changeUiTheme(body: ChangeUiThemeInput | undefined): Observable<void> {
@@ -1428,7 +1428,7 @@ export class DepartmentServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<DepartmentDto> {
@@ -1484,9 +1484,9 @@ export class DepartmentServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<DepartmentDtoPagedResultDto> {
@@ -1550,7 +1550,7 @@ export class DepartmentServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateDepartmentDto | undefined): Observable<DepartmentDto> {
@@ -1606,7 +1606,7 @@ export class DepartmentServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: DepartmentDto | undefined): Observable<DepartmentDto> {
@@ -1662,7 +1662,7 @@ export class DepartmentServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -1726,7 +1726,7 @@ export class GroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -1782,7 +1782,7 @@ export class GroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: UpdateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -1838,10 +1838,10 @@ export class GroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateGroupStatusDtoPagedResultDto> {
@@ -1913,7 +1913,7 @@ export class GroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<CertificateGroupStatusDto> {
@@ -1969,7 +1969,7 @@ export class GroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -2025,7 +2025,7 @@ export class GroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: CertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -2081,7 +2081,7 @@ export class GroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -2145,9 +2145,9 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param dateFrom (optional) 
-     * @param dateTo (optional) 
-     * @param status (optional) 
+     * @param dateFrom (optional)
+     * @param dateTo (optional)
+     * @param status (optional)
      * @return Success
      */
     getCertificateByDate(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<CertificateDto[]> {
@@ -2218,9 +2218,9 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param dateFrom (optional) 
-     * @param dateTo (optional) 
-     * @param status (optional) 
+     * @param dateFrom (optional)
+     * @param dateTo (optional)
+     * @param status (optional)
      * @return Success
      */
     getExportCertificateList(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<any> {
@@ -2281,9 +2281,9 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param dateFrom (optional) 
-     * @param dateTo (optional) 
-     * @param status (optional) 
+     * @param dateFrom (optional)
+     * @param dateTo (optional)
+     * @param status (optional)
      * @return Success
      */
     getCertificateGroupStatusByDate(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<CertificateGroupStatusDto[]> {
@@ -2354,9 +2354,9 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param dateFrom (optional) 
-     * @param dateTo (optional) 
-     * @param status (optional) 
+     * @param dateFrom (optional)
+     * @param dateTo (optional)
+     * @param status (optional)
      * @return Success
      */
     getExportCertificate3List(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<any> {
@@ -2417,9 +2417,9 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param dateFrom (optional) 
-     * @param dateTo (optional) 
-     * @param status (optional) 
+     * @param dateFrom (optional)
+     * @param dateTo (optional)
+     * @param status (optional)
      * @return Success
      */
     getExportCertificateMaTuyList(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<any> {
@@ -2480,9 +2480,9 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param dateFrom (optional) 
-     * @param dateTo (optional) 
-     * @param status (optional) 
+     * @param dateFrom (optional)
+     * @param dateTo (optional)
+     * @param status (optional)
      * @return Success
      */
     getExportCertificateMaTuyListDuongTinh(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<any> {
@@ -2543,13 +2543,13 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param filter (optional) 
-     * @param keyword (optional) 
-     * @param dateFrom (optional) 
-     * @param dateTo (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param filter (optional)
+     * @param keyword (optional)
+     * @param dateFrom (optional)
+     * @param dateTo (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, filter: string | undefined, keyword: string | undefined, dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<HistoryExportDtoPagedResultDto> {
@@ -2629,7 +2629,7 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param filePath (optional) 
+     * @param filePath (optional)
      * @return Success
      */
     downloadFilePath(filePath: string | undefined): Observable<any> {
@@ -2682,7 +2682,7 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<HistoryExportDto> {
@@ -2738,7 +2738,7 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: HistoryExportDto | undefined): Observable<HistoryExportDto> {
@@ -2794,7 +2794,7 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: HistoryExportDto | undefined): Observable<HistoryExportDto> {
@@ -2850,7 +2850,7 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -2914,7 +2914,7 @@ export class KetLuanServicesServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     updateOrInsert(body: UpdateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -2970,7 +2970,7 @@ export class KetLuanServicesServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     huyKetLuan(body: UpdateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -3026,7 +3026,7 @@ export class KetLuanServicesServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     createList(body: CreateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -3082,10 +3082,10 @@ export class KetLuanServicesServiceProxy {
     }
 
     /**
-     * @param sorting (optional) 
-     * @param group (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param sorting (optional)
+     * @param group (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateGroupStatusDtoPagedResultDto> {
@@ -3157,7 +3157,7 @@ export class KetLuanServicesServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: string | undefined): Observable<CertificateGroupStatusDto> {
@@ -3213,7 +3213,7 @@ export class KetLuanServicesServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -3269,7 +3269,7 @@ export class KetLuanServicesServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: CertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -3325,7 +3325,7 @@ export class KetLuanServicesServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -3389,7 +3389,7 @@ export class PDFServiceServiceProxy {
     }
 
     /**
-     * @param cerId (optional) 
+     * @param cerId (optional)
      * @return Success
      */
     getCertificatePdfPrintedFile(cerId: string | undefined): Observable<any> {
@@ -3454,8 +3454,8 @@ export class RegionServiceServiceProxy {
     }
 
     /**
-     * @param tinhId (optional) 
-     * @param huyenId (optional) 
+     * @param tinhId (optional)
+     * @param huyenId (optional)
      * @return Success
      */
     getAll(tinhId: string | undefined, huyenId: string | undefined): Observable<RegionDto[]> {
@@ -3522,7 +3522,63 @@ export class RegionServiceServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param address (optional)
+     * @return Success
+     */
+    getByName(address: string | undefined): Observable<RegionFull> {
+        let url_ = this.baseUrl + "/api/services/app/RegionService/GetByName?";
+        if (address === null)
+            throw new Error("The parameter 'address' cannot be null.");
+        else if (address !== undefined)
+            url_ += "address=" + encodeURIComponent("" + address) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetByName(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetByName(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<RegionFull>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<RegionFull>;
+        }));
+    }
+
+    protected processGetByName(response: HttpResponseBase): Observable<RegionFull> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = RegionFull.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional)
      * @return Success
      */
     create(body: RegionDto[] | undefined): Observable<RegionDto[]> {
@@ -3597,7 +3653,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateRoleDto | undefined): Observable<RoleDto> {
@@ -3653,7 +3709,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param permission (optional) 
+     * @param permission (optional)
      * @return Success
      */
     getRoles(permission: string | undefined): Observable<RoleListDtoListResultDto> {
@@ -3709,7 +3765,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: RoleDto | undefined): Observable<RoleDto> {
@@ -3765,7 +3821,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -3868,7 +3924,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     getRoleForEdit(id: number | undefined): Observable<GetRoleForEditOutput> {
@@ -3924,7 +3980,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: number | undefined): Observable<RoleDto> {
@@ -3980,9 +4036,9 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param keyword (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param keyword (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(keyword: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<RoleDtoPagedResultDto> {
@@ -4121,7 +4177,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateTenantDto | undefined): Observable<TenantDto> {
@@ -4177,7 +4233,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -4229,7 +4285,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: number | undefined): Observable<TenantDto> {
@@ -4285,10 +4341,10 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param keyword (optional) 
-     * @param isActive (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param keyword (optional)
+     * @param isActive (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(keyword: string | undefined, isActive: boolean | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<TenantDtoPagedResultDto> {
@@ -4356,7 +4412,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: TenantDto | undefined): Observable<TenantDto> {
@@ -4424,7 +4480,7 @@ export class TokenAuthServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     authenticate(body: AuthenticateModel | undefined): Observable<AuthenticateResultModel> {
@@ -4480,7 +4536,7 @@ export class TokenAuthServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     refreshToken(body: RefreshTokenModel | undefined): Observable<AuthenticateResultModel> {
@@ -4594,7 +4650,7 @@ export class TokenAuthServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     externalAuthenticate(body: ExternalAuthenticateModel | undefined): Observable<ExternalAuthenticateResultModel> {
@@ -4662,7 +4718,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateUserDto | undefined): Observable<UserDto> {
@@ -4718,7 +4774,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: UserDto | undefined): Observable<UserDto> {
@@ -4774,7 +4830,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -4826,7 +4882,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     activate(body: Int64EntityDto | undefined): Observable<void> {
@@ -4878,7 +4934,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     deActivate(body: Int64EntityDto | undefined): Observable<void> {
@@ -4981,7 +5037,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     changeLanguage(body: ChangeUserLanguageDto | undefined): Observable<void> {
@@ -5033,7 +5089,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     changePassword(body: ChangePasswordDto | undefined): Observable<boolean> {
@@ -5078,7 +5134,7 @@ export class UserServiceProxy {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
+
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -5090,7 +5146,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     resetPassword(body: ResetPasswordDto | undefined): Observable<boolean> {
@@ -5135,7 +5191,7 @@ export class UserServiceProxy {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
+
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -5147,7 +5203,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param file (optional) 
+     * @param file (optional)
      * @return Success
      */
     uploadSignPath(file: FileParameter | undefined): Observable<UserDto> {
@@ -5206,7 +5262,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: number | undefined): Observable<UserDto> {
@@ -5262,10 +5318,10 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param keyword (optional) 
-     * @param isActive (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param keyword (optional)
+     * @param isActive (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(keyword: string | undefined, isActive: boolean | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<UserDtoPagedResultDto> {
@@ -8342,6 +8398,57 @@ export interface IRegionDto {
     id: string | undefined;
     parentId: string | undefined;
     name: string | undefined;
+}
+
+export class RegionFull implements IRegionFull {
+    province: RegionDto;
+    dictrict: RegionDto;
+    commute: RegionDto;
+
+    constructor(data?: IRegionFull) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.province = _data["province"] ? RegionDto.fromJS(_data["province"]) : <any>undefined;
+            this.dictrict = _data["dictrict"] ? RegionDto.fromJS(_data["dictrict"]) : <any>undefined;
+            this.commute = _data["commute"] ? RegionDto.fromJS(_data["commute"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): RegionFull {
+        data = typeof data === 'object' ? data : {};
+        let result = new RegionFull();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["province"] = this.province ? this.province.toJSON() : <any>undefined;
+        data["dictrict"] = this.dictrict ? this.dictrict.toJSON() : <any>undefined;
+        data["commute"] = this.commute ? this.commute.toJSON() : <any>undefined;
+        return data;
+    }
+
+    clone(): RegionFull {
+        const json = this.toJSON();
+        let result = new RegionFull();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IRegionFull {
+    province: RegionDto;
+    dictrict: RegionDto;
+    commute: RegionDto;
 }
 
 export class RegisterInput implements IRegisterInput {
