@@ -131,7 +131,7 @@ export class CertificateComponent
       },
       (error) => {
         // Handle error
-        console.error(error);
+        abp.notify.error(error);
       }
     );
   }

@@ -3414,10 +3414,10 @@ export class PDFServiceServiceProxy {
                 try {
                     return this.processGetCertificatePdfPrintedFile(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
+                    return _observableThrow(e) as any as Observable<any>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<void>;
+                return _observableThrow(response_) as any as Observable<any>;
         }));
     }
 
