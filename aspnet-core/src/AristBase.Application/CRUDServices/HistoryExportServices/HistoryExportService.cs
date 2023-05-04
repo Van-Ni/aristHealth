@@ -223,8 +223,8 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 x => x.Key,
                 y => y.Key,
                 (x, y) => new { Group = x, Certificate = y }
-            ) 
-            .Where(s=>s.Group.First().Content["text_morphin"].RealValue == "1" || s.Group.First().Content["text_amphetamin"].RealValue == "1"
+            )
+            .Where(s => s.Group.First().Content["text_morphin"].RealValue == "1" || s.Group.First().Content["text_amphetamin"].RealValue == "1"
             || s.Group.First().Content["text_marijuana"].RealValue == "1" || s.Group.First().Content["text_methamphetamin"].RealValue == "1")
             .Select((s, index) => new CertificateMaTuyDto
             {
@@ -251,7 +251,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 End = DateTo,
                 Start = DateFrom,
                 Status = Status.Finish,
-                Type = "HeroinReport",
+                Type = "HeroinReport+",
             };
             await Repository.InsertAsync(obj);
             await CurrentUnitOfWork.SaveChangesAsync();
