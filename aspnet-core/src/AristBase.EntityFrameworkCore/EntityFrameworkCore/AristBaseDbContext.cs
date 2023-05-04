@@ -3,10 +3,8 @@ using Abp.Zero.EntityFrameworkCore;
 using AristBase.Authorization.Roles;
 using AristBase.Authorization.Users;
 using AristBase.MultiTenancy;
-using Abp.Localization;
 using AristBase.BaseEntity;
 using AristBase.Authorization;
-using Abp.Timing;
 
 namespace AristBase.EntityFrameworkCore
 {
@@ -14,7 +12,6 @@ namespace AristBase.EntityFrameworkCore
     {
         /* Define a DbSet for each entity of the application */
         public DbSet<RefreshToken> RefreshTokens { get; set; }
-        public DbSet<Department> Departments { get; set; }
         public DbSet<Certificate> Certificate { get; set; }
         public DbSet<CertificateType> CertificateType { get; set; }
         public DbSet<CertificateSync> CertificateSync { get; set; }

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Injector, OnInit, Output } from '@angular/core';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CertificateDto, CertificateGroupStatusServiceServiceProxy, CertificateTypeDto, CertificateTypeServiceServiceProxy, CreateCertificateDto, CreateCertificateTypeDto, DepartmentDto } from '@shared/service-proxies/service-proxies';
+import { CertificateTypeDto, CertificateTypeServiceServiceProxy, CreateCertificateTypeDto } from '@shared/service-proxies/service-proxies';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({

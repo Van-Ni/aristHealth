@@ -15,6 +15,7 @@ import { CertificateComponent } from './manager/certificate/certificate.componen
 import { Du18Component } from './formfile/du18/du18.component';
 import { Chuadu18Component } from './formfile/chuadu18/chuadu18.component';
 import { ExportDataComponent } from './manager/export-data/export-data.component';
+import { CertificateSyncComponent } from './manager/certificate-sync/certificate-sync.component';
 @NgModule({
     imports: [
         RouterModule.forChild([
@@ -30,6 +31,7 @@ import { ExportDataComponent } from './manager/export-data/export-data.component
                     { path: 'certificates', component: CertificateComponent, canActivate: [AppRouteGuard] },
                     { path: 'export-data', component: ExportDataComponent,data: { permission: 'Pages.Report' }, canActivate: [AppRouteGuard] },
                     { path: 'certificate-types', component: CertificateTypeComponent, canActivate: [AppRouteGuard] },
+                    { path: 'certificate-sync', component: CertificateSyncComponent,data: { permission: 'Pages.sync' }, canActivate: [AppRouteGuard] },
                     { path: '1/:id', component: DriverHealthCheckComponent, canActivate: [AppRouteGuard] },
                     { path: '2/:id', component: Du18Component, canActivate: [AppRouteGuard] },
                     { path: '3/:id', component: Chuadu18Component, canActivate: [AppRouteGuard] },

@@ -45,8 +45,11 @@ namespace AristBase.Authorization
         public const string PageReadIn = "Pages.In.Read";
         public const string Report = "Report";
 
+
+        public const string Sync = "sync";
         public static List<string> Pages = new List<string>
         {
+            Sync,
             Report,
             TuanHoan,
             TamThan,

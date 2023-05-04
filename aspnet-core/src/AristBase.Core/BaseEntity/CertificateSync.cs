@@ -7,13 +7,11 @@ namespace AristBase.BaseEntity
 {
     public class CertificateSync : Entity<int>, IFullAudited, IPassivable, ISoftDelete, IMustHaveTenant
     {
-        public int SyncId { get; set; }
-        public SyncStatus syncStatus { get; set; }
+        public SyncStatus SyncStatus { get; set; }
         public CertificateDataSync MetaData { get; set; }
         public Guid CertificateId { get; set; }
         public string XmlEncrypted { get; set; }
         public virtual Certificate Certificate { get; set; }
-        public string Conclusion { get; set; }
         public bool EditState { get; set; } = false;
         #region Audited
         public long? CreatorUserId { get; set; }
