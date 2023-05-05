@@ -1,6 +1,6 @@
+import { PaymentStatus } from './../../../../shared/service-proxies/service-proxies';
 import { RegionDtlFull } from './../certificate.component';
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   Injector,
@@ -28,7 +28,7 @@ import { DateTimeHelper } from "@shared/helpers/DateTimeHelper";
 })
 export class CreateCertificateComponent
   extends AppComponentBase
-  implements OnInit, AfterViewInit
+  implements OnInit
 {
   certificate: CreateCertificateDto;
   certificateTypeDto: CertificateTypeDto;
@@ -48,10 +48,6 @@ export class CreateCertificateComponent
   ) {
     super(injector);
   }
-  ngAfterViewInit(): void {
-    this.elementRef.nativeElement.focus();
-  }
-  showDropdown = false;
   ngOnInit() {
     console.log(this.certificate);
 
@@ -60,14 +56,25 @@ export class CreateCertificateComponent
     this.certificate.clientInfo.provinceId = "64";
     this.certificate.clientInfo.addressCCCD =
       "Cục Cảnh sát quản lý hành chính về trật tự xã hội";
+      this.certificate.paymentStatus = PaymentStatus._1;
     this.getProvince();
     this.getDictrict();
     this.getCommune();
     //this.setgiatien();
   }
-  onPaste(event: any) {
-    let clipboardData = event.clipboardData || window.Clipboard;
-    let pastedText = clipboardData.getData('text');
+  scanStarted = false;
+  barcodeData = '';
+  onKeyDown(event: KeyboardEvent) {
+    if(event.keyCode === 9)
+    {
+      if(this.certificate.clientInfo.fullName && this.certificate.clientInfo.fullName.length>30){
+        event.preventDefault();
+        this.extractAndBindingData(this.certificate.clientInfo.fullName);
+      }
+    }
+
+  }
+  extractAndBindingData(pastedText: string){
     let cccdData = pastedText.split('|');
     console.log(cccdData);
     if(cccdData.length >= 7){
