@@ -65,7 +65,7 @@ namespace AristBase.CRUDServices.ApproveServices
                     var certificateSync = await repository.FirstOrDefaultAsync(i => i.CertificateId == cerId);
                     if (certificateSync != null)
                     {
-                        certificateSync.syncStatus = SyncStatus.done;
+                        certificateSync.SyncStatus = SyncStatus.done;
                         await repository.UpdateAsync(certificateSync);
                         await CurrentUnitOfWork.SaveChangesAsync();
                     }
@@ -136,8 +136,8 @@ namespace AristBase.CRUDServices.ApproveServices
             if (query.CertificateType.IsNeedSync)
             {
                 var queryCertificateSync = await repository.SingleAsync(i => i.CertificateId == cerId);
-                queryCertificateSync.EditState = queryCertificateSync.EditState || queryCertificateSync.syncStatus == SyncStatus.done;
-                queryCertificateSync.syncStatus = SyncStatus.cancelled;
+                queryCertificateSync.EditState = queryCertificateSync.EditState || queryCertificateSync.SyncStatus == SyncStatus.done;
+                queryCertificateSync.SyncStatus = SyncStatus.cancelled;
                 await repository.UpdateAsync(queryCertificateSync);
                 await CurrentUnitOfWork.SaveChangesAsync();
                 return ObjectMapper.Map<CertificateDto>(query);

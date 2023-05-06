@@ -15,8 +15,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AristBase.Migrations
 {
     [DbContext(typeof(AristBaseDbContext))]
-    [Migration("20230501001321_cretorUser")]
-    partial class cretorUser
+    [Migration("20230504035433_fixsync")]
+    partial class fixsync
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1759,9 +1759,6 @@ namespace AristBase.Migrations
                     b.Property<Guid>("CertificateId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Conclusion")
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("timestamp with time zone");
 
@@ -1792,7 +1789,7 @@ namespace AristBase.Migrations
                     b.Property<CertificateDataSync>("MetaData")
                         .HasColumnType("jsonb");
 
-                    b.Property<int>("SyncId")
+                    b.Property<int>("SyncStatus")
                         .HasColumnType("integer");
 
                     b.Property<int>("TenantId")
@@ -1800,9 +1797,6 @@ namespace AristBase.Migrations
 
                     b.Property<string>("XmlEncrypted")
                         .HasColumnType("text");
-
-                    b.Property<int>("SyncStatus")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -1952,47 +1946,6 @@ namespace AristBase.Migrations
                     b.HasKey("Id", "Year");
 
                     b.ToTable("ClientInfo");
-                });
-
-            modelBuilder.Entity("AristBase.BaseEntity.Department", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("DeleterUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("NameDepartment")
-                        .HasColumnType("text");
-
-                    b.Property<int>("TenantId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("AristBase.BaseEntity.HistoryExport", b =>
