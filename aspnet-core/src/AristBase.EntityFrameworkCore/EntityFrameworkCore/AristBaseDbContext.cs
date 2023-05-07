@@ -47,7 +47,15 @@ namespace AristBase.EntityFrameworkCore
                 r.Year
             });
             modelBuilder.Entity<ClientInfo>().Property(c => c.Id).UseIdentityAlwaysColumn();
-            modelBuilder.Entity<Region>().HasMany(r => r.ChildRegions).WithOne(cr => cr.ParentRegion).HasForeignKey(r => r.ParentId);
+            modelBuilder.Entity<Region>().HasMany(r => r.ChildRegions).WithOne(cr => cr.ParentRegion).HasForeignKey(r => new {
+                r.Id,
+                r.Name
+            });
+            modelBuilder.Entity<Region>().HasKey(r =>
+            new {
+                r.Id,
+                r.Name
+            });
 
 
         }
