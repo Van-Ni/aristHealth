@@ -15,5 +15,6 @@ namespace AristBase.CRUDServices.ApproveServices.Dto
         public Guid CertificateId { get; set; }
         public string XmlEncrypted { get; set; }
         public virtual Certificate Certificate { get; set; }
+        public DateTime CreationTime { get; set; }
     }
 }

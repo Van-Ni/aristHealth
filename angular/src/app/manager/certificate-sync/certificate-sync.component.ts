@@ -24,6 +24,8 @@ export class CertificateSyncComponent extends PagedListingComponentBase<Certific
       .getAll("creationTime desc", request.skipCount, request.maxResultCount)
       .subscribe((result) => {
         this.certificateSyncDtos = result.items;
+        console.log(result);
+        
         this.showPaging(result, pageNumber);
         finishedCallback();
       });
@@ -42,14 +44,28 @@ export class CertificateSyncComponent extends PagedListingComponentBase<Certific
   ) {
     super(injector);
   }
-  openDetails(syncDto: CertificateSyncDto) {
-    const createOrEditRoleDialog:BsModalRef = this._modalService.show(CertificateSyncDetailComponent, {
-      class: "modal-lg",
-      initialState: {
-        id: syncDto.id,
-      },
-    });
-    createOrEditRoleDialog.content.onSave.subscribe(() => {
+  ViewSync(sync: CertificateSyncDto): void {
+    this.showDialog(sync.id);
+
+    
+    
+  }
+
+  showDialog(id?: number): void {
+    let createOrEditSyncDialog: BsModalRef;
+    if (id) {
+      createOrEditSyncDialog = this._modalService.show(
+        CertificateSyncDetailComponent,
+        {
+          class: 'modal-xl',
+          initialState: {
+            id: id
+          }
+        }
+      );
+    }
+
+    createOrEditSyncDialog.content.onSave.subscribe(() => {
       this.refresh();
     });
   }
