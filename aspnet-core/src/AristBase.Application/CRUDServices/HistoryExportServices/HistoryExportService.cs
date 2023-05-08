@@ -31,7 +31,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
             _repositoryCer = repositoryCer;
             this.storageService = storageService;
         }
-        public async ValueTask<IEnumerable<CertificateDto>> GetCertificateByDate(DateTime DateFrom, DateTime DateTo, Status status)
+        public async ValueTask<IEnumerable<CertificateDto>> GetCertificateByDate(DateTime DateFrom, DateTime DateTo, Status? status)
         {
             CheckDeletePermission();
             var query = _repositoryCer.GetAll();
@@ -51,7 +51,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
             var entities = await AsyncQueryableExecuter.ToListAsync(query);
             return ObjectMapper.Map<IEnumerable<CertificateDto>>(entities);
         }
-        public async Task<FileContentResult> GetExportCertificateList(DateTime DateFrom, DateTime DateTo, Status status)
+        public async Task<FileContentResult> GetExportCertificateList(DateTime DateFrom, DateTime DateTo, Status? status)
         {
             CheckCreatePermission();
             string reportname = $"Danhsach_{Guid.NewGuid():N}.xlsx";
