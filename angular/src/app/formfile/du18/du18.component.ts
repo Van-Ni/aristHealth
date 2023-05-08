@@ -62,7 +62,7 @@ export class Du18Component extends AppComponentBase implements OnInit {
       ketluanTitle : "Kết luận",
       phanloaiTitle: "Phân loại sức khỏe",
       optionsKetLuan :["Đủ sức khỏe học tập","Đủ sức khỏe làm việc","Đủ sức khỏe học tập và làm việc", "Đủ sức khỏe thi đấu thể thao", "Đủ sức khỏe làm việc phù hợp"],
-      optionsPhanLoai: ["Loại I(Loại một)", "Loại II(Loại hai)", "Loại III(Loại ba)", "Loại IV(Loại bốn)", "Loại 5(Loại năm)"]
+      optionsPhanLoai: ["Loại I(Loại một)", "Loại II(Loại hai)", "Loại III(Loại ba)", "Loại IV(Loại bốn)", "Loại V(Loại năm)"]
     }
   ngOnInit() {
       this.dataService.getAllKeyData().subscribe((result: CertificateGroupStatusDtoPagedResultDto) => {

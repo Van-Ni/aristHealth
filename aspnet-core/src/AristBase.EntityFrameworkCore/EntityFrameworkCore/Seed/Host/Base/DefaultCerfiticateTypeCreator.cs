@@ -171,7 +171,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                                 { "text_amphetamin" , new Values { Value = "Âm tính" , RealValue = "0"}},
                                 { "text_methamphetamin" , new Values { Value = "Âm tính", RealValue = "0" }},
                                 { "text_marijuana" , new Values { Value = "Âm tính", RealValue = "0" }},
-                                { "text_nongdomau" , new Values { Value = "0,0", RealValue = "0,0"}},
+                                { "text_nongdomau" , new Values { Value = "0,00", RealValue = "0,00"}},
                             },
                         },
                         new TemplateGroup
