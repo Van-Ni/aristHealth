@@ -17,6 +17,8 @@ using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using AristBase.CRUDServices.CertificateServices;
 using AristBase.Authorization;
+using AristBase.Services;
+using System.Runtime.ConstrainedExecution;
 
 namespace AristBase.CRUDServices.HistoryExportServices
 {
@@ -63,14 +65,15 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 STT = index + 1,
                 MaKhachHang = e.ClientInfo.Id,
                 TenNguoiMua = e.ClientInfo.FullName,
-                DiaChiKhachHang = e.ClientInfo.Address,
+                DiaChiKhachHang = string.Join(", ", e.ClientInfo.Address, e.ClientInfo.Commune, e.ClientInfo.Province),
                 HinhThucTT = "TM",
                 SanPham = e.CertificateType.Name + ": " + e.Reason,
                 DonViTinh = "Nguoi",
                 TienBan = e.AmountPaid,
                 ThueSuat = "-1.00",
                 TongCong = e.AmountPaid,
-                DonViTienTe = "VND"
+                DonViTienTe = "VND",
+                Reason = e.Reason
             }).ToList();
             var exportbytes = ExportExcelCSV.ExporttoExcel(certificate, nameSheet);
 
