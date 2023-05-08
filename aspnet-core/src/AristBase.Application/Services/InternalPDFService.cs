@@ -103,7 +103,7 @@ namespace AristBase.Services
             var dic = new Dictionary<string, Values>();
             dic[PDFFieldConst.Hvt] = new Values
             {
-                Value = cer.ClientInfo.FullName
+                Value = cer.ClientInfo.FullName.ToUpper()
             };
             dic[PDFFieldConst.Dob] = new Values
             {
