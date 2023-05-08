@@ -65,7 +65,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 TenNguoiMua = e.ClientInfo.FullName,
                 DiaChiKhachHang = e.ClientInfo.Address,
                 HinhThucTT = "TM",
-                SanPham = e.CertificateType.Name + " " + e.Reason,
+                SanPham = e.CertificateType.Name + ": " + e.Reason,
                 DonViTinh = "Nguoi",
                 TienBan = e.AmountPaid,
                 ThueSuat = "-1.00",
@@ -90,7 +90,8 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 FileDownloadName = reportname
             };
         }
-        public async ValueTask<IEnumerable<CertificateGroupStatusDto>> GetCertificateGroupStatusByDate(DateTime DateFrom, DateTime DateTo, Status status)
+        
+        public async ValueTask<IEnumerable<CertificateGroupStatusDto>> GetCertificateGroupStatusByDate(DateTime DateFrom, DateTime DateTo, Status? status)
         {
             CheckCreatePermission();
             var query = _repositoryGr.GetAll();
@@ -117,7 +118,10 @@ namespace AristBase.CRUDServices.HistoryExportServices
             string reportname = $"Danhsach_{Guid.NewGuid():N}.xlsx";
             string nameSheet = "Làm việc";
             var list = await GetCertificateGroupStatusByDate(DateFrom, DateTo, status);
+            
+
             var certificategr = list.Where(x => x.Group == "xetnghiemmau" || x.Group == "xetnghiemnuoctieu")
+             
             .GroupBy(col => col.CertificateId)
             .Join(
                list.Where(x => x.Group == "xetnghiemmau" || x.Group == "xetnghiemnuoctieu").GroupBy(x => x.CertificateId),
