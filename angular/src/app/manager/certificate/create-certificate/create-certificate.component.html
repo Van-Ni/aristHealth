@@ -12,9 +12,9 @@ autocomplete="off"
       <label for="certificate" class="col-sm-3 col-form-label">Chọn loại giấy</label>
       <div class="col-sm-9">
         <select (change)="getApi($event)" class="form-control" [(ngModel)]="certificate.certificateTypeId" [ngModelOptions]="{standalone: true}">
-          <option value="1">Giấy khám sức khỏe thi bằng lái xe</option>
-          <option value="2">Giấy khám sức khỏe dành cho người trên 18 tuổi</option>
-          <option value="3">Giấy khám sức khỏe dành cho người dưới 18 tuổi</option>
+          <option value="1">Khám sức khỏe lái xe</option>
+          <option value="2">Khám sức khỏe học sinh (dưới 18 tuổi)</option>
+          <option value="3">Khám sức khỏe học sinh (dưới 18 tuổi)</option>
         </select>
       </div>
     </div>
@@ -126,7 +126,7 @@ autocomplete="off"
     <div class="form-group row">
       <label for="CCCD" class="col-sm-3 col-form-label">Số CCCD</label>
       <div class="col-sm-9">
-        <input type="number" class="form-control" id="CCCD" placeholder="CCCD"
+        <input type="text" class="form-control" id="CCCD" placeholder="CCCD"
         pattern="^(?:\w{3}\d{6}|\w{1,2}\d{7}|\d{9}|0\d{8}|\d{11}|\d{12}|\d{7})$" [(ngModel)]="certificate.clientInfo.cccd"
           #cccdModel="ngModel" #cccdEl [ngModelOptions]="{standalone: true}" min="0">
         <abp-validation-summary [control]="cccdModel" [controlEl]="cccdEl"></abp-validation-summary>
