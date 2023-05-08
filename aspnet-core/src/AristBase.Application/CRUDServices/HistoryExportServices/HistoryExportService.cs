@@ -65,7 +65,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 STT = index + 1,
                 MaKhachHang = e.ClientInfo.Id,
                 TenNguoiMua = e.ClientInfo.FullName,
-                DiaChiKhachHang = string.Join(", ", e.ClientInfo.Address, e.ClientInfo.Commune, e.ClientInfo.Province),
+                DiaChiKhachHang = string.Join(", ", e.ClientInfo.Commune, e.ClientInfo.District, e.ClientInfo.Province),
                 HinhThucTT = "TM",
                 SanPham = e.CertificateType.Name + ": " + e.Reason,
                 DonViTinh = "Nguoi",
