@@ -1,4 +1,4 @@
-<h2 style="text-align: center;">Giấy khám sức khỏe(Học tập & Làm Việc ...)</h2>
+<h2 style="text-align: center;">Khám sức khỏe làm việc, học tập (trên 18 tuổi)</h2>
 <div class="container" *ngIf="dataModel ">
   <app-thong-tin-ca-nhan *ngIf="profile && profile.clientInfo" [profile]="profile">
     <app-profile [profile]="profile"></app-profile>
@@ -26,7 +26,7 @@
   </app-khoa-wrapper>
 
   <app-khoa-wrapper title="Kết luận"  [status]="dataModel.ketluan.status" [userInput]="dataModel.ketluan">
-    <app-ket-luan-giay-kham [defaultModel]="du18Model" [Data]="dataModel.ketluan"  [huyketluan]="huyketluan"
+    <app-ket-luan-giay-kham [defaultModel]="du18KlModel" [Data]="dataModel.ketluan"  [huyketluan]="huyketluan"
     [save]="saveKL" ></app-ket-luan-giay-kham>
   </app-khoa-wrapper>
 

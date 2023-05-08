@@ -42,10 +42,10 @@ export class Du18Component extends AppComponentBase implements OnInit {
   profile: CertificateDto;
 
   dataModel: Du18Model;
-  constructor(public loader: LoadingService, 
+  constructor(public loader: LoadingService,
     private dataService: DataService,
     private certificateServiceServiceProxy: CertificateServiceServiceProxy,
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private groupStatusService: GroupStatusServiceServiceProxy,
     private PDFService: PDFServiceServiceProxy,
      private injecter: Injector,
@@ -57,6 +57,12 @@ export class Du18Component extends AppComponentBase implements OnInit {
       phanloaiTitle: "Phân loại sức khỏe",
       optionsKetLuan :["Đủ sức khỏe học tập","Đủ sức khỏe làm việc","Đủ sức khỏe học tập và làm việc", "Đủ sức khỏe thi đấu thể thao", "Đủ sức khỏe làm việc phù hợp"],
       optionsPhanLoai: ["Loại I", "Loại II", "Loại III", "Loại IV", "Loại 5"]
+    }
+    du18KlModel: DefaultModel ={
+      ketluanTitle : "Kết luận",
+      phanloaiTitle: "Phân loại sức khỏe",
+      optionsKetLuan :["Đủ sức khỏe học tập","Đủ sức khỏe làm việc","Đủ sức khỏe học tập và làm việc", "Đủ sức khỏe thi đấu thể thao", "Đủ sức khỏe làm việc phù hợp"],
+      optionsPhanLoai: ["Loại I(Loại một)", "Loại II(Loại hai)", "Loại III(Loại ba)", "Loại IV(Loại bốn)", "Loại 5(Loại năm)"]
     }
   ngOnInit() {
       this.dataService.getAllKeyData().subscribe((result: CertificateGroupStatusDtoPagedResultDto) => {
@@ -84,23 +90,23 @@ export class Du18Component extends AppComponentBase implements OnInit {
         tdv: this.certificateStatusResult.items.find(i=>i.group=="tdv"),
       }
       console.log(this.dataModel);
-      
+
     });
     this.certificateServiceServiceProxy.getProfile(this.route.snapshot.params['id'])
     .subscribe((result:CertificateDto)=>{
       this.profile=result;
     })
     this.getAllData();
-  
+
   }
   getAllData(){
 
     this.dataService.refreshData(this.route.snapshot.params['id']);
-    
+
   }
   save = (entity :CertificateGroupStatusDto)=>{
     //Group service insert or update
-    // 
+    //
     const inputEntity = new UpdateCertificateGroupStatusDto();
     inputEntity.id = entity.id;
     inputEntity.certificateId = entity.certificateId;
@@ -136,7 +142,7 @@ export class Du18Component extends AppComponentBase implements OnInit {
     inputEntity.group = entity.group;
     inputEntity.status = entity.status;
     console.log("ss",inputEntity);
-    
+
     this.ketluanService.huyKetLuan(inputEntity).subscribe(
       () => {
       this.notify.info('Lưu thành công.');

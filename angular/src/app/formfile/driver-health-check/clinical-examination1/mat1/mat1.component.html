@@ -113,6 +113,31 @@
         <div class="col-6">
           <div class="form-group row">
             <div class="input-group">
+              <label for="" class="col-sm-3 col-form-label">Không kính:</label>
+              <input class="form-control col-sm-5" list="bvm" rows="4" [(ngModel)]="inputModel.content['text_2m_kk'].value"
+                [ngModelOptions]="{standalone: true}">
+                <datalist id="bvm">
+                  <option value="1/10">1/10</option>
+                  <option value="2/10">2/10</option>
+                  <option value="3/10">3/10</option>
+                  <option value="4/10">4/10</option>
+                  <option value="5/10">5/10</option>
+                  <option value="6/10">6/10</option>
+                  <option value="7/10">7/10</option>
+                  <option value="8/10">8/10</option>
+                  <option value="9/10">9/10</option>
+                  <option value="10/10">10/10</option>
+                  <option value="ĐNT...m">ĐNT...m</option>
+                  <option value="BBT...cm">BBT...cm</option>
+                  <option value="ST(+)">ST(+)</option>
+                  <option value="ST(-)">ST(-)</option>
+                </datalist>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group row">
+            <div class="input-group">
               <label for="" class="col-sm-3 col-form-label">Có kính:</label>
               <input class="form-control col-sm-5" list="bvm" rows="4" [(ngModel)]="inputModel.content['text_2m_ck'].value"
                 [ngModelOptions]="{standalone: true}">
@@ -136,31 +161,7 @@
 
           </div>
         </div>
-        <div class="col-6">
-          <div class="form-group row">
-            <div class="input-group">
-              <label for="" class="col-sm-3 col-form-label">Không kính:</label>
-              <input class="form-control col-sm-5" list="bvm" rows="4" [(ngModel)]="inputModel.content['text_2m_kk'].value"
-                [ngModelOptions]="{standalone: true}">
-                <datalist id="bvm">
-                  <option value="1/10">1/10</option>
-                  <option value="2/10">2/10</option>
-                  <option value="3/10">3/10</option>
-                  <option value="4/10">4/10</option>
-                  <option value="5/10">5/10</option>
-                  <option value="6/10">6/10</option>
-                  <option value="7/10">7/10</option>
-                  <option value="8/10">8/10</option>
-                  <option value="9/10">9/10</option>
-                  <option value="10/10">10/10</option>
-                  <option value="ĐNT...m">ĐNT...m</option>
-                  <option value="BBT...cm">BBT...cm</option>
-                  <option value="ST(+)">ST(+)</option>
-                  <option value="ST(-)">ST(-)</option>
-                </datalist>
-            </div>
-          </div>
-        </div>
+
       </div>
       <p>-Thị trường:</p>
       <div>
@@ -241,9 +242,9 @@
       </div>
       <p>Các bệnh về mắt (nếu có)</p>
       <div class="form-group">
-        <input class="form-control" list="bvm" rows="4" [(ngModel)]="inputModel.content['text_cbvm'].value"
+        <input class="form-control" list="cbvm" rows="4" [(ngModel)]="inputModel.content['text_cbvm'].value"
           [ngModelOptions]="{standalone: true}">
-          <datalist id="bvm">
+          <datalist id="cbvm">
             <option value="Không">Không</option>
             <option value="Tật khúc xạ 2 mắt">Tật khúc xạ 2 mắt</option>
             <option value="Tật khúc xạ mắt trái">Tật khúc xạ mắt trái</option>
