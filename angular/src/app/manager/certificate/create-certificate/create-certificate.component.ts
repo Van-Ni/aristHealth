@@ -81,7 +81,7 @@ export class CreateCertificateComponent
       this.certificate.clientInfo.cccd = cccdData[0];
       this.certificate.clientInfo.fullName = cccdData[2];
       this.certificate.clientInfo.dateOfBirth = DateTimeHelper.extractDatetime(cccdData[3]);
-      this.certificate.clientInfo.sex = cccdData[4].toLowerCase();
+      this.certificate.clientInfo.sex = cccdData[4].toLowerCase() == 'nam'? 'nam': 'nu';
       this.regionsService.getAddress(cccdData[5]).subscribe(data=>{
         this.setAddress(data);
         this.scanning = false;
@@ -91,7 +91,7 @@ export class CreateCertificateComponent
       this.certificate.clientInfo.cccd = cccdData[0];
       this.certificate.clientInfo.fullName = cccdData[1];
       this.certificate.clientInfo.dateOfBirth = DateTimeHelper.extractDatetime(cccdData[2]);
-      this.certificate.clientInfo.sex = cccdData[3].toLowerCase();
+      this.certificate.clientInfo.sex = cccdData[3].toLowerCase() == 'nam'? 'nam': 'nu';
       this.regionsService.getAddress(cccdData[4]).subscribe(data=>{
         this.setAddress(data);
         this.scanning = false;
