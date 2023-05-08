@@ -65,7 +65,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 TenNguoiMua = e.ClientInfo.FullName,
                 DiaChiKhachHang = e.ClientInfo.Address,
                 HinhThucTT = "TM",
-                SanPham = e.CertificateType.Name,
+                SanPham = e.CertificateType.Name + " " + e.Reason,
                 DonViTinh = "Nguoi",
                 TienBan = e.AmountPaid,
                 ThueSuat = "-1.00",
