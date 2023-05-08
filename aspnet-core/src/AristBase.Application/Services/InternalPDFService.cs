@@ -263,7 +263,7 @@ namespace AristBase.Services
 
 
             }
-            form.FlattenFields();
+            //form.FlattenFields();
         }
 
         private void FillImage(PdfAcroForm form, PdfFormField field, string imagePath, PdfDocument pdfDoc)
