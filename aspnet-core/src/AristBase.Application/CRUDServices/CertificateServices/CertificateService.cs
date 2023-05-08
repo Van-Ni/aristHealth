@@ -81,7 +81,8 @@ namespace AristBase.CRUDServices.CertificateServices
             var totalCount = await AsyncQueryableExecuter.CountAsync(query);
 
             //query = ApplySorting(query, input);
-            query = query.OrderByDescending(Q => Q.ClientInfo.Id);
+            query = query
+                .OrderBy(c=>c.Status).ThenByDescending(Q => Q.ClientInfo.Id);
             query = ApplyPaging(query, input);
 
             var entities = await AsyncQueryableExecuter.ToListAsync(query);
