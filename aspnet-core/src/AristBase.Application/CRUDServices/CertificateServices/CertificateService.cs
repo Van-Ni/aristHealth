@@ -116,7 +116,7 @@ namespace AristBase.CRUDServices.CertificateServices
                 var entity = MapToEntity(input);
                 if (entity.PaymentStatus == PaymentStatus.Paid)
                 {
-                    entity.AmountPaid = cerType.Price;
+                    entity.AmountPaid = input.AmountPaid;
                 }
                 //Insert into table CertificateGroupStatus with status = unready|optional
                 await Repository.InsertAsync(entity);
@@ -152,7 +152,7 @@ namespace AristBase.CRUDServices.CertificateServices
 
             if (entity.PaymentStatus == PaymentStatus.Paid)
             {
-                entity.AmountPaid = cerType.Price;
+                entity.AmountPaid = input.AmountPaid;
             }
             entity.ClientInfo.TenantId = AbpSession.TenantId.Value;
             entity.TenantId = AbpSession.TenantId.Value;
