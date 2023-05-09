@@ -78,6 +78,12 @@ export class SidebarMenuComponent extends AppComponentBase implements OnInit {
                 'far fa-circle',
                 'Pages.Report',
             ),
+            new MenuItem(
+                this.l('CertificateSync'),
+                '/app/certificate-sync',
+                'far fa-circle',
+                'Pages.sync',
+            ),
             // new MenuItem(this.l('Quản lý Form word'), '', 'fas fa-circle', '', [
             //     new MenuItem(
             //         this.l('Giấy khám sức khỏe người lái xe'),

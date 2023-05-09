@@ -133,5 +133,9 @@
     <text name="Unready">Chưa khám {0}</text>
     <text name="creationTime">Thời gian khám</text>
     <text name="Status">Trạng thái</text>
+    <text name="RevenueReport">Báo cáo doanh thu</text>
+    <text name="DriverReport">Báo cáo xét nghiệm (Trên 18)</text>
+    <text name="HeroinReport">Báo cáo xét nghiệm (Lái xe)</text>
+    <text name="HeroinReport+">Báo cáo xét nghiệm dương tính (Lái xe)</text>
   </texts>
 </localizationDictionary>

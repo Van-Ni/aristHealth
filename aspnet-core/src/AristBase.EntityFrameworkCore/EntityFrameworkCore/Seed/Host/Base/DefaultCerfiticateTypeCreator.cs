@@ -31,8 +31,8 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
         {
             { "text_kk_mt" , new Values{ Value = "10/10" }},
             { "text_kk_mp" , new Values { Value = "10/10" }},
-            { "text_ck_mt" , new Values { Value = "10/10" }},
-            { "text_ck_mp" , new Values { Value = "10/10" }},
+            { "text_ck_mt" , new Values { Value = "" }},
+            { "text_ck_mp" , new Values { Value = "" }},
             { "text_cbvm" , new Values { Value = "Không" }},
             { "text_phanloai" , new Values { Value = "Đủ sức khỏe" }},
         };
@@ -40,8 +40,8 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
         {
             { "text_kk_mt" , new Values{ Value = "10/10" }},
             { "text_kk_mp" , new Values { Value = "10/10" }},
-            { "text_ck_mt" , new Values { Value = "10/10" }},
-            { "text_ck_mp" , new Values { Value = "10/10" }},
+            { "text_ck_mt" , new Values { Value = "" }},
+            { "text_ck_mp" , new Values { Value = "" }},
             { "text_cbvm" , new Values { Value = "Không" }},
             { "text_phanloai" , new Values { Value = "Loại I" }},
         };
@@ -72,7 +72,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                     FilePath = "./VolumeMap/Templates/GiayKhamLaiXeGialaiFormNoChuki.pdf",
                     FinalResult ="",
                     IsNeedSync = true,
-                    Name = "Giấy khám sức khỏe lái xe",
+                    Name = "Khám sức khỏe lái xe",
                     TenantId = 2,
                     TemplateGroups = new List<TemplateGroup> {
                         new TemplateGroup
@@ -95,9 +95,9 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                             {
                                 { "text_kk_mt" , new Values{ Value = "10/10" }},
                                 { "text_kk_mp" , new Values { Value = "10/10" }},
-                                { "text_ck_mt" , new Values { Value = "10/10" }},
-                                { "text_ck_mp" , new Values { Value = "10/10" }},
-                                { "text_2m_ck" , new Values { Value = "10/10" }},
+                                { "text_ck_mt" , new Values { Value = "" }},
+                                { "text_ck_mp" , new Values { Value = "" }},
+                                { "text_2m_ck" , new Values { Value = "" }},
                                 { "text_2m_kk" , new Values { Value = "10/10" }},
                                 { "radio_thitruong_ngang" , new Values { Value = "bth" }},
                                 { "radio_thitruong_dung" , new Values { Value = "bth" }},
@@ -171,7 +171,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                                 { "text_amphetamin" , new Values { Value = "Âm tính" , RealValue = "0"}},
                                 { "text_methamphetamin" , new Values { Value = "Âm tính", RealValue = "0" }},
                                 { "text_marijuana" , new Values { Value = "Âm tính", RealValue = "0" }},
-                                { "text_nongdomau" , new Values { Value = "0,0", RealValue = "0,0"}},
+                                { "text_nongdomau" , new Values { Value = "0,00", RealValue = "0,00"}},
                             },
                         },
                         new TemplateGroup
@@ -213,7 +213,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                     FinalResult ="",
                     IsNeedSync = false,
                     TenantId = 2,
-                    Name = "Giấy khám sức khỏe dành cho người trên 18 tuổi(Học tập & làm việc)",
+                    Name = "Khám sức khỏe làm việc, học tập (trên 18 tuổi)",
                     TemplateGroups = new List<TemplateGroup> {
                         new TemplateGroup
                         {
@@ -350,7 +350,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                             DefaultStatus = GroupStatus.UNREADY,
                             DefaultContent = new Dictionary<string, Values>
                             {
-                                { "text_noidung" , new Values { Value = "Loại I" }},
+                                { "text_noidung" , new Values { Value = "Loại I(Loại một)" }},
                                 { "text_ketluan" , new Values { Value = "" }},
                             },
                         },
@@ -371,7 +371,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                     FinalResult ="",
                     IsNeedSync = false,
                     TenantId = 2,
-                    Name = "Giấy khám sức khỏe dành cho người dưới 18 tuổi",
+                    Name = "Khám sức khỏe học sinh (dưới 18 tuổi)",
                     TemplateGroups = new List<TemplateGroup> {
                         new TemplateGroup
                         {

@@ -1,5 +1,5 @@
 
-  <h2 style="text-align: center;">Giấy khám sức khỏe người lái xe</h2>
+  <h2 style="text-align: center;">Khám sức khỏe lái xe</h2>
   <div class="container" *ngIf="dataModel">
     <app-thong-tin-ca-nhan *ngIf="profile && profile.clientInfo" [profile]="profile">
       <app-profile [profile]="profile"></app-profile>
@@ -15,13 +15,13 @@
       <app-subclinical-examination-type1 *ngIf="profile && profile.clientInfo" [Data]="dataModel"[checkgiay]="profile.certificateTypeId"
       [save]="save"></app-subclinical-examination-type1>
     </app-khoa-wrapper>
-    
+
     <app-khoa-wrapper title="Kết luận"  [status]="dataModel.ketluan.status" [userInput]="dataModel.ketluan">
       <app-current-conclusion-type1 [Data]="dataModel.ketluan" [huyketluan]="huyketluan" [hang]="profile.reason"
       [save]="saveKL" ></app-current-conclusion-type1>
     </app-khoa-wrapper>
     <div class="row" style="display: flex; justify-content: space-around;">
-      <app-appove1 [Data]="dataModel.ketluan" [tdv]="dataModel.tdv" [approve]="approve" [unapprove]="unapprove" 
+      <app-appove1 [Data]="dataModel.ketluan" [tdv]="dataModel.tdv" [approve]="approve" [unapprove]="unapprove"
        ></app-appove1>
        <fieldset [disabled]="!isPrint">
           <button class="btn btn-primary" (click)="Print()" *ngIf="dataModel.tdv.status"><i class="fa fa-print"></i> {{print}}</button>

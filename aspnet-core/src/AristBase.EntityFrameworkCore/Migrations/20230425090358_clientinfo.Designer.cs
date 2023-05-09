@@ -1801,7 +1801,7 @@ namespace AristBase.Migrations
                     b.Property<string>("XmlEncrypted")
                         .HasColumnType("text");
 
-                    b.Property<int>("syncStatus")
+                    b.Property<int>("SyncStatus")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");

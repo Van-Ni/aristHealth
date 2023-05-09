@@ -36,6 +36,7 @@ namespace AristBase.CRUDServices.CertificateServices
         public string ThueSuat { get; set; }
         public decimal TongCong { get; set; }
         public string DonViTienTe { get; set; }
+        public string Reason { get; set; }
     }
     public class CertificateService : AsyncCrudAppService<Certificate, CertificateDto, Guid, PagedAndSortedAndSearchAndDateResultDto, CreateCertificateDto, UpdateCertificateDto>
     {
@@ -80,7 +81,9 @@ namespace AristBase.CRUDServices.CertificateServices
 
             var totalCount = await AsyncQueryableExecuter.CountAsync(query);
 
-            query = ApplySorting(query, input);
+            //query = ApplySorting(query, input);
+            query = query
+                .OrderBy(c=>c.Status).ThenByDescending(Q => Q.ClientInfo.Id);
             query = ApplyPaging(query, input);
 
             var entities = await AsyncQueryableExecuter.ToListAsync(query);
@@ -100,17 +103,16 @@ namespace AristBase.CRUDServices.CertificateServices
                 DateTime parsedDate1;
                 DateTime parsedDate2;
 
-                if (DateTime.TryParseExact(input.ClientInfo.DateOfBirth, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate1))
-                {
 
-                    DateTime date = DateTime.ParseExact(input.ClientInfo.DateOfBirth, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture);
-                    input.ClientInfo.DateOfBirth = date.ToString("dd/MM/yyyy");
-                }
-                if (DateTime.TryParseExact(input.ClientInfo.CreateTimeCCCD, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate2))
+                if (DateTime.TryParse(input.ClientInfo.DateOfBirth, out parsedDate1))
                 {
-                    DateTime date1 = DateTime.ParseExact(input.ClientInfo.CreateTimeCCCD, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture);
-                    input.ClientInfo.CreateTimeCCCD = date1.ToString("dd/MM/yyyy");
+                    input.ClientInfo.DateOfBirth = parsedDate1.ToString("dd/MM/yyyy");
                 }
+                if (DateTime.TryParse(input.ClientInfo.CreateTimeCCCD, out parsedDate2))
+                {
+                    input.ClientInfo.CreateTimeCCCD = parsedDate2.ToString("dd/MM/yyyy");
+                }
+
                 var entity = MapToEntity(input);
                 if (entity.PaymentStatus == PaymentStatus.Paid)
                 {
@@ -136,16 +138,13 @@ namespace AristBase.CRUDServices.CertificateServices
             DateTime parsedDate1;
             DateTime parsedDate2;
 
-            if (DateTime.TryParseExact(input.ClientInfo.DateOfBirth, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate1))
+            if (DateTime.TryParse(input.ClientInfo.DateOfBirth, out parsedDate1))
             {
-
-                DateTime date = DateTime.ParseExact(input.ClientInfo.DateOfBirth, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture);
-                input.ClientInfo.DateOfBirth = date.ToString("dd/MM/yyyy");
+                input.ClientInfo.DateOfBirth = parsedDate1.ToString("dd/MM/yyyy");
             }
-            if (DateTime.TryParseExact(input.ClientInfo.CreateTimeCCCD, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate2))
+            if (DateTime.TryParse(input.ClientInfo.CreateTimeCCCD, out parsedDate2))
             {
-                DateTime date1 = DateTime.ParseExact(input.ClientInfo.CreateTimeCCCD, "yyyy-MM-dd'T'HH:mm:ss.fff'Z'", CultureInfo.InvariantCulture);
-                input.ClientInfo.CreateTimeCCCD = date1.ToString("dd/MM/yyyy");
+                input.ClientInfo.CreateTimeCCCD = parsedDate2.ToString("dd/MM/yyyy");
             }
             var entity = await GetEntityByIdAsync(input.Id);
             MapToEntity(input, entity);

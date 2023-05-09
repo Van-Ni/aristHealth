@@ -1,9 +1,9 @@
-<h2 style="text-align: center;">Giấy khám sức khỏe dùng cho người dưới 18 tuổi </h2>
+<h2 style="text-align: center;">Khám sức khỏe học sinh (dưới 18 tuổi)</h2>
 <div class="container" *ngIf="dataModel ">
   <app-thong-tin-ca-nhan *ngIf="profile && profile.clientInfo" [profile]="profile">
     <app-profile [profile]="profile"></app-profile>
   </app-thong-tin-ca-nhan>
-  
+
   <app-khoa-wrapper title="Khám thể lực" [userInput]="dataModel.khamtheluc"  [status]="dataModel.khamtheluc.status" [userInput]="dataModel.khamtheluc">
     <app-physical-examination  [Data]="dataModel.khamtheluc"
     [save]="save"></app-physical-examination>
@@ -26,7 +26,7 @@
   </app-khoa-wrapper>
 
   <div class="row"  style="display: flex; justify-content: space-around;">
-    <app-appove1 [Data]="dataModel.ketluan" [tdv]="dataModel.tdv" [approve]="approve" [unapprove]="unapprove" 
+    <app-appove1 [Data]="dataModel.ketluan" [tdv]="dataModel.tdv" [approve]="approve" [unapprove]="unapprove"
      ></app-appove1>
      <fieldset [disabled]="!isPrint">
       <button class="btn btn-primary" (click)="Print()" *ngIf="dataModel.tdv.status"><i class="fa fa-print"></i> {{print}}</button>

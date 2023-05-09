@@ -3,10 +3,8 @@ using Abp.Zero.EntityFrameworkCore;
 using AristBase.Authorization.Roles;
 using AristBase.Authorization.Users;
 using AristBase.MultiTenancy;
-using Abp.Localization;
 using AristBase.BaseEntity;
 using AristBase.Authorization;
-using Abp.Timing;
 
 namespace AristBase.EntityFrameworkCore
 {
@@ -14,7 +12,6 @@ namespace AristBase.EntityFrameworkCore
     {
         /* Define a DbSet for each entity of the application */
         public DbSet<RefreshToken> RefreshTokens { get; set; }
-        public DbSet<Department> Departments { get; set; }
         public DbSet<Certificate> Certificate { get; set; }
         public DbSet<CertificateType> CertificateType { get; set; }
         public DbSet<CertificateSync> CertificateSync { get; set; }
@@ -50,7 +47,15 @@ namespace AristBase.EntityFrameworkCore
                 r.Year
             });
             modelBuilder.Entity<ClientInfo>().Property(c => c.Id).UseIdentityAlwaysColumn();
-            modelBuilder.Entity<Region>().HasMany(r => r.ChildRegions).WithOne(cr => cr.ParentRegion).HasForeignKey(r => r.ParentId);
+            modelBuilder.Entity<Region>().HasMany(r => r.ChildRegions).WithOne(cr => cr.ParentRegion).HasForeignKey(r => new {
+                r.Id,
+                r.Name
+            });
+            modelBuilder.Entity<Region>().HasKey(r =>
+            new {
+                r.Id,
+                r.Name
+            });
 
 
         }

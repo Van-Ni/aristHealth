@@ -1,22 +1,95 @@
 <link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<form class="form-horizontal" autocomplete="off" #createProfile="ngForm" (ngSubmit)="save()">
+<form
+class="form-horizontal"
+autocomplete="off"
+#createProfile="ngForm"
+(ngSubmit)="save()"
+>
   <abp-modal-header [title]="'Thông tin người khám' | localize" (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
   <div class="modal-body">
     <div class="form-group row">
       <label for="certificate" class="col-sm-3 col-form-label">Chọn loại giấy</label>
       <div class="col-sm-9">
         <select (change)="getApi($event)" class="form-control" [(ngModel)]="certificate.certificateTypeId" [ngModelOptions]="{standalone: true}">
-          <option value="1">Giấy khám sức khỏe thi bằng lái xe</option>
-          <option value="2">Giấy khám sức khỏe dành cho người trên 18 tuổi</option>
-          <option value="3">Giấy khám sức khỏe dành cho người dưới 18 tuổi</option>
+          <option value="1">Khám sức khỏe lái xe</option>
+          <option value="2">Khám sức khỏe làm việc, học tập (trên 18 tuổi)</option>
+          <option value="3">Khám sức khỏe học sinh (dưới 18 tuổi)</option>
         </select>
       </div>
     </div>
     <div class="form-group row">
-      <label for="fullname" class="col-sm-3 col-form-label">Họ và tên</label>
+      <label for="certificate" class="col-sm-3 col-form-label">Trạng thái thanh toán</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" id="fullname" required [(ngModel)]="certificate.clientInfo.fullName"
+        <select (change)="setPrice($event)"  class="form-control" [(ngModel)]="certificate.paymentStatus" [ngModelOptions]="{standalone: true}">
+          <option value="0">Chưa thanh toán</option>
+          <option value="1">Đã thanh toán</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="certificate" class="col-sm-3 col-form-label">Giá tiền</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" [(ngModel)]="certificate.amountPaid" [ngModelOptions]="{standalone: true}">
+      </div>
+    </div>
+    <div class="form-group row" *ngIf="certificate.certificateTypeId == 1">
+      <label for="amountPaid" class="col-sm-3 col-form-label">Hạng</label>
+      <div class="col-sm-9">
+        <div>
+          <select class="form-control" [(ngModel)]="certificate.reason" [ngModelOptions]="{standalone: true}">
+            <option value="B1">B1</option>
+            <option value="B2">B2</option>
+            <option value="A1">A1</option>
+            <option value="A2">A2</option>
+            <option value="A3">A3</option>
+            <option value="A4">A4</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="FC">FC</option>
+            <option value="FB">FB</option>
+            <option value="FB2">FB2</option>
+            <option value="FD">FD</option>
+            <option value="FC">FC</option>
+            <option value="E, FC">E, FC</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="form-group row" *ngIf="certificate.certificateTypeId == 3">
+      <label for="amountPaid" class="col-sm-3 col-form-label">Lí do</label>
+      <div class="col-sm-9">
+        <div>
+          <select class="form-control" [(ngModel)]="certificate.reason" [ngModelOptions]="{standalone: true}">
+            <option value="Học tập">Học tập</option>
+            <option value="Thi đấu thể thao">Thi đấu thể thao</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row" *ngIf="certificate.certificateTypeId == 2">
+      <label for="amountPaid" class="col-sm-3 col-form-label">Lí do</label>
+      <div class="col-sm-9">
+        <div>
+          <select class="form-control" [(ngModel)]="certificate.reason" [ngModelOptions]="{standalone: true}">
+            <option value="Học tập">Học tập</option>
+            <option value="Làm việc">Làm việc</option>
+            <option value="Làm việc và học tập">Làm việc và học tập</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="fullname" class="col-sm-3 col-form-label"
+      >Họ và tên</label>
+      <div class="col-sm-9">
+        <input
+        (keydown)="onKeyDown($event)"
+         type="text" class="form-control" id="fullname" required [(ngModel)]="certificate.clientInfo.fullName"
           #fullnameModel="ngModel" #fullnameEl [ngModelOptions]="{standalone: true}" placeholder="Họ và tên">
         <abp-validation-summary [control]="fullnameModel" [controlEl]="fullnameEl"></abp-validation-summary>
       </div>
@@ -53,7 +126,7 @@
     <div class="form-group row">
       <label for="CCCD" class="col-sm-3 col-form-label">Số CCCD</label>
       <div class="col-sm-9">
-        <input type="number" class="form-control" id="CCCD" placeholder="CCCD"
+        <input type="text" class="form-control" id="CCCD" placeholder="CCCD"
         pattern="^(?:\w{3}\d{6}|\w{1,2}\d{7}|\d{9}|0\d{8}|\d{11}|\d{12}|\d{7})$" [(ngModel)]="certificate.clientInfo.cccd"
           #cccdModel="ngModel" #cccdEl [ngModelOptions]="{standalone: true}" min="0">
         <abp-validation-summary [control]="cccdModel" [controlEl]="cccdEl"></abp-validation-summary>
@@ -130,74 +203,6 @@
       <div class="col-sm-9">
         <input type="text" class="form-control" id="GuardianName" [(ngModel)]="certificate.clientInfo.guardianName"
           [ngModelOptions]="{standalone: true}" placeholder="Họ và tên bố, mẹ hoặc người giám hộ">
-      </div>
-    </div>
-
-
-
-    <div class="form-group row">
-      <label for="certificate" class="col-sm-3 col-form-label">Trạng thái thanh toán</label>
-      <div class="col-sm-9">
-        <select (change)="setPrice($event)"  class="form-control" [(ngModel)]="certificate.paymentStatus" [ngModelOptions]="{standalone: true}">
-          <option value="0">Chưa thanh toán</option>
-          <option value="1">Đã thanh toán</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="certificate" class="col-sm-3 col-form-label">Giá tiền</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" [(ngModel)]="certificate.amountPaid" [ngModelOptions]="{standalone: true}">
-      </div>
-    </div>
-    <div class="form-group row" *ngIf="certificate.certificateTypeId == 1">
-      <label for="amountPaid" class="col-sm-3 col-form-label">Hạng</label>
-      <div class="col-sm-9">
-        <div>
-          <select class="form-control" [(ngModel)]="certificate.reason" [ngModelOptions]="{standalone: true}">
-            <option value="B1">B1</option>
-            <option value="B2">B2</option>
-            <option value="A1">A1</option>
-            <option value="A2">A2</option>
-            <option value="A3">A3</option>
-            <option value="A4">A4</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-            <option value="FC">FC</option>
-            <option value="FB">FB</option>
-            <option value="FB2">FB2</option>
-            <option value="FD">FD</option>
-            <option value="FC">FC</option>
-            <option value="E, FC">E, FC</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-
-
-    <div class="form-group row" *ngIf="certificate.certificateTypeId == 3">
-      <label for="amountPaid" class="col-sm-3 col-form-label">Lí do</label>
-      <div class="col-sm-9">
-        <div>
-          <select class="form-control" [(ngModel)]="certificate.reason" [ngModelOptions]="{standalone: true}">
-            <option value="Học tập">Học tập</option>
-            <option value="Thi đấu thể thao">Thi đấu thể thao</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="form-group row" *ngIf="certificate.certificateTypeId == 2">
-      <label for="amountPaid" class="col-sm-3 col-form-label">Lí do</label>
-      <div class="col-sm-9">
-        <div>
-          <select class="form-control" [(ngModel)]="certificate.reason" [ngModelOptions]="{standalone: true}">
-            <option value="Học tập">Học tập</option>
-            <option value="Làm việc">Làm việc</option>
-            <option value="Làm việc và học tập">Làm việc và học tập</option>
-          </select>
-        </div>
       </div>
     </div>
   </div>
