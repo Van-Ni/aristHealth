@@ -15,6 +15,7 @@ namespace AristBase.CRUDServices.ApproveServices.Dto
         public CertificateDataSyncDTO MetaData { get; set; }
         public Guid CertificateId { get; set; }
         public string XmlEncrypted { get; set; }
+        public string XmlUnSign { get; set; }
         public virtual Certificate Certificate { get; set; }
     }
     [AutoMapFrom(typeof(CertificateDataSync))]
@@ -99,4 +100,10 @@ namespace AristBase.CRUDServices.ApproveServices.Dto
         [JsonProperty("SIGNDATA")]
         public string SIGNDATA { get; set; }
     }
+    public class UpdateSyncRequest
+    {
+        public int Id { get; set; }
+        public string XmlEncrypted { get; set; }
+    }
+
 }

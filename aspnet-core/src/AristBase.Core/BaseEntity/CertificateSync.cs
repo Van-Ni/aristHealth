@@ -32,6 +32,7 @@ namespace AristBase.BaseEntity
         init = 0,
         done = 1,
         failed = 2,
+        readyToSync = 4,
         cancelled = 3,
     }
 }
