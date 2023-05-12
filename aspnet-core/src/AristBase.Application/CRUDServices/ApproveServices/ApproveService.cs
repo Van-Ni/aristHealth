@@ -92,7 +92,7 @@ namespace AristBase.CRUDServices.ApproveServices
                         HOTEN = certificate.ClientInfo.FullName,
                         GIOITINHVAL = certificate.ClientInfo.Sex == "nam" ? "0" : "1",
                         NGAYSINH = certificate.ClientInfo.DateOfBirth,
-                        DIACHITHUONGTRU = certificate.ClientInfo.Address,
+                        DIACHITHUONGTRU = certificate.ClientInfo.Province,
                         MATINH_THUONGTRU = certificate.ClientInfo.ProvinceId,
                         MAHUYEN_THUONGTRU = certificate.ClientInfo.DistrictId,
                         MAXA_THUONGTRU = certificate.ClientInfo.CommuneId,
@@ -111,6 +111,7 @@ namespace AristBase.CRUDServices.ApproveServices
                         NGAYKHAMLAI = dataDic[PermissionNames.KetLuan].Content["text_ngaykhamlai"].Value!= "Invalid date"? dataDic[PermissionNames.KetLuan].Content["text_ngaykhamlai"].Value:"",
                         LYDO = dataDic[PermissionNames.KetLuan].Content["text_lydokham"].Value,
                         TINHTRANGBENH = "",
+                        
                         STATE = certificateSync.EditState?"EDIT": "ADD",
                     };
                     certificateSync.MetaData = syncXml;

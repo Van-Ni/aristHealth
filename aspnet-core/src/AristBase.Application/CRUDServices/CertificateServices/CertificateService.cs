@@ -37,6 +37,7 @@ namespace AristBase.CRUDServices.CertificateServices
         public decimal TongCong { get; set; }
         public string DonViTienTe { get; set; }
         public string Reason { get; set; }
+        public string LoaiGiay { get; set; }
     }
     public class CertificateService : AsyncCrudAppService<Certificate, CertificateDto, Guid, PagedAndSortedAndSearchAndDateResultDto, CreateCertificateDto, UpdateCertificateDto>
     {

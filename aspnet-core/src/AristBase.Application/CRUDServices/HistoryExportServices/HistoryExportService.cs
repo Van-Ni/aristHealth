@@ -73,10 +73,26 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 ThueSuat = "-1.00",
                 TongCong = e.AmountPaid,
                 DonViTienTe = "VND",
-                Reason = e.Reason
+                Reason = e.Reason,
+                LoaiGiay = e.CertificateType.Name
             }).ToList();
-            var exportbytes = ExportExcelCSV.ExporttoExcel(certificate, nameSheet);
-
+            var sheetData = new List<ExcelDataSheet<CertificateCsvDto>>()
+            {
+                new ExcelDataSheet<CertificateCsvDto>
+                {
+                    Tables = certificate,
+                    SheetName = "Tong"
+                }
+            };
+            var groups = certificate.GroupBy(c => c.LoaiGiay);
+            foreach ( var group in groups)
+            {
+                sheetData.Add(new ExcelDataSheet<CertificateCsvDto> { 
+                SheetName = group.Key.RemoveDiacritics().Replace(" ", "_"),
+                Tables = group.ToList(),
+                });
+            }
+            var exportbytes = ExportExcelCSV.ExporttoExcel(sheetData);
             var data = await storageService.SaveFileExcelAsync(reportname, "Excel", stream: new MemoryStream(exportbytes));
             var obj = new HistoryExport()
             {
@@ -100,11 +116,11 @@ namespace AristBase.CRUDServices.HistoryExportServices
             var query = _repositoryGr.GetAll();
             if (DateFrom != DateTime.MinValue)
             {
-                query = query.Where(w => w.CreationTime.Date >= DateFrom.Date);
+                query = query.Where(w => w.CreationTime >= DateFrom);
             }
             if (DateTo != DateTime.MinValue)
             {
-                query = query.Where(w => w.CreationTime.Date <= DateTo.Date);
+                query = query.Where(w => w.CreationTime <= DateTo);
             }
             if (status != null)
             {
@@ -115,7 +131,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
             var entities = await AsyncQueryableExecuter.ToListAsync(query);
             return ObjectMapper.Map<IEnumerable<CertificateGroupStatusDto>>(entities);
         }
-        public async Task<FileContentResult> GetExportCertificate3List(DateTime DateFrom, DateTime DateTo, Status status)
+        public async Task<FileContentResult> GetExportCertificate3List(DateTime DateFrom, DateTime DateTo, Status? status)
         {
             CheckCreatePermission();
             string reportname = $"Danhsach_{Guid.NewGuid():N}.xlsx";
@@ -170,7 +186,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 FileDownloadName = reportname
             };
         }
-        public async Task<FileContentResult> GetExportCertificateMaTuyList(DateTime DateFrom, DateTime DateTo, Status status)
+        public async Task<FileContentResult> GetExportCertificateMaTuyList(DateTime DateFrom, DateTime DateTo, Status? status)
         {
             CheckCreatePermission();
             string reportname = $"Danhsach_{Guid.NewGuid():N}.xlsx";
@@ -217,7 +233,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 FileDownloadName = reportname
             };
         }
-        public async Task<FileContentResult> GetExportCertificateMaTuyListDuongTinh(DateTime DateFrom, DateTime DateTo, Status status)
+        public async Task<FileContentResult> GetExportCertificateMaTuyListDuongTinh(DateTime DateFrom, DateTime DateTo, Status? status)
         {
             CheckCreatePermission();
             string reportname = $"Danhsach_{Guid.NewGuid():N}.xlsx";
