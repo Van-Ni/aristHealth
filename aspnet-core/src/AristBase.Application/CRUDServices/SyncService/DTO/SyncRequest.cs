@@ -1,9 +1,8 @@
-﻿
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace AristBase.BaseEntity.XML
-{   
-    public class CertificateDataSync
+namespace AristBase.CRUDServices.SyncService.DTO
+{
+    public class SyncRequest
     {
         [JsonProperty("SO")]
         public string SO { get; set; }
@@ -79,5 +78,8 @@ namespace AristBase.BaseEntity.XML
 
         [JsonProperty("MAHUYEN_THUONGTRU")]
         public string MAHUYEN_THUONGTRU { get; set; }
+
+        [JsonProperty("SIGNDATA")]
+        public string SIGNDATA { get; set; }
     }
 }

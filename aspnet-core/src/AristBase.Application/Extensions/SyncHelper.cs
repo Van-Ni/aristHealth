@@ -6,7 +6,7 @@ namespace AristBase.Extensions
     static class SyncHelper
     {
         public static string IDBV = "64A01";
-        public static string TenBV = "TRUNG TÂM GIÁM ĐỊNH Y KHOA";
+        public static string TenBV = "PHÒNG KHÁM ĐA KHOA THUỘC TRUNG TÂM GIÁM ĐỊNH Y KHOA GIA LAI";
         public static string DatimeFormat = "dd/MM/yyyy";
         public static string GetRealValue(Values values)
         {
