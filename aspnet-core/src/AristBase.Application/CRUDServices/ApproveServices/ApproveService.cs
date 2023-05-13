@@ -92,7 +92,7 @@ namespace AristBase.CRUDServices.ApproveServices
                         {
                             SO = SyncHelper.GetNumberTitle(certificate.ClientInfo.Id, SyncHelper.IDBV),
                             NGAYKHAM = dataDic[PermissionNames.KetLuan].LastModificationTime.Value.ToVNTime().ToString("dd/MM/yyyy"),
-                            HOTEN = certificate.ClientInfo.FullName,
+                            HOTEN = certificate.ClientInfo.FullName.ToUpper(),
                             GIOITINHVAL = certificate.ClientInfo.Sex == "nam" ? "0" : "1",
                             NGAYSINH = certificate.ClientInfo.DateOfBirth,
                             DIACHITHUONGTRU = certificate.ClientInfo.Province,
@@ -109,7 +109,7 @@ namespace AristBase.CRUDServices.ApproveServices
                             NONGDOCON = dataDic[PermissionNames.XetNghiemMaTuyVaMau].Content["text_nongdomau"].Value.Replace("mg/l", "").Trim(),
                             DVINONGDOCON = "1",
                             MATUY = SyncHelper.GetRealValue(dataDic[PermissionNames.XetNghiemMaTuyVaMau].Content["text_morphin"]),
-                            BACSYKETLUAN = dataDic[PermissionNames.tdv].User.FullName,
+                            BACSYKETLUAN = dataDic[PermissionNames.tdv].User.FullName.ToUpper(),
                             KETLUAN = dataDic[PermissionNames.KetLuan].Content["text_ketluan"].RealValue,
                             NGAYKHAMLAI = dataDic[PermissionNames.KetLuan].Content["text_ngaykhamlai"].Value != "Invalid date" ? dataDic[PermissionNames.KetLuan].Content["text_ngaykhamlai"].Value : "",
                             LYDO = dataDic[PermissionNames.KetLuan].Content["text_lydokham"].Value,

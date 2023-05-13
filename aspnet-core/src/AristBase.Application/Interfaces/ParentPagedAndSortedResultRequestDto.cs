@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services.Dto;
+using AristBase.BaseEntity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,13 +19,11 @@ namespace AristBase.Interfaces
     public class PagedAndSortedAndSearchResultDto : PagedResultRequestDto, IPagedAndSortedResultRequest
     {
         public string Sorting { get; set; }
-        public string filter { get; set; }
         public string Keyword { get; set; }
     }
     public class PagedAndSortedAndSearchAndDateResultDto : PagedResultRequestDto, IPagedAndSortedResultRequest
     {
         public string Sorting { get; set; }
-        public string filter { get; set; }
         public string Keyword { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
@@ -32,9 +31,16 @@ namespace AristBase.Interfaces
     public class PagedAndSortedAndSearchAndDateAndStatusResultDto : PagedResultRequestDto, IPagedAndSortedResultRequest
     {
         public string Sorting { get; set; }
-        public string filter { get; set; }
         public string Keyword { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
+    }
+
+    public class PagedAndSortedAndSyncReqeustResultDto : PagedResultRequestDto, IPagedAndSortedResultRequest
+    {
+        public string Sorting { get; set; }
+        public DateTime? DateFrom { get; set; }
+        public DateTime? DateTo { get; set; }
+        public SyncStatus? SyncStatus { get; set; }
     }
 }

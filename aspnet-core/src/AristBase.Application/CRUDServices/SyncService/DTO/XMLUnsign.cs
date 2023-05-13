@@ -44,7 +44,7 @@ namespace AristBase.CRUDServices.SyncService.DTO
         public string SOCMND_PASSPORT { get; set; }
 
         [XmlElement(ElementName = "NGAYTHANGNAMCAPCMD")]
-        public string NGAYTHANGNAMCAPCMD { get; set; }
+        public string NGAYTHANGNAMCAPCMND { get; set; }
 
         [XmlElement(ElementName = "NOICAP")]
         public string NOICAP { get; set; }
