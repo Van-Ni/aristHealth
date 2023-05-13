@@ -17,6 +17,7 @@ namespace AristBase.CRUDServices.ApproveServices.Dto
         public string XmlEncrypted { get; set; }
         public string XmlUnSign { get; set; }
         public virtual Certificate Certificate { get; set; }
+        public DateTime CreationTime { get; set; }
     }
 
     [AutoMapFrom(typeof(CertificateDataSync))]
