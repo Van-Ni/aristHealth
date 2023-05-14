@@ -167,6 +167,12 @@
     <text name="DriverReport">Báo cáo xét nghiệm (Trên 18)</text>
     <text name="HeroinReport">Báo cáo xét nghiệm (Lái xe)</text>
     <text name="HeroinReport+">Báo cáo xét nghiệm dương tính (Lái xe)</text>
-
+    <text name="CertificateSync">Liên thông BHXH</text>
+    <text name="Init">Chờ ký</text>
+    <text name="Done">Đã liên thông</text>
+    <text name="Failed">Thất bại</text>
+    <text name="ReadyToSync">Chờ liên thông</text>    
+    <text name="Cancelled">Đã hủy</text>
+    <text name="Sync">Liên thông</text>
   </texts>
 </localizationDictionary>

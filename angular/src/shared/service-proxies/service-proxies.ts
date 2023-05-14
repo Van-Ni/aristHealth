@@ -4378,6 +4378,124 @@ export class SyncServiceServiceProxy {
         }
         return _observableOf(null as any);
     }
+        /**
+     * @param id (optional) 
+     * @return Success
+     */
+    
+    syncCertificate(id: number | undefined): Observable<Response> {
+        let url_ = this.baseUrl + "/api/services/app/SyncService/SyncCertificate?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSyncCertificate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSyncCertificate(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<Response>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<Response>;
+        }));
+    }
+
+    protected processSyncCertificate(response: HttpResponseBase): Observable<Response> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = Response.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+export class Response implements IResponse {
+    mSG_TEXT: string | undefined;
+    mSG_STATE: string | undefined;
+    iDBENHVIEN: string | undefined;
+    sO: string | undefined;
+    bENHVIEN: string | undefined;
+    uUID: string | undefined;
+
+    constructor(data?: IResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.mSG_TEXT = _data["MSG_TEXT"];
+            this.mSG_STATE = _data["MSG_STATE"];
+            this.iDBENHVIEN = _data["IDBENHVIEN"];
+            this.sO = _data["SO"];
+            this.bENHVIEN = _data["BENHVIEN"];
+            this.uUID = _data["UUID"];
+        }
+    }
+
+    static fromJS(data: any): Response {
+        data = typeof data === 'object' ? data : {};
+        let result = new Response();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["MSG_TEXT"] = this.mSG_TEXT;
+        data["MSG_STATE"] = this.mSG_STATE;
+        data["IDBENHVIEN"] = this.iDBENHVIEN;
+        data["SO"] = this.sO;
+        data["BENHVIEN"] = this.bENHVIEN;
+        data["UUID"] = this.uUID;
+        return data;
+    }
+
+    clone(): Response {
+        const json = this.toJSON();
+        let result = new Response();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IResponse {
+    mSG_TEXT: string | undefined;
+    mSG_STATE: string | undefined;
+    iDBENHVIEN: string | undefined;
+    sO: string | undefined;
+    bENHVIEN: string | undefined;
+    uUID: string | undefined;
 }
 
 @Injectable()

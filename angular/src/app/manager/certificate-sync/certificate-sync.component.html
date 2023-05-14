@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-6">
-          <h1>{{ "Đồng bộ BHXH" | localize }}</h1>
+          <h1>{{ "CertificateSync" | localize }}</h1>
         </div>
       </div>
     </div>
@@ -42,8 +42,8 @@
               [busy]="isTableLoading">
               <thead class="bg-light">
                 <tr>
-                  <th>{{ "Số" | localize }}</th>
-                  <th>{{ "Name" | localize }}</th>
+                  <th>{{ "NumberTile" | localize }}</th>
+                  <th>{{ "FullName" | localize }}</th>
                   <th>
                     <div class="btn-group" dropdown>
                     <button id="button-animated" dropdownToggle type="button" class="btn btn-light dropdown-toggle"
@@ -116,11 +116,20 @@
                   <td>{{ sync.creationTime | date:'dd/MM/yyyy HH:mm'}}</td>
                   <td>
                     <button type="button"
+                      *ngIf="sync.syncStatus == 4"
+                      class="btn btn-sm bg-primary"
+                      (click)="syncCertificate(sync)">
+                      <i class="fas fa-pencil-alt"></i>
+                      {{ "Sync" | localize }}
+                    </button>
+                    <button type="button"
                     class="btn btn-sm bg-secondary"
                     (click)="ViewSync(sync)">
                     <i class="fa fa-eye"></i> 
-                   {{ " View" | localize }}
+                   {{ "Details" | localize }}
                     </button>
+
+                      
                   </td>
                 </tr>
               </tbody>
