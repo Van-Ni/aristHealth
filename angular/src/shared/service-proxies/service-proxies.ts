@@ -29,7 +29,7 @@ export class AccountServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     isTenantAvailable(body: IsTenantAvailableInput | undefined): Observable<IsTenantAvailableOutput> {
@@ -85,7 +85,7 @@ export class AccountServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     register(body: RegisterInput | undefined): Observable<RegisterOutput> {
@@ -153,7 +153,7 @@ export class ApproveServiceServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     get(id: number | undefined): Observable<CertificateSyncDto> {
@@ -209,7 +209,7 @@ export class ApproveServiceServiceProxy {
     }
 
     /**
-     * @param cerId (optional)
+     * @param cerId (optional) 
      * @return Success
      */
     approve(cerId: string | undefined): Observable<CertificateDto> {
@@ -265,7 +265,7 @@ export class ApproveServiceServiceProxy {
     }
 
     /**
-     * @param cerId (optional)
+     * @param cerId (optional) 
      * @return Success
      */
     unApprove(cerId: string | undefined): Observable<CertificateDto> {
@@ -333,7 +333,7 @@ export class CertificateGroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param input (optional)
+     * @param input (optional) 
      * @return Success
      */
     getAll(input: string | undefined): Observable<CertificateGroupStatusDtoPagedResultDto> {
@@ -389,7 +389,7 @@ export class CertificateGroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     create(body: CreateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -445,7 +445,7 @@ export class CertificateGroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     get(id: string | undefined): Observable<CertificateGroupStatusDto> {
@@ -501,7 +501,7 @@ export class CertificateGroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     update(body: CertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -557,7 +557,7 @@ export class CertificateGroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -621,25 +621,21 @@ export class CertificateServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional)
-     * @param filter (optional)
-     * @param keyword (optional)
-     * @param dateFrom (optional)
-     * @param dateTo (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param sorting (optional) 
+     * @param keyword (optional) 
+     * @param dateFrom (optional) 
+     * @param dateTo (optional) 
+     * @param status (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
-    getAll(sorting: string | undefined, filter: string | undefined, keyword: string | undefined, dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateDtoPagedResultDto> {
+    getAll(sorting: string | undefined, keyword: string | undefined, dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/CertificateService/GetAll?";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
             url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
         if (keyword === null)
             throw new Error("The parameter 'keyword' cannot be null.");
         else if (keyword !== undefined)
@@ -652,6 +648,10 @@ export class CertificateServiceServiceProxy {
             throw new Error("The parameter 'dateTo' cannot be null.");
         else if (dateTo !== undefined)
             url_ += "DateTo=" + encodeURIComponent(dateTo ? "" + dateTo.toISOString() : "") + "&";
+        if (status === null)
+            throw new Error("The parameter 'status' cannot be null.");
+        else if (status !== undefined)
+            url_ += "Status=" + encodeURIComponent("" + status) + "&";
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
@@ -707,7 +707,7 @@ export class CertificateServiceServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     create(body: CreateCertificateDto | undefined): Observable<CertificateDto> {
@@ -763,7 +763,7 @@ export class CertificateServiceServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     update(body: UpdateCertificateDto | undefined): Observable<CertificateDto> {
@@ -819,7 +819,7 @@ export class CertificateServiceServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getProfile(id: string | undefined): Observable<CertificateDto> {
@@ -875,7 +875,7 @@ export class CertificateServiceServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     get(id: string | undefined): Observable<CertificateDto> {
@@ -931,7 +931,7 @@ export class CertificateServiceServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -995,23 +995,18 @@ export class CertificateTypeServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional)
-     * @param filter (optional)
-     * @param keyword (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param sorting (optional) 
+     * @param keyword (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
-    getAll(sorting: string | undefined, filter: string | undefined, keyword: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateTypeDtoPagedResultDto> {
+    getAll(sorting: string | undefined, keyword: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateTypeDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/CertificateTypeService/GetAll?";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
             url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
         if (keyword === null)
             throw new Error("The parameter 'keyword' cannot be null.");
         else if (keyword !== undefined)
@@ -1071,8 +1066,8 @@ export class CertificateTypeServiceServiceProxy {
     }
 
     /**
-     * @param typeId (optional)
-     * @param price (optional)
+     * @param typeId (optional) 
+     * @param price (optional) 
      * @return Success
      */
     updatePrice(typeId: number | undefined, price: number | undefined): Observable<CertificateTypeDto> {
@@ -1132,7 +1127,7 @@ export class CertificateTypeServiceServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     get(id: number | undefined): Observable<CertificateTypeDto> {
@@ -1188,7 +1183,7 @@ export class CertificateTypeServiceServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     create(body: CreateCertificateTypeDto | undefined): Observable<CertificateTypeDto> {
@@ -1244,7 +1239,7 @@ export class CertificateTypeServiceServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     update(body: CertificateTypeDto | undefined): Observable<CertificateTypeDto> {
@@ -1300,7 +1295,7 @@ export class CertificateTypeServiceServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -1364,7 +1359,7 @@ export class ConfigurationServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     changeUiTheme(body: ChangeUiThemeInput | undefined): Observable<void> {
@@ -1428,7 +1423,7 @@ export class GroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createList(body: CreateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -1484,7 +1479,7 @@ export class GroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     updateOrInsert(body: UpdateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -1540,10 +1535,10 @@ export class GroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional)
-     * @param group (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param sorting (optional) 
+     * @param group (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateGroupStatusDtoPagedResultDto> {
@@ -1615,7 +1610,7 @@ export class GroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     get(id: string | undefined): Observable<CertificateGroupStatusDto> {
@@ -1671,7 +1666,7 @@ export class GroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     create(body: CreateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -1727,7 +1722,7 @@ export class GroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     update(body: CertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -1783,7 +1778,7 @@ export class GroupStatusServiceServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -1847,9 +1842,9 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param dateFrom (optional)
-     * @param dateTo (optional)
-     * @param status (optional)
+     * @param dateFrom (optional) 
+     * @param dateTo (optional) 
+     * @param status (optional) 
      * @return Success
      */
     getCertificateByDate(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<CertificateDto[]> {
@@ -1920,9 +1915,9 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param dateFrom (optional)
-     * @param dateTo (optional)
-     * @param status (optional)
+     * @param dateFrom (optional) 
+     * @param dateTo (optional) 
+     * @param status (optional) 
      * @return Success
      */
     getExportCertificateList(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<any> {
@@ -1983,9 +1978,9 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param dateFrom (optional)
-     * @param dateTo (optional)
-     * @param status (optional)
+     * @param dateFrom (optional) 
+     * @param dateTo (optional) 
+     * @param status (optional) 
      * @return Success
      */
     getCertificateGroupStatusByDate(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<CertificateGroupStatusDto[]> {
@@ -2056,9 +2051,9 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param dateFrom (optional)
-     * @param dateTo (optional)
-     * @param status (optional)
+     * @param dateFrom (optional) 
+     * @param dateTo (optional) 
+     * @param status (optional) 
      * @return Success
      */
     getExportCertificate3List(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<any> {
@@ -2119,9 +2114,9 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param dateFrom (optional)
-     * @param dateTo (optional)
-     * @param status (optional)
+     * @param dateFrom (optional) 
+     * @param dateTo (optional) 
+     * @param status (optional) 
      * @return Success
      */
     getExportCertificateMaTuyList(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<any> {
@@ -2182,9 +2177,9 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param dateFrom (optional)
-     * @param dateTo (optional)
-     * @param status (optional)
+     * @param dateFrom (optional) 
+     * @param dateTo (optional) 
+     * @param status (optional) 
      * @return Success
      */
     getExportCertificateMaTuyListDuongTinh(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<any> {
@@ -2245,25 +2240,20 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param sorting (optional)
-     * @param filter (optional)
-     * @param keyword (optional)
-     * @param dateFrom (optional)
-     * @param dateTo (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param sorting (optional) 
+     * @param keyword (optional) 
+     * @param dateFrom (optional) 
+     * @param dateTo (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
-    getAll(sorting: string | undefined, filter: string | undefined, keyword: string | undefined, dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<HistoryExportDtoPagedResultDto> {
+    getAll(sorting: string | undefined, keyword: string | undefined, dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<HistoryExportDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/HistoryExportService/GetAll?";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
             url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
         if (keyword === null)
             throw new Error("The parameter 'keyword' cannot be null.");
         else if (keyword !== undefined)
@@ -2331,7 +2321,7 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param filePath (optional)
+     * @param filePath (optional) 
      * @return Success
      */
     downloadFilePath(filePath: string | undefined): Observable<any> {
@@ -2384,7 +2374,7 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     get(id: string | undefined): Observable<HistoryExportDto> {
@@ -2440,7 +2430,7 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     create(body: HistoryExportDto | undefined): Observable<HistoryExportDto> {
@@ -2496,7 +2486,7 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     update(body: HistoryExportDto | undefined): Observable<HistoryExportDto> {
@@ -2552,7 +2542,7 @@ export class HistoryExportServiceServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -2616,7 +2606,7 @@ export class KetLuanServicesServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     updateOrInsert(body: UpdateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -2672,7 +2662,7 @@ export class KetLuanServicesServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     huyKetLuan(body: UpdateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -2728,7 +2718,7 @@ export class KetLuanServicesServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createList(body: CreateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -2784,10 +2774,10 @@ export class KetLuanServicesServiceProxy {
     }
 
     /**
-     * @param sorting (optional)
-     * @param group (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param sorting (optional) 
+     * @param group (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(sorting: string | undefined, certificateId: string, group: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateGroupStatusDtoPagedResultDto> {
@@ -2859,7 +2849,7 @@ export class KetLuanServicesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     get(id: string | undefined): Observable<CertificateGroupStatusDto> {
@@ -2915,7 +2905,7 @@ export class KetLuanServicesServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     create(body: CreateCertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -2971,7 +2961,7 @@ export class KetLuanServicesServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     update(body: CertificateGroupStatusDto | undefined): Observable<CertificateGroupStatusDto> {
@@ -3027,7 +3017,7 @@ export class KetLuanServicesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
@@ -3091,7 +3081,7 @@ export class PDFServiceServiceProxy {
     }
 
     /**
-     * @param cerId (optional)
+     * @param cerId (optional) 
      * @return Success
      */
     getCertificatePdfPrintedFile(cerId: string | undefined): Observable<any> {
@@ -3116,10 +3106,10 @@ export class PDFServiceServiceProxy {
                 try {
                     return this.processGetCertificatePdfPrintedFile(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<any>;
+                    return _observableThrow(e) as any as Observable<void>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<any>;
+                return _observableThrow(response_) as any as Observable<void>;
         }));
     }
 
@@ -3156,8 +3146,8 @@ export class RegionServiceServiceProxy {
     }
 
     /**
-     * @param tinhId (optional)
-     * @param huyenId (optional)
+     * @param tinhId (optional) 
+     * @param huyenId (optional) 
      * @return Success
      */
     getAll(tinhId: string | undefined, huyenId: string | undefined): Observable<RegionDto[]> {
@@ -3224,7 +3214,7 @@ export class RegionServiceServiceProxy {
     }
 
     /**
-     * @param address (optional)
+     * @param address (optional) 
      * @return Success
      */
     getByName(address: string | undefined): Observable<RegionFull> {
@@ -3280,7 +3270,63 @@ export class RegionServiceServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param id (optional) 
+     * @return Success
+     */
+    get(id: string | undefined): Observable<RegionDto> {
+        let url_ = this.baseUrl + "/api/services/app/RegionService/Get?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGet(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGet(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<RegionDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<RegionDto>;
+        }));
+    }
+
+    protected processGet(response: HttpResponseBase): Observable<RegionDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = RegionDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
      * @return Success
      */
     create(body: RegionDto[] | undefined): Observable<RegionDto[]> {
@@ -3355,7 +3401,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     create(body: CreateRoleDto | undefined): Observable<RoleDto> {
@@ -3411,7 +3457,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param permission (optional)
+     * @param permission (optional) 
      * @return Success
      */
     getRoles(permission: string | undefined): Observable<RoleListDtoListResultDto> {
@@ -3467,7 +3513,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     update(body: RoleDto | undefined): Observable<RoleDto> {
@@ -3523,7 +3569,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -3626,7 +3672,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getRoleForEdit(id: number | undefined): Observable<GetRoleForEditOutput> {
@@ -3682,7 +3728,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     get(id: number | undefined): Observable<RoleDto> {
@@ -3738,9 +3784,9 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param keyword (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param keyword (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(keyword: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<RoleDtoPagedResultDto> {
@@ -3879,73 +3925,32 @@ export class SyncServiceServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param sorting (optional) 
+     * @param dateFrom (optional) 
+     * @param dateTo (optional) 
+     * @param syncStatus (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
-    get(id: number | undefined): Observable<CertificateSyncDto> {
-        let url_ = this.baseUrl + "/api/services/app/SyncService/Get?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGet(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGet(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<CertificateSyncDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<CertificateSyncDto>;
-        }));
-    }
-
-    protected processGet(response: HttpResponseBase): Observable<CertificateSyncDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = CertificateSyncDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
-     * @return Success
-     */
-    getAll(sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateSyncDtoPagedResultDto> {
+    getAll(sorting: string | undefined, dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, syncStatus: SyncStatus | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateSyncDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/SyncService/GetAll?";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
             url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (dateFrom === null)
+            throw new Error("The parameter 'dateFrom' cannot be null.");
+        else if (dateFrom !== undefined)
+            url_ += "DateFrom=" + encodeURIComponent(dateFrom ? "" + dateFrom.toISOString() : "") + "&";
+        if (dateTo === null)
+            throw new Error("The parameter 'dateTo' cannot be null.");
+        else if (dateTo !== undefined)
+            url_ += "DateTo=" + encodeURIComponent(dateTo ? "" + dateTo.toISOString() : "") + "&";
+        if (syncStatus === null)
+            throw new Error("The parameter 'syncStatus' cannot be null.");
+        else if (syncStatus !== undefined)
+            url_ += "SyncStatus=" + encodeURIComponent("" + syncStatus) + "&";
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
@@ -4001,7 +4006,217 @@ export class SyncServiceServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @return Success
+     */
+    getSyncCertificate(): Observable<CertificateSyncDto> {
+        let url_ = this.baseUrl + "/api/services/app/SyncService/GetSyncCertificate";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetSyncCertificate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetSyncCertificate(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CertificateSyncDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CertificateSyncDto>;
+        }));
+    }
+
+    protected processGetSyncCertificate(response: HttpResponseBase): Observable<CertificateSyncDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CertificateSyncDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    updateXmlSyncSyncCertificate(body: UpdateSyncRequest | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/SyncService/UpdateXmlSyncSyncCertificate";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateXmlSyncSyncCertificate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateXmlSyncSyncCertificate(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processUpdateXmlSyncSyncCertificate(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    getReadyToSycnbody(): Observable<SyncRequestBody> {
+        let url_ = this.baseUrl + "/api/services/app/SyncService/GetReadyToSycnbody";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetReadyToSycnbody(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetReadyToSycnbody(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<SyncRequestBody>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<SyncRequestBody>;
+        }));
+    }
+
+    protected processGetReadyToSycnbody(response: HttpResponseBase): Observable<SyncRequestBody> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = SyncRequestBody.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    get(id: number | undefined): Observable<CertificateSyncDto> {
+        let url_ = this.baseUrl + "/api/services/app/SyncService/Get?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGet(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGet(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CertificateSyncDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CertificateSyncDto>;
+        }));
+    }
+
+    protected processGet(response: HttpResponseBase): Observable<CertificateSyncDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CertificateSyncDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
      * @return Success
      */
     create(body: CertificateSyncDto | undefined): Observable<CertificateSyncDto> {
@@ -4057,7 +4272,7 @@ export class SyncServiceServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     update(body: CertificateSyncDto | undefined): Observable<CertificateSyncDto> {
@@ -4113,7 +4328,7 @@ export class SyncServiceServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -4163,6 +4378,124 @@ export class SyncServiceServiceProxy {
         }
         return _observableOf(null as any);
     }
+        /**
+     * @param id (optional) 
+     * @return Success
+     */
+    
+    syncCertificate(id: number | undefined): Observable<Response> {
+        let url_ = this.baseUrl + "/api/services/app/SyncService/SyncCertificate?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSyncCertificate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSyncCertificate(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<Response>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<Response>;
+        }));
+    }
+
+    protected processSyncCertificate(response: HttpResponseBase): Observable<Response> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = Response.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+export class Response implements IResponse {
+    mSG_TEXT: string | undefined;
+    mSG_STATE: string | undefined;
+    iDBENHVIEN: string | undefined;
+    sO: string | undefined;
+    bENHVIEN: string | undefined;
+    uUID: string | undefined;
+
+    constructor(data?: IResponse) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.mSG_TEXT = _data["MSG_TEXT"];
+            this.mSG_STATE = _data["MSG_STATE"];
+            this.iDBENHVIEN = _data["IDBENHVIEN"];
+            this.sO = _data["SO"];
+            this.bENHVIEN = _data["BENHVIEN"];
+            this.uUID = _data["UUID"];
+        }
+    }
+
+    static fromJS(data: any): Response {
+        data = typeof data === 'object' ? data : {};
+        let result = new Response();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["MSG_TEXT"] = this.mSG_TEXT;
+        data["MSG_STATE"] = this.mSG_STATE;
+        data["IDBENHVIEN"] = this.iDBENHVIEN;
+        data["SO"] = this.sO;
+        data["BENHVIEN"] = this.bENHVIEN;
+        data["UUID"] = this.uUID;
+        return data;
+    }
+
+    clone(): Response {
+        const json = this.toJSON();
+        let result = new Response();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IResponse {
+    mSG_TEXT: string | undefined;
+    mSG_STATE: string | undefined;
+    iDBENHVIEN: string | undefined;
+    sO: string | undefined;
+    bENHVIEN: string | undefined;
+    uUID: string | undefined;
 }
 
 @Injectable()
@@ -4177,7 +4510,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     create(body: CreateTenantDto | undefined): Observable<TenantDto> {
@@ -4233,7 +4566,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -4285,7 +4618,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     get(id: number | undefined): Observable<TenantDto> {
@@ -4341,10 +4674,10 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param keyword (optional)
-     * @param isActive (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param keyword (optional) 
+     * @param isActive (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(keyword: string | undefined, isActive: boolean | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<TenantDtoPagedResultDto> {
@@ -4412,7 +4745,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     update(body: TenantDto | undefined): Observable<TenantDto> {
@@ -4480,7 +4813,7 @@ export class TokenAuthServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     authenticate(body: AuthenticateModel | undefined): Observable<AuthenticateResultModel> {
@@ -4536,7 +4869,7 @@ export class TokenAuthServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     refreshToken(body: RefreshTokenModel | undefined): Observable<AuthenticateResultModel> {
@@ -4650,7 +4983,7 @@ export class TokenAuthServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     externalAuthenticate(body: ExternalAuthenticateModel | undefined): Observable<ExternalAuthenticateResultModel> {
@@ -4718,7 +5051,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     create(body: CreateUserDto | undefined): Observable<UserDto> {
@@ -4774,7 +5107,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     update(body: UserDto | undefined): Observable<UserDto> {
@@ -4830,7 +5163,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -4882,7 +5215,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     activate(body: Int64EntityDto | undefined): Observable<void> {
@@ -4934,7 +5267,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     deActivate(body: Int64EntityDto | undefined): Observable<void> {
@@ -5037,7 +5370,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     changeLanguage(body: ChangeUserLanguageDto | undefined): Observable<void> {
@@ -5089,7 +5422,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     changePassword(body: ChangePasswordDto | undefined): Observable<boolean> {
@@ -5134,7 +5467,7 @@ export class UserServiceProxy {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
-
+    
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -5146,7 +5479,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     resetPassword(body: ResetPasswordDto | undefined): Observable<boolean> {
@@ -5191,7 +5524,7 @@ export class UserServiceProxy {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
-
+    
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -5203,7 +5536,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param file (optional)
+     * @param file (optional) 
      * @return Success
      */
     uploadSignPath(file: FileParameter | undefined): Observable<UserDto> {
@@ -5262,7 +5595,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     get(id: number | undefined): Observable<UserDto> {
@@ -5318,10 +5651,10 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param keyword (optional)
-     * @param isActive (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param keyword (optional) 
+     * @param isActive (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(keyword: string | undefined, isActive: boolean | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<UserDtoPagedResultDto> {
@@ -5703,31 +6036,30 @@ export interface ICertificate {
 
 export class CertificateDataSync implements ICertificateDataSync {
     so: string | undefined;
-    ngaykham: string | undefined;
+    lydo: string | undefined;
     hoten: string | undefined;
-    gioitinhval: string | undefined;
+    matuy: string | undefined;
+    state: string | undefined;
+    noicap: string | undefined;
+    ketluan: string | undefined;
+    benhvien: string | undefined;
+    ngaykham: string | undefined;
     ngaysinh: string | undefined;
+    nongdocon: string | undefined;
+    idbenhvien: string | undefined;
+    gioitinhval: string | undefined;
+    hangbanglai: string | undefined;
+    ngayketluan: string | undefined;
+    ngaykhamlai: string | undefined;
+    bacsyketluan: string | undefined;
+    dvinongdocon: string | undefined;
+    tinhtrangbenh: string | undefined;
+    maxA_THUONGTRU: string | undefined;
     diachithuongtru: string | undefined;
+    ngaythangnamcapcmnd: string | undefined;
+    socmnD_PASSPORT: string | undefined;
     matinH_THUONGTRU: string | undefined;
     mahuyeN_THUONGTRU: string | undefined;
-    maxA_THUONGTRU: string | undefined;
-    socmnD_PASSPORT: string | undefined;
-    ngaythangnamcap: string | undefined;
-    noicap: string | undefined;
-    idbenhvien: string | undefined;
-    benhvien: string | undefined;
-    nongdocon: string | undefined;
-    dvinongdocon: string | undefined;
-    matuy: string | undefined;
-    ngayketluan: string | undefined;
-    bacsyketluan: string | undefined;
-    ketluan: string | undefined;
-    hangbanglai: string | undefined;
-    ngaykhamlai: string | undefined;
-    lydo: string | undefined;
-    tinhtrangbenh: string | undefined;
-    state: string | undefined;
-    signdata: string | undefined;
 
     constructor(data?: ICertificateDataSync) {
         if (data) {
@@ -5740,32 +6072,31 @@ export class CertificateDataSync implements ICertificateDataSync {
 
     init(_data?: any) {
         if (_data) {
-            this.so = _data["so"];
-            this.ngaykham = _data["ngaykham"];
-            this.hoten = _data["hoten"];
-            this.gioitinhval = _data["gioitinhval"];
-            this.ngaysinh = _data["ngaysinh"];
-            this.diachithuongtru = _data["diachithuongtru"];
-            this.matinH_THUONGTRU = _data["matinH_THUONGTRU"];
-            this.mahuyeN_THUONGTRU = _data["mahuyeN_THUONGTRU"];
-            this.maxA_THUONGTRU = _data["maxA_THUONGTRU"];
-            this.socmnD_PASSPORT = _data["socmnD_PASSPORT"];
-            this.ngaythangnamcap = _data["ngaythangnamcap"];
-            this.noicap = _data["noicap"];
-            this.idbenhvien = _data["idbenhvien"];
-            this.benhvien = _data["benhvien"];
-            this.nongdocon = _data["nongdocon"];
-            this.dvinongdocon = _data["dvinongdocon"];
-            this.matuy = _data["matuy"];
-            this.ngayketluan = _data["ngayketluan"];
-            this.bacsyketluan = _data["bacsyketluan"];
-            this.ketluan = _data["ketluan"];
-            this.hangbanglai = _data["hangbanglai"];
-            this.ngaykhamlai = _data["ngaykhamlai"];
-            this.lydo = _data["lydo"];
-            this.tinhtrangbenh = _data["tinhtrangbenh"];
-            this.state = _data["state"];
-            this.signdata = _data["signdata"];
+            this.so = _data["SO"];
+            this.lydo = _data["LYDO"];
+            this.hoten = _data["HOTEN"];
+            this.matuy = _data["MATUY"];
+            this.state = _data["STATE"];
+            this.noicap = _data["NOICAP"];
+            this.ketluan = _data["KETLUAN"];
+            this.benhvien = _data["BENHVIEN"];
+            this.ngaykham = _data["NGAYKHAM"];
+            this.ngaysinh = _data["NGAYSINH"];
+            this.nongdocon = _data["NONGDOCON"];
+            this.idbenhvien = _data["IDBENHVIEN"];
+            this.gioitinhval = _data["GIOITINHVAL"];
+            this.hangbanglai = _data["HANGBANGLAI"];
+            this.ngayketluan = _data["NGAYKETLUAN"];
+            this.ngaykhamlai = _data["NGAYKHAMLAI"];
+            this.bacsyketluan = _data["BACSYKETLUAN"];
+            this.dvinongdocon = _data["DVINONGDOCON"];
+            this.tinhtrangbenh = _data["TINHTRANGBENH"];
+            this.maxA_THUONGTRU = _data["MAXA_THUONGTRU"];
+            this.diachithuongtru = _data["DIACHITHUONGTRU"];
+            this.ngaythangnamcapcmnd = _data["NGAYTHANGNAMCAPCMND"];
+            this.socmnD_PASSPORT = _data["SOCMND_PASSPORT"];
+            this.matinH_THUONGTRU = _data["MATINH_THUONGTRU"];
+            this.mahuyeN_THUONGTRU = _data["MAHUYEN_THUONGTRU"];
         }
     }
 
@@ -5779,31 +6110,30 @@ export class CertificateDataSync implements ICertificateDataSync {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["so"] = this.so;
-        data["ngaykham"] = this.ngaykham;
-        data["hoten"] = this.hoten;
-        data["gioitinhval"] = this.gioitinhval;
-        data["ngaysinh"] = this.ngaysinh;
-        data["diachithuongtru"] = this.diachithuongtru;
-        data["matinH_THUONGTRU"] = this.matinH_THUONGTRU;
-        data["mahuyeN_THUONGTRU"] = this.mahuyeN_THUONGTRU;
-        data["maxA_THUONGTRU"] = this.maxA_THUONGTRU;
-        data["socmnD_PASSPORT"] = this.socmnD_PASSPORT;
-        data["ngaythangnamcap"] = this.ngaythangnamcap;
-        data["noicap"] = this.noicap;
-        data["idbenhvien"] = this.idbenhvien;
-        data["benhvien"] = this.benhvien;
-        data["nongdocon"] = this.nongdocon;
-        data["dvinongdocon"] = this.dvinongdocon;
-        data["matuy"] = this.matuy;
-        data["ngayketluan"] = this.ngayketluan;
-        data["bacsyketluan"] = this.bacsyketluan;
-        data["ketluan"] = this.ketluan;
-        data["hangbanglai"] = this.hangbanglai;
-        data["ngaykhamlai"] = this.ngaykhamlai;
-        data["lydo"] = this.lydo;
-        data["tinhtrangbenh"] = this.tinhtrangbenh;
-        data["state"] = this.state;
-        data["signdata"] = this.signdata;
+        data["LYDO"] = this.lydo;
+        data["HOTEN"] = this.hoten;
+        data["MATUY"] = this.matuy;
+        data["STATE"] = this.state;
+        data["NOICAP"] = this.noicap;
+        data["KETLUAN"] = this.ketluan;
+        data["BENHVIEN"] = this.benhvien;
+        data["NGAYKHAM"] = this.ngaykham;
+        data["NGAYSINH"] = this.ngaysinh;
+        data["NONGDOCON"] = this.nongdocon;
+        data["IDBENHVIEN"] = this.idbenhvien;
+        data["GIOITINHVAL"] = this.gioitinhval;
+        data["HANGBANGLAI"] = this.hangbanglai;
+        data["NGAYKETLUAN"] = this.ngayketluan;
+        data["NGAYKHAMLAI"] = this.ngaykhamlai;
+        data["BACSYKETLUAN"] = this.bacsyketluan;
+        data["DVNONGDOCON"] = this.dvinongdocon;
+        data["TINHTRANGBENH"] = this.tinhtrangbenh;
+        data["MAXA_THUONGTRU"] = this.maxA_THUONGTRU;
+        data["DIACHITHUONGTRU"] = this.diachithuongtru;
+        data["NGAYTHANGNAMCAPCMND"] = this.ngaythangnamcapcmnd;
+        data["SOCMND_PASSPORT"] = this.socmnD_PASSPORT;
+        data["MATINH_THUONGTRU"] = this.matinH_THUONGTRU;
+        data["MAHUYEN_THUONGTRU"] = this.mahuyeN_THUONGTRU;
         return data;
     }
 
@@ -5817,31 +6147,30 @@ export class CertificateDataSync implements ICertificateDataSync {
 
 export interface ICertificateDataSync {
     so: string | undefined;
-    ngaykham: string | undefined;
+    lydo: string | undefined;
     hoten: string | undefined;
-    gioitinhval: string | undefined;
+    matuy: string | undefined;
+    state: string | undefined;
+    noicap: string | undefined;
+    ketluan: string | undefined;
+    benhvien: string | undefined;
+    ngaykham: string | undefined;
     ngaysinh: string | undefined;
+    nongdocon: string | undefined;
+    idbenhvien: string | undefined;
+    gioitinhval: string | undefined;
+    hangbanglai: string | undefined;
+    ngayketluan: string | undefined;
+    ngaykhamlai: string | undefined;
+    bacsyketluan: string | undefined;
+    dvinongdocon: string | undefined;
+    tinhtrangbenh: string | undefined;
+    maxA_THUONGTRU: string | undefined;
     diachithuongtru: string | undefined;
+    ngaythangnamcapcmnd: string | undefined;
+    socmnD_PASSPORT: string | undefined;
     matinH_THUONGTRU: string | undefined;
     mahuyeN_THUONGTRU: string | undefined;
-    maxA_THUONGTRU: string | undefined;
-    socmnD_PASSPORT: string | undefined;
-    ngaythangnamcap: string | undefined;
-    noicap: string | undefined;
-    idbenhvien: string | undefined;
-    benhvien: string | undefined;
-    nongdocon: string | undefined;
-    dvinongdocon: string | undefined;
-    matuy: string | undefined;
-    ngayketluan: string | undefined;
-    bacsyketluan: string | undefined;
-    ketluan: string | undefined;
-    hangbanglai: string | undefined;
-    ngaykhamlai: string | undefined;
-    lydo: string | undefined;
-    tinhtrangbenh: string | undefined;
-    state: string | undefined;
-    signdata: string | undefined;
 }
 
 export class CertificateDto implements ICertificateDto {
@@ -6344,7 +6673,9 @@ export class CertificateSyncDto implements ICertificateSyncDto {
     metaData: CertificateDataSync;
     certificateId: string;
     xmlEncrypted: string | undefined;
+    xmlUnSign: string | undefined;
     certificate: Certificate;
+    creationTime: moment.Moment;
 
     constructor(data?: ICertificateSyncDto) {
         if (data) {
@@ -6362,7 +6693,9 @@ export class CertificateSyncDto implements ICertificateSyncDto {
             this.metaData = _data["metaData"] ? CertificateDataSync.fromJS(_data["metaData"]) : <any>undefined;
             this.certificateId = _data["certificateId"];
             this.xmlEncrypted = _data["xmlEncrypted"];
+            this.xmlUnSign = _data["xmlUnSign"];
             this.certificate = _data["certificate"] ? Certificate.fromJS(_data["certificate"]) : <any>undefined;
+            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
         }
     }
 
@@ -6380,7 +6713,9 @@ export class CertificateSyncDto implements ICertificateSyncDto {
         data["metaData"] = this.metaData ? this.metaData.toJSON() : <any>undefined;
         data["certificateId"] = this.certificateId;
         data["xmlEncrypted"] = this.xmlEncrypted;
+        data["xmlUnSign"] = this.xmlUnSign;
         data["certificate"] = this.certificate ? this.certificate.toJSON() : <any>undefined;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         return data;
     }
 
@@ -6398,7 +6733,9 @@ export interface ICertificateSyncDto {
     metaData: CertificateDataSync;
     certificateId: string;
     xmlEncrypted: string | undefined;
+    xmlUnSign: string | undefined;
     certificate: Certificate;
+    creationTime: moment.Moment;
 }
 
 export class CertificateSyncDtoPagedResultDto implements ICertificateSyncDtoPagedResultDto {
@@ -8933,11 +9270,155 @@ export enum Status {
     _2 = 2,
 }
 
+export class SyncRequestBody implements ISyncRequestBody {
+    so: string | undefined;
+    lydo: string | undefined;
+    hoten: string | undefined;
+    matuy: string | undefined;
+    state: string | undefined;
+    noicap: string | undefined;
+    ketluan: string | undefined;
+    benhvien: string | undefined;
+    ngaykham: string | undefined;
+    ngaysinh: string | undefined;
+    nongdocon: string | undefined;
+    idbenhvien: string | undefined;
+    gioitinhval: string | undefined;
+    hangbanglai: string | undefined;
+    ngayketluan: string | undefined;
+    ngaykhamlai: string | undefined;
+    bacsyketluan: string | undefined;
+    dvinongdocon: string | undefined;
+    tinhtrangbenh: string | undefined;
+    maxA_THUONGTRU: string | undefined;
+    diachithuongtru: string | undefined;
+    ngaythangnamcapcmnd: string | undefined;
+    socmnD_PASSPORT: string | undefined;
+    matinH_THUONGTRU: string | undefined;
+    mahuyeN_THUONGTRU: string | undefined;
+    signdata: string | undefined;
+
+    constructor(data?: ISyncRequestBody) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.so = _data["so"];
+            this.lydo = _data["lydo"];
+            this.hoten = _data["hoten"];
+            this.matuy = _data["matuy"];
+            this.state = _data["state"];
+            this.noicap = _data["noicap"];
+            this.ketluan = _data["ketluan"];
+            this.benhvien = _data["benhvien"];
+            this.ngaykham = _data["ngaykham"];
+            this.ngaysinh = _data["ngaysinh"];
+            this.nongdocon = _data["nongdocon"];
+            this.idbenhvien = _data["idbenhvien"];
+            this.gioitinhval = _data["gioitinhval"];
+            this.hangbanglai = _data["hangbanglai"];
+            this.ngayketluan = _data["ngayketluan"];
+            this.ngaykhamlai = _data["ngaykhamlai"];
+            this.bacsyketluan = _data["bacsyketluan"];
+            this.dvinongdocon = _data["dvinongdocon"];
+            this.tinhtrangbenh = _data["tinhtrangbenh"];
+            this.maxA_THUONGTRU = _data["maxA_THUONGTRU"];
+            this.diachithuongtru = _data["diachithuongtru"];
+            this.ngaythangnamcapcmnd = _data["ngaythangnamcapcmnd"];
+            this.socmnD_PASSPORT = _data["socmnD_PASSPORT"];
+            this.matinH_THUONGTRU = _data["matinH_THUONGTRU"];
+            this.mahuyeN_THUONGTRU = _data["mahuyeN_THUONGTRU"];
+            this.signdata = _data["signdata"];
+        }
+    }
+
+    static fromJS(data: any): SyncRequestBody {
+        data = typeof data === 'object' ? data : {};
+        let result = new SyncRequestBody();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["so"] = this.so;
+        data["lydo"] = this.lydo;
+        data["hoten"] = this.hoten;
+        data["matuy"] = this.matuy;
+        data["state"] = this.state;
+        data["noicap"] = this.noicap;
+        data["ketluan"] = this.ketluan;
+        data["benhvien"] = this.benhvien;
+        data["ngaykham"] = this.ngaykham;
+        data["ngaysinh"] = this.ngaysinh;
+        data["nongdocon"] = this.nongdocon;
+        data["idbenhvien"] = this.idbenhvien;
+        data["gioitinhval"] = this.gioitinhval;
+        data["hangbanglai"] = this.hangbanglai;
+        data["ngayketluan"] = this.ngayketluan;
+        data["ngaykhamlai"] = this.ngaykhamlai;
+        data["bacsyketluan"] = this.bacsyketluan;
+        data["dvinongdocon"] = this.dvinongdocon;
+        data["tinhtrangbenh"] = this.tinhtrangbenh;
+        data["maxA_THUONGTRU"] = this.maxA_THUONGTRU;
+        data["diachithuongtru"] = this.diachithuongtru;
+        data["ngaythangnamcapcmnd"] = this.ngaythangnamcapcmnd;
+        data["socmnD_PASSPORT"] = this.socmnD_PASSPORT;
+        data["matinH_THUONGTRU"] = this.matinH_THUONGTRU;
+        data["mahuyeN_THUONGTRU"] = this.mahuyeN_THUONGTRU;
+        data["signdata"] = this.signdata;
+        return data;
+    }
+
+    clone(): SyncRequestBody {
+        const json = this.toJSON();
+        let result = new SyncRequestBody();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface ISyncRequestBody {
+    so: string | undefined;
+    lydo: string | undefined;
+    hoten: string | undefined;
+    matuy: string | undefined;
+    state: string | undefined;
+    noicap: string | undefined;
+    ketluan: string | undefined;
+    benhvien: string | undefined;
+    ngaykham: string | undefined;
+    ngaysinh: string | undefined;
+    nongdocon: string | undefined;
+    idbenhvien: string | undefined;
+    gioitinhval: string | undefined;
+    hangbanglai: string | undefined;
+    ngayketluan: string | undefined;
+    ngaykhamlai: string | undefined;
+    bacsyketluan: string | undefined;
+    dvinongdocon: string | undefined;
+    tinhtrangbenh: string | undefined;
+    maxA_THUONGTRU: string | undefined;
+    diachithuongtru: string | undefined;
+    ngaythangnamcapcmnd: string | undefined;
+    socmnD_PASSPORT: string | undefined;
+    matinH_THUONGTRU: string | undefined;
+    mahuyeN_THUONGTRU: string | undefined;
+    signdata: string | undefined;
+}
+
 export enum SyncStatus {
     _0 = 0,
     _1 = 1,
     _2 = 2,
     _3 = 3,
+    _4 = 4,
 }
 
 export class TemplateGroup implements ITemplateGroup {
@@ -9314,6 +9795,53 @@ export interface IUpdateCertificateGroupStatusDto {
     content: { [key: string]: Values; } | undefined;
     group: string | undefined;
     status: GroupStatus;
+}
+
+export class UpdateSyncRequest implements IUpdateSyncRequest {
+    id: number;
+    xmlEncrypted: string | undefined;
+
+    constructor(data?: IUpdateSyncRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.xmlEncrypted = _data["xmlEncrypted"];
+        }
+    }
+
+    static fromJS(data: any): UpdateSyncRequest {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateSyncRequest();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["xmlEncrypted"] = this.xmlEncrypted;
+        return data;
+    }
+
+    clone(): UpdateSyncRequest {
+        const json = this.toJSON();
+        let result = new UpdateSyncRequest();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IUpdateSyncRequest {
+    id: number;
+    xmlEncrypted: string | undefined;
 }
 
 export class User implements IUser {

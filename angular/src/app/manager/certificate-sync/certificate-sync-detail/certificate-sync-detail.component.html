@@ -1,28 +1,278 @@
-<form
-  class="form-horizontal"
-  autocomplete="off"
-  #editTenantForm="ngForm"
-  (ngSubmit)="save()"
->
-  <abp-modal-header
-    [title]="'EditTenant' | localize"
-    (onCloseClick)="bsModalRef.hide()"
-  ></abp-modal-header>
-  <div class="modal-body">
-    <div class="form-group row required">
-      <label class="col-md-3 col-form-label" for="tenancyName">
-        {{ sync.metaData.hoten }}
-      </label>
-    </div>
-    <div class="form-group row required">
-      <label class="col-md-3 col-form-label" for="tenancyName">
-        {{ sync.metaData }}
-      </label>
-    </div>
-  </div>
-  <abp-modal-footer
-    [cancelDisabled]="saving"
-    [saveDisabled]="!editTenantForm.form.valid || saving"
-    (onCancelClick)="bsModalRef.hide()"
-  ></abp-modal-footer>
-</form>
+<link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <form class="form-horizontal" autocomplete="off" #createProfile="ngForm" (ngSubmit)="save()"
+    style="font-size: smaller;">
+    <abp-modal-header [title]="'Hồ sơ sức khỏe' | localize" (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+    <fieldset [disabled]="true">
+      <div *ngIf="syncModel && syncModel.metaData">
+        <div class="container-fluid" style="  border: 2px dashed black ;border-radius: 15px; margin-top: 1rem;">
+          <h5 style="font-weight: bold;margin-top: 0.5rem">Thông tin cá nhân</h5>
+          <div class="row" style="display: flex; align-items: center;">
+            <div class="col-md-4">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="hoten" class="col-sm-3 col-form-label">Họ tên:</label>
+                <div class="col-sm-8">
+                  <input style="font-size: revert;" type="text" class="form-control" id="hoten" [(ngModel)]="syncModel.metaData.hoten"
+                    #hotenModel="ngModel" #hotenEl [ngModelOptions]="{standalone: true}">
+                  <abp-validation-summary [control]="hotenModel" [controlEl]="hotenEl"></abp-validation-summary>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="gioitinhval" class="col-sm-3 col-form-label">Giới tính:</label>
+                <div class="col-sm-8">
+                  <select  style="font-size: revert;" class="form-control" [(ngModel)]="syncModel.metaData.gioitinhval"
+                    [ngModelOptions]="{standalone: true}">
+                    <option value="0">Nam</option>
+                    <option value="1">Nữ</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="ngaysinh" class="col-sm-3 col-form-label">Ngày sinh:</label>
+                <div class="col-sm-8">
+                  <div>
+                    <input style="font-size: revert;" type="text" class="form-control" [(ngModel)]="syncModel.metaData.ngaysinh"
+                      #ngaysinhModel="ngModel" #ngaysinhEl [ngModelOptions]="{standalone: true}"
+                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+                    <abp-validation-summary [control]="ngaysinhModel" [controlEl]="ngaysinhEl"></abp-validation-summary>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="CCCD" class="col-sm-3 col-form-label">Số CMND/ CCCD/ PASSPORT:</label>
+                <div class="col-sm-8">
+                  <input style="font-size: revert;" type="text" class="form-control" id="cccd" [(ngModel)]="syncModel.metaData.socmnD_PASSPORT"
+                    #cccdModel="ngModel" #cccdEl [ngModelOptions]="{standalone: true}">
+                  <abp-validation-summary [control]="cccdModel" [controlEl]="cccdEl"></abp-validation-summary>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="ngaythangnamcap" class="col-sm-3 col-form-label">Ngày cấp:</label>
+                <div class="col-sm-8">
+                  <div>
+                    <input style="font-size: revert;" type="text" class="form-control" [(ngModel)]="syncModel.metaData.ngaythangnamcapcmnd"
+                      #ngaythangnamcapModel="ngModel" #ngaythangnamcapEl [ngModelOptions]="{standalone: true}"
+                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+                    <abp-validation-summary [control]="ngaythangnamcapModel"
+                      [controlEl]="ngaythangnamcapEl"></abp-validation-summary>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="noicap" class="col-sm-3 col-form-label">Nơi cấp:</label>
+                <div class="col-sm-8">
+                  <input style="font-size: revert;" type="text" class="form-control" id="noicap" [(ngModel)]="syncModel.metaData.noicap"
+                    #noicapModel="ngModel" #noicapEl [ngModelOptions]="{standalone: true}">
+                  <abp-validation-summary [control]="noicapModel" [controlEl]="noicapEl"></abp-validation-summary>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="matinH_THUONGTRU" class="col-sm-3 col-form-label">Tỉnh/TP thường trú:</label>
+                <div class="col-sm-8">
+                  <input style="font-size: revert;" type="text" class="form-control" id="matinH_THUONGTRU"
+                    [(ngModel)]="tinh" #matinH_THUONGTRUModel="ngModel" #matinH_THUONGTRUEl
+                    [ngModelOptions]="{standalone: true}">
+                  <abp-validation-summary [control]="matinH_THUONGTRUModel"
+                    [controlEl]="matinH_THUONGTRUEl"></abp-validation-summary>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="mahuyeN_THUONGTRU" class="col-sm-3 col-form-label">Quận/Huyện thường trú:</label>
+                <div class="col-sm-8">
+                  <input style="font-size: revert;" type="text" class="form-control" [(ngModel)]="huyen"
+                    #mahuyeN_THUONGTRUModel="ngModel" #mahuyeN_THUONGTRUEl [ngModelOptions]="{standalone: true}">
+                  <abp-validation-summary [control]="mahuyeN_THUONGTRUModel"
+                    [controlEl]="mahuyeN_THUONGTRUEl"></abp-validation-summary>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="maxA_THUONGTRU" class="col-sm-3 col-form-label">Xã/Phường thường trú:</label>
+                <div class="col-sm-8">
+                  <input style="font-size: revert;" type="text" class="form-control" [(ngModel)]="xa"
+                    #maxA_THUONGTRUModel="ngModel" #maxA_THUONGTRUEl [ngModelOptions]="{standalone: true}">
+                  <abp-validation-summary [control]="maxA_THUONGTRUModel"
+                    [controlEl]="maxA_THUONGTRUEl"></abp-validation-summary>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="diachithuongtru" class="col-sm-2 col-form-label">Địa chỉ thuờng trú:</label>
+                <div class="col-sm-9">
+                  <input style="font-size: revert;" type="text" class="form-control" [(ngModel)]="syncModel.metaData.diachithuongtru"
+                    #diachithuongtruModel="ngModel" #diachithuongtruEl [ngModelOptions]="{standalone: true}">
+                  <abp-validation-summary [control]="diachithuongtruModel"
+                    [controlEl]="diachithuongtruEl"></abp-validation-summary>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid" style="  border: 2px dashed black;border-radius: 15px; margin-top: 1rem;">
+          <h5 style="font-weight: bold;margin-top: 0.5rem;">Thông tin khám</h5>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="so" class="col-sm-3 col-form-label">Số:</label>
+                <div class="col-sm-8">
+                  <input style="font-size: revert;" type="text" class="form-control" id="so" [(ngModel)]="syncModel.metaData.so" #soModel="ngModel"
+                    #soEl [ngModelOptions]="{standalone: true}">
+                  <abp-validation-summary [control]="soModel" [controlEl]="soEl"></abp-validation-summary>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="benhvien" class="col-sm-3 col-form-label">CSKCB:</label>
+                <div class="col-sm-8">
+                  <input style="font-size: revert;" type="text" class="form-control" id="benhvien" [(ngModel)]="syncModel.metaData.benhvien"
+                    #benhvienModel="ngModel" #benhvienEl [ngModelOptions]="{standalone: true}">
+                  <abp-validation-summary [control]="benhvienModel" [controlEl]="benhvienEl"></abp-validation-summary>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="idbenhvien" class="col-sm-3 col-form-label">Mã CSKCB:</label>
+                <div class="col-sm-8">
+                  <input style="font-size: revert;" type="text" class="form-control" id="idbenhvien" [(ngModel)]="syncModel.metaData.idbenhvien"
+                    #idbenhvienModel="ngModel" #idbenhvienEl [ngModelOptions]="{standalone: true}">
+                  <abp-validation-summary [control]="idbenhvienModel" [controlEl]="idbenhvienEl"></abp-validation-summary>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="nongdocon" class="col-sm-3 col-form-label">Nồng độ cồn:</label>
+                <div class="col-sm-8">
+                  <input style="font-size: revert;" type="text" class="form-control" id="nongdocon" [(ngModel)]="syncModel.metaData.nongdocon"
+                    #nongdoconModel="ngModel" #nongdoconEl [ngModelOptions]="{standalone: true}">
+                  <abp-validation-summary [control]="nongdoconModel" [controlEl]="nongdoconEl"></abp-validation-summary>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="dvinongdocon" class="col-sm-3 col-form-label">Đơn vị đo nồng độ cồn:</label>
+                <div class="col-sm-8">
+                  <input style="font-size: revert;" type="text" class="form-control" id="dvinongdocon" [(ngModel)]="syncModel.metaData.dvinongdocon"
+                    #dvinongdoconModel="ngModel" #dvinongdoconEl [ngModelOptions]="{standalone: true}">
+                  <abp-validation-summary [control]="dvinongdoconModel"
+                    [controlEl]="dvinongdoconEl"></abp-validation-summary>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="matuy" class="col-sm-3 col-form-label">Ma túy:</label>
+                <div class="col-sm-8">
+                  <input style="font-size: revert;" type="text" class="form-control" id="matuy" [(ngModel)]="matuy"
+                    #matuyModel="ngModel" #matuyEl [ngModelOptions]="{standalone: true}">
+                  <abp-validation-summary [control]="matuyModel" [controlEl]="matuyEl"></abp-validation-summary>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="ngayketluan" class="col-sm-3 col-form-label">Ngày kết luận:</label>
+                <div class="col-sm-8">
+                  <div>
+                    <input style="font-size: revert;" type="text" class="form-control" [(ngModel)]="syncModel.metaData.ngayketluan"
+                      #ngayketluanModel="ngModel" #ngayketluanEl [ngModelOptions]="{standalone: true}"
+                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+                    <abp-validation-summary [control]="ngayketluanModel"
+                      [controlEl]="ngayketluanEl"></abp-validation-summary>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="bacsyketluan" class="col-sm-3 col-form-label">Bác sĩ kết luận:</label>
+                <div class="col-sm-8">
+                  <input style="font-size: revert;" type="text" class="form-control" [(ngModel)]="syncModel.metaData.bacsyketluan"
+                    #bacsyketluanModel="ngModel" #bacsyketluanEl [ngModelOptions]="{standalone: true}">
+                  <abp-validation-summary [control]="bacsyketluanModel"
+                    [controlEl]="bacsyketluanEl"></abp-validation-summary>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="ketluan" class="col-sm-3 col-form-label">Kết luận:</label>
+                <div class="col-sm-8">
+                  <input style="font-size: revert;" type="text" class="form-control" [(ngModel)]="syncModel.metaData.ketluan" #ketluanModel="ngModel"
+                    #ketluanEl [ngModelOptions]="{standalone: true}">
+                  <abp-validation-summary [control]="ketluanModel" [controlEl]="ketluanEl"></abp-validation-summary>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="hangbanglai" class="col-sm-3 col-form-label">Hạng bằng lái:</label>
+                <div class="col-sm-8">
+                  <input style="font-size: revert;" type="text" class="form-control" [(ngModel)]="syncModel.metaData.hangbanglai"
+                    #hangbanglaiModel="ngModel" #hangbanglaiEl [ngModelOptions]="{standalone: true}">
+                  <abp-validation-summary [control]="hangbanglaiModel"
+                    [controlEl]="hangbanglaiEl"></abp-validation-summary>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="ngaykhamlai" class="col-sm-3 col-form-label">Ngày khám lại:</label>
+                <div class="col-sm-8">
+                  <div>
+                    <input style="font-size: revert;" type="text" class="form-control" [(ngModel)]="syncModel.metaData.ngaykhamlai"
+                      #ngaykhamlaiModel="ngModel" #ngaykhamlaiEl [ngModelOptions]="{standalone: true}"
+                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+                    <abp-validation-summary [control]="ngaykhamlaiModel"
+                      [controlEl]="ngaykhamlaiEl"></abp-validation-summary>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="lydo" class="col-sm-2 col-form-label">Lý do:</label>
+                <div class="col-sm-9">
+                  <input style="font-size: revert;" type="text" class="form-control" [(ngModel)]="syncModel.metaData.lydo" #lydoModel="ngModel"
+                    #lydoEl [ngModelOptions]="{standalone: true}">
+                  <abp-validation-summary [control]="lydoModel" [controlEl]="lydoEl"></abp-validation-summary>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group row" style="display: flex; align-items: center;">
+                <label for="tinhtrangbenh" class="col-sm-2 col-form-label">Tình trạng bệnh:</label>
+                <div class="col-sm-9">
+                  <input style="font-size: revert;" type="text" class="form-control" [(ngModel)]="syncModel.metaData.tinhtrangbenh"
+                    #tinhtrangbenhModel="ngModel" #tinhtrangbenhEl [ngModelOptions]="{standalone: true}">
+                  <abp-validation-summary [control]="tinhtrangbenhModel"
+                    [controlEl]="tinhtrangbenhEl"></abp-validation-summary>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <!-- <abp-modal-footer [cancelDisabled]="saving" [saveDisabled]="!createProfile.form.valid || saving"
+      (onCancelClick)="bsModalRef.hide()"></abp-modal-footer> -->
+  </form>

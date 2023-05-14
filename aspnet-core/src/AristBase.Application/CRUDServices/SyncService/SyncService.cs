@@ -8,6 +8,7 @@ using AristBase.CRUDServices.ApproveServices.Dto;
 using AristBase.CRUDServices.SyncService.DTO;
 using AristBase.Extensions;
 using AristBase.Interfaces;
+using AristBase.Services;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,10 +27,16 @@ namespace AristBase.CRUDServices.SyncService
     public class SyncService : AsyncCrudPermissonAppService<CertificateSync, CertificateSyncDto, int, PagedAndSortedAndSyncReqeustResultDto>
     {
         private readonly IMapper _mapper;
+        private readonly BHXHHttpService _bHXHHttpService;
 
-        public SyncService(IRepository<CertificateSync, int> repository, IMapper _mapper) : base(repository, PermissionNames.Sync)
+        public SyncService(
+            IRepository<CertificateSync, int> repository
+            , IMapper _mapper
+            , BHXHHttpService bHXHHttpService
+            ) : base(repository, PermissionNames.Sync)
         {
             this._mapper = _mapper;
+            this._bHXHHttpService = bHXHHttpService;
         }
         public override async Task<PagedResultDto<CertificateSyncDto>> GetAllAsync(PagedAndSortedAndSyncReqeustResultDto input)
         {
@@ -105,6 +112,30 @@ namespace AristBase.CRUDServices.SyncService
             syncBody.SIGNDATA = Base64Helper.Base64Encode(syncData.XmlEncrypted);
             return syncBody;
         }
+        public async Task<Response> SyncCertificate(int id)
+        {
+            CheckUpdatePermission();
+            var syncEntity = await Repository.GetAll().Where(c => c.SyncStatus == SyncStatus.readyToSync && c.Id == id)
+                .OrderBy(c => c.CreationTime)
+                .SingleAsync();
 
+            var syncData = _mapper.Map<CertificateSyncDto>(syncEntity);
+            var syncBody = _mapper.Map<SyncRequestBody>(syncData.MetaData);
+            syncBody.SIGNDATA = Base64Helper.Base64Encode(syncData.XmlEncrypted);
+
+            var respone = await _bHXHHttpService.SyncCertificate(syncBody);
+            if(respone.MSG_STATE.Equals("1"))
+            {
+                syncEntity.SyncStatus = SyncStatus.done;
+            }
+            else
+            {
+                syncEntity.SyncStatus = SyncStatus.failed;
+            }
+            await Repository.UpdateAsync(syncEntity);
+
+            return respone;
+            
+        }
     }
 }
