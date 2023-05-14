@@ -12,7 +12,7 @@ import { CertificateDto } from "@shared/service-proxies/service-proxies";
 import * as moment from "moment";
 export class PagedCertificatesRequestDto extends PagedRequestDto {
   keyword: string;
-  filter: string;
+  filter: serviceProxies.Status;
 }
 export interface RegionDtlFull {
   id: string | undefined;
@@ -50,13 +50,13 @@ export class CertificateComponent
     finishedCallback: Function
   ): void {
     request.keyword = this.keyword;
-    this.filter = request.filter;
     this._certificatesService
       .getAll(
         "creationTime desc",
         request.keyword,
         this.getBegin(this.dateFrom),
         this.getEnd(this.dateTo),
+        request.filter,
         request.skipCount,
         request.maxResultCount,
       )
@@ -73,16 +73,16 @@ export class CertificateComponent
   }
   getIncrease(): void {
     const request = new PagedCertificatesRequestDto();
-    request.keyword = "certificate";
-    request.filter = "status desc";
+    request.keyword = "";
+    request.filter = serviceProxies.Status._2;
     console.log(request);
 
     this.list(request, this.pageNumber, () => {});
   }
   getReduce(): void {
     const request = new PagedCertificatesRequestDto();
-    request.keyword = "certificate";
-    request.filter = "status asc";
+    request.keyword = "";
+    request.filter = serviceProxies.Status._0;
     console.log(request);
 
     this.list(request, this.pageNumber, () => {});

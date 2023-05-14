@@ -39,7 +39,7 @@ namespace AristBase.CRUDServices.CertificateServices
         public string Reason { get; set; }
         public string LoaiGiay { get; set; }
     }
-    public class CertificateService : AsyncCrudAppService<Certificate, CertificateDto, Guid, PagedAndSortedAndSearchAndDateResultDto, CreateCertificateDto, UpdateCertificateDto>
+    public class CertificateService : AsyncCrudAppService<Certificate, CertificateDto, Guid, PagedAndSortedAndSearchAndDateAndStatusResultDto, CreateCertificateDto, UpdateCertificateDto>
     {
         private readonly IRepository<CertificateType, int> _cerTypeRepo;
         private readonly IRepository<CertificateGroupStatus, Guid> _cerGroupStatus;
@@ -62,7 +62,7 @@ namespace AristBase.CRUDServices.CertificateServices
             _historyRepo = historyRepo;
             this.storageService = storageService;
         }
-        public async override Task<PagedResultDto<CertificateDto>> GetAllAsync(PagedAndSortedAndSearchAndDateResultDto input)
+        public async override Task<PagedResultDto<CertificateDto>> GetAllAsync(PagedAndSortedAndSearchAndDateAndStatusResultDto input)
         {
             CheckGetAllPermission();
 
@@ -75,6 +75,10 @@ namespace AristBase.CRUDServices.CertificateServices
             {
                 query = query.Where(w => w.CreationTime <= input.DateTo);
             }
+            if (input.Status != null)
+            {
+                query = query.Where(w => w.Status == input.Status);
+            }
             query = query.Include(i => i.ClientInfo).Include(i => i.CertificateType).Include(i => i.CertificateType).WhereIf(!input.Keyword.IsNullOrWhiteSpace(), x => x.ClientInfo.FullName.Contains(input.Keyword)
                 || x.CertificateType.Name.Contains(input.Keyword)
                 || x.ClientInfo.CCCD.Contains(input.Keyword)
@@ -84,7 +88,7 @@ namespace AristBase.CRUDServices.CertificateServices
 
             //query = ApplySorting(query, input);
             query = query
-                .OrderBy(c=>c.Status).ThenByDescending(Q => Q.ClientInfo.Id);
+                .OrderBy(c => c.Status).ThenByDescending(Q => Q.ClientInfo.Id);
             query = ApplyPaging(query, input);
 
             var entities = await AsyncQueryableExecuter.ToListAsync(query);

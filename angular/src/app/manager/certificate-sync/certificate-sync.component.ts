@@ -58,11 +58,12 @@ export class CertificateSyncComponent extends PagedListingComponentBase<Certific
   }
   ViewSync(sync: CertificateSyncDto): void {
     this.showDialog(sync.id);
-
-    
-    
   }
-
+  syncCertificate(sync: CertificateSyncDto): void {
+    this._certificateSyncService.syncCertificate(sync.id).subscribe(r=>{
+      this.refresh();
+    });
+  }
   showDialog(id?: number): void {
     let createOrEditSyncDialog: BsModalRef;
     if (id) {
