@@ -80,7 +80,6 @@ namespace AristBase.CRUDServices.ApproveServices
                         var groups = new List<string>()
                     {
                         PermissionNames.KetLuan,
-                        PermissionNames.tdv,
                         PermissionNames.XetNghiemMaTuyVaMau
                     };
                         var dataDic = await repositoryGroupStatus.GetAll()
@@ -109,7 +108,7 @@ namespace AristBase.CRUDServices.ApproveServices
                             NONGDOCON = dataDic[PermissionNames.XetNghiemMaTuyVaMau].Content["text_nongdomau"].Value.Replace("mg/l", "").Trim(),
                             DVINONGDOCON = "1",
                             MATUY = SyncHelper.GetRealValue(dataDic[PermissionNames.XetNghiemMaTuyVaMau].Content["text_morphin"]),
-                            BACSYKETLUAN = dataDic[PermissionNames.tdv].User.FullName.ToUpper(),
+                            BACSYKETLUAN = dataDic[PermissionNames.KetLuan].User.FullName.ToUpper(),
                             KETLUAN = dataDic[PermissionNames.KetLuan].Content["text_ketluan"].RealValue,
                             NGAYKHAMLAI = dataDic[PermissionNames.KetLuan].Content["text_ngaykhamlai"].Value != "Invalid date" ? dataDic[PermissionNames.KetLuan].Content["text_ngaykhamlai"].Value : "",
                             LYDO = dataDic[PermissionNames.KetLuan].Content["text_lydokham"].Value,
