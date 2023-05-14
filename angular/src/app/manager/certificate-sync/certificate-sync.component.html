@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <div [@routerTransition]>
   <section class="content-header">
     <div class="container-fluid">
@@ -5,13 +7,6 @@
         <div class="col-6">
           <h1>{{ "Đồng bộ BHXH" | localize }}</h1>
         </div>
-        <!-- <div class="col-6 text-right">
-          <a href="javascript:;"
-            class="btn bg-blue">
-            <i class="fa fa-plus-square"></i>
-            {{ "Create" | localize }}
-          </a>
-        </div> -->
       </div>
     </div>
   </section>
@@ -20,18 +15,25 @@
       <div class="card">
         <div class="card-header">
           <div class="row">
-            <div class="col-md-6">&emsp;</div>
-            <div class="col-md-6">
-              <div class="input-group">
-                
-                <!-- <input type="text"
-                  class="form-control"
-                  name="keyword"
-                  [placeholder]="'SearchWithThreeDot' | localize"
-                  [(ngModel)]="keyword"
-                  (keyup.enter)="getDataPage(1)" /> -->
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-3"></div>
+                <div  class="col-md-3">
+                  <input type="text" [(ngModel)]="dateFrom" [ngModelOptions]="{standalone: true}"
+                    placeholder="Ngày bắt đầu" class="form-control" (ngModelChange)="getDateFrom($event)"
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+                </div>
+                <div class="col-md-3">
+                  <input type="text" [(ngModel)]="dateTo" [ngModelOptions]="{standalone: true}"
+                    placeholder="Ngày kết thúc" class="form-control" (ngModelChange)="getDateTo($event)"
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+                </div>
+                <div class="col-md-3"></div>
+
               </div>
             </div>
+            <!-- <div class="col-md-6">
+            </div> -->
           </div>
         </div>
         <div class="card-body">
@@ -40,8 +42,43 @@
               [busy]="isTableLoading">
               <thead class="bg-light">
                 <tr>
+                  <th>{{ "Số" | localize }}</th>
                   <th>{{ "Name" | localize }}</th>
-                  <th>{{ "Status" | localize }}</th>
+                  <th>
+                    <div class="btn-group" dropdown>
+                    <button id="button-animated" dropdownToggle type="button" class="btn btn-light dropdown-toggle"
+                            aria-controls="dropdown-animated" style="font-weight: bold;">
+                    {{ "Status" | localize }} <span class="caret"></span>
+                    </button>
+                    <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu"
+                        role="menu" aria-labelledby="button-animated">
+                      <li role="menuitem" (click)="getInit()">
+                        <a class="dropdown-item" >{{"Init"| localize}}
+
+                        </a>
+                      </li>
+                      <li role="menuitem" (click)="getDone()">
+                        <a class="dropdown-item" >{{"Done"| localize}}
+
+                        </a>
+                      </li>
+                      <li role="menuitem" (click)="getFailed()">
+                        <a class="dropdown-item" >{{"Failed"| localize}}
+
+                        </a>
+                      </li>
+                      <li role="menuitem" (click)="getCancelled()">
+                        <a class="dropdown-item" >{{"Cancelled"| localize}}
+
+                        </a>
+                      </li>
+                      <li role="menuitem" (click)="getReadyToSync()">
+                        <a class="dropdown-item" >{{"ReadyToSync"| localize}}
+
+                        </a>
+                      </li>
+                    </ul>
+                  </div></th>
                   <th>{{ "CreationTime" | localize }}</th>
                   <th style="width: 200px;">{{ "Actions" | localize }}</th>
                 </tr>
@@ -58,8 +95,24 @@
                         }
                 "
                 >
+                  <td>{{ sync.metaData.so }}</td>
                   <td>{{ sync.metaData.hoten }}</td>
-                  <td>{{ sync.syncStatus }}</td>
+                  <td><p *ngIf="sync.syncStatus == 0"
+                    style=" border: 2px solid #000000; border-radius: 15px; background-color: rgb(239, 244, 121); text-align: center;">
+                    {{"Init"| localize}}</p>
+                  <p *ngIf="sync.syncStatus == 1"
+                    style=" border: 2px solid #000000; border-radius: 15px; background-color: rgb(109, 247, 116); text-align: center;">
+                    {{"Done"| localize}}</p>
+                  <p *ngIf="sync.syncStatus == 2"
+                    style=" border: 2px solid #000000; border-radius: 15px; background-color: rgb(247, 109, 118); text-align: center;">
+                    {{"Failed"| localize}}</p>
+                  <p *ngIf="sync.syncStatus == 3"
+                    style=" border: 2px solid #000000; border-radius: 15px; background-color: rgb(177, 177, 231); text-align: center;">
+                    {{"Cancelled"| localize}}</p>
+                  <p *ngIf="sync.syncStatus == 4"
+                    style=" border: 2px solid #000000; border-radius: 15px; background-color: rgb(109, 183, 247); text-align: center;">
+                    {{"ReadyToSync"| localize}}</p>
+                  </td>
                   <td>{{ sync.creationTime | date:'dd/MM/yyyy HH:mm'}}</td>
                   <td>
                     <button type="button"

@@ -42,7 +42,7 @@ export class CertificateTypeComponent  extends PagedListingComponentBase<Certifi
     request.keyword = this.keyword;
 
     this._certificatesTypeService
-      .getAll("creationTime desc","",request.keyword, request.skipCount, request.maxResultCount)
+      .getAll("creationTime desc",request.keyword, request.skipCount, request.maxResultCount)
       .pipe(
         finalize(() => {
           finishedCallback();

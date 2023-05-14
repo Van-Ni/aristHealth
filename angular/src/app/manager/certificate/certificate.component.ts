@@ -10,7 +10,7 @@ import { EditCertificateComponent } from "./edit-certificate/edit-certificate.co
 import { finalize } from "rxjs";
 import { CertificateDto } from "@shared/service-proxies/service-proxies";
 import * as moment from "moment";
-class PagedCertificatesRequestDto extends PagedRequestDto {
+export class PagedCertificatesRequestDto extends PagedRequestDto {
   keyword: string;
   filter: string;
 }
@@ -53,13 +53,12 @@ export class CertificateComponent
     this.filter = request.filter;
     this._certificatesService
       .getAll(
-        this.filter,
-        "",
+        "creationTime desc",
         request.keyword,
         this.getBegin(this.dateFrom),
         this.getEnd(this.dateTo),
         request.skipCount,
-        request.maxResultCount
+        request.maxResultCount,
       )
       .pipe(
         finalize(() => {

@@ -48,7 +48,6 @@ list(
   this.historyExportService
     .getAll(
       "creationTime desc",
-      "",
       request.keyword,
       this.getBegin(this.dateFrom),
       this.getEnd(this.dateTo),

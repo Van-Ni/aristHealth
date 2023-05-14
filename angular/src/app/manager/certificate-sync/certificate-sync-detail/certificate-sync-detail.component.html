@@ -5,7 +5,7 @@
     <abp-modal-header [title]="'Hồ sơ sức khỏe' | localize" (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
     <fieldset [disabled]="true">
       <div *ngIf="syncModel && syncModel.metaData">
-        <div class="container-fluid" style="  border: 2px solid black;border-radius: 15px; margin-top: 1rem;">
+        <div class="container-fluid" style="  border: 2px dashed black ;border-radius: 15px; margin-top: 1rem;">
           <h5 style="font-weight: bold;margin-top: 0.5rem">Thông tin cá nhân</h5>
           <div class="row" style="display: flex; align-items: center;">
             <div class="col-md-4">
@@ -58,7 +58,7 @@
                 <label for="ngaythangnamcap" class="col-sm-3 col-form-label">Ngày cấp:</label>
                 <div class="col-sm-8">
                   <div>
-                    <input style="font-size: revert;" type="text" class="form-control" [(ngModel)]="syncModel.metaData.ngaythangnamcap"
+                    <input style="font-size: revert;" type="text" class="form-control" [(ngModel)]="syncModel.metaData.ngaythangnamcapcmnd"
                       #ngaythangnamcapModel="ngModel" #ngaythangnamcapEl [ngModelOptions]="{standalone: true}"
                       [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
                     <abp-validation-summary [control]="ngaythangnamcapModel"
@@ -124,7 +124,7 @@
             </div>
           </div>
         </div>
-        <div class="container-fluid" style="  border: 2px solid black;border-radius: 15px; margin-top: 1rem;">
+        <div class="container-fluid" style="  border: 2px dashed black;border-radius: 15px; margin-top: 1rem;">
           <h5 style="font-weight: bold;margin-top: 0.5rem;">Thông tin khám</h5>
           <div class="row">
             <div class="col-md-4">

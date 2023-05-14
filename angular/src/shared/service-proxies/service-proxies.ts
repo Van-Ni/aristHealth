@@ -622,7 +622,6 @@ export class CertificateServiceServiceProxy {
 
     /**
      * @param sorting (optional) 
-     * @param filter (optional) 
      * @param keyword (optional) 
      * @param dateFrom (optional) 
      * @param dateTo (optional) 
@@ -630,16 +629,12 @@ export class CertificateServiceServiceProxy {
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAll(sorting: string | undefined, filter: string | undefined, keyword: string | undefined, dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateDtoPagedResultDto> {
+    getAll(sorting: string | undefined, keyword: string | undefined, dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/CertificateService/GetAll?";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
             url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
         if (keyword === null)
             throw new Error("The parameter 'keyword' cannot be null.");
         else if (keyword !== undefined)
@@ -996,22 +991,17 @@ export class CertificateTypeServiceServiceProxy {
 
     /**
      * @param sorting (optional) 
-     * @param filter (optional) 
      * @param keyword (optional) 
      * @param skipCount (optional) 
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAll(sorting: string | undefined, filter: string | undefined, keyword: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateTypeDtoPagedResultDto> {
+    getAll(sorting: string | undefined, keyword: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateTypeDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/CertificateTypeService/GetAll?";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
             url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
         if (keyword === null)
             throw new Error("The parameter 'keyword' cannot be null.");
         else if (keyword !== undefined)
@@ -1925,7 +1915,7 @@ export class HistoryExportServiceServiceProxy {
      * @param status (optional) 
      * @return Success
      */
-    getExportCertificateList(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<void> {
+    getExportCertificateList(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<any> {
         let url_ = this.baseUrl + "/api/services/app/HistoryExportService/GetExportCertificateList?";
         if (dateFrom === null)
             throw new Error("The parameter 'dateFrom' cannot be null.");
@@ -1962,7 +1952,7 @@ export class HistoryExportServiceServiceProxy {
         }));
     }
 
-    protected processGetExportCertificateList(response: HttpResponseBase): Observable<void> {
+    protected processGetExportCertificateList(response: HttpResponseBase): Observable<any> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1970,9 +1960,10 @@ export class HistoryExportServiceServiceProxy {
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
-            }));
+            // return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            // return _observableOf(null as any);
+            // }));
+            return _observableOf(responseBlob);
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -2060,7 +2051,7 @@ export class HistoryExportServiceServiceProxy {
      * @param status (optional) 
      * @return Success
      */
-    getExportCertificate3List(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<void> {
+    getExportCertificate3List(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<any> {
         let url_ = this.baseUrl + "/api/services/app/HistoryExportService/GetExportCertificate3List?";
         if (dateFrom === null)
             throw new Error("The parameter 'dateFrom' cannot be null.");
@@ -2097,7 +2088,7 @@ export class HistoryExportServiceServiceProxy {
         }));
     }
 
-    protected processGetExportCertificate3List(response: HttpResponseBase): Observable<void> {
+    protected processGetExportCertificate3List(response: HttpResponseBase): Observable<any> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2105,9 +2096,10 @@ export class HistoryExportServiceServiceProxy {
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
-            }));
+            // return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            // return _observableOf(null as any);
+            // }));
+            return _observableOf(responseBlob);
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -2122,7 +2114,7 @@ export class HistoryExportServiceServiceProxy {
      * @param status (optional) 
      * @return Success
      */
-    getExportCertificateMaTuyList(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<void> {
+    getExportCertificateMaTuyList(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<any> {
         let url_ = this.baseUrl + "/api/services/app/HistoryExportService/GetExportCertificateMaTuyList?";
         if (dateFrom === null)
             throw new Error("The parameter 'dateFrom' cannot be null.");
@@ -2159,7 +2151,7 @@ export class HistoryExportServiceServiceProxy {
         }));
     }
 
-    protected processGetExportCertificateMaTuyList(response: HttpResponseBase): Observable<void> {
+    protected processGetExportCertificateMaTuyList(response: HttpResponseBase): Observable<any> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2167,9 +2159,10 @@ export class HistoryExportServiceServiceProxy {
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
-            }));
+            // return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            // return _observableOf(null as any);
+            // }));
+            return _observableOf(responseBlob);
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -2184,7 +2177,7 @@ export class HistoryExportServiceServiceProxy {
      * @param status (optional) 
      * @return Success
      */
-    getExportCertificateMaTuyListDuongTinh(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<void> {
+    getExportCertificateMaTuyListDuongTinh(dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, status: Status | undefined): Observable<any> {
         let url_ = this.baseUrl + "/api/services/app/HistoryExportService/GetExportCertificateMaTuyListDuongTinh?";
         if (dateFrom === null)
             throw new Error("The parameter 'dateFrom' cannot be null.");
@@ -2221,7 +2214,7 @@ export class HistoryExportServiceServiceProxy {
         }));
     }
 
-    protected processGetExportCertificateMaTuyListDuongTinh(response: HttpResponseBase): Observable<void> {
+    protected processGetExportCertificateMaTuyListDuongTinh(response: HttpResponseBase): Observable<any> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2229,9 +2222,10 @@ export class HistoryExportServiceServiceProxy {
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
-            }));
+            // return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            // return _observableOf(null as any);
+            // }));
+            return _observableOf(responseBlob);
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -2242,7 +2236,6 @@ export class HistoryExportServiceServiceProxy {
 
     /**
      * @param sorting (optional) 
-     * @param filter (optional) 
      * @param keyword (optional) 
      * @param dateFrom (optional) 
      * @param dateTo (optional) 
@@ -2250,16 +2243,12 @@ export class HistoryExportServiceServiceProxy {
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAll(sorting: string | undefined, filter: string | undefined, keyword: string | undefined, dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<HistoryExportDtoPagedResultDto> {
+    getAll(sorting: string | undefined, keyword: string | undefined, dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<HistoryExportDtoPagedResultDto> {
         let url_ = this.baseUrl + "/api/services/app/HistoryExportService/GetAll?";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
             url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "filter=" + encodeURIComponent("" + filter) + "&";
         if (keyword === null)
             throw new Error("The parameter 'keyword' cannot be null.");
         else if (keyword !== undefined)
@@ -2330,7 +2319,7 @@ export class HistoryExportServiceServiceProxy {
      * @param filePath (optional) 
      * @return Success
      */
-    downloadFilePath(filePath: string | undefined): Observable<void> {
+    downloadFilePath(filePath: string | undefined): Observable<any> {
         let url_ = this.baseUrl + "/api/services/app/HistoryExportService/DownloadFilePath?";
         if (filePath === null)
             throw new Error("The parameter 'filePath' cannot be null.");
@@ -2359,7 +2348,7 @@ export class HistoryExportServiceServiceProxy {
         }));
     }
 
-    protected processDownloadFilePath(response: HttpResponseBase): Observable<void> {
+    protected processDownloadFilePath(response: HttpResponseBase): Observable<any> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2367,9 +2356,10 @@ export class HistoryExportServiceServiceProxy {
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
-            }));
+            // return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            // return _observableOf(null as any);
+            // }));
+            return _observableOf(responseBlob);
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -3089,7 +3079,7 @@ export class PDFServiceServiceProxy {
      * @param cerId (optional) 
      * @return Success
      */
-    getCertificatePdfPrintedFile(cerId: string | undefined): Observable<void> {
+    getCertificatePdfPrintedFile(cerId: string | undefined): Observable<any> {
         let url_ = this.baseUrl + "/api/services/app/PDFService/GetCertificatePdfPrintedFile?";
         if (cerId === null)
             throw new Error("The parameter 'cerId' cannot be null.");
@@ -3118,7 +3108,7 @@ export class PDFServiceServiceProxy {
         }));
     }
 
-    protected processGetCertificatePdfPrintedFile(response: HttpResponseBase): Observable<void> {
+    protected processGetCertificatePdfPrintedFile(response: HttpResponseBase): Observable<any> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -3126,9 +3116,10 @@ export class PDFServiceServiceProxy {
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
-            }));
+            // return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            // return _observableOf(null as any);
+            // }));
+            return _observableOf(responseBlob);
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
@@ -3929,6 +3920,241 @@ export class SyncServiceServiceProxy {
     }
 
     /**
+     * @param sorting (optional) 
+     * @param dateFrom (optional) 
+     * @param dateTo (optional) 
+     * @param syncStatus (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(sorting: string | undefined, dateFrom: moment.Moment | undefined, dateTo: moment.Moment | undefined, syncStatus: SyncStatus | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateSyncDtoPagedResultDto> {
+        let url_ = this.baseUrl + "/api/services/app/SyncService/GetAll?";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (dateFrom === null)
+            throw new Error("The parameter 'dateFrom' cannot be null.");
+        else if (dateFrom !== undefined)
+            url_ += "DateFrom=" + encodeURIComponent(dateFrom ? "" + dateFrom.toISOString() : "") + "&";
+        if (dateTo === null)
+            throw new Error("The parameter 'dateTo' cannot be null.");
+        else if (dateTo !== undefined)
+            url_ += "DateTo=" + encodeURIComponent(dateTo ? "" + dateTo.toISOString() : "") + "&";
+        if (syncStatus === null)
+            throw new Error("The parameter 'syncStatus' cannot be null.");
+        else if (syncStatus !== undefined)
+            url_ += "SyncStatus=" + encodeURIComponent("" + syncStatus) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CertificateSyncDtoPagedResultDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CertificateSyncDtoPagedResultDto>;
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<CertificateSyncDtoPagedResultDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CertificateSyncDtoPagedResultDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    getSyncCertificate(): Observable<CertificateSyncDto> {
+        let url_ = this.baseUrl + "/api/services/app/SyncService/GetSyncCertificate";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetSyncCertificate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetSyncCertificate(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CertificateSyncDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CertificateSyncDto>;
+        }));
+    }
+
+    protected processGetSyncCertificate(response: HttpResponseBase): Observable<CertificateSyncDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = CertificateSyncDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    updateXmlSyncSyncCertificate(body: UpdateSyncRequest | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/SyncService/UpdateXmlSyncSyncCertificate";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateXmlSyncSyncCertificate(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateXmlSyncSyncCertificate(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processUpdateXmlSyncSyncCertificate(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @return Success
+     */
+    getReadyToSycnbody(): Observable<SyncRequestBody> {
+        let url_ = this.baseUrl + "/api/services/app/SyncService/GetReadyToSycnbody";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetReadyToSycnbody(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetReadyToSycnbody(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<SyncRequestBody>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<SyncRequestBody>;
+        }));
+    }
+
+    protected processGetReadyToSycnbody(response: HttpResponseBase): Observable<SyncRequestBody> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = SyncRequestBody.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
      * @param id (optional) 
      * @return Success
      */
@@ -3974,72 +4200,6 @@ export class SyncServiceServiceProxy {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result200 = CertificateSyncDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param sorting (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
-     * @return Success
-     */
-    getAll(sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<CertificateSyncDtoPagedResultDto> {
-        let url_ = this.baseUrl + "/api/services/app/SyncService/GetAll?";
-        if (sorting === null)
-            throw new Error("The parameter 'sorting' cannot be null.");
-        else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (skipCount === null)
-            throw new Error("The parameter 'skipCount' cannot be null.");
-        else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
-        if (maxResultCount === null)
-            throw new Error("The parameter 'maxResultCount' cannot be null.");
-        else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAll(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetAll(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<CertificateSyncDtoPagedResultDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<CertificateSyncDtoPagedResultDto>;
-        }));
-    }
-
-    protected processGetAll(response: HttpResponseBase): Observable<CertificateSyncDtoPagedResultDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = CertificateSyncDtoPagedResultDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -5753,31 +5913,30 @@ export interface ICertificate {
 
 export class CertificateDataSync implements ICertificateDataSync {
     so: string | undefined;
-    ngaykham: string | undefined;
+    lydo: string | undefined;
     hoten: string | undefined;
-    gioitinhval: string | undefined;
+    matuy: string | undefined;
+    state: string | undefined;
+    noicap: string | undefined;
+    ketluan: string | undefined;
+    benhvien: string | undefined;
+    ngaykham: string | undefined;
     ngaysinh: string | undefined;
+    nongdocon: string | undefined;
+    idbenhvien: string | undefined;
+    gioitinhval: string | undefined;
+    hangbanglai: string | undefined;
+    ngayketluan: string | undefined;
+    ngaykhamlai: string | undefined;
+    bacsyketluan: string | undefined;
+    dvinongdocon: string | undefined;
+    tinhtrangbenh: string | undefined;
+    maxA_THUONGTRU: string | undefined;
     diachithuongtru: string | undefined;
+    ngaythangnamcapcmnd: string | undefined;
+    socmnD_PASSPORT: string | undefined;
     matinH_THUONGTRU: string | undefined;
     mahuyeN_THUONGTRU: string | undefined;
-    maxA_THUONGTRU: string | undefined;
-    socmnD_PASSPORT: string | undefined;
-    ngaythangnamcap: string | undefined;
-    noicap: string | undefined;
-    idbenhvien: string | undefined;
-    benhvien: string | undefined;
-    nongdocon: string | undefined;
-    dvinongdocon: string | undefined;
-    matuy: string | undefined;
-    ngayketluan: string | undefined;
-    bacsyketluan: string | undefined;
-    ketluan: string | undefined;
-    hangbanglai: string | undefined;
-    ngaykhamlai: string | undefined;
-    lydo: string | undefined;
-    tinhtrangbenh: string | undefined;
-    state: string | undefined;
-    signdata: string | undefined;
 
     constructor(data?: ICertificateDataSync) {
         if (data) {
@@ -5790,32 +5949,31 @@ export class CertificateDataSync implements ICertificateDataSync {
 
     init(_data?: any) {
         if (_data) {
-            this.so = _data["so"];
-            this.ngaykham = _data["ngaykham"];
-            this.hoten = _data["hoten"];
-            this.gioitinhval = _data["gioitinhval"];
-            this.ngaysinh = _data["ngaysinh"];
-            this.diachithuongtru = _data["diachithuongtru"];
-            this.matinH_THUONGTRU = _data["matinH_THUONGTRU"];
-            this.mahuyeN_THUONGTRU = _data["mahuyeN_THUONGTRU"];
-            this.maxA_THUONGTRU = _data["maxA_THUONGTRU"];
-            this.socmnD_PASSPORT = _data["socmnD_PASSPORT"];
-            this.ngaythangnamcap = _data["ngaythangnamcap"];
-            this.noicap = _data["noicap"];
-            this.idbenhvien = _data["idbenhvien"];
-            this.benhvien = _data["benhvien"];
-            this.nongdocon = _data["nongdocon"];
-            this.dvinongdocon = _data["dvinongdocon"];
-            this.matuy = _data["matuy"];
-            this.ngayketluan = _data["ngayketluan"];
-            this.bacsyketluan = _data["bacsyketluan"];
-            this.ketluan = _data["ketluan"];
-            this.hangbanglai = _data["hangbanglai"];
-            this.ngaykhamlai = _data["ngaykhamlai"];
-            this.lydo = _data["lydo"];
-            this.tinhtrangbenh = _data["tinhtrangbenh"];
-            this.state = _data["state"];
-            this.signdata = _data["signdata"];
+            this.so = _data["SO"];
+            this.lydo = _data["LYDO"];
+            this.hoten = _data["HOTEN"];
+            this.matuy = _data["MATUY"];
+            this.state = _data["STATE"];
+            this.noicap = _data["NOICAP"];
+            this.ketluan = _data["KETLUAN"];
+            this.benhvien = _data["BENHVIEN"];
+            this.ngaykham = _data["NGAYKHAM"];
+            this.ngaysinh = _data["NGAYSINH"];
+            this.nongdocon = _data["NONGDOCON"];
+            this.idbenhvien = _data["IDBENHVIEN"];
+            this.gioitinhval = _data["GIOITINHVAL"];
+            this.hangbanglai = _data["HANGBANGLAI"];
+            this.ngayketluan = _data["NGAYKETLUAN"];
+            this.ngaykhamlai = _data["NGAYKHAMLAI"];
+            this.bacsyketluan = _data["BACSYKETLUAN"];
+            this.dvinongdocon = _data["DVINONGDOCON"];
+            this.tinhtrangbenh = _data["TINHTRANGBENH"];
+            this.maxA_THUONGTRU = _data["MAXA_THUONGTRU"];
+            this.diachithuongtru = _data["DIACHITHUONGTRU"];
+            this.ngaythangnamcapcmnd = _data["NGAYTHANGNAMCAPCMND"];
+            this.socmnD_PASSPORT = _data["SOCMND_PASSPORT"];
+            this.matinH_THUONGTRU = _data["MATINH_THUONGTRU"];
+            this.mahuyeN_THUONGTRU = _data["MAHUYEN_THUONGTRU"];
         }
     }
 
@@ -5829,31 +5987,30 @@ export class CertificateDataSync implements ICertificateDataSync {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["so"] = this.so;
-        data["ngaykham"] = this.ngaykham;
-        data["hoten"] = this.hoten;
-        data["gioitinhval"] = this.gioitinhval;
-        data["ngaysinh"] = this.ngaysinh;
-        data["diachithuongtru"] = this.diachithuongtru;
-        data["matinH_THUONGTRU"] = this.matinH_THUONGTRU;
-        data["mahuyeN_THUONGTRU"] = this.mahuyeN_THUONGTRU;
-        data["maxA_THUONGTRU"] = this.maxA_THUONGTRU;
-        data["socmnD_PASSPORT"] = this.socmnD_PASSPORT;
-        data["ngaythangnamcap"] = this.ngaythangnamcap;
-        data["noicap"] = this.noicap;
-        data["idbenhvien"] = this.idbenhvien;
-        data["benhvien"] = this.benhvien;
-        data["nongdocon"] = this.nongdocon;
-        data["dvinongdocon"] = this.dvinongdocon;
-        data["matuy"] = this.matuy;
-        data["ngayketluan"] = this.ngayketluan;
-        data["bacsyketluan"] = this.bacsyketluan;
-        data["ketluan"] = this.ketluan;
-        data["hangbanglai"] = this.hangbanglai;
-        data["ngaykhamlai"] = this.ngaykhamlai;
-        data["lydo"] = this.lydo;
-        data["tinhtrangbenh"] = this.tinhtrangbenh;
-        data["state"] = this.state;
-        data["signdata"] = this.signdata;
+        data["LYDO"] = this.lydo;
+        data["HOTEN"] = this.hoten;
+        data["MATUY"] = this.matuy;
+        data["STATE"] = this.state;
+        data["NOICAP"] = this.noicap;
+        data["KETLUAN"] = this.ketluan;
+        data["BENHVIEN"] = this.benhvien;
+        data["NGAYKHAM"] = this.ngaykham;
+        data["NGAYSINH"] = this.ngaysinh;
+        data["NONGDOCON"] = this.nongdocon;
+        data["IDBENHVIEN"] = this.idbenhvien;
+        data["GIOITINHVAL"] = this.gioitinhval;
+        data["HANGBANGLAI"] = this.hangbanglai;
+        data["NGAYKETLUAN"] = this.ngayketluan;
+        data["NGAYKHAMLAI"] = this.ngaykhamlai;
+        data["BACSYKETLUAN"] = this.bacsyketluan;
+        data["DVNONGDOCON"] = this.dvinongdocon;
+        data["TINHTRANGBENH"] = this.tinhtrangbenh;
+        data["MAXA_THUONGTRU"] = this.maxA_THUONGTRU;
+        data["DIACHITHUONGTRU"] = this.diachithuongtru;
+        data["NGAYTHANGNAMCAPCMND"] = this.ngaythangnamcapcmnd;
+        data["SOCMND_PASSPORT"] = this.socmnD_PASSPORT;
+        data["MATINH_THUONGTRU"] = this.matinH_THUONGTRU;
+        data["MAHUYEN_THUONGTRU"] = this.mahuyeN_THUONGTRU;
         return data;
     }
 
@@ -5867,31 +6024,30 @@ export class CertificateDataSync implements ICertificateDataSync {
 
 export interface ICertificateDataSync {
     so: string | undefined;
-    ngaykham: string | undefined;
+    lydo: string | undefined;
     hoten: string | undefined;
-    gioitinhval: string | undefined;
+    matuy: string | undefined;
+    state: string | undefined;
+    noicap: string | undefined;
+    ketluan: string | undefined;
+    benhvien: string | undefined;
+    ngaykham: string | undefined;
     ngaysinh: string | undefined;
+    nongdocon: string | undefined;
+    idbenhvien: string | undefined;
+    gioitinhval: string | undefined;
+    hangbanglai: string | undefined;
+    ngayketluan: string | undefined;
+    ngaykhamlai: string | undefined;
+    bacsyketluan: string | undefined;
+    dvinongdocon: string | undefined;
+    tinhtrangbenh: string | undefined;
+    maxA_THUONGTRU: string | undefined;
     diachithuongtru: string | undefined;
+    ngaythangnamcapcmnd: string | undefined;
+    socmnD_PASSPORT: string | undefined;
     matinH_THUONGTRU: string | undefined;
     mahuyeN_THUONGTRU: string | undefined;
-    maxA_THUONGTRU: string | undefined;
-    socmnD_PASSPORT: string | undefined;
-    ngaythangnamcap: string | undefined;
-    noicap: string | undefined;
-    idbenhvien: string | undefined;
-    benhvien: string | undefined;
-    nongdocon: string | undefined;
-    dvinongdocon: string | undefined;
-    matuy: string | undefined;
-    ngayketluan: string | undefined;
-    bacsyketluan: string | undefined;
-    ketluan: string | undefined;
-    hangbanglai: string | undefined;
-    ngaykhamlai: string | undefined;
-    lydo: string | undefined;
-    tinhtrangbenh: string | undefined;
-    state: string | undefined;
-    signdata: string | undefined;
 }
 
 export class CertificateDto implements ICertificateDto {
@@ -6394,6 +6550,7 @@ export class CertificateSyncDto implements ICertificateSyncDto {
     metaData: CertificateDataSync;
     certificateId: string;
     xmlEncrypted: string | undefined;
+    xmlUnSign: string | undefined;
     certificate: Certificate;
     creationTime: moment.Moment;
 
@@ -6413,6 +6570,7 @@ export class CertificateSyncDto implements ICertificateSyncDto {
             this.metaData = _data["metaData"] ? CertificateDataSync.fromJS(_data["metaData"]) : <any>undefined;
             this.certificateId = _data["certificateId"];
             this.xmlEncrypted = _data["xmlEncrypted"];
+            this.xmlUnSign = _data["xmlUnSign"];
             this.certificate = _data["certificate"] ? Certificate.fromJS(_data["certificate"]) : <any>undefined;
             this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
         }
@@ -6432,6 +6590,7 @@ export class CertificateSyncDto implements ICertificateSyncDto {
         data["metaData"] = this.metaData ? this.metaData.toJSON() : <any>undefined;
         data["certificateId"] = this.certificateId;
         data["xmlEncrypted"] = this.xmlEncrypted;
+        data["xmlUnSign"] = this.xmlUnSign;
         data["certificate"] = this.certificate ? this.certificate.toJSON() : <any>undefined;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         return data;
@@ -6451,6 +6610,7 @@ export interface ICertificateSyncDto {
     metaData: CertificateDataSync;
     certificateId: string;
     xmlEncrypted: string | undefined;
+    xmlUnSign: string | undefined;
     certificate: Certificate;
     creationTime: moment.Moment;
 }
@@ -8987,11 +9147,155 @@ export enum Status {
     _2 = 2,
 }
 
+export class SyncRequestBody implements ISyncRequestBody {
+    so: string | undefined;
+    lydo: string | undefined;
+    hoten: string | undefined;
+    matuy: string | undefined;
+    state: string | undefined;
+    noicap: string | undefined;
+    ketluan: string | undefined;
+    benhvien: string | undefined;
+    ngaykham: string | undefined;
+    ngaysinh: string | undefined;
+    nongdocon: string | undefined;
+    idbenhvien: string | undefined;
+    gioitinhval: string | undefined;
+    hangbanglai: string | undefined;
+    ngayketluan: string | undefined;
+    ngaykhamlai: string | undefined;
+    bacsyketluan: string | undefined;
+    dvinongdocon: string | undefined;
+    tinhtrangbenh: string | undefined;
+    maxA_THUONGTRU: string | undefined;
+    diachithuongtru: string | undefined;
+    ngaythangnamcapcmnd: string | undefined;
+    socmnD_PASSPORT: string | undefined;
+    matinH_THUONGTRU: string | undefined;
+    mahuyeN_THUONGTRU: string | undefined;
+    signdata: string | undefined;
+
+    constructor(data?: ISyncRequestBody) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.so = _data["so"];
+            this.lydo = _data["lydo"];
+            this.hoten = _data["hoten"];
+            this.matuy = _data["matuy"];
+            this.state = _data["state"];
+            this.noicap = _data["noicap"];
+            this.ketluan = _data["ketluan"];
+            this.benhvien = _data["benhvien"];
+            this.ngaykham = _data["ngaykham"];
+            this.ngaysinh = _data["ngaysinh"];
+            this.nongdocon = _data["nongdocon"];
+            this.idbenhvien = _data["idbenhvien"];
+            this.gioitinhval = _data["gioitinhval"];
+            this.hangbanglai = _data["hangbanglai"];
+            this.ngayketluan = _data["ngayketluan"];
+            this.ngaykhamlai = _data["ngaykhamlai"];
+            this.bacsyketluan = _data["bacsyketluan"];
+            this.dvinongdocon = _data["dvinongdocon"];
+            this.tinhtrangbenh = _data["tinhtrangbenh"];
+            this.maxA_THUONGTRU = _data["maxA_THUONGTRU"];
+            this.diachithuongtru = _data["diachithuongtru"];
+            this.ngaythangnamcapcmnd = _data["ngaythangnamcapcmnd"];
+            this.socmnD_PASSPORT = _data["socmnD_PASSPORT"];
+            this.matinH_THUONGTRU = _data["matinH_THUONGTRU"];
+            this.mahuyeN_THUONGTRU = _data["mahuyeN_THUONGTRU"];
+            this.signdata = _data["signdata"];
+        }
+    }
+
+    static fromJS(data: any): SyncRequestBody {
+        data = typeof data === 'object' ? data : {};
+        let result = new SyncRequestBody();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["so"] = this.so;
+        data["lydo"] = this.lydo;
+        data["hoten"] = this.hoten;
+        data["matuy"] = this.matuy;
+        data["state"] = this.state;
+        data["noicap"] = this.noicap;
+        data["ketluan"] = this.ketluan;
+        data["benhvien"] = this.benhvien;
+        data["ngaykham"] = this.ngaykham;
+        data["ngaysinh"] = this.ngaysinh;
+        data["nongdocon"] = this.nongdocon;
+        data["idbenhvien"] = this.idbenhvien;
+        data["gioitinhval"] = this.gioitinhval;
+        data["hangbanglai"] = this.hangbanglai;
+        data["ngayketluan"] = this.ngayketluan;
+        data["ngaykhamlai"] = this.ngaykhamlai;
+        data["bacsyketluan"] = this.bacsyketluan;
+        data["dvinongdocon"] = this.dvinongdocon;
+        data["tinhtrangbenh"] = this.tinhtrangbenh;
+        data["maxA_THUONGTRU"] = this.maxA_THUONGTRU;
+        data["diachithuongtru"] = this.diachithuongtru;
+        data["ngaythangnamcapcmnd"] = this.ngaythangnamcapcmnd;
+        data["socmnD_PASSPORT"] = this.socmnD_PASSPORT;
+        data["matinH_THUONGTRU"] = this.matinH_THUONGTRU;
+        data["mahuyeN_THUONGTRU"] = this.mahuyeN_THUONGTRU;
+        data["signdata"] = this.signdata;
+        return data;
+    }
+
+    clone(): SyncRequestBody {
+        const json = this.toJSON();
+        let result = new SyncRequestBody();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface ISyncRequestBody {
+    so: string | undefined;
+    lydo: string | undefined;
+    hoten: string | undefined;
+    matuy: string | undefined;
+    state: string | undefined;
+    noicap: string | undefined;
+    ketluan: string | undefined;
+    benhvien: string | undefined;
+    ngaykham: string | undefined;
+    ngaysinh: string | undefined;
+    nongdocon: string | undefined;
+    idbenhvien: string | undefined;
+    gioitinhval: string | undefined;
+    hangbanglai: string | undefined;
+    ngayketluan: string | undefined;
+    ngaykhamlai: string | undefined;
+    bacsyketluan: string | undefined;
+    dvinongdocon: string | undefined;
+    tinhtrangbenh: string | undefined;
+    maxA_THUONGTRU: string | undefined;
+    diachithuongtru: string | undefined;
+    ngaythangnamcapcmnd: string | undefined;
+    socmnD_PASSPORT: string | undefined;
+    matinH_THUONGTRU: string | undefined;
+    mahuyeN_THUONGTRU: string | undefined;
+    signdata: string | undefined;
+}
+
 export enum SyncStatus {
     _0 = 0,
     _1 = 1,
     _2 = 2,
     _3 = 3,
+    _4 = 4,
 }
 
 export class TemplateGroup implements ITemplateGroup {
@@ -9368,6 +9672,53 @@ export interface IUpdateCertificateGroupStatusDto {
     content: { [key: string]: Values; } | undefined;
     group: string | undefined;
     status: GroupStatus;
+}
+
+export class UpdateSyncRequest implements IUpdateSyncRequest {
+    id: number;
+    xmlEncrypted: string | undefined;
+
+    constructor(data?: IUpdateSyncRequest) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.xmlEncrypted = _data["xmlEncrypted"];
+        }
+    }
+
+    static fromJS(data: any): UpdateSyncRequest {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateSyncRequest();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["xmlEncrypted"] = this.xmlEncrypted;
+        return data;
+    }
+
+    clone(): UpdateSyncRequest {
+        const json = this.toJSON();
+        let result = new UpdateSyncRequest();
+        result.init(json);
+        return result;
+    }
+}
+
+export interface IUpdateSyncRequest {
+    id: number;
+    xmlEncrypted: string | undefined;
 }
 
 export class User implements IUser {
