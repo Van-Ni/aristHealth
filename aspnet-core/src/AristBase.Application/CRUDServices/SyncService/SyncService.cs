@@ -105,6 +105,9 @@ namespace AristBase.CRUDServices.SyncService
             syncBody.SIGNDATA = Base64Helper.Base64Encode(syncData.XmlEncrypted);
             return syncBody;
         }
+        public async Task SyncCertificate(int id)
+        {
 
+        }
     }
 }
