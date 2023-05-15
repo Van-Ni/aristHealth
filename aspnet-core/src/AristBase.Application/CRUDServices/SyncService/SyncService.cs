@@ -112,7 +112,7 @@ namespace AristBase.CRUDServices.SyncService
             syncBody.SIGNDATA = Base64Helper.Base64Encode(syncData.XmlEncrypted);
             return syncBody;
         }
-        public async Task<Response> SyncCertificate(int id)
+        public async Task<SyncResponse> SyncCertificate(int id)
         {
             CheckUpdatePermission();
             var syncEntity = await Repository.GetAll().Where(c => c.SyncStatus == SyncStatus.readyToSync && c.Id == id)
@@ -132,6 +132,7 @@ namespace AristBase.CRUDServices.SyncService
             {
                 syncEntity.SyncStatus = SyncStatus.failed;
             }
+            
             await Repository.UpdateAsync(syncEntity);
 
             return respone;

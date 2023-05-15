@@ -61,6 +61,7 @@ export class CertificateSyncComponent extends PagedListingComponentBase<Certific
   }
   syncCertificate(sync: CertificateSyncDto): void {
     this._certificateSyncService.syncCertificate(sync.id).subscribe(r=>{
+      abp.notify.success(this.l('Successfully'));
       this.refresh();
     });
   }

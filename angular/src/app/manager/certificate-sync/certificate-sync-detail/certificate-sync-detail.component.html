@@ -182,8 +182,14 @@
               <div class="form-group row" style="display: flex; align-items: center;">
                 <label for="matuy" class="col-sm-3 col-form-label">Ma túy:</label>
                 <div class="col-sm-8">
-                  <input style="font-size: revert;" type="text" class="form-control" id="matuy" [(ngModel)]="matuy"
-                    #matuyModel="ngModel" #matuyEl [ngModelOptions]="{standalone: true}">
+                  <select id="matuy" #matuyEl style="font-size: revert;" class="form-control" 
+                  [(ngModel)]="syncModel.metaData.matuy"
+                  #matuyModel="ngModel"
+                    [ngModelOptions]="{standalone: true}">
+                    <option value="0">Âm tính</option>
+                    <option value="1">Dương tính</option>
+                  </select>
+                  
                   <abp-validation-summary [control]="matuyModel" [controlEl]="matuyEl"></abp-validation-summary>
                 </div>
               </div>
