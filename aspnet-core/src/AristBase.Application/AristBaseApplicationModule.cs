@@ -2,6 +2,7 @@
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using AristBase.Authorization;
+using System;
 
 namespace AristBase
 {
@@ -14,6 +15,10 @@ namespace AristBase
         {
             Configuration.Authorization.Providers.Add<AristBaseAuthorizationProvider>();
             Configuration.BackgroundJobs.IsJobExecutionEnabled = false;
+            Configuration.Caching.ConfigureAll(cache =>
+            {
+                cache.DefaultSlidingExpireTime = TimeSpan.FromHours(4);
+            });
         }
 
         public override void Initialize()

@@ -122,8 +122,9 @@ namespace AristBase.CRUDServices.SyncService
             var syncData = _mapper.Map<CertificateSyncDto>(syncEntity);
             var syncBody = _mapper.Map<SyncRequestBody>(syncData.MetaData);
             syncBody.SIGNDATA = Base64Helper.Base64Encode(syncData.XmlEncrypted);
-
-            var respone = await _bHXHHttpService.SyncCertificate(syncBody);
+            
+            var respone = await _bHXHHttpService.SyncCertificate(syncBody, AbpSession.TenantId.Value);
+            syncEntity.SyncResponse = respone;
             if(respone.MSG_STATE.Equals("1"))
             {
                 syncEntity.SyncStatus = SyncStatus.done;

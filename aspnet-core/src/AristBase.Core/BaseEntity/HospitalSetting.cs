@@ -2,12 +2,14 @@
 using Abp.Domain.Entities.Auditing;
 using AristBase.MultiTenancy;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AristBase.BaseEntity
 {
-    public class HospitalSetting: IPassivable, IAudited
+    public class HospitalSetting: Entity<int>, IPassivable, IAudited
     {
-        public int TenantId { get; set; }
+        [ForeignKey("Tenant")]
+        public int Id { get; set; }
         public virtual Tenant Tenant { get; set; }
         public string IdHospital { get; set; }
         public string HospitalBranchName { get; set; }

@@ -59,7 +59,6 @@ namespace AristBase.EntityFrameworkCore
                 r.Id,
                 r.Name
             });
-            modelBuilder.Entity<HospitalSetting>().HasKey(r => r.TenantId);
         }
     }
 }
