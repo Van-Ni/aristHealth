@@ -6,6 +6,7 @@ using AristBase.BaseEntity.XML;
 using AristBase.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -14,9 +15,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AristBase.Migrations
 {
     [DbContext(typeof(AristBaseDbContext))]
-    partial class AristBaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230515043344_sync-res")]
+    partial class syncres
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2057,22 +2060,6 @@ namespace AristBase.Migrations
                     b.ToTable("HospitalSettings");
                 });
 
-            modelBuilder.Entity("AristBase.BaseEntity.Region", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ParentId")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id", "Name");
-
-                    b.ToTable("Regions");
-                });
-
             modelBuilder.Entity("AristBase.MultiTenancy.Tenant", b =>
                 {
                     b.Property<int>("Id")
@@ -2440,17 +2427,6 @@ namespace AristBase.Migrations
                     b.Navigation("Tenant");
                 });
 
-            modelBuilder.Entity("AristBase.BaseEntity.Region", b =>
-                {
-                    b.HasOne("AristBase.BaseEntity.Region", "ParentRegion")
-                        .WithMany("ChildRegions")
-                        .HasForeignKey("Id", "Name")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ParentRegion");
-                });
-
             modelBuilder.Entity("AristBase.MultiTenancy.Tenant", b =>
                 {
                     b.HasOne("AristBase.Authorization.Users.User", "CreatorUser")
@@ -2564,11 +2540,6 @@ namespace AristBase.Migrations
             modelBuilder.Entity("AristBase.BaseEntity.ClientInfo", b =>
                 {
                     b.Navigation("Certificates");
-                });
-
-            modelBuilder.Entity("AristBase.BaseEntity.Region", b =>
-                {
-                    b.Navigation("ChildRegions");
                 });
 #pragma warning restore 612, 618
         }
