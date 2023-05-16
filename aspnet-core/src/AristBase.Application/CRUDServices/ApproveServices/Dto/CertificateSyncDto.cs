@@ -28,4 +28,10 @@ namespace AristBase.CRUDServices.ApproveServices.Dto
         public string SIGNDATA { get; set; }
     }
 
+    [AutoMapFrom(typeof(CertificateSync))]
+    [AutoMapTo(typeof(CertificateSync))]
+    public class CertificateSignedSyncDto : CertificateSyncDto
+    {
+        public SyncRequestBody SyncRequestBody { get; set; }
+    }
 }
