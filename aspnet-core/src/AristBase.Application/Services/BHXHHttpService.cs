@@ -25,9 +25,9 @@ namespace AristBase.Services
         }
         public async Task<SyncResponse> SyncCertificate(SyncRequestBody body, int tenantId)
         {
-            var curSetting = _hospitalSettingCache.Get(tenantId);
+            
             var json = JsonSerializer.Serialize(body);
-
+            var curSetting = _hospitalSettingCache.Get(tenantId);
             this._httpClient.DefaultRequestHeaders.Add("Username", curSetting.UserName);
             this._httpClient.DefaultRequestHeaders.Add("Password", curSetting.PasswordMD5);
 

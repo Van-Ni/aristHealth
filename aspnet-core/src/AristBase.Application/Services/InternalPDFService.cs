@@ -23,22 +23,26 @@ using AristBase.Extensions;
 using iText.Kernel.Geom;
 using Abp.UI;
 using AristBase.Authorization;
+using Abp.Application.Services;
+using AristBase.Services.Caching;
 
 namespace AristBase.Services
 {
-    public class InternalPDFService : AbpServiceBase, ITransientDependency
+    public class InternalPDFService : ApplicationService, ITransientDependency
     {
         private readonly IRepository<Certificate, Guid> _certificateRepository;
         private readonly IRepository<CertificateGroupStatus, Guid> _certificateStatus;
-
+        private readonly IHospitalSettingCache _hospitalSettingCache;
 
         public InternalPDFService(
             IRepository<Certificate, Guid> certificateRepository,
-            IRepository<CertificateGroupStatus, Guid> certificateStatus
+            IRepository<CertificateGroupStatus, Guid> certificateStatus,
+            IHospitalSettingCache hospitalSettingCache
             )
         {
             this._certificateRepository = certificateRepository;
             this._certificateStatus = certificateStatus;
+            this._hospitalSettingCache = hospitalSettingCache;
         }
         public async Task<FileStreamResult> FillPDFWithCertificate(Guid cerId)
         {
@@ -98,7 +102,7 @@ namespace AristBase.Services
             // dic[PDFFieldConst.SoYTe] = "SỞ Y TẾ GIA LAI";
             // dic[PDFFieldConst.TT] = "TRUNG TÂM GIÁM ĐỊNH Y KHOA";
             //Set clientInfo status 
-
+            
 
             var dic = new Dictionary<string, Values>();
             dic[PDFFieldConst.Hvt] = new Values
@@ -148,13 +152,16 @@ namespace AristBase.Services
             dic[PDFFieldConst.Day] = new Values { Value = now.ToString("dd") };
             dic[PDFFieldConst.Month] = new Values { Value = now.ToString("MM") };
             dic[PDFFieldConst.Year] = new Values { Value = now.ToString("yyyy") };
+
+            var setting = _hospitalSettingCache.Get(AbpSession.TenantId.Value);
+
             if (cer.CertificateType.IsNeedSync)
             {                
-                dic[PDFFieldConst.So] = new Values { Value = SyncHelper.GetNumberTitle(cer.ClientInfo.Id, SyncHelper.IDBV) };
+                dic[PDFFieldConst.So] = new Values { Value = SyncHelper.GetNumberTitle(setting.DriverLicenseTile ,cer.ClientInfo.Id, setting.IdHospital) };
             }
             else
             {
-                dic[PDFFieldConst.So] = new Values { Value = SyncHelper.GetNumberTitleNormal(cer.ClientInfo.Id)};
+                dic[PDFFieldConst.So] = new Values { Value = SyncHelper.GetNumberTitleNormal(setting.NormalTile, cer.ClientInfo.Id)};
             }
             var sys = new CertificateGroupStatusToPrintDto
             {

@@ -47,8 +47,11 @@ namespace AristBase.Authorization
 
 
         public const string Sync = "sync";
+        public const string Setting = "setting";
+
         public static List<string> Pages = new List<string>
         {
+            Setting,
             Sync,
             Report,
             TuanHoan,

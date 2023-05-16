@@ -1,6 +1,7 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using AristBase.MultiTenancy;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,7 +10,7 @@ namespace AristBase.BaseEntity
     public class HospitalSetting: Entity<int>, IPassivable, IAudited
     {
         [ForeignKey("Tenant")]
-        public int Id { get; set; }
+        public override int Id { get; set; }
         public virtual Tenant Tenant { get; set; }
         public string IdHospital { get; set; }
         public string HospitalBranchName { get; set; }

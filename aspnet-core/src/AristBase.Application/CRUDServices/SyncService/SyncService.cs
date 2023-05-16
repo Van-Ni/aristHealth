@@ -88,7 +88,6 @@ namespace AristBase.CRUDServices.SyncService
             {
                 serializer.Serialize(stringWriter, obj);
                 string xmlString = stringWriter.ToString();
-
                 return xmlString;
             }
         }

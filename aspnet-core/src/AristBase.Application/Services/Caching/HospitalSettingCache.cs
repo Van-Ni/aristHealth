@@ -1,4 +1,5 @@
-﻿using Abp.Dependency;
+﻿using System;
+using Abp.Dependency;
 using Abp.Domain.Entities.Caching;
 using Abp.Domain.Repositories;
 using Abp.Domain.Uow;
@@ -13,6 +14,19 @@ namespace AristBase.Services.Caching
             : base(cacheManager, repository, unitOfWorkManager)
         {
 
+        }
+        public override HospitalSettingCacheItem Get(int id)
+        {
+            try
+            {
+
+                return base.Get(id);
+            }
+            catch (System.Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
         }
     }
 }

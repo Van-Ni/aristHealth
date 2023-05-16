@@ -8,6 +8,7 @@ using AristBase.BaseEntity.XML;
 using AristBase.CRUDServices.ApproveServices.Dto;
 using AristBase.CRUDServices.CertificateServices.Dto;
 using AristBase.Extensions;
+using AristBase.Services.Caching;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,14 +23,20 @@ namespace AristBase.CRUDServices.ApproveServices
         private readonly IRepository<CertificateSync, int> repository;
         private readonly IRepository<CertificateGroupStatus, Guid> repositoryGroupStatus;
         private readonly IRepository<Certificate, Guid> repositoryCertificate;
-
+        private readonly IHospitalSettingCache _hospitalSettingCache;
         public ApproveService(IRepository<CertificateSync, int> repository,
                               IRepository<CertificateGroupStatus, Guid> repositoryGroupStatus,
-                              IRepository<Certificate, Guid> repositoryCertificate)
+                              IRepository<Certificate, Guid> repositoryCertificate,
+            IHospitalSettingCache hospitalSettingCache
+
+
+            )
         {
             this.repository = repository;
             this.repositoryGroupStatus = repositoryGroupStatus;
             this.repositoryCertificate = repositoryCertificate;
+            _hospitalSettingCache = hospitalSettingCache;
+            
         }
         public async ValueTask<CertificateSyncDto> GetAsync(int id)
         {
@@ -40,6 +47,7 @@ namespace AristBase.CRUDServices.ApproveServices
         [AbpAuthorize($"Pages.{PermissionNames.tdv}.Create")]
         public async ValueTask<CertificateDto> ApproveAsync(Guid cerId)
         {
+            
             try
             {
                 var klStatus = await repositoryGroupStatus.GetAll().AnyAsync(w => w.CertificateId == cerId && w.Status == GroupStatus.SUBMITTED && w.Group == PermissionNames.KetLuan);
@@ -55,7 +63,7 @@ namespace AristBase.CRUDServices.ApproveServices
                     certificate.Status = Status.Finish;
                     await repositoryCertificate.UpdateAsync(certificate);
                     await CurrentUnitOfWork.SaveChangesAsync();
-
+                    var setting = _hospitalSettingCache.Get(AbpSession.TenantId.Value);
                     if (certificate.CertificateType.IsNeedSync)
                     {
 
@@ -89,7 +97,7 @@ namespace AristBase.CRUDServices.ApproveServices
                             .ToDictionaryAsync(c => c.Group, c => c);
                         var syncXml = new CertificateDataSync()
                         {
-                            SO = SyncHelper.GetNumberTitle(certificate.ClientInfo.Id, SyncHelper.IDBV),
+                            SO = SyncHelper.GetNumberTitle(setting.DriverLicenseTile, certificate.ClientInfo.Id, setting.IdHospital),
                             NGAYKHAM = dataDic[PermissionNames.KetLuan].LastModificationTime.Value.ToVNTime().ToString("dd/MM/yyyy"),
                             HOTEN = certificate.ClientInfo.FullName.ToUpper(),
                             GIOITINHVAL = certificate.ClientInfo.Sex == "nam" ? "0" : "1",
@@ -102,8 +110,8 @@ namespace AristBase.CRUDServices.ApproveServices
                             NGAYTHANGNAMCAPCMND = certificate.ClientInfo.CreateTimeCCCD,
                             NOICAP = certificate.ClientInfo.AddressCCCD,
                             HANGBANGLAI = certificate.Reason,
-                            IDBENHVIEN = SyncHelper.IDBV,
-                            BENHVIEN = SyncHelper.TenBV,
+                            IDBENHVIEN = setting.IdHospital,
+                            BENHVIEN = setting.HospitalBranchName,
                             NGAYKETLUAN = dataDic[PermissionNames.KetLuan].LastModificationTime.Value.ToVNTime().ToString("dd/MM/yyyy"),
                             NONGDOCON = dataDic[PermissionNames.XetNghiemMaTuyVaMau].Content["text_nongdomau"].Value.Replace("mg/l", "").Trim(),
                             DVINONGDOCON = "1",
