@@ -50,6 +50,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 query = query.Where(w => w.Status == status);
             }
             query = query.Include(i => i.ClientInfo).Include(i => i.CertificateType);
+            query = query.OrderBy(i => i.ClientInfoId);
             var entities = await AsyncQueryableExecuter.ToListAsync(query);
             return ObjectMapper.Map<IEnumerable<CertificateDto>>(entities);
         }

@@ -99,16 +99,13 @@ autocomplete="off"
       <div class="col-sm-9" style="font-size: 1.2rem;">
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" [(ngModel)]="certificate.clientInfo.sex" value="nam" name="sex"
-            id="sex" required>
+            id="sex">
           <label class="form-check-label" for="sex">Nam</label>
         </div>
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" [(ngModel)]="certificate.clientInfo.sex" value="nu" name="sex"
-            id="sex" required>
+            id="sex">
           <label class="form-check-label" for="sex">Nữ</label>
-        </div>
-        <div *ngIf="!certificate.clientInfo.sex" style="color: red; font-size: small;">
-          Vui lòng chọn giới tính
         </div>
       </div>
     </div>
@@ -127,7 +124,7 @@ autocomplete="off"
       <label for="CCCD" class="col-sm-3 col-form-label">Số CCCD</label>
       <div class="col-sm-9">
         <input type="text" class="form-control" id="CCCD" placeholder="CCCD"
-        pattern="^(?:\w{3}\d{6}|\w{1,2}\d{7}|\d{9}|0\d{8}|\d{11}|\d{12}|\d{7})$" [(ngModel)]="certificate.clientInfo.cccd"
+        [(ngModel)]="certificate.clientInfo.cccd"
           #cccdModel="ngModel" #cccdEl [ngModelOptions]="{standalone: true}" min="0">
         <abp-validation-summary [control]="cccdModel" [controlEl]="cccdEl"></abp-validation-summary>
       </div>
