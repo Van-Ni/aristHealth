@@ -257,7 +257,7 @@ namespace AristBase.Services
                                     var lineValues = contentValue.Value.Split("\n").ToList();
                                     var fe = fields.Where(f => f.Key.StartsWith(field.Key)).OrderBy(f=>f.Key).ToList();
                                     var lines = SplitLines(lineValues.Count, fe.Count, lineValues);
-                                    for (int i = 0; i < fe.Count; i++)
+                                    for (int i = 0; i < lines.Count; i++)
                                     {
                                         fe[i].Value.SetValue(lines[i], font, 12f);                                        
                                     }
@@ -286,9 +286,10 @@ namespace AristBase.Services
                 result.Add(string.Join(", ",lines.Skip(skip).Take(n / m + 1)));
                 skip+= (n / m + 1);
                 n -= (n / m + 1);
+                m -= 1;
             }
             var take = n / m;
-            while (n >= take)
+            while (n > 0 && take > 0 && n>=take)
             {
                 result.Add(string.Join(", ",lines.Skip(skip).Take(take)));
                 skip += take;
