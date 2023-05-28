@@ -109,17 +109,17 @@ namespace AristBase.Services
             {
                 Value = cer.ClientInfo.DateOfBirth
             };
-            if(!string.IsNullOrEmpty(cer.ClientInfo.Address))
+            if (!string.IsNullOrEmpty(cer.ClientInfo.Address))
             {
                 dic[PDFFieldConst.Address] = new Values { Value = string.Join(", ", cer.ClientInfo.Address, cer.ClientInfo.Commune, " ") };
                 dic[PDFFieldConst.Address1] = new Values { Value = string.Join(", ", cer.ClientInfo.District, cer.ClientInfo.Province) };
             }
             else
             {
-                dic[PDFFieldConst.Address] = new Values { Value = string.Join(", ", cer.ClientInfo.Commune, cer.ClientInfo.District," ") };
+                dic[PDFFieldConst.Address] = new Values { Value = string.Join(", ", cer.ClientInfo.Commune, cer.ClientInfo.District, " ") };
                 dic[PDFFieldConst.Address1] = new Values { Value = cer.ClientInfo.Province };
             }
-            
+
             dic[PDFFieldConst.Reason] = new Values { Value = cer.Reason };
             dic[PDFFieldConst.CCCD] = new Values { Value = cer.ClientInfo.CCCD };
             dic[PDFFieldConst.CCCDTai] = new Values { Value = cer.ClientInfo.AddressCCCD };
@@ -149,12 +149,12 @@ namespace AristBase.Services
             dic[PDFFieldConst.Month] = new Values { Value = now.ToString("MM") };
             dic[PDFFieldConst.Year] = new Values { Value = now.ToString("yyyy") };
             if (cer.CertificateType.IsNeedSync)
-            {                
+            {
                 dic[PDFFieldConst.So] = new Values { Value = SyncHelper.GetNumberTitle(cer.ClientInfo.Id, SyncHelper.IDBV) };
             }
             else
             {
-                dic[PDFFieldConst.So] = new Values { Value = SyncHelper.GetNumberTitleNormal(cer.ClientInfo.Id)};
+                dic[PDFFieldConst.So] = new Values { Value = SyncHelper.GetNumberTitleNormal(cer.ClientInfo.Id) };
             }
             var sys = new CertificateGroupStatusToPrintDto
             {
@@ -248,9 +248,20 @@ namespace AristBase.Services
                             }
                             else
                             {
-                                while(contentValue.Value.Contains("mg/l"))
+                                while (contentValue.Value.Contains("mg/l"))
                                 {
                                     contentValue.Value = contentValue.Value.Replace("mg/l", "").Trim();
+                                }
+                                if (contentValue.Value.Contains("\n"))
+                                {
+                                    var lineValues = contentValue.Value.Split("\n").ToList();
+                                    var fe = fields.Where(f => f.Key.StartsWith(field.Key)).OrderBy(f=>f.Key).ToList();
+                                    var lines = SplitLines(lineValues.Count, fe.Count, lineValues);
+                                    for (int i = 0; i < fe.Count; i++)
+                                    {
+                                        fe[i].Value.SetValue(lines[i], font, 12f);                                        
+                                    }
+                                    continue;
                                 }
                                 field.Value.SetValue(contentValue.Value, font, 12f);
                             }
@@ -266,6 +277,25 @@ namespace AristBase.Services
             //form.FlattenFields();
         }
 
+        protected List<string> SplitLines(int n, int m, List<string> lines)
+        {
+            var result = new List<string>();
+            var skip = 0;
+            while(n % m != 0)
+            {
+                result.Add(string.Join(", ",lines.Skip(skip).Take(n / m + 1)));
+                skip+= (n / m + 1);
+                n -= (n / m + 1);
+            }
+            var take = n / m;
+            while (n >= take)
+            {
+                result.Add(string.Join(", ",lines.Skip(skip).Take(take)));
+                skip += take;
+                n -= take;
+            }
+            return result;
+         }
         private void FillImage(PdfAcroForm form, PdfFormField field, string imagePath, PdfDocument pdfDoc)
         {
             PdfArray sizingArray = field.GetWidgets()[0].GetRectangle();
