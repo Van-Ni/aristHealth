@@ -182,36 +182,26 @@ namespace AristBase.CRUDServices.CertificateServices
 
         public async Task<ImageResultDto> UploadCameraImage([Required] IFormFile file)
         {
-            try
-            {
                 if (file == null || file.Length == 0)
                 {
                     throw new UserFriendlyException(400, "Bad request");
                 }
-
+                
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                var filePath = Path.Combine(_hostEnvironment.WebRootPath, "uploads", fileName);
+                var filePath = Path.Combine("uploads", AbpSession.TenantId?.ToString(), fileName);
 
                 using (var memoryStream = new MemoryStream())
                 {
                     await file.CopyToAsync(memoryStream);
                     var data = memoryStream.ToArray();
-                    await File.WriteAllBytesAsync(filePath, data);
+                    await File.WriteAllBytesAsync(Path.Combine(_hostEnvironment.WebRootPath, filePath), data);
                 }
 
 
                 return new ImageResultDto
                 {
-                    Path = fileName
+                    Path = filePath
                 };
-            }
-            catch (Exception e)
-            {
-
-                throw e;
-            }
-            
-
         }
     }
 }
