@@ -157,8 +157,7 @@ export class CreateCertificateComponent
             };
           });
           if (
-            this.certificate.clientInfo &&
-            !this.certificate.clientInfo.districtId
+            this.certificate.clientInfo
           ) {
             this.certificate.clientInfo.districtId = this.districts[0].id;
             this.getCommune();
@@ -185,8 +184,7 @@ export class CreateCertificateComponent
             };
           });
           if (
-            this.certificate.clientInfo &&
-            !this.certificate.clientInfo.communeId
+            this.certificate.clientInfo
           ) {
             console.log("this.communes: ", this.communes);
             this.certificate.clientInfo.communeId = this.communes[0].id;
