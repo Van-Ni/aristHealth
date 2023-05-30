@@ -1,20 +1,28 @@
 ﻿using Abp.Application.Services;
 using Abp.Application.Services.Dto;
+using Abp.Authorization;
 using Abp.Domain.Repositories;
 using Abp.EntityFrameworkCore.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using Abp.Runtime.Session;
+using Abp.UI;
+using AristBase.Authorization;
 using AristBase.BaseEntity;
 using AristBase.CRUDServices.CertificateServices.Dto;
 using AristBase.Extensions;
 using AristBase.Extensions.Storage;
 using AristBase.Interfaces;
+using AristBase.Users.Dto;
 using CsvHelper;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -39,33 +47,32 @@ namespace AristBase.CRUDServices.CertificateServices
         public string Reason { get; set; }
         public string LoaiGiay { get; set; }
     }
+
+    [AbpAuthorize]
     public class CertificateService : AsyncCrudAppService<Certificate, CertificateDto, Guid, PagedAndSortedAndSearchAndDateAndStatusResultDto, CreateCertificateDto, UpdateCertificateDto>
     {
         private readonly IRepository<CertificateType, int> _cerTypeRepo;
         private readonly IRepository<CertificateGroupStatus, Guid> _cerGroupStatus;
-        private readonly IRepository<HistoryExport, Guid> _historyRepo;
-        private readonly IStorageService storageService;
-
-
+        private readonly IWebHostEnvironment _hostEnvironment;
 
         public CertificateService(
             IRepository<Certificate, Guid> repository,
-            IRepository<CertificateType, int> cerTypeRepo
-,
-            IRepository<CertificateGroupStatus, Guid> cerGroupStatus
-,
-            IRepository<HistoryExport, Guid> historyRepo,
-            IStorageService storageService) : base(repository)
+            IRepository<CertificateType, int> cerTypeRepo,
+            IRepository<CertificateGroupStatus, Guid> cerGroupStatus,
+             IWebHostEnvironment hostEnvironment
+            ) : base(repository)
         {
             _cerTypeRepo = cerTypeRepo;
             _cerGroupStatus = cerGroupStatus;
-            _historyRepo = historyRepo;
-            this.storageService = storageService;
+            this._hostEnvironment = hostEnvironment;
+            var baseName = PermissionNames.Pages_Certificates;
+            CreatePermissionName = $"{baseName}.Create";
+            UpdatePermissionName = $"{baseName}.Update";
+            DeletePermissionName = $"{baseName}.Delete";
+            LocalizationSourceName = AristBaseConsts.LocalizationSourceName;
         }
         public async override Task<PagedResultDto<CertificateDto>> GetAllAsync(PagedAndSortedAndSearchAndDateAndStatusResultDto input)
         {
-            CheckGetAllPermission();
-
             var query = CreateFilteredQuery(input);
             if (input.DateFrom != DateTime.MinValue)
             {
@@ -173,5 +180,38 @@ namespace AristBase.CRUDServices.CertificateServices
             return MapToEntityDto(get);
         }
 
+        public async Task<ImageResultDto> UploadCameraImage([Required] IFormFile file)
+        {
+            try
+            {
+                if (file == null || file.Length == 0)
+                {
+                    throw new UserFriendlyException(400, "Bad request");
+                }
+
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                var filePath = Path.Combine(_hostEnvironment.WebRootPath, "uploads", fileName);
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(memoryStream);
+                    var data = memoryStream.ToArray();
+                    await File.WriteAllBytesAsync(filePath, data);
+                }
+
+
+                return new ImageResultDto
+                {
+                    Path = fileName
+                };
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+            
+
+        }
     }
 }

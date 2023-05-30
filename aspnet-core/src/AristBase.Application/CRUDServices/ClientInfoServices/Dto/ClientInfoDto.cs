@@ -28,5 +28,7 @@ namespace AristBase.CRUDServices.ClientInfoServices.Dto
         public string DistrictId { get; set; }
         public string District { get; set; }
         public string? GuardianName { get; set; }
+        public string CameraCapturePath { get; set; }
+
     }
 }

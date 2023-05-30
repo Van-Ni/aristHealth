@@ -17,9 +17,10 @@ import {
   RegionDto,
   RegionFull,
 } from "@shared/service-proxies/service-proxies";
-import { BsModalRef } from "ngx-bootstrap/modal";
+import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { RegionsService } from "@app/services/regions.service";
 import { DateTimeHelper } from "@shared/helpers/DateTimeHelper";
+import { CameraModalComponent } from "./CameraCapture/CameraModal/CameraModal.component";
 
 @Component({
   selector: "app-create-certificate",
@@ -38,19 +39,21 @@ export class CreateCertificateComponent
   districts: RegionDtlFull[];
   communes: RegionDtlFull[];
   container: any;
+
+
+
   @Output() onSave = new EventEmitter<any>();
   constructor(
     private certificateServiceServiceProxy: CertificateServiceServiceProxy,
     public bsModalRef: BsModalRef,
     private certificateType: CertificateTypeServiceServiceProxy,
     private regionsService: RegionsService,
-    private injector: Injector
+    private injector: Injector,
+    private _modalService: BsModalService,
   ) {
     super(injector);
   }
   ngOnInit() {
-    console.log(this.certificate);
-
     this.certificate = new CreateCertificateDto();
     this.certificate.clientInfo = new ClientInfoDto();
     this.certificate.clientInfo.provinceId = "64";
@@ -62,6 +65,7 @@ export class CreateCertificateComponent
     this.getCommune();
     //this.setgiatien();
   }
+
   scanStarted = false;
   barcodeData = "";
   onKeyDown(event: KeyboardEvent) {
@@ -367,6 +371,7 @@ export class CreateCertificateComponent
     this.certificate.clientInfo.province = this.provinces.find(
       (c) => c.id == this.certificate.clientInfo.provinceId
     ).name;
+    this.certificate.clientInfo.cameraCapturePath = this.captureImage;
     this.saving = true;
     this.certificateServiceServiceProxy.create(this.certificate).subscribe(
       (result: CreateCertificateDto) => {
@@ -378,5 +383,19 @@ export class CreateCertificateComponent
         this.saving = false;
       }
     );
+  }
+  captureImage = '';
+  showCameraDialog(){
+    let diaglog = this._modalService.show(
+      CameraModalComponent,
+      {
+        class: "modal-lg",
+        initialState: {
+        },
+      }
+    );
+    diaglog.content?.onSave.subscribe(s=>{
+      this.captureImage = s;
+    })
   }
 }

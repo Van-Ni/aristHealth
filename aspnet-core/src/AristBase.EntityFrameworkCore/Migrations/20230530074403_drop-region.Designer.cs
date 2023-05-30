@@ -6,6 +6,7 @@ using AristBase.BaseEntity.XML;
 using AristBase.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -14,9 +15,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AristBase.Migrations
 {
     [DbContext(typeof(AristBaseDbContext))]
-    partial class AristBaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230530074403_drop-region")]
+    partial class dropregion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2016,7 +2019,7 @@ namespace AristBase.Migrations
 
                     b.HasKey("Id", "Name");
 
-                    b.ToTable("Regions");
+                    b.ToTable("Region");
                 });
 
             modelBuilder.Entity("AristBase.MultiTenancy.Tenant", b =>

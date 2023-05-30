@@ -1,6 +1,6 @@
-import { Component, Injector, Input } from '@angular/core';
+import { Component, Inject, Injector, Input } from '@angular/core';
 import { AppComponentBase } from '@shared/app-component-base';
-import { CertificateDto } from '@shared/service-proxies/service-proxies';
+import { API_BASE_URL, CertificateDto } from '@shared/service-proxies/service-proxies';
 
 @Component({
   selector: 'app-profile',
@@ -13,8 +13,9 @@ export class ProfileComponent extends AppComponentBase{
   onSave: any;
   saving: boolean;
   isEditProfile: true;
-  constructor(injector: Injector) { 
+  constructor(injector: Injector, @Inject(API_BASE_URL) public baseUrl?: string) {
     super(injector);
   }
+
 
 }

@@ -26,6 +26,8 @@ namespace AristBase.BaseEntity
         public string District { get; set; }
         public string? GuardianName { get; set; }
         public string Year { get; private set; } = Clock.Now.ToString("yyyy");
+
+        public string CameraCapturePath { get; set; }
         //public string? Avatar { get; set; }
         public virtual ICollection<Certificate> Certificates { get; set; }
         #region Audited
