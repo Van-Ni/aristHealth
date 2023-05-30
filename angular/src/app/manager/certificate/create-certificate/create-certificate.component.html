@@ -94,8 +94,9 @@
         <abp-validation-summary [control]="fullnameModel" [controlEl]="fullnameEl"></abp-validation-summary>
       </div>
       <div class="col-2">
-        <button (click)="showCameraDialog()" type="button" class="btn sm btn-primary">{{captureImage==''?'Chụp hình':'Đã
-          chụp'}}</button>
+        <button (click)="showCameraDialog()" type="button" class="{{captureImage==''?'btn sm btn-primary':'btn sm btn-success'}}">
+          {{captureImage==''?'Chụp hình':'Đã chụp'}}
+        </button>
       </div>
 
     </div>

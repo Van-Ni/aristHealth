@@ -1,26 +1,27 @@
 <form class="form-horizontal" autocomplete="off" #createRoleForm="ngForm" (ngSubmit)="save()">
-  <abp-modal-header [title]="'Capture' | localize" (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
-  <div class="modal-body">
+  <div class="modal-body text-center">
     <div class="form-group row">
-      <div *ngIf="!sysImage">
-        <div class="col-md-12">
-          <webcam [trigger]="invokeObservable" (imageCapture)="captureImg($event)"></webcam>
-        </div>
-        <div class="col-md-12">
-          <button class="btn btn-success" type="button" (click)="getSnapshot()">
-            Chụp hình
-          </button>
-        </div>
+      <div class="col-12" *ngIf="!sysImage">
+        <webcam [trigger]="invokeObservable" (imageCapture)="captureImg($event)"></webcam>
       </div>
-      <div *ngIf="sysImage">
-        <div class="col-12">
-          <img [src]="webcamImage?.imageAsDataUrl" height="400px" />
-        </div>
-        <div class="col-md-12">
-          <button class="btn btn-danger" type="button" (click)="resetSnapshot()">
-            Chụp lại
-          </button>
-        </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-12" *ngIf="!sysImage">
+        <button class="btn btn-primary" type="button" (click)="getSnapshot()">
+          Chụp hình
+        </button>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-12" *ngIf="sysImage">
+        <img [src]="webcamImage?.imageAsDataUrl" />
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-12" *ngIf="sysImage">
+        <button class="btn btn-danger" type="button" (click)="resetSnapshot()">
+          Chụp lại
+        </button>
       </div>
     </div>
   </div>
