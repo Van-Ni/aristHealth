@@ -19,6 +19,7 @@ using AristBase.CRUDServices.CertificateServices;
 using AristBase.Authorization;
 using AristBase.Services;
 using System.Runtime.ConstrainedExecution;
+using AristBase.CRUDServices.ClientInfoServices.Dto;
 
 namespace AristBase.CRUDServices.HistoryExportServices
 {
@@ -66,7 +67,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 STT = index + 1,
                 MaKhachHang = e.ClientInfo.Id,
                 TenNguoiMua = e.ClientInfo.FullName,
-                DiaChiKhachHang = string.Join(", ", e.ClientInfo.Commune, e.ClientInfo.District, e.ClientInfo.Province),
+                DiaChiKhachHang = GetAddress(e.ClientInfo),
                 HinhThucTT = "TM",
                 SanPham = e.CertificateType.Name + ": " + e.Reason,
                 DonViTinh = "Nguoi",
@@ -110,7 +111,10 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 FileDownloadName = reportname
             };
         }
-        
+        public static string GetAddress(ClientInfoDto clientInfo)
+        {
+            return string.Join(", ", clientInfo.Commune, clientInfo.District, clientInfo.Province);
+        }
         public async ValueTask<IEnumerable<CertificateGroupStatusDto>> GetCertificateGroupStatusByDate(DateTime DateFrom, DateTime DateTo, Status? status)
         {
             CheckCreatePermission();
@@ -154,7 +158,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 STT = index + 1,
                 HoTen = s.Group.First().Certificate.ClientInfo.FullName,
                 Tuoi = s.Group.First().Certificate.ClientInfo.DateOfBirth.ToString(),
-                DiaChi = s.Group.First().Certificate.ClientInfo.Address,
+                DiaChi = GetAddress(s.Group.First().Certificate.ClientInfo),
                 ALAT = s.Certificate.FirstOrDefault(x => x.Group == "xetnghiemmau").Content.ContainsKey("text_alat") == true ? s.Certificate.FirstOrDefault(x => x.Group == "xetnghiemmau").Content["text_alat"].Value : null,
                 ASAT = s.Certificate.FirstOrDefault(x => x.Group == "xetnghiemmau").Content.ContainsKey("text_asat") == true ? s.Certificate.FirstOrDefault(x => x.Group == "xetnghiemmau").Content["text_asat"].Value : null,
                 BC = s.Certificate.FirstOrDefault(x => x.Group == "xetnghiemmau").Content.ContainsKey("text_bachcau") == true ? s.Certificate.FirstOrDefault(x => x.Group == "xetnghiemmau").Content["text_bachcau"].Value : null,
@@ -205,8 +209,9 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 NgayThang = s.Group.First().Certificate.CreationTime.Date.ToString("dd/MM/yyyy"),
                 STT = index + 1,
                 HoTen = s.Group.First().Certificate.ClientInfo.FullName,
+                CCCD = s.Group.First().Certificate.ClientInfo.CCCD,
                 Tuoi = s.Group.First().Certificate.ClientInfo.DateOfBirth.ToString(),
-                DiaChi = s.Group.First().Certificate.ClientInfo.Address,
+                DiaChi = GetAddress(s.Group.First().Certificate.ClientInfo),
                 Hang = s.Group.First().Certificate.Reason,
                 Morphine = s.Group.First().Content.ContainsKey("text_morphin") ? s.Group.First().Content["text_morphin"].RealValue == "1" ? "+" : "-" : null,
                 Amphetamin = s.Group.First().Content.ContainsKey("text_amphetamin") ? s.Group.First().Content["text_amphetamin"].RealValue == "1" ? "+" : "-" : null,
@@ -256,7 +261,7 @@ namespace AristBase.CRUDServices.HistoryExportServices
                 STT = index + 1,
                 HoTen = s.Group.First().Certificate.ClientInfo.FullName,
                 Tuoi = s.Group.First().Certificate.ClientInfo.DateOfBirth.ToString(),
-                DiaChi = s.Group.First().Certificate.ClientInfo.Address,
+                DiaChi = GetAddress(s.Group.First().Certificate.ClientInfo),
                 Hang = s.Group.First().Certificate.Reason,
                 Morphine = s.Group.First().Content.ContainsKey("text_morphin") ? s.Group.First().Content["text_morphin"].RealValue == "1" ? "+" : "-" : null,
                 Amphetamin = s.Group.First().Content.ContainsKey("text_amphetamin") ? s.Group.First().Content["text_amphetamin"].RealValue == "1" ? "+" : "-" : null,
