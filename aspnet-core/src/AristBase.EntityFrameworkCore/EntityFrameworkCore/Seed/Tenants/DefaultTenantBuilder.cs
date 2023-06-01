@@ -40,28 +40,30 @@ namespace AristBase.EntityFrameworkCore.Seed.Tenants
             }
         }
     }
-    public class DefaultTenantTTGDYKBuilder
+    public class DefaultTenant
     {
         private readonly AristBaseDbContext _context;
+        private readonly string _tenancyName;
+        private readonly string _name;
 
-        public DefaultTenantTTGDYKBuilder(AristBaseDbContext context)
+        public DefaultTenant(AristBaseDbContext context, string tenancyName, string name)
         {
             _context = context;
+            this._tenancyName = tenancyName;
+            this._name = name;
         }
 
-        public void Create()
+        public int Create()
         {
-            CreateDefaultTenant();
+            return CreateDefaultTenant();
         }
 
-        private void CreateDefaultTenant()
+        private int CreateDefaultTenant()
         {
-            // Default tenant
-
-            var defaultTenant = _context.Tenants.IgnoreQueryFilters().FirstOrDefault(t => t.TenancyName == "ttgdyk");
+            var defaultTenant = _context.Tenants.IgnoreQueryFilters().FirstOrDefault(t => t.TenancyName == _tenancyName);
             if (defaultTenant == null)
             {
-                defaultTenant = new Tenant("ttgdyk", "Trung tâm giám định y khoa");
+                defaultTenant = new Tenant(_tenancyName, _name);
 
                 var defaultEdition = _context.Editions.IgnoreQueryFilters().FirstOrDefault(e => e.Name == EditionManager.DefaultEditionName);
                 if (defaultEdition != null)
@@ -72,6 +74,7 @@ namespace AristBase.EntityFrameworkCore.Seed.Tenants
                 _context.Tenants.Add(defaultTenant);
                 _context.SaveChanges();
             }
+            return defaultTenant.Id;
         }
     }
 }

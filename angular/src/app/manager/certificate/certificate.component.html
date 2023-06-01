@@ -124,7 +124,7 @@
                   <td>{{ Certificate.clientInfo.fullName }}</td>
                   <td>{{ Certificate.clientInfo.cccd }}</td>
                   <td><a routerLinkActive="active"
-                      routerLink="/app/{{Certificate.certificateType.id}}/{{Certificate.id}}">{{
+                      routerLink="/app/{{Certificate.certificateType.typeName}}/{{Certificate.id}}">{{
                       Certificate.certificateType.name }}</a></td>
                   <td>
                     <p *ngIf="Certificate.status == 0"

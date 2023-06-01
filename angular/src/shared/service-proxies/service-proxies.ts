@@ -10174,7 +10174,7 @@ export class CertificateTypeDto implements ICertificateTypeDto {
   templateGroups: TemplateGroup[] | undefined;
   filePath: string | undefined;
   finalResult: string | undefined;
-
+  typeName: number;
   constructor(data?: ICertificateTypeDto) {
     if (data) {
       for (var property in data) {
@@ -10190,6 +10190,7 @@ export class CertificateTypeDto implements ICertificateTypeDto {
       this.price = _data["price"];
       this.name = _data["name"];
       this.isNeedSync = _data["isNeedSync"];
+      this.typeName = _data["typeName"];
       if (Array.isArray(_data["templateGroups"])) {
         this.templateGroups = [] as any;
         for (let item of _data["templateGroups"])
@@ -10213,6 +10214,7 @@ export class CertificateTypeDto implements ICertificateTypeDto {
     data["price"] = this.price;
     data["name"] = this.name;
     data["isNeedSync"] = this.isNeedSync;
+    data["typeName"] = this.typeName;
     if (Array.isArray(this.templateGroups)) {
       data["templateGroups"] = [];
       for (let item of this.templateGroups)
@@ -10239,6 +10241,7 @@ export interface ICertificateTypeDto {
   templateGroups: TemplateGroup[] | undefined;
   filePath: string | undefined;
   finalResult: string | undefined;
+  typeName: number;
 }
 
 export class CertificateTypeDtoPagedResultDto

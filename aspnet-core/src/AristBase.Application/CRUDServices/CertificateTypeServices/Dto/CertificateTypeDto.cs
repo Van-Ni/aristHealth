@@ -18,6 +18,7 @@ namespace AristBase.CRUDServices.CertificateTypeServices.Dto
         public bool IsNeedSync { get; set; }
         public List<TemplateGroup> TemplateGroups { get; set; }
         public string FilePath { get; set; }
+        public TypeName TypeName { get; set; }
         public string FinalResult { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using AristBase.BaseEntity.XML;
 using AristBase.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -14,9 +15,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AristBase.Migrations
 {
     [DbContext(typeof(AristBaseDbContext))]
-    partial class AristBaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230601024306_certype")]
+    partial class certype
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1858,8 +1861,8 @@ namespace AristBase.Migrations
                     b.Property<int>("TenantId")
                         .HasColumnType("integer");
 
-                    b.Property<byte>("TypeName")
-                        .HasColumnType("smallint");
+                    b.Property<string>("TypeName")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

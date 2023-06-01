@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
+using Castle.Components.DictionaryAdapter;
 using System;
 using System.Collections.Generic;
 
@@ -9,11 +10,13 @@ namespace AristBase.BaseEntity
     {
         public decimal Price { get; set; }
         public string Name { get; set; }
+        public TypeName TypeName { get; set; }
         public bool IsNeedSync { get; set; }
         public List<TemplateGroup> TemplateGroups { get; set; }
         public string FilePath { get; set; }
         public string FinalResult { get; set; }
         public virtual ICollection<Certificate> Certificates { get; set; }
+        
         #region Audited
         public long? CreatorUserId { get; set; }
         public DateTime CreationTime { get; set; }
@@ -28,12 +31,12 @@ namespace AristBase.BaseEntity
         public int TenantId { get; set; }
         #endregion
     }
-    //public enum Type : byte
-    //{
-    //    Type1 = 1,
-    //    Type2 = 2,
-    //    Type3 = 3,
-    //}
+    public enum TypeName : byte
+    {
+        DriverTest = 1,
+        AldultTest = 2,
+        ChildrentTest = 3,
+    }
     public class TemplateGroup
     {
         public string GroupName { get; set; }

@@ -18,6 +18,12 @@ namespace AristBase.CRUDServices.CertificateTypeServices
         public CertificateTypeService(IRepository<CertificateType, int> repository) : base(repository)
         {
         }
+        public override async Task<CertificateTypeDto> GetAsync(EntityDto<int> input)
+        {
+            CheckGetPermission();
+            var entity = await Repository.GetAll().Where(t=>t.TypeName == (TypeName)(input.Id)).FirstAsync();
+            return MapToEntityDto(entity);
+        }
         public override async Task<PagedResultDto<CertificateTypeDto>> GetAllAsync(PagedAndSortedAndSearchResultDto input)
         {
             var query = CreateFilteredQuery(input);

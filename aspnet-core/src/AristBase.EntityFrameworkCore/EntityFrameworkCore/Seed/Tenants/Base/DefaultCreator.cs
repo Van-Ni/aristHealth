@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AristBase.EntityFrameworkCore.Seed.Host.Base
+namespace AristBase.EntityFrameworkCore.Seed.Tenants.Base
 {
     public abstract class DefaultCreator<T> : DefaultCreator<T, Guid, AristBaseDbContext>
         where T : Entity<Guid>
@@ -42,11 +42,13 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                 AddAreaIfNotExists(i);
             }
         }
-
+        protected abstract IQueryable<T> BaseQuery(IQueryable<T> query, T Base);
         private void AddAreaIfNotExists(T Base)
         {
             var dbSet = _context.Set<T>();
-            if (dbSet.IgnoreQueryFilters().Any(l => l.Id.Equals(Base.Id)))
+            var query = dbSet.IgnoreQueryFilters();
+            query = BaseQuery(query, Base);
+            if (query.Any())
             {
                 return;
             }

@@ -40,8 +40,6 @@ export class CreateCertificateComponent
   communes: RegionDtlFull[];
   container: any;
 
-
-
   @Output() onSave = new EventEmitter<any>();
   constructor(
     private certificateServiceServiceProxy: CertificateServiceServiceProxy,
@@ -49,7 +47,7 @@ export class CreateCertificateComponent
     private certificateType: CertificateTypeServiceServiceProxy,
     private regionsService: RegionsService,
     private injector: Injector,
-    private _modalService: BsModalService,
+    private _modalService: BsModalService
   ) {
     super(injector);
   }
@@ -60,6 +58,11 @@ export class CreateCertificateComponent
     this.certificate.clientInfo.addressCCCD =
       "Cục Cảnh sát quản lý hành chính về trật tự xã hội";
     this.certificate.paymentStatus = PaymentStatus._1;
+    this.getApi({
+      target: {
+        value: 1,
+      },
+    });
     this.getProvince();
     this.getDictrict();
     this.getCommune();
@@ -92,10 +95,13 @@ export class CreateCertificateComponent
         cccdData[4].toLowerCase() == "nam" ? "nam" : "nu";
       this.certificate.clientInfo.createTimeCCCD =
         DateTimeHelper.extractDatetime(cccdData[6]);
-      this.regionsService.getAddress(cccdData[5]).subscribe((data) => {
-        this.setAddress(data);
-        this.scanning = false;
-      }, (e)=> abp.message.error("Không tìm thấy địa chỉ trong dữ liệu"));
+      this.regionsService.getAddress(cccdData[5]).subscribe(
+        (data) => {
+          this.setAddress(data);
+          this.scanning = false;
+        },
+        (e) => abp.message.error("Không tìm thấy địa chỉ trong dữ liệu")
+      );
     } else if (cccdData.length < 7) {
       this.certificate.clientInfo.cccd = cccdData[0];
       this.certificate.clientInfo.fullName = cccdData[1];
@@ -107,10 +113,13 @@ export class CreateCertificateComponent
 
       this.certificate.clientInfo.createTimeCCCD =
         DateTimeHelper.extractDatetime(cccdData[5]);
-      this.regionsService.getAddress(cccdData[4]).subscribe((data) => {
-        this.setAddress(data);
-        this.scanning = false;
-      }, (e)=> abp.message.error("Không tìm thấy địa chỉ trong dữ liệu"));
+      this.regionsService.getAddress(cccdData[4]).subscribe(
+        (data) => {
+          this.setAddress(data);
+          this.scanning = false;
+        },
+        (e) => abp.message.error("Không tìm thấy địa chỉ trong dữ liệu")
+      );
     }
   }
   getApi(data: any) {
@@ -119,8 +128,10 @@ export class CreateCertificateComponent
       .get(data.target.value)
       .subscribe((result: CertificateTypeDto) => {
         console.log(result);
+        this.certificateTypeDto = result;
         this.certificate.amountPaid = result.price;
         this.container = result.price;
+        this.certificate.certificateTypeId = result.id;
       });
   }
   setPrice(event: any) {
@@ -156,9 +167,7 @@ export class CreateCertificateComponent
               parentId: r.parentId,
             };
           });
-          if (
-            this.certificate.clientInfo
-          ) {
+          if (this.certificate.clientInfo) {
             this.certificate.clientInfo.districtId = this.districts[0].id;
             this.getCommune();
           }
@@ -183,9 +192,7 @@ export class CreateCertificateComponent
               parentId: r.parentId,
             };
           });
-          if (
-            this.certificate.clientInfo
-          ) {
+          if (this.certificate.clientInfo) {
             console.log("this.communes: ", this.communes);
             this.certificate.clientInfo.communeId = this.communes[0].id;
           }
@@ -193,11 +200,10 @@ export class CreateCertificateComponent
   }
   calculateAge(dateOfBirth) {
     let birthDate = dateOfBirth;
-    if(typeof dateOfBirth == 'string'){
-      const [day, month, year] = dateOfBirth.split('/');
+    if (typeof dateOfBirth == "string") {
+      const [day, month, year] = dateOfBirth.split("/");
       birthDate = new Date(`${year}-${month}-${day}`);
     }
-
 
     const today = new Date();
     let age = today.getFullYear() - birthDate.getFullYear();
@@ -283,11 +289,11 @@ export class CreateCertificateComponent
   }
   isValidDate(dateString) {
     let date;
-    if(typeof dateString == 'string'){
-      const [day, month, year] = dateString.split('/');
+    if (typeof dateString == "string") {
+      const [day, month, year] = dateString.split("/");
       date = new Date(`${year}-${month}-${day}`);
-    }else{
-      date = new Date(dateString)
+    } else {
+      date = new Date(dateString);
     }
     return !isNaN(date.getTime());
   }
@@ -315,7 +321,7 @@ export class CreateCertificateComponent
       this.showMessage("Vui lòng chọn giới tính");
       return false;
     }
-    switch (+this.certificate.certificateTypeId) {
+    switch (+this.certificateTypeDto.typeName) {
       case 1: {
         //Driver
         let msg = this.checkDriverLisenceValid();
@@ -382,18 +388,14 @@ export class CreateCertificateComponent
       }
     );
   }
-  captureImage = '';
-  showCameraDialog(){
-    let diaglog = this._modalService.show(
-      CameraModalComponent,
-      {
-        class: "modal-lg",
-        initialState: {
-        },
-      }
-    );
-    diaglog.content?.onSave.subscribe(s=>{
+  captureImage = "";
+  showCameraDialog() {
+    let diaglog = this._modalService.show(CameraModalComponent, {
+      class: "modal-lg",
+      initialState: {},
+    });
+    diaglog.content?.onSave.subscribe((s) => {
       this.captureImage = s;
-    })
+    });
   }
 }

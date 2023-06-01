@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AristBase.EntityFrameworkCore.Seed.Host.Base
+namespace AristBase.EntityFrameworkCore.Seed.Tenants.Base
 {
     public class DefaultCerfiticateTypeCreator : DefaultCreator<CertificateType, int, AristBaseDbContext>
     {
@@ -61,19 +61,21 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
             { "text_cbvrhm" , new Values { Value = "Không" }},
             { "text_phanloai" , new Values { Value = "Loại I" }},
         };
+        private readonly int _ternantId;
+
         protected override List<CertificateType> GetInitial()
         {
             return new List<CertificateType>
             {
                 new CertificateType
                 {
-                    Id = 1,
                     Price = 294000,
                     FilePath = "./VolumeMap/Templates/GiayKhamLaiXeGialaiFormNoChuki.pdf",
                     FinalResult ="",
                     IsNeedSync = true,
                     Name = "Khám sức khỏe lái xe",
-                    TenantId = 2,
+                    TenantId = _ternantId,
+                    TypeName = TypeName.DriverTest,
                     TemplateGroups = new List<TemplateGroup> {
                         new TemplateGroup
                         {
@@ -203,16 +205,15 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                         }
 
                     },
-
                 },
                 new CertificateType
                 {
-                    Id = 2,
+                    TenantId = _ternantId,
+                    TypeName = TypeName.AldultTest,
                     Price = 260000,
                     FilePath = "./VolumeMap/Templates/du18FormNoChuki.pdf",
                     FinalResult ="",
                     IsNeedSync = false,
-                    TenantId = 2,
                     Name = "Khám sức khỏe làm việc, học tập (trên 18 tuổi)",
                     TemplateGroups = new List<TemplateGroup> {
                         new TemplateGroup
@@ -360,17 +361,15 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                             DefaultStatus = GroupStatus.UNREADY,
                         }
                     },
-
-
                 },
                 new CertificateType
                 {
-                    Id = 3,
+                    TenantId = _ternantId,                    
+                    TypeName = TypeName.ChildrentTest,
                     Price = 87000,
                     FilePath = "./VolumeMap/Templates/duoi18FormNoChuki.pdf",
                     FinalResult ="",
                     IsNeedSync = false,
-                    TenantId = 2,
                     Name = "Khám sức khỏe học sinh (dưới 18 tuổi)",
                     TemplateGroups = new List<TemplateGroup> {
                         new TemplateGroup
@@ -466,13 +465,18 @@ namespace AristBase.EntityFrameworkCore.Seed.Host.Base
                             DefaultStatus = GroupStatus.UNREADY,
                         }
                     },
-
                 },
             };
         }
 
-        public DefaultCerfiticateTypeCreator(AristBaseDbContext context) : base(context)
+        protected override IQueryable<CertificateType> BaseQuery(IQueryable<CertificateType> query, CertificateType baseType)
         {
+            return query.Where(c => c.TenantId == _ternantId && c.TypeName == baseType.TypeName);
+        }
+
+        public DefaultCerfiticateTypeCreator(AristBaseDbContext context, int ternantId) : base(context)
+        {
+            _ternantId = ternantId;
         }
     }
 }
