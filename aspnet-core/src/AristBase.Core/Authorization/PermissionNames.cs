@@ -14,6 +14,7 @@ namespace AristBase.Authorization
 
         public const string Pages_Roles = "Pages.Roles";
         public const string Pages_Certificates = "Pages.Certificates";
+        public const string Certificates = "Certificates";
         public const string Pages_Certificatetypes = "Pages.Certificatetypes";
         public const string TamThan = "tamthan";
         public const string ThanKinh = "thankinh";
@@ -80,6 +81,7 @@ namespace AristBase.Authorization
             NgoaiKhoa,
             DaLieu,
             KhamTheLucInput,
+            Certificates
         };
     }
     public class CRUDPermissionName

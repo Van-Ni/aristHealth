@@ -98,18 +98,20 @@ namespace AristBase.CRUDServices.SyncService
             result.XmlEncrypted = certificateSync.XmlEncrypted;
             result.SyncStatus = SyncStatus.readyToSync;
         }
-        public async Task<SyncRequestBody> GetReadyToSycnbody()
+        public async Task<CertificateSignedSyncDto> GetReadyToSycnBody()
         {
             CheckGetAllPermission();
             var syncData = await Repository.GetAll().Where(c => c.SyncStatus == SyncStatus.readyToSync)
                 .OrderBy(c => c.CreationTime)
-                .Select(s => _mapper.Map<CertificateSyncDto>(s))
+                .Select(s => _mapper.Map<CertificateSignedSyncDto>(s))
                 .FirstAsync();
 
 
             var syncBody = _mapper.Map<SyncRequestBody>(syncData.MetaData);
             syncBody.SIGNDATA = Base64Helper.Base64Encode(syncData.XmlEncrypted);
-            return syncBody;
+            syncData.SyncRequestBody = syncBody;
+
+            return syncData;
         }
         public async Task<SyncResponse> SyncCertificate(int id)
         {

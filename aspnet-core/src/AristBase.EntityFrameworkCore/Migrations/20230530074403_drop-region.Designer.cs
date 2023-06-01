@@ -6,6 +6,7 @@ using AristBase.BaseEntity.XML;
 using AristBase.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -14,9 +15,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AristBase.Migrations
 {
     [DbContext(typeof(AristBaseDbContext))]
-    partial class AristBaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230530074403_drop-region")]
+    partial class dropregion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1786,9 +1789,6 @@ namespace AristBase.Migrations
                     b.Property<CertificateDataSync>("MetaData")
                         .HasColumnType("jsonb");
 
-                    b.Property<SyncResponse>("SyncResponse")
-                        .HasColumnType("jsonb");
-
                     b.Property<int>("SyncStatus")
                         .HasColumnType("integer");
 
@@ -2006,52 +2006,6 @@ namespace AristBase.Migrations
                     b.ToTable("HistoryExports");
                 });
 
-            modelBuilder.Entity("AristBase.BaseEntity.HospitalSetting", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("DriverLicenseTile")
-                        .HasColumnType("text");
-
-                    b.Property<string>("HospitalBaseDepartment")
-                        .HasColumnType("text");
-
-                    b.Property<string>("HospitalBranchName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("IdHospital")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long?>("LastModifierUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("NormalTile")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PasswordMD5")
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("HospitalSettings");
-                });
-
             modelBuilder.Entity("AristBase.BaseEntity.Region", b =>
                 {
                     b.Property<string>("Id")
@@ -2065,7 +2019,7 @@ namespace AristBase.Migrations
 
                     b.HasKey("Id", "Name");
 
-                    b.ToTable("Regions");
+                    b.ToTable("Region");
                 });
 
             modelBuilder.Entity("AristBase.MultiTenancy.Tenant", b =>
@@ -2422,17 +2376,6 @@ namespace AristBase.Migrations
                         .HasForeignKey("CreatorUserId");
 
                     b.Navigation("CreatorUser");
-                });
-
-            modelBuilder.Entity("AristBase.BaseEntity.HospitalSetting", b =>
-                {
-                    b.HasOne("AristBase.MultiTenancy.Tenant", "Tenant")
-                        .WithMany()
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Tenant");
                 });
 
             modelBuilder.Entity("AristBase.BaseEntity.Region", b =>

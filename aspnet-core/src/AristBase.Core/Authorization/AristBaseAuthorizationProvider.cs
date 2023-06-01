@@ -11,7 +11,6 @@ namespace AristBase.Authorization
             context.CreatePermission(PermissionNames.Pages_Users, L("Users"));
             context.CreatePermission(PermissionNames.ChangePassword, L("ChangePassword"));
             context.CreatePermission(PermissionNames.PageReadIn, L("In"));
-            context.CreatePermission(PermissionNames.Pages_Certificates, L("Certificates"));
             context.CreatePermission(PermissionNames.Pages_Certificatetypes, L("Certificatetypes"));
             context.CreatePermission(PermissionNames.Pages_Users_Activation, L("UsersActivation"));
             context.CreatePermission(PermissionNames.Pages_Roles, L("Roles"));

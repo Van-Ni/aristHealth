@@ -174,5 +174,7 @@
     <text name="ReadyToSync">Chờ liên thông</text>    
     <text name="Cancelled">Đã hủy</text>
     <text name="Sync">Liên thông</text>
+    <text name="NumberTile">Số</text>
+    <text name="CreationTime">Thời gian duyệt</text>
   </texts>
 </localizationDictionary>

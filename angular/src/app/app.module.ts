@@ -87,10 +87,13 @@ import { CreateExportComponent } from "./manager/export-data/create-export/creat
 
 import { CertificateSyncComponent } from "./manager/certificate-sync/certificate-sync.component";
 import { CertificateSyncDetailComponent } from "./manager/certificate-sync/certificate-sync-detail/certificate-sync-detail.component";
+import { CameraModalComponent } from "./manager/certificate/create-certificate/CameraCapture/CameraModal/CameraModal.component";
+
 //service
 import { DataService } from "./services/data.service";
 import { LoadingService } from "./services/loader/loading.service";
 import { RegionsService } from "./services/regions.service";
+import { WebcamModule } from "ngx-webcam";
 @NgModule({
   declarations: [
     AppComponent,
@@ -165,7 +168,8 @@ import { RegionsService } from "./services/regions.service";
     KetLuanGiayKhamComponent,
     //sync
     CertificateSyncComponent,
-    CertificateSyncDetailComponent
+    CertificateSyncDetailComponent,
+    CameraModalComponent
   ],
   imports: [
     CommonModule,
@@ -182,6 +186,7 @@ import { RegionsService } from "./services/regions.service";
     ServiceProxyModule,
     SharedModule,
     NgxPaginationModule,
+    WebcamModule
   ],
   providers: [DataService, LoadingService, RegionsService],
 })

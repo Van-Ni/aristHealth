@@ -15,6 +15,7 @@ namespace AristBase.CRUDServices.CertificateGroupStatusServices.Dto
         public int STT { get; set; }
         public string NgayThang { get; set; }
         public string HoTen { get; set; }
+        public string CCCD { get; set; }
         public string Tuoi { get; set; }
         public string DiaChi { get; set; }
         public string HC { get; set; }

@@ -1,17 +1,14 @@
 <link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<form
-class="form-horizontal"
-autocomplete="off"
-#createProfile="ngForm"
-(ngSubmit)="save()"
->
-  <abp-modal-header [title]="'Thông tin người khám' | localize" (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
+<form class="form-horizontal" autocomplete="off" #createProfile="ngForm" (ngSubmit)="save()">
+  <abp-modal-header [title]="'Thông tin người khám' | localize" (onCloseClick)="bsModalRef.hide()">
+  </abp-modal-header>
   <div class="modal-body">
     <div class="form-group row">
       <label for="certificate" class="col-sm-3 col-form-label">Chọn loại giấy</label>
       <div class="col-sm-9">
-        <select (change)="getApi($event)" class="form-control" [(ngModel)]="certificate.certificateTypeId" [ngModelOptions]="{standalone: true}">
+        <select (change)="getApi($event)" class="form-control" [(ngModel)]="certificate.certificateTypeId"
+          [ngModelOptions]="{standalone: true}">
           <option value="1">Khám sức khỏe lái xe</option>
           <option value="2">Khám sức khỏe làm việc, học tập (trên 18 tuổi)</option>
           <option value="3">Khám sức khỏe học sinh (dưới 18 tuổi)</option>
@@ -21,7 +18,8 @@ autocomplete="off"
     <div class="form-group row">
       <label for="certificate" class="col-sm-3 col-form-label">Trạng thái thanh toán</label>
       <div class="col-sm-9">
-        <select (change)="setPrice($event)"  class="form-control" [(ngModel)]="certificate.paymentStatus" [ngModelOptions]="{standalone: true}">
+        <select (change)="setPrice($event)" class="form-control" [(ngModel)]="certificate.paymentStatus"
+          [ngModelOptions]="{standalone: true}">
           <option value="0">Chưa thanh toán</option>
           <option value="1">Đã thanh toán</option>
         </select>
@@ -30,7 +28,8 @@ autocomplete="off"
     <div class="form-group row">
       <label for="certificate" class="col-sm-3 col-form-label">Giá tiền</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" [(ngModel)]="certificate.amountPaid" [ngModelOptions]="{standalone: true}">
+        <input type="text" class="form-control" [(ngModel)]="certificate.amountPaid"
+          [ngModelOptions]="{standalone: true}">
       </div>
     </div>
     <div class="form-group row" *ngIf="certificate.certificateTypeId == 1">
@@ -79,36 +78,40 @@ autocomplete="off"
             <option value="Học tập">Học tập</option>
             <option value="Làm việc">Làm việc</option>
             <option value="Làm việc và học tập">Làm việc và học tập</option>
+            <option value="Thi đấu thể thao">Thi đấu thể thao</option>
           </select>
         </div>
       </div>
     </div>
     <div class="form-group row">
-      <label for="fullname" class="col-sm-3 col-form-label"
-      >Họ và tên</label>
-      <div class="col-sm-9">
-        <input
-        (keydown)="onKeyDown($event)"
-         type="text" class="form-control" id="fullname" required [(ngModel)]="certificate.clientInfo.fullName"
-          #fullnameModel="ngModel" #fullnameEl [ngModelOptions]="{standalone: true}" placeholder="Họ và tên">
+      <div class="col-3">
+        <label for="fullname" class="col-form-label">Họ và tên</label>
+      </div>
+      <div class="col-7">
+        <input (keydown)="onKeyDown($event)" type="text" class="form-control" id="fullname" required
+          [(ngModel)]="certificate.clientInfo.fullName" #fullnameModel="ngModel" #fullnameEl
+          [ngModelOptions]="{standalone: true}" placeholder="Họ và tên">
         <abp-validation-summary [control]="fullnameModel" [controlEl]="fullnameEl"></abp-validation-summary>
       </div>
+      <div class="col-2">
+        <button (click)="showCameraDialog()" type="button" class="{{captureImage==''?'btn sm btn-primary':'btn sm btn-success'}}">
+          {{captureImage==''?'Chụp hình':'Đã chụp'}}
+        </button>
+      </div>
+
     </div>
     <div class="form-group row">
       <label for="sex" class="col-sm-3 col-form-label">Giới tính</label>
       <div class="col-sm-9" style="font-size: 1.2rem;">
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" [(ngModel)]="certificate.clientInfo.sex" value="nam" name="sex"
-            id="sex" required>
+            id="sex">
           <label class="form-check-label" for="sex">Nam</label>
         </div>
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" [(ngModel)]="certificate.clientInfo.sex" value="nu" name="sex"
-            id="sex" required>
+            id="sex">
           <label class="form-check-label" for="sex">Nữ</label>
-        </div>
-        <div *ngIf="!certificate.clientInfo.sex" style="color: red; font-size: small;">
-          Vui lòng chọn giới tính
         </div>
       </div>
     </div>
@@ -126,8 +129,7 @@ autocomplete="off"
     <div class="form-group row">
       <label for="CCCD" class="col-sm-3 col-form-label">Số CCCD</label>
       <div class="col-sm-9">
-        <input type="text" class="form-control" id="CCCD" placeholder="CCCD"
-        pattern="^(?:\w{3}\d{6}|\w{1,2}\d{7}|\d{9}|0\d{8}|\d{11}|\d{12}|\d{7})$" [(ngModel)]="certificate.clientInfo.cccd"
+        <input type="text" class="form-control" id="CCCD" placeholder="CCCD" [(ngModel)]="certificate.clientInfo.cccd"
           #cccdModel="ngModel" #cccdEl [ngModelOptions]="{standalone: true}" min="0">
         <abp-validation-summary [control]="cccdModel" [controlEl]="cccdEl"></abp-validation-summary>
       </div>
@@ -156,8 +158,8 @@ autocomplete="off"
         <datalist id="phanloaiCsk">
           <option value="Cục Cảnh sát quản lý hành chính về trật tự xã hội">Cục Cảnh sát quản lý hành chính về
             trật tự xã hội</option>
-            <option value="Cục Cảnh sát DKQL cư trú và DLQG về dân cư">Cục Cảnh sát DKQL cư trú và DLQG về dân cư</option>
-            <option value="Cục quản lý xuất nhập cảnh">Cục quản lý xuất nhập cảnh</option>
+          <option value="Cục Cảnh sát DKQL cư trú và DLQG về dân cư">Cục Cảnh sát DKQL cư trú và DLQG về dân cư</option>
+          <option value="Cục quản lý xuất nhập cảnh">Cục quản lý xuất nhập cảnh</option>
 
         </datalist>
       </div>
@@ -174,8 +176,8 @@ autocomplete="off"
     <div class="form-group row">
       <label for="province" class="col-sm-3 col-form-label">Tỉnh</label>
       <div class="col-sm-9">
-        <select class="form-control" [(ngModel)]="certificate.clientInfo.provinceId" [ngModelOptions]="{standalone: true}"
-          (change)="getDictrict()">
+        <select class="form-control" [(ngModel)]="certificate.clientInfo.provinceId"
+          [ngModelOptions]="{standalone: true}" (change)="getDictrict()">
           <option *ngFor="let item of provinces" value="{{item.id}}">{{item.name}}</option>
         </select>
       </div>
@@ -183,8 +185,8 @@ autocomplete="off"
     <div class="form-group row">
       <label for="district" class="col-sm-3 col-form-label">Huyện</label>
       <div class="col-sm-9">
-        <select class="form-control" [(ngModel)]="certificate.clientInfo.districtId" [ngModelOptions]="{standalone: true}"
-          (change)="getCommune()">
+        <select class="form-control" [(ngModel)]="certificate.clientInfo.districtId"
+          [ngModelOptions]="{standalone: true}" (change)="getCommune()">
           <option *ngFor="let item of districts" value="{{item.id}}">{{item.name}}</option>
         </select>
       </div>
@@ -192,7 +194,8 @@ autocomplete="off"
     <div class="form-group row">
       <label for="commune" class="col-sm-3 col-form-label">Xã</label>
       <div class="col-sm-9">
-        <select class="form-control" [(ngModel)]="certificate.clientInfo.communeId" [ngModelOptions]="{standalone: true}">
+        <select class="form-control" [(ngModel)]="certificate.clientInfo.communeId"
+          [ngModelOptions]="{standalone: true}">
           <option *ngFor="let item of communes" value="{{item.id}}">{{item.name}}</option>
         </select>
       </div>
