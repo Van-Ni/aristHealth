@@ -94,11 +94,13 @@ import { DataService } from "./services/data.service";
 import { LoadingService } from "./services/loader/loading.service";
 import { RegionsService } from "./services/regions.service";
 import { WebcamModule } from "ngx-webcam";
+import { HospitalSettingComponent } from './HospitalSetting/HospitalSetting.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AboutComponent,
+    HospitalSettingComponent,
     // tenants
     TenantsComponent,
     CreateTenantDialogComponent,
@@ -169,8 +171,9 @@ import { WebcamModule } from "ngx-webcam";
     //sync
     CertificateSyncComponent,
     CertificateSyncDetailComponent,
-    CameraModalComponent
-  ],
+    CameraModalComponent,
+      HospitalSettingComponent
+   ],
   imports: [
     CommonModule,
     FormsModule,

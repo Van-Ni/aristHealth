@@ -13,7 +13,7 @@
     <text name="UserEmailIsNotConfirmedAndCanNotLogin">Your email address is not confirmed. You can not login.</text>
     <text name="UserLockedOutMessage">Tài khoản đã đăng xuất, vui lòng thử lại.</text>
     <text name="PleaseEnterLoginInformation" value="Vui lòng nhập thông tin đăng nhập." />
-    <text name="TenancyName" value="Tenancy name" />
+    <text name="TenancyName" value="Cơ sở khám chữa bệnh" />
     <text name="UserNameOrEmail" value="Tên đăng nhập hoặc email" />
     <text name="Password" value="Mật khẩu" />
     <text name="ResetPassword" value="Đặt lại mật khẩu" />
@@ -137,5 +137,12 @@
     <text name="DriverReport">Báo cáo xét nghiệm (Trên 18)</text>
     <text name="HeroinReport">Báo cáo xét nghiệm (Lái xe)</text>
     <text name="HeroinReport+">Báo cáo xét nghiệm dương tính (Lái xe)</text>
+    
+    <text name="HospitalCode">Mã cơ sở KCB</text>
+    <text name="TenancyManagementName">Tên cơ quan chủ quản</text>
+    <text name="SyncUsername">Tên đăng nhập BHXH</text>
+    <text name="SyncPassword">Mật khẩu đăng nhập</text>
+    <text name="NormalTitle">Mẫu số thường(In giấy khám)</text>
+    <text name="DriverLicenseTile">Mẫu số giấy lái xe(In giấy khám)</text>
   </texts>
 </localizationDictionary>

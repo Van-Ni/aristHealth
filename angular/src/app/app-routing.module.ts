@@ -16,6 +16,7 @@ import { Du18Component } from './formfile/du18/du18.component';
 import { Chuadu18Component } from './formfile/chuadu18/chuadu18.component';
 import { ExportDataComponent } from './manager/export-data/export-data.component';
 import { CertificateSyncComponent } from './manager/certificate-sync/certificate-sync.component';
+import { HospitalSettingComponent } from './HospitalSetting/HospitalSetting.component';
 @NgModule({
     imports: [
         RouterModule.forChild([
@@ -36,7 +37,8 @@ import { CertificateSyncComponent } from './manager/certificate-sync/certificate
                     { path: '2/:id', component: Du18Component, canActivate: [AppRouteGuard] },
                     { path: '3/:id', component: Chuadu18Component, canActivate: [AppRouteGuard] },
                     { path: 'certificate-group-status', component: CertificateGroupStatusComponent, canActivate: [AppRouteGuard] },
-                    { path: 'update-password', component: ChangePasswordComponent, canActivate: [AppRouteGuard] }
+                    { path: 'update-password', component: ChangePasswordComponent, canActivate: [AppRouteGuard] },
+                    { path: 'hospitalSetting', component: HospitalSettingComponent,data: { permission: 'Pages.setting' }, canActivate: [AppRouteGuard] }
                 ]
             }
         ])

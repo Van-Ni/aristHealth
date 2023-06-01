@@ -25,6 +25,7 @@ import { SpinerInterceptor } from "@shared/interceptors/SpinerInterceptor";
     ApiServiceProxies.RegionServiceServiceProxy,
     ApiServiceProxies.HistoryExportServiceServiceProxy,
     ApiServiceProxies.SyncServiceServiceProxy,
+    ApiServiceProxies.HospitalSettingServiceServiceProxy,
     { provide: HTTP_INTERCEPTORS, useClass: AbpHttpInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: SpinerInterceptor, multi: true },
   ],

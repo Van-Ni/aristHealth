@@ -1,0 +1,123 @@
+<div [@routerTransition]>
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6">
+          <h1>{{ "UpdatePassword" | localize }}</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content px-2">
+    <div class="container-fluid">
+      <div class="card">
+        <form class="form-horizontal" autocomplete="off" #changePasswordForm="ngForm" (ngSubmit)="updateSetting()">
+          <div class="card-body">
+            <div class="modal-body">
+              <div class="form-group row required">
+                <label class="col-md-3 col-form-label" for="hospitalCode">
+                  {{ "HospitalCode" | localize }}
+                </label>
+                <div class="col-md-9">
+                  <input [disabled]="isDisable" type="text" class="form-control" name="hospitalCode" id="hospitalCode"
+                    required minlength="2" maxlength="32" [(ngModel)]="hospitalSettingDto.idHospital"
+                    #currentIdModel="ngModel" #currentIdModelEl />
+                  <abp-validation-summary [control]="currentIdModel"
+                    [controlEl]="currentIdModelEl"></abp-validation-summary>
+                </div>
+              </div>
+              <div class="form-group row required">
+                <label class="col-md-3 col-form-label" for="tenancyManagementName">
+                  {{ "TenancyManagementName" | localize }}
+                </label>
+                <div class="col-md-9">
+                  <input [disabled]="isDisable" type="text" class="form-control" name="tenancyManagementName"
+                    id="tenancyManagementName" required minlength="2" maxlength="32"
+                    validateEqual="confirmTenancyManagementName" reverse="true"
+                    [(ngModel)]="hospitalSettingDto.hospitalBaseDepartment" #tenancyManagementNameModel="ngModel"
+                    #tenancyManagementNameEl />
+                  <abp-validation-summary [control]="tenancyManagementNameModel" [controlEl]="tenancyManagementNameEl"
+                    [customValidationErrors]="hospitalSettingDto.hospitalBaseDepartment"></abp-validation-summary>
+                </div>
+              </div>
+              <div class="form-group row required">
+                <label class="col-md-3 col-form-label" for="tenancyName">
+                  {{ "TenancyName" | localize }}
+                </label>
+                <div class="col-md-9">
+                  <input [disabled]="isDisable" type="text" class="form-control" name="tenancyName"
+                    id="tenancyName" required minlength="2"
+                     reverse="true"
+                    [(ngModel)]="hospitalSettingDto.hospitalBranchName" #tenancyNameModel="ngModel"
+                    #tenancyNameNameEl />
+                  <abp-validation-summary [control]="tenancyNameModel" [controlEl]="tenancyNameNameEl"
+                    [customValidationErrors]="hospitalSettingDto.hospitalBranchName"></abp-validation-summary>
+                </div>
+              </div>
+              <div class="form-group row required">
+                <label class="col-md-3 col-form-label" for="normalTitle">
+                  {{ "NormalTitle" | localize }}
+                </label>
+                <div class="col-md-9">
+                  <input [disabled]="isDisable" type="text" class="form-control" name="normalTitle" id="normalTitle"
+                    required minlength="2" maxlength="32" reverse="true"
+                    [(ngModel)]="hospitalSettingDto.normalTile" #normalTitleModel="ngModel"
+                    #normalTitleNameEl />
+                  <abp-validation-summary [control]="normalTitleModel" [controlEl]="normalTitleNameEl"
+                    [customValidationErrors]="hospitalSettingDto.normalTile"></abp-validation-summary>
+                </div>
+              </div>
+              <div class="form-group row required">
+                <label class="col-md-3 col-form-label" for="driverLicenseTile">
+                  {{ "DriverLicenseTile" | localize }}
+                </label>
+                <div class="col-md-9">
+                  <input [disabled]="isDisable" type="text" class="form-control" name="driverLicenseTile"
+                    id="driverLicenseTile" required minlength="2" maxlength="32"
+                    validateEqual="confirmDriverLicenseTile" reverse="true"
+                    [(ngModel)]="hospitalSettingDto.driverLicenseTile" #driverLicenseTileModel="ngModel"
+                    #driverLicenseTileEl />
+                  <abp-validation-summary [control]="driverLicenseTileModel" [controlEl]="driverLicenseTileEl"
+                    [customValidationErrors]="hospitalSettingDto.driverLicenseTile"></abp-validation-summary>
+                </div>
+              </div>
+              <div class="form-group row required">
+                <label class="col-md-3 col-form-label" for="username">
+                  {{ "SyncUsername" | localize }}
+                </label>
+                <div class="col-md-9">
+                  <input [disabled]="isDisable" type="text" class="form-control" name="confirmNewPassword"
+                    id="confirmNewPassword" required minlength="2" maxlength="32" validateEqual="newPassword"
+                    reverse="false" [(ngModel)]="hospitalSettingDto.userName" #confirmNewPasswordModel="ngModel"
+                    #confirmNewPasswordEl />
+                  <abp-validation-summary [control]="confirmNewPasswordModel" [controlEl]="confirmNewPasswordEl"
+                    [customValidationErrors]="hospitalSettingDto.userName"></abp-validation-summary>
+                </div>
+              </div>
+              <div class="form-group row required">
+                <label class="col-md-3 col-form-label" for="password">
+                  {{ "SyncPassword" | localize }}
+                </label>
+                <div class="col-md-9">
+                  <input [disabled]="isDisable" type="password" class="form-control" name="password" id="password"
+                    required minlength="2" maxlength="32" validateEqual="password" reverse="false"
+                    [(ngModel)]="hospitalSettingDto.passwordMD5" #passwordModel="ngModel" #passwordEl />
+                  <abp-validation-summary [control]="passwordModel" [controlEl]="passwordEl"
+                    [customValidationErrors]="hospitalSettingDto.passwordMD5"></abp-validation-summary>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer justify-content-between">
+            <button *ngIf="isDisable" type="button" (click)="isDisable = !isDisable" class="btn btn-primary">
+              {{ "Edit" | localize }}
+            </button>
+            <button *ngIf="!isDisable" type="submit" class="btn btn-primary" [disabled]="!changePasswordForm.form.valid || saving">
+              {{ "Save" | localize }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>

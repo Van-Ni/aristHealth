@@ -176,5 +176,13 @@
     <text name="Sync">Liên thông</text>
     <text name="NumberTile">Số</text>
     <text name="CreationTime">Thời gian duyệt</text>
+
+    <text name="HospitalSetting">Thiết lập bệnh viện</text>
+    <text name="HospitalCode">Mã cơ sở KCB</text>
+    <text name="TenancyManagementName">Tên cơ quan chủ quản</text>
+    <text name="SyncUsername">Tên đăng nhập BHXH</text>
+    <text name="SyncPassword">Mật khẩu đăng nhập</text>
+    <text name="NormalTitle">Mẫu số thường(In)</text>
+    <text name="DriverLicenseTile">Mẫu số giấy lái xe(In)</text>
   </texts>
 </localizationDictionary>
