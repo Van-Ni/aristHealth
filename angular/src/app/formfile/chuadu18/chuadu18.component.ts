@@ -36,10 +36,10 @@ export class Chuadu18Component extends AppComponentBase implements OnInit {
   profile: CertificateDto;
 
   dataModel: ChuaDu18Model;
-  constructor(public loader: LoadingService, 
+  constructor(public loader: LoadingService,
     private dataService: DataService,
     private certificateServiceServiceProxy: CertificateServiceServiceProxy,
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private groupStatusService: GroupStatusServiceServiceProxy,
     private PDFService: PDFServiceServiceProxy,
      private injecter: Injector,
@@ -72,23 +72,23 @@ export class Chuadu18Component extends AppComponentBase implements OnInit {
         tdv: this.certificateStatusResult.items.find(i=>i.group=="tdv"),
       }
       console.log(this.dataModel);
-      
+
     });
     this.certificateServiceServiceProxy.getProfile(this.route.snapshot.params['id'])
     .subscribe((result:CertificateDto)=>{
       this.profile=result;
     })
     this.getAllData();
-  
+
   }
   getAllData(){
 
     this.dataService.refreshData(this.route.snapshot.params['id']);
-    
+
   }
   save = (entity :CertificateGroupStatusDto)=>{
     //Group service insert or update
-    // 
+    //
     const inputEntity = new UpdateCertificateGroupStatusDto();
     inputEntity.id = entity.id;
     inputEntity.certificateId = entity.certificateId;
@@ -172,7 +172,7 @@ export class Chuadu18Component extends AppComponentBase implements OnInit {
           const url = URL.createObjectURL(response);
           const link = document.createElement('a');
           link.href = url;
-          link.download = 'filled_certificate.pdf';
+          link.download = this.profile.clientInfo.fullName.normalize("NFC").replace(/\p{Diacritic}/gu, "").replace(/ /g, '_'); +'.pdf';
           link.target = '_blank';
           link.click();
         } else {

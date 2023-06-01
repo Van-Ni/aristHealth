@@ -192,7 +192,7 @@ export class Du18Component extends AppComponentBase implements OnInit {
           const url = URL.createObjectURL(response);
           const link = document.createElement('a');
           link.href = url;
-          link.download = 'filled_certificate.pdf';
+          link.download = this.profile.clientInfo.fullName.normalize("NFC").replace(/\p{Diacritic}/gu, "").replace(/ /g, '_'); +'.pdf';
           link.target = '_blank';
           link.click();
         } else {
