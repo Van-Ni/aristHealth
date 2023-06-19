@@ -101,7 +101,7 @@
                 <div class="col-md-9">
                   <input [disabled]="isDisable" type="password" class="form-control" name="password" id="password"
                     required minlength="2" maxlength="32" validateEqual="password" reverse="false"
-                    [(ngModel)]="hospitalSettingDto.passwordMD5" #passwordModel="ngModel" #passwordEl />
+                    ngModel #passwordModel="ngModel" #passwordEl />
                   <abp-validation-summary [control]="passwordModel" [controlEl]="passwordEl"
                     [customValidationErrors]="hospitalSettingDto.passwordMD5"></abp-validation-summary>
                 </div>

@@ -44,6 +44,7 @@ namespace AristBase.EntityFrameworkCore
             if (!SkipDbSeed)
             {
                 SeedHelper.SeedHostDb(IocManager);
+                SeedHelper.GetAndSeedTenantDb(IocManager);
             }
         }
     }

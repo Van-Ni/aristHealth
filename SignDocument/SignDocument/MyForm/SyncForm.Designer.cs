@@ -35,8 +35,9 @@
             this.xToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.càiĐặtToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cbbCer = new System.Windows.Forms.ComboBox();
+            this.signSettingMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSync = new System.Windows.Forms.Button();
+            this.btnSign = new System.Windows.Forms.Button();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,7 +62,7 @@
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.menuStrip2.ShowItemToolTips = true;
-            this.menuStrip2.Size = new System.Drawing.Size(390, 28);
+            this.menuStrip2.Size = new System.Drawing.Size(438, 28);
             this.menuStrip2.TabIndex = 1;
             // 
             // xToolStripMenuItem
@@ -74,7 +75,8 @@
             // càiĐặtToolStripMenuItem1
             // 
             this.càiĐặtToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem2});
+            this.toolStripMenuItem2,
+            this.signSettingMenu});
             this.càiĐặtToolStripMenuItem1.Name = "càiĐặtToolStripMenuItem1";
             this.càiĐặtToolStripMenuItem1.Size = new System.Drawing.Size(70, 24);
             this.càiĐặtToolStripMenuItem1.Text = "Cài đặt";
@@ -86,33 +88,51 @@
             this.toolStripMenuItem2.Text = "Tài khoản bảo hiểm xã hội";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
-            // label1
+            // signSettingMenu
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 41);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 20);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Chữ ký";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.signSettingMenu.Name = "signSettingMenu";
+            this.signSettingMenu.Size = new System.Drawing.Size(265, 26);
+            this.signSettingMenu.Text = "Chữ ký số";
+            this.signSettingMenu.Click += new System.EventHandler(this.signSettingMenu_Click);
             // 
-            // cbbCer
+            // btnSync
             // 
-            this.cbbCer.FormattingEnabled = true;
-            this.cbbCer.Location = new System.Drawing.Point(71, 33);
-            this.cbbCer.Name = "cbbCer";
-            this.cbbCer.Size = new System.Drawing.Size(307, 28);
-            this.cbbCer.TabIndex = 4;
-            this.cbbCer.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.btnSync.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(117)))), ((int)(((byte)(214)))));
+            this.btnSync.FlatAppearance.BorderSize = 0;
+            this.btnSync.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSync.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSync.ForeColor = System.Drawing.Color.White;
+            this.btnSync.Location = new System.Drawing.Point(65, 295);
+            this.btnSync.Name = "btnSync";
+            this.btnSync.Size = new System.Drawing.Size(309, 79);
+            this.btnSync.TabIndex = 10;
+            this.btnSync.Text = "Liên thông tất cả hồ sơ";
+            this.btnSync.UseVisualStyleBackColor = false;
+            this.btnSync.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnSign
+            // 
+            this.btnSign.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(117)))), ((int)(((byte)(214)))));
+            this.btnSign.FlatAppearance.BorderSize = 0;
+            this.btnSign.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSign.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnSign.ForeColor = System.Drawing.Color.White;
+            this.btnSign.Location = new System.Drawing.Point(65, 167);
+            this.btnSign.Name = "btnSign";
+            this.btnSign.Size = new System.Drawing.Size(309, 79);
+            this.btnSign.TabIndex = 9;
+            this.btnSign.Text = "Ký tất cả hồ sơ";
+            this.btnSign.UseVisualStyleBackColor = false;
+            this.btnSign.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // SyncForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(390, 467);
-            this.Controls.Add(this.cbbCer);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(438, 470);
+            this.Controls.Add(this.btnSync);
+            this.Controls.Add(this.btnSign);
             this.Controls.Add(this.menuStrip2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MainMenuStrip = this.menuStrip2;
@@ -132,12 +152,12 @@
         private ContextMenuStrip contextMenuStrip1;
         private ToolStripMenuItem càiĐặtToolStripMenuItem;
         private MenuStrip menuStrip1;
-        private ToolStripMenuItem toolStripMenuItem1;
         private MenuStrip menuStrip2;
         private ToolStripMenuItem càiĐặtToolStripMenuItem1;
         private ToolStripMenuItem toolStripMenuItem2;
         private ToolStripMenuItem xToolStripMenuItem;
-        private Label label1;
-        private ComboBox cbbCer;
+        private Button btnSync;
+        private Button btnSign;
+        private ToolStripMenuItem signSettingMenu;
     }
 }

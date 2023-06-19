@@ -13,7 +13,9 @@ namespace SignDocument.MyForm
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             var loginBHXH = new LoginBhxh();
+            this.Hide();
             loginBHXH.ShowDialog();
+            this.Show();
         }
 
         private void SyncForm_Load(object sender, EventArgs e)
@@ -21,48 +23,39 @@ namespace SignDocument.MyForm
             if (string.IsNullOrEmpty(Properties.Settings.Default.bhxhUsername)|| string.IsNullOrEmpty(Properties.Settings.Default.bhxhPassMd5))
             {
                 var loginBHXH = new LoginBhxh();
+                this.Hide();
                 loginBHXH.ShowDialog();
+                this.Show();
             }
-            
-
-            X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            store.Open(OpenFlags.ReadOnly);
-
-            cbbCer.BeginUpdate();
-
-            cbbCer.Items.Clear();
-            foreach (X509Certificate2 certificate in store.Certificates)
+            if (string.IsNullOrEmpty(Properties.Settings.Default.signThumbrint))
             {
-                cbbCer.Items.Add(certificate);
-                if (!string.IsNullOrEmpty(Properties.Settings.Default.signThumbrint))
-                {
-                    if (certificate.Thumbprint.Equals(Properties.Settings.Default.signThumbrint, StringComparison.OrdinalIgnoreCase))
-                    {
-                        cbbCer.SelectedItem = certificate;
-                    }
-                }                
+                var signSetting = new SignSetting();
+                this.Hide();
+                signSetting.ShowDialog();
+                this.Show();
             }
-            cbbCer.EndUpdate();
         }
 
         private void xToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-        private void label1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
-            if (cbbCer.SelectedItem != null)
-            {
-                var cer= (X509Certificate2)cbbCer.SelectedItem;
-                Properties.Settings.Default.signThumbrint = cer.Thumbprint;
-                Properties.Settings.Default.Save();
-            }
+            
+        }
+
+        private void signSettingMenu_Click(object sender, EventArgs e)
+        {
+            var signSetting = new SignSetting();
+            this.Hide();
+            signSetting.ShowDialog();
+            this.Show();
         }
     }
 }

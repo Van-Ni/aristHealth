@@ -1,3 +1,4 @@
+import { Md5 } from "./../../../node_modules/ts-md5/src/md5";
 import { AppComponentBase } from "@shared/app-component-base";
 import {
   HospitalSettingDto,
@@ -11,26 +12,29 @@ import { AbpValidationError } from "@shared/components/validation/abp-validation
   templateUrl: "./HospitalSetting.component.html",
   styleUrls: ["./HospitalSetting.component.css"],
 })
-export class HospitalSettingComponent  extends AppComponentBase  implements OnInit  {
+export class HospitalSettingComponent
+  extends AppComponentBase
+  implements OnInit
+{
   hospitalSettingDto: HospitalSettingDto;
   isDisable = true;
   saving = false;
   newPasswordValidationErrors: Partial<AbpValidationError>[] = [
     {
-      name: 'pattern',
+      name: "pattern",
       localizationKey:
-        'PasswordsMustBeAtLeast8CharactersContainLowercaseUppercaseNumber',
+        "PasswordsMustBeAtLeast8CharactersContainLowercaseUppercaseNumber",
     },
   ];
   confirmNewPasswordValidationErrors: Partial<AbpValidationError>[] = [
     {
-      name: 'validateEqual',
-      localizationKey: 'PasswordsDoNotMatch',
+      name: "validateEqual",
+      localizationKey: "PasswordsDoNotMatch",
     },
   ];
   constructor(
     private _hospitalSettingProxy: HospitalSettingServiceServiceProxy,
-    injector: Injector,
+    injector: Injector
   ) {
     super(injector);
   }
@@ -40,12 +44,17 @@ export class HospitalSettingComponent  extends AppComponentBase  implements OnIn
       this.hospitalSettingDto = setting;
     });
   }
-  updateSetting(){
-    this.saving=true;
-    this._hospitalSettingProxy.addOrUpdateSetting(this.hospitalSettingDto).subscribe((r)=>{
-      this.hospitalSettingDto = r;
-      this.saving = false;
-      this.isDisable = true;
-    })
+  onPasswordChange(newPass: string) {
+    this.hospitalSettingDto.passwordMD5 = Md5.hashStr(newPass);
+  }
+  updateSetting() {
+    this.saving = true;
+    this._hospitalSettingProxy
+      .addOrUpdateSetting(this.hospitalSettingDto)
+      .subscribe((r) => {
+        this.hospitalSettingDto = r;
+        this.saving = false;
+        this.isDisable = true;
+      });
   }
 }
