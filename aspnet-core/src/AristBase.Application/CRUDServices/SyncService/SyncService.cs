@@ -41,32 +41,40 @@ namespace AristBase.CRUDServices.SyncService
         public override async Task<PagedResultDto<CertificateSyncDto>> GetAllAsync(PagedAndSortedAndSyncReqeustResultDto input)
         {
             CheckGetAllPermission();
-
-            var query = CreateFilteredQuery(input);
-            query = BaseQuery(query);
-            if (input.DateFrom !=null && input.DateFrom != DateTime.MinValue)
+            try
             {
-                query = query.Where(w => w.CreationTime >= input.DateFrom);
+                var query = CreateFilteredQuery(input);
+                query = BaseQuery(query);
+                if (input.DateFrom != null && input.DateFrom != DateTime.MinValue)
+                {
+                    query = query.Where(w => w.CreationTime >= input.DateFrom);
+                }
+                if (input.DateTo != null && input.DateTo != DateTime.MinValue)
+                {
+                    query = query.Where(w => w.CreationTime <= input.DateTo);
+                }
+                if (input.SyncStatus != null)
+                {
+                    query = query.Where(q => q.SyncStatus == input.SyncStatus);
+                }
+                var totalCount = await AsyncQueryableExecuter.CountAsync(query);
+
+                query = ApplySorting(query, input);
+                query = ApplyPaging(query, input);
+
+                var entities = await AsyncQueryableExecuter.ToListAsync(query);
+
+                return new PagedResultDto<CertificateSyncDto>(
+                    totalCount,
+                    entities.Select(MapToEntityDto).ToList()
+                );
             }
-            if (input.DateTo != null && input.DateTo != DateTime.MinValue)
+            catch (Exception e)
             {
-                query = query.Where(w => w.CreationTime <= input.DateTo);
+                Console.WriteLine(e.Message);
+                throw;
             }
-            if(input.SyncStatus != null)
-            {
-                query=query.Where(q=>q.SyncStatus == input.SyncStatus);
-            }
-            var totalCount = await AsyncQueryableExecuter.CountAsync(query);
-
-            query = ApplySorting(query, input);
-            query = ApplyPaging(query, input);
-
-            var entities = await AsyncQueryableExecuter.ToListAsync(query);
-
-            return new PagedResultDto<CertificateSyncDto>(
-                totalCount,
-                entities.Select(MapToEntityDto).ToList()
-            );
+            
         }
         public async Task<CertificateSyncDto> GetSyncCertificate()
         {
