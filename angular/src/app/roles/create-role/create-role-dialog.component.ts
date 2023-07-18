@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { AppComponentBase } from '@shared/app-component-base';
+declare var $: any;
 import {
   RoleServiceProxy,
   RoleDto,
@@ -24,6 +25,8 @@ export class CreateRoleDialogComponent extends AppComponentBase
   saving = false;
   role = new RoleDto();
   permissions: PermissionDto[] = [];
+  parentRoles: PermissionDto[] = [];
+  childRoles: PermissionDto[] = [];
   checkedPermissionsMap: { [key: string]: boolean } = {};
   defaultPermissionCheckedStatus = true;
 
@@ -42,12 +45,29 @@ export class CreateRoleDialogComponent extends AppComponentBase
       .getAllPermissions()
       .subscribe((result: PermissionDtoListResultDto) => {
         this.permissions = result.items;
+        this.splitRoles(result.items);
         this.setInitialPermissionsStatus();
-        console.log(result);
       });
-
+  }
+  splitRoles(items: any[]) {
+    const parentRoles = [];
+    const childRoles = [];
+    items.forEach((item, index) => {
+      if (item.name.match(/\./g)?.length === 1) {
+        parentRoles.push({ ...item, id: index });
+      } else if (item.name.match(/\./g)?.length === 2) {
+        childRoles.push({ ...item, id: index });
+      }
+    });
+    this.parentRoles = parentRoles;
+    this.childRoles = childRoles;
   }
 
+  getChildPermissions(permissionName: string) {
+    return this.childRoles.filter(child => {
+      return child.name.substring(0, child.name.lastIndexOf('.')) === permissionName;
+    });
+  }
   setInitialPermissionsStatus(): void {
     _map(this.permissions, (item) => {
       this.checkedPermissionsMap[item.name] = this.isPermissionChecked(
@@ -64,8 +84,41 @@ export class CreateRoleDialogComponent extends AppComponentBase
 
   onPermissionChange(permission: PermissionDto, $event) {
     this.checkedPermissionsMap[permission.name] = $event.target.checked;
+    const item = $($event.target);
+    const checkboxes = item.closest(".container-checkbox")
+      .find(".child-checkbox > input[type='checkbox']");
+
+    checkboxes
+      .prop('checked', $event.target.checked);
+
+    const names = checkboxes.map(function (item: any) {
+      return $(this).attr("name");
+    }).get();
+    names.forEach((name: string) => {
+      this.checkedPermissionsMap[name] = $event.target.checked;
+    });
+
+  }
+  onPermissionChildChange(permission: PermissionDto, $event) {
+    this.checkedPermissionsMap[permission.name] = $event.target.checked;
   }
 
+  checkAllElement($event) {
+    const item = $($event.target);
+    const checkboxes = item.closest(".container-checkall")
+      .find(".checkbox-items input[type='checkbox']");
+    checkboxes.prop('checked', $event.target.checked);
+    const names = checkboxes.map(function (item: any) {
+      return $(this).attr("name");
+    }).get();
+    if($event.target.checked){
+      names.forEach((name: string) => {
+        this.checkedPermissionsMap[name] = $event.target.checked;
+      });
+    }else{
+      this.checkedPermissionsMap = {};
+    }
+  }
   getCheckedPermissions(): string[] {
     const permissions: string[] = [];
     _forEach(this.checkedPermissionsMap, function (value, key) {
@@ -82,7 +135,7 @@ export class CreateRoleDialogComponent extends AppComponentBase
     const role = new CreateRoleDto();
     role.init(this.role);
     role.grantedPermissions = this.getCheckedPermissions();
-
+    console.log(role.grantedPermissions);
     this._roleService
       .create(role)
       .subscribe(

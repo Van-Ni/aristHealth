@@ -2,103 +2,43 @@
 <div class="container">
 
   <div class="row align-items-center" *ngIf="profile&&profile.clientInfo">
-    <div class="col-4 text-center">
-      <div class="row">
-        <img class="brochure-poster" class="img-fluid rounded mx-auto d-block"
-          [src]="baseUrl+'/'+profile.clientInfo.cameraCapturePath" alt="" />
-      </div>
-      <div class="row">
-        <div class="col-12"><label>Số: </label><span>{{profile.clientInfo.id}}</span></div>
+    <table class="table table-bordered">
+      <tbody >
+        <tr>
+          <th>Số:</th>
+          <td>{{profile.clientInfo.id}}</td>
+          <th>Ảnh:</th>
+          <td>
+            <img style="width: 200px;" class="brochure-poster" class="img-fluid rounded d-block"
+              [src]="baseUrl+'/'+profile.clientInfo.cameraCapturePath" alt="" />
+          </td>
+        </tr>
+        <tr>
+          <th>Họ tên:</th>
+          <td>{{profile.clientInfo.fullName}}</td>
+          <th>Địa chỉ:</th>
+          <td>{{profile.clientInfo.commune}}, {{profile.clientInfo.district}}, {{profile.clientInfo.province}}</td>
+        </tr>
+        <tr>
+          <th>Giới tính:</th>
+          <td>{{profile.clientInfo.sex =='nam'? 'Nam' : 'Nữ'}}</td>
+          <th>Lý do khám:</th>
+          <td>{{profile.reason}}</td>
+        </tr>
+        <tr>
+          <th>Số CMND:</th>
+          <td>{{profile.clientInfo.cccd}}</td>
+          <th>Ngày sinh:</th>
+          <td>{{profile.clientInfo.dateOfBirth}}</td>
+        </tr>
+        <tr>
+          <th>Địa chỉ cấp:</th>
+          <td>{{profile.clientInfo.addressCCCD}}</td>
+          <th>Ngày cấp:</th>
+          <td>{{profile.clientInfo.createTimeCCCD}}</td>
+        </tr>
+      </tbody>
+    </table>
 
-      </div>
-    </div>
-    <div class="col-8">
-      <div class="row">
-        <div class="col-2">
-          <label>Họ tên: </label>
-        </div>
-        <div class="col-10">
-          <span>{{profile.clientInfo.fullName}}</span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-2">
-          <label>Giới tính: </label>
-        </div>
-        <div class="col-4">
-          <span>{{profile.clientInfo.sex =='nam'? 'Nam' : 'Nữ'}}</span>
-        </div>
-        <div class="col-2">
-          <label>Ngày sinh: </label>
-        </div>
-        <div class="col-4">
-          <span>{{profile.clientInfo.dateOfBirth}}</span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-2">
-          <label>Số CMND: </label>
-        </div>
-        <div class="col-4">
-          <span>{{profile.clientInfo.cccd}}</span>
-        </div>
-        <div class="col-2">
-          <label>Ngày cấp: </label>
-        </div>
-        <div class="col-4">
-          <span>{{profile.clientInfo.createTimeCCCD}}</span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-2">
-          <label>Địa chỉ cấp: </label>
-        </div>
-        <div class="col-10">
-          <span>{{profile.clientInfo.addressCCCD}}</span>
-        </div>
-      </div>
-      <div class="row" *ngIf="profile.clientInfo.guardianName != null">
-        <div class="col-2">
-          <label>Người giám hộ: </label>
-        </div>
-        <div class="col-10">
-          <span>{{profile.clientInfo.guardianName}}</span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-2">
-          <label>Địa chỉ: </label>
-        </div>
-        <div class="col-10">
-          <span>{{profile.clientInfo.commune}}, {{profile.clientInfo.district}}, {{profile.clientInfo.province}}</span>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-2">
-          <label>Lý do khám: </label>
-        </div>
-        <div class="col-10">
-          <span>{{profile.reason}}</span>
-        </div>
-      </div>
-      <!-- <form class="form-horizontal" autocomplete="off" #createProfile="ngForm">
-        <fieldset [disabled]="!isEditProfile">
-          <div class="form-group row" *ngIf="profile.clientInfo.guardianName != null">
-            <label for="GuardianName" class="col-sm-2 col-form-label">Họ và tên bố, mẹ hoặc người giám hộ</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="GuardianName" [(ngModel)]="profile.clientInfo.guardianName"
-                [ngModelOptions]="{standalone: true}" placeholder="Họ và tên bố, mẹ hoặc người giám hộ">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="address" class="col-sm-2 col-form-label">Lý do khám sức khỏe</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="address" [(ngModel)]="profile.reason"
-                [ngModelOptions]="{standalone: true}" placeholder="Lý do khám sức khỏe">
-            </div>
-          </div>
-        </fieldset>
-      </form> -->
-    </div>
   </div>
 </div>

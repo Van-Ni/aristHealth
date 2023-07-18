@@ -48,14 +48,16 @@
             <div class="col-md-6">
               <div class="row">
                 <div class="col-md-6">
-                  <input type="text" [(ngModel)]="dateFrom" [ngModelOptions]="{standalone: true}"
-                    placeholder="Ngày bắt đầu" class="form-control" (ngModelChange)="getDateFrom($event)"
-                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+                  <label class="col-form-label input-date__title">Ngày bắt đầu</label>
+                  <input class="position-relative" type="text" [className]="" [(ngModel)]="dateFrom"
+                    [ngModelOptions]="{standalone: true}" placeholder="Ngày bắt đầu" class="form-control"
+                    (ngModelChange)="getDateFrom($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
                 </div>
                 <div class="col-md-6">
-                  <input type="text" [(ngModel)]="dateTo" [ngModelOptions]="{standalone: true}"
-                    placeholder="Ngày kết thúc" class="form-control" (ngModelChange)="getDateTo($event)"
-                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
+                  <label class="col-form-label input-date__title">Ngày kết thúc</label>
+                  <input class="position-relative" type="text" [(ngModel)]="dateTo"
+                    [ngModelOptions]="{standalone: true}" placeholder="Ngày kết thúc" class="form-control"
+                    (ngModelChange)="getDateTo($event)" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
                 </div>
               </div>
             </div>
@@ -110,7 +112,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="
+                <tr (click)="goToCertificate(Certificate.certificateType.typeName,Certificate.id)" *ngFor="
                   let Certificate of Certificates
                     | paginate
                       : {
@@ -123,9 +125,7 @@
                   <td>{{ Certificate.clientInfo.id }}</td>
                   <td>{{ Certificate.clientInfo.fullName }}</td>
                   <td>{{ Certificate.clientInfo.cccd }}</td>
-                  <td><a routerLinkActive="active"
-                      routerLink="/app/{{Certificate.certificateType.typeName}}/{{Certificate.id}}">{{
-                      Certificate.certificateType.name }}</a></td>
+                  <td>{{Certificate.certificateType.name }}</td>
                   <td>
                     <p *ngIf="Certificate.status == 0"
                       style=" border: 2px solid #000000; border-radius: 15px; background-color: rgb(239, 244, 121); text-align: center;">
@@ -149,12 +149,13 @@
                   <td>{{ Certificate.reason }}</td>
                   <td>{{Certificate.creationTime| date:'dd/MM HH:mm'}}</td>
                   <td>
-                    <div class="row">
-                      <button type="button" class="btn btn-sm bg-secondary" (click)="editCertificate(Certificate)">
+                    <div class="row flex-nowrap">
+                      <button type="button" class="btn btn-sm bg-secondary"
+                        (click)="editCertificate($event,Certificate)">
                         <i class="fas fa-pencil-alt"></i>
                         {{ "Edit" | localize }}
                       </button>
-                      <button type="button" class="btn btn-sm bg-danger" (click)="delete(Certificate)">
+                      <button type="button" class="btn btn-sm bg-danger mx-2" (click)="delete(Certificate)">
                         <i class="fas fa-trash"></i>
                         {{ "Delete" | localize }}
                       </button>

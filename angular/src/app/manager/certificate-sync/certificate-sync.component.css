@@ -1,0 +1,14 @@
+.input-date__title{
+    font-size: 0.75rem;
+    color: inherit;
+    font-weight: 700;
+    position: relative;
+    top: 0.6rem;
+    right: -12rem;
+    margin: 0 0 0 7px;
+    padding: 0 3px;
+    background: #fff;
+    width: -moz-fit-content;
+    width: fit-content;
+    color: #ccc;
+}

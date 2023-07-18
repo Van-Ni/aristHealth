@@ -21,7 +21,7 @@ export class DriverHealthCheckComponent extends AppComponentBase implements OnIn
   request: PagedRequestDto;
   certificateStatusResult: CertificateGroupStatusDtoPagedResultDto;
   profile: CertificateDto;
-
+  title:string = "Khám sức khỏe lái xe";
   dataModel: ClinicalExaminationModel
   constructor(public loader: LoadingService,
     private dataService: DataService,

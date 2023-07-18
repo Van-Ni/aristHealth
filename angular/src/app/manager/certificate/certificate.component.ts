@@ -10,6 +10,7 @@ import { EditCertificateComponent } from "./edit-certificate/edit-certificate.co
 import { finalize } from "rxjs";
 import { CertificateDto } from "@shared/service-proxies/service-proxies";
 import * as moment from "moment";
+import { Router } from "@angular/router";
 export class PagedCertificatesRequestDto extends PagedRequestDto {
   keyword: string;
   filter: serviceProxies.Status;
@@ -27,8 +28,7 @@ export interface RegionDtlFull {
 })
 export class CertificateComponent
   extends PagedListingComponentBase<CertificateDto>
-  implements OnInit
-{
+  implements OnInit {
   Certificates: CertificateDto[] = [];
   keyword = "";
   dateFrom = new Date();
@@ -39,7 +39,8 @@ export class CertificateComponent
     injector: Injector,
     private _certificatesService: serviceProxies.CertificateServiceServiceProxy,
     private _modalService: BsModalService,
-    private PDFService: serviceProxies.PDFServiceServiceProxy
+    private PDFService: serviceProxies.PDFServiceServiceProxy,
+    private router: Router
   ) {
     super(injector);
   }
@@ -77,7 +78,7 @@ export class CertificateComponent
     request.filter = serviceProxies.Status._2;
     console.log(request);
 
-    this.list(request, this.pageNumber, () => {});
+    this.list(request, this.pageNumber, () => { });
   }
   getReduce(): void {
     const request = new PagedCertificatesRequestDto();
@@ -85,7 +86,7 @@ export class CertificateComponent
     request.filter = serviceProxies.Status._0;
     console.log(request);
 
-    this.list(request, this.pageNumber, () => {});
+    this.list(request, this.pageNumber, () => { });
   }
   delete(Certificate: CertificateDto): void {
     abp.message.confirm(
@@ -104,7 +105,7 @@ export class CertificateComponent
                 this.refresh();
               })
             )
-            .subscribe(() => {});
+            .subscribe(() => { });
         }
       }
     );
@@ -138,7 +139,8 @@ export class CertificateComponent
     this.showCreateOrEditCertificateDialog();
   }
 
-  editCertificate(Certificate: CertificateDto): void {
+  editCertificate(event: Event, Certificate: CertificateDto): void {
+    event.stopPropagation();
     this.showCreateOrEditCertificateDialog(Certificate.id);
   }
 
@@ -172,15 +174,19 @@ export class CertificateComponent
   getDateFrom(datestart: any) {
     const request = new PagedCertificatesRequestDto();
     this.dateFrom = datestart;
-    this.list(request, this.pageNumber, () => {});
+    this.list(request, this.pageNumber, () => { });
   }
   getDateTo(dateend: any) {
     const request = new PagedCertificatesRequestDto();
     this.dateTo = dateend;
-    this.list(request, this.pageNumber, () => {});
+    this.list(request, this.pageNumber, () => { });
   }
   getBegin = (date: Date) =>
     moment(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
   getEnd = (date: Date) =>
     moment(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1));
+
+    goToCertificate(typeName: string, id: number) {
+      window.open(`/app/${typeName}/${id}`, '_blank');
+    }
 }

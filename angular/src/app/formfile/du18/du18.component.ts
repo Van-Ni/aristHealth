@@ -40,7 +40,7 @@ export class Du18Component extends AppComponentBase implements OnInit {
   request: PagedRequestDto;
   certificateStatusResult : CertificateGroupStatusDtoPagedResultDto ;
   profile: CertificateDto;
-
+  title:string = "Khám sức khỏe làm việc, học tập (trên 18 tuổi)";
   dataModel: Du18Model;
   constructor(public loader: LoadingService,
     private dataService: DataService,

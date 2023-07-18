@@ -1,13 +1,5 @@
-<form
-  class="form-horizontal"
-  autocomplete="off"
-  #editRoleForm="ngForm"
-  (ngSubmit)="save()"
->
-  <abp-modal-header
-    [title]="'EditRole' | localize"
-    (onCloseClick)="bsModalRef.hide()"
-  ></abp-modal-header>
+<form class="form-horizontal" autocomplete="off" #editRoleForm="ngForm" (ngSubmit)="save()">
+  <abp-modal-header [title]="'EditRole' | localize" (onCloseClick)="bsModalRef.hide()"></abp-modal-header>
   <div class="modal-body">
     <tabset>
       <tab [heading]="'Details' | localize" class="pt-3 px-2">
@@ -16,22 +8,9 @@
             {{ "Name" | localize }}
           </label>
           <div class="col-md-9">
-            <input
-              type="text"
-              class="form-control"
-              name="name"
-              id="name"
-              required
-              minlength="2"
-              maxlength="32"
-              [(ngModel)]="role.name"
-              #nameModel="ngModel"
-              #nameEl
-            />
-            <abp-validation-summary
-              [control]="nameModel"
-              [controlEl]="nameEl"
-            ></abp-validation-summary>
+            <input type="text" class="form-control" name="name" id="name" required minlength="2" maxlength="32"
+              [(ngModel)]="role.name" #nameModel="ngModel" #nameEl />
+            <abp-validation-summary [control]="nameModel" [controlEl]="nameEl"></abp-validation-summary>
           </div>
         </div>
         <div class="form-group row required">
@@ -39,22 +18,9 @@
             {{ "DisplayName" | localize }}
           </label>
           <div class="col-md-9">
-            <input
-              type="text"
-              class="form-control"
-              name="displayName"
-              id="displayName"
-              required
-              minlength="2"
-              maxlength="32"
-              [(ngModel)]="role.displayName"
-              #displayNameModel="ngModel"
-              #displayNameEl
-            />
-            <abp-validation-summary
-              [control]="displayNameModel"
-              [controlEl]="displayNameEl"
-            ></abp-validation-summary>
+            <input type="text" class="form-control" name="displayName" id="displayName" required minlength="2"
+              maxlength="32" [(ngModel)]="role.displayName" #displayNameModel="ngModel" #displayNameEl />
+            <abp-validation-summary [control]="displayNameModel" [controlEl]="displayNameEl"></abp-validation-summary>
           </div>
         </div>
         <div class="form-group row mb-0">
@@ -62,33 +28,44 @@
             {{ "RoleDescription" | localize }}
           </label>
           <div class="col-md-9">
-            <textarea
-              type="text"
-              class="form-control"
-              name="description"
-              id="description"
-              [(ngModel)]="role.description"
-            >
+            <textarea type="text" class="form-control" name="description" id="description"
+              [(ngModel)]="role.description">
             </textarea>
           </div>
         </div>
       </tab>
-      <tab [heading]="'Permissions' | localize" class="pt-3 px-2">
-        <div class="form-group row mb-0">
-          <ng-container *ngFor="let permission of permissions; let i = index">
-            <div class="col-md-6">
-              <div class="custom-control custom-checkbox">
-                <input
-                  type="checkbox"
-                  class="custom-control-input"
-                  [id]="'permission_' + i"
-                  [checked]="isPermissionChecked(permission.name)"
-                 
-                  (change)="onPermissionChange(permission, $event)"
-                />
-                <label class="custom-control-label" [for]="'permission_' + i">
+      <tab [heading]="'Permissions' | localize" class="pt-3 px-2 container-checkall">
+        <div class="col-12 custom-control custom-checkbox checkall">
+          <input type="checkbox" class="custom-control-input" id="checkall" (change)="checkAllElement($event)" />
+          <label class="custom-control-label text-primary" for="checkall">
+           Chọn tất cả
+          </label>
+        </div>
+        <div class="checkbox-items">
+          <ng-container *ngFor="let permission of parentRoles">
+            <div class="row pb-2 container-checkbox">
+              <div class="col-12 custom-control custom-checkbox parent-checkbox">
+                <input type="checkbox" class="custom-control-input" [id]="'permission_' + permission.id"
+                  [checked]="isPermissionChecked(permission.name)" (change)="onPermissionChange(permission, $event)"
+                  [name]="permission.name" />
+                <label class="custom-control-label" [for]="'permission_' + permission.id">
                   {{ permission.displayName }}
                 </label>
+              </div>
+              <div class="col-12 pl-4">
+                <div class="row">
+                  <div class="col-md-3" *ngFor="let childRole of getChildPermissions(permission.name)">
+                    <div class="custom-control custom-checkbox child-checkbox">
+                      <input type="checkbox" class="custom-control-input" [id]="'permission_' + childRole.id"
+                        [checked]="isPermissionChecked(childRole.name)" [name]="childRole.name"
+                        (change)="onPermissionChildChange(childRole, $event)" />
+                      <label style="font-weight: 400;" class="custom-control-label"
+                        [for]="'permission_' + childRole.id">
+                      {{ childRole.displayName }}
+                      </label>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </ng-container>
@@ -96,10 +73,7 @@
       </tab>
     </tabset>
   </div>
-  <abp-modal-footer
-    [cancelDisabled]="saving"
-    [saveDisabled]="!editRoleForm.form.valid || saving"
-    (onCancelClick)="bsModalRef.hide()"
-  ></abp-modal-footer>
+  <abp-modal-footer [cancelDisabled]="saving" [saveDisabled]="!editRoleForm.form.valid || saving"
+    (onCancelClick)="bsModalRef.hide()"></abp-modal-footer>
 </form>
 <!-- [disabled]="role.isStatic" -->

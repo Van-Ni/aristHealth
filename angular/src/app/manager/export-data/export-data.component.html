@@ -31,11 +31,13 @@
               <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-3">
+                  <label class="col-form-label input-date__title">Ngày bắt đầu</label>
                   <input type="text" [(ngModel)]="dateFrom" [ngModelOptions]="{standalone: true}"
                     placeholder="Ngày bắt đầu" class="form-control" (ngModelChange)="getDateFrom($event)"
                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
                 </div>
                 <div class="col-md-3">
+                  <label class="col-form-label input-date__title">Ngày kết thúc</label>
                   <input type="text" [(ngModel)]="dateTo" [ngModelOptions]="{standalone: true}"
                     placeholder="Ngày kết thúc" class="form-control" (ngModelChange)="getDateTo($event)"
                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker>
