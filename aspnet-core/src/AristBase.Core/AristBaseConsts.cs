@@ -15,6 +15,6 @@ namespace AristBase
         /// Default pass phrase for SimpleStringCipher decrypt/encrypt operations
         /// </summary>
         public static readonly string DefaultPassPhrase =
-            DebugHelper.IsDebug ? "gsKxGZ012HLL3MI5" : "521511bbe24e487fa92d035fa8535d46";
+             "521511bbe24e487fa92d035fa8535d46";
     }
 }
