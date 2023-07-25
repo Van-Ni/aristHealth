@@ -20,6 +20,8 @@ import { TenantsComponent } from "@app/tenants/tenants.component";
 import { CreateTenantDialogComponent } from "./tenants/create-tenant/create-tenant-dialog.component";
 import { EditTenantDialogComponent } from "./tenants/edit-tenant/edit-tenant-dialog.component";
 // roles
+import { NgSelectModule } from '@ng-select/ng-select';
+
 import { RolesComponent } from "@app/roles/roles.component";
 import { CreateRoleDialogComponent } from "./roles/create-role/create-role-dialog.component";
 import { EditRoleDialogComponent } from "./roles/edit-role/edit-role-dialog.component";
@@ -189,7 +191,8 @@ import { HospitalSettingComponent } from './HospitalSetting/HospitalSetting.comp
     ServiceProxyModule,
     SharedModule,
     NgxPaginationModule,
-    WebcamModule
+    WebcamModule,
+    NgSelectModule,
   ],
   providers: [DataService, LoadingService, RegionsService],
 })
