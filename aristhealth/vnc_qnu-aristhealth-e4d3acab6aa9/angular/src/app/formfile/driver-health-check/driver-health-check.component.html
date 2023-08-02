@@ -1,0 +1,66 @@
+
+  <h2 style="text-align: center;">Giấy khám sức khỏe người lái xe</h2>
+  <div class="container" *ngIf="medicationKeyResult">
+    <div (click)="isProfile1 = !isProfile1" [attr.aria-expanded]="!isProfile1" aria-controls="collapseBasic">
+      <h4>Thông tin cá nhân</h4>
+    </div>
+    <hr>
+    <div id="collapseBasic" [collapse]="isProfile1" [isAnimated]="true">
+      <div class="well well-lg card card-block card-header">
+        <app-profile [profile]="profile"></app-profile>
+      </div>
+    </div>
+    <div (click)="isTSBCDTKSK1 = !isTSBCDTKSK1" [attr.aria-expanded]="!isTSBCDTKSK1" aria-controls="collapseBasic">
+      <h4>Tiền sử bệnh của đối tượng khám sức khỏe</h4>
+    </div>
+    <hr>
+    <div id="collapseBasic" [collapse]="isTSBCDTKSK1" [isAnimated]="true">
+      <div class="well well-lg card card-block card-header">
+        <app-driving-medical-history></app-driving-medical-history>
+      </div>
+    </div>
+    <div (click)="isKhamTheLuc1 = !isKhamTheLuc1" [attr.aria-expanded]="!isKhamTheLuc1" aria-controls="collapseBasic">
+      <h4>Khám thể lực</h4>
+    </div>
+    <hr>
+    <div id="collapseBasic" [collapse]="isKhamTheLuc1" [isAnimated]="true">
+      <div class="well well-lg card card-block card-header">
+        <app-physical-examination [Data]="medicationKeyResult"
+          [statusDataCheck]="certificateStatusResult"></app-physical-examination>
+      </div>
+    </div>
+    <div (click)="isKhamLamSan1 = !isKhamLamSan1" [attr.aria-expanded]="!isKhamLamSan1" aria-controls="collapseBasic">
+      <h4>Khám lâm sàn</h4>
+    </div>
+    <hr>
+    <div id="collapseBasic" [collapse]="isKhamLamSan1" [isAnimated]="true">
+      <div class="well well-lg card card-block card-header">
+        <app-clinical-examination1 [Data]="medicationKeyResult"
+          [statusDataCheck]="certificateStatusResult"></app-clinical-examination1>
+      </div>
+    </div>
+    <div (click)="isKhamCanLamSan1 = !isKhamCanLamSan1" [attr.aria-expanded]="!isKhamCanLamSan1"
+      aria-controls="collapseBasic">
+      <h4>Khám cận lâm sàn</h4>
+    </div>
+    <hr>
+    <div id="collapseBasic" [collapse]="isKhamCanLamSan1" [isAnimated]="true">
+      <div class="well well-lg card card-block card-header">
+        <app-subclinical-examination-type1 [Data]="medicationKeyResult"
+          [statusDataCheck]="certificateStatusResult"></app-subclinical-examination-type1>
+      </div>
+    </div>
+    <div (click)="isKetLuan1 = !isKetLuan1" [attr.aria-expanded]="!isKetLuan1" aria-controls="collapseBasic">
+      <h4>Kết luận</h4>
+    </div>
+    <hr>
+    <div id="collapseBasic" [collapse]="isKetLuan1" [isAnimated]="true">
+      <div class="well well-lg card card-block card-header">
+        <app-current-conclusion-type1 [Data]="medicationKeyResult"
+          [statusDataCheck]="certificateStatusResult"></app-current-conclusion-type1>
+      </div>
+    </div>
+    <div class="row">
+      <app-appove1></app-appove1>
+    </div>
+  </div>

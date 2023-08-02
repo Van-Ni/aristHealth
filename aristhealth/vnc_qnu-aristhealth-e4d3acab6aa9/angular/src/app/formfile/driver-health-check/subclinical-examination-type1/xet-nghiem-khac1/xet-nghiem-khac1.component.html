@@ -1,0 +1,30 @@
+<form autocomplete="off"
+#createxetnghiemkhac="ngForm"
+(ngSubmit)="save()">
+  <fieldset [disabled]="!isEditable10">
+  <div class="container">
+    <p>2. Các xét nghiệm chỉ thực hiện khi có chỉ định của bác sĩ khám sức khỏe: Huyết học/sinh hóa/X.quang và các xét nghiệm khác:</p>
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">Phân loại sức khỏe</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" [(ngModel)]="xetnghiemkhac.xetnghiemkhac_text_phanloai"
+      [ngModelOptions]="{standalone: true}"></textarea>
+    </div>
+    <div class="form-group row">
+      <label for="fullname" class="col-sm-2 col-form-label">a. Kết quả:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control"   [(ngModel)]="xetnghiemkhac.xetnghiemkhac_text_ketqua"
+        [ngModelOptions]="{standalone: true}">
+      </div>
+    </div><div class="form-group row">
+      <label for="fullname" class="col-sm-2 col-form-label">b. Kết luận:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control"  [(ngModel)]="xetnghiemkhac.xetnghiemkhac_text_ketluan"
+        [ngModelOptions]="{standalone: true}">
+      </div>
+    </div>
+  </div>
+  <div class="form-group " style="display: flex !important;justify-content: space-around !important;">
+    <button class="btn btn-primary">Lưu thông tin</button>
+  </div>
+  </fieldset>
+</form>

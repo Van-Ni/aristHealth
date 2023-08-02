@@ -1,0 +1,22 @@
+<h2 style="text-align: center;">KẾT LUẬN HIỆN TẠI</h2>
+<div class="container">
+  <form autocomplete="off"
+#createketluan2="ngForm"
+(ngSubmit)="save()">
+  <fieldset [disabled]="!isEditable10">
+    <div class="form-group row">
+      <label for="suckhoehientai" class="col-2 col-form-label">Sức khỏe hiện tại</label>
+      <div class="col-10">
+        <input type="text" class="form-control" [(ngModel)]="ketluan2.ketluan_text_phanloai"
+        [ngModelOptions]="{standalone: true}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">Hoặc vấn đề sức khỏe cần lưu ý:</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" [(ngModel)]="ketluan2.ketluan_text_ketqua"
+      [ngModelOptions]="{standalone: true}"></textarea>
+    </div>
+  </fieldset>
+</form>
+  
+</div>

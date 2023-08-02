@@ -1,0 +1,35 @@
+<div [@routerTransition]>
+
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6">
+          <h1>{{ "Deparment" | localize }}</h1>
+        </div>
+        <div class="col-6 text-right">
+          <button class="btn btn-primary" style="margin-right: 1rem;">Xuất Excel</button>
+          <a href="javascript:;"
+            class="btn bg-blue"
+            (click)="createCertificate()">
+            <i class="fa fa-plus-square"></i>
+            {{ "Create" | localize }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content px-2">
+  
+    <div class="container-fluid">
+      <div class="card">
+        
+        <app-dynamic-table
+        (onEdit)="onTableItemClick($event)" 
+        (onDelete)="onDeleteItemTable($event)"
+        [onList]="list"
+        (onView)="onViewProfile($event)"
+        ></app-dynamic-table>
+      </div>
+    </div>
+  </section>
+</div>

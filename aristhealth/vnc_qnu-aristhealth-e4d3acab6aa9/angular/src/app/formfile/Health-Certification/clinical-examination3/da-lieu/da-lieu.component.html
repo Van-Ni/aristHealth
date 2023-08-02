@@ -1,0 +1,32 @@
+<form autocomplete="off"
+#createTuanHoan1="ngForm"
+(ngSubmit)="save()">
+  <fieldset [disabled]="!isEditable">
+    <div>
+      <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label">Nội dung:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control"  [(ngModel)]="dalieu3.dalieu_text_dalieu_noidung"
+          [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label  class="col-sm-2 col-form-label">Phân loại:</label>
+          <div class="col-sm-10">
+            <input list="phanloaihh" class="form-control" name="phanloaihh" [(ngModel)]="dalieu3.dalieu_selectbox_phanloai"
+            [ngModelOptions]="{standalone: true}"/>
+          <datalist id="phanloaihh">
+            <option value="Phân loại 1">Phân loại 1</option>
+            <option value="Phân loại 2">Phân loại 2</option>
+            <option value="Phân loại 3">Phân loại 3</option>
+            <option value="Phân loại 4">Phân loại 4</option>
+            <option value="Phân loại 5">Phân loại 5</option>
+          </datalist>
+          </div>
+      </div>
+      <div class="form-group row">
+        <button class="btn btn-primary">Lưu thông tin</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
