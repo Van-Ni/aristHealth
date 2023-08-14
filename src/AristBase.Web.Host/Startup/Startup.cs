@@ -21,6 +21,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using System.IO;
 using Microsoft.Extensions.FileProviders;
+using AristBase.CRUDServices.DashboardServices;
 
 namespace AristBase.Web.Host.Startup
 {
@@ -182,6 +183,7 @@ namespace AristBase.Web.Host.Startup
                     var webCoreXmlPath = Path.Combine(AppContext.BaseDirectory, webCoreXmlFile);
                     options.IncludeXmlComments(webCoreXmlPath);
                 }
+                services.AddScoped<IDashboardService, IDashboardService>();
             });
         }
     }

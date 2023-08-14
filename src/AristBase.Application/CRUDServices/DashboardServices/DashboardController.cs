@@ -11,26 +11,24 @@ namespace YourNamespace.Controllers
     [Route("api/[controller]")]
     public class DashboardController : ControllerBase
     {
-        private readonly IRepository<Certificate, Guid> _repository;
+        private readonly IDashboardService _dashboardService;
 
-        public DashboardController(IRepository<Certificate, Guid> repository)
+        public DashboardController(IDashboardService dashboardService)
         {
-            _repository = repository;
+            _dashboardService = dashboardService;
         }
 
         [HttpGet("dashbord-Data")]
         public async Task<ActionResult<DashboardResponseModel>> GetDashboardData(DateTime from, DateTime to)
         {
-            var dashboard = new Dashboard(_repository);
-
             var dashboardData = new DashboardResponseModel
             {
-
-                TotalMedicalVisits = await dashboard.ToTalMedicalVisit(from, to),
-                TotalDrivingLicenses = await dashboard.TotalDrivinglicense(from, to),
-                TotalHealthCertificationUnder18 = await dashboard.TotalHealthCertificationUnder18(from, to),
-                TotalHealthCertificationOver18 = await dashboard.TotalHealthCertificationOver18(from, to),
-                TotalRevenue = await dashboard.TotalRevenue(from, to)
+                // Sử dụng IDashboardService để lấy dữ liệu
+                TotalMedicalVisits = await _dashboardService.ToTalMedicalVisit(from, to),
+                TotalDrivingLicenses = await _dashboardService.TotalDrivinglicense(from, to),
+                TotalHealthCertificationUnder18 = await _dashboardService.TotalHealthCertificationUnder18(from, to),
+                TotalHealthCertificationOver18 = await _dashboardService.TotalHealthCertificationOver18(from, to),
+                TotalRevenue = await _dashboardService.TotalRevenue(from, to)
             };
 
             return Ok(dashboardData);
