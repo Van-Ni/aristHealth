@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<localizationDictionary culture="en">
+  <texts>
+    <text name="HomePage" value="Trang chủ" />
+    <text name="About" value="Về chúng tôi" />
+    <text name="WelcomeMessage" value="Chào mừng đến với AristQNU!" />
+    <text name="FormIsNotValidMessage" value="Trường dữ liệu không hợp lệ, vui lòng kiểm tra lại." />
+    <text name="TenantNameCanNotBeEmpty" value="Tenant name can not be empty" />
+    <text name="InvalidUserNameOrPassword" value="Sai tên đăng nhập hoặc password" />
+    <text name="ThereIsNoTenantDefinedWithName{0}" value="There is no tenant defined with name {0}" />
+    <text name="TenantIsNotActive" value="Tenant {0} is not active." />
+    <text name="UserIsNotActiveAndCanNotLogin" value="Người dùng {0} đang bị ngưng hoạt động." />
+    <text name="UserEmailIsNotConfirmedAndCanNotLogin">Your email address is not confirmed. You can not login.</text>
+    <text name="UserLockedOutMessage">Tài khoản đã đăng xuất, vui lòng thử lại.</text>
+    <text name="PleaseEnterLoginInformation" value="Vui lòng nhập thông tin đăng nhập." />
+    <text name="TenancyName" value="Cơ sở khám chữa bệnh" />
+    <text name="UserNameOrEmail" value="Tên đăng nhập hoặc email" />
+    <text name="Password" value="Mật khẩu" />
+    <text name="ResetPassword" value="Đặt lại mật khẩu" />
+    <text name="UpdatePassword" value="Đổi mật khẩu" />
+    <text name="RememberMe" value="Ghi nhớ" />
+    <text name="LogIn" value="Đăng nhập" />
+    <text name="LoginFailed" value="Đăng nhập thất bại!" />
+    <text name="NameSurname" value="Tên đệm" />
+    <text name="UserName" value="Tên đăng nhập" />
+    <text name="Name" value="Tên" />
+    <text name="Surname" value="Tên đệm" />
+    <text name="EmailAddress" value="Địa chỉ email" />
+    <text name="Tenants" value="Tenants" />
+    <text name="SavedSuccessfully" value="Lưu thành công!" />
+    <text name="CreateNewTenant" value="Create new tenant" />
+    <text name="AdminEmailAddress" value="Admin email address" />
+    <text name="AdminPassword" value="Admin password" />
+    <text name="Save" value="Lưu" />
+    <text name="Cancel" value="Hủy" />
+    <text name="TenantName_Regex_Description" value="Tenant name must be at least 2 chars, starts with a letter and continue with letter, number, dash or underscore." />
+    <text name="DefaultPasswordIs" value="Mật khẩu mặc định là {0}" />
+    <text name="CanBeEmptyToLoginAsHost" value="Can be empty to login as host." />
+    <text name="Register" value="Đăng ký" />
+    <text name="OrLoginWith" value="Hoặc đăng nhập với" />
+    <text name="WaitingForActivationMessage" value="Tài khoản đang chờ người quản trị kích hoạt" />
+    <text name="TenantSelection" value="Tenant Selection" />
+    <text name="TenantSelection_Detail" value="Please select one of the following tenants." />
+    <text name="Logout" value="Đăng xuất" />
+    <text name="RegisterFormUserNameInvalidMessage">Vui lòng không nhập địa chỉ email ở tên đăng nhập.</text>
+    <text name="DatabaseConnectionString" value="Database connection string" />
+    <text name="Users" value="Quản lý người dùng" />
+    <text name="IsActive" value="Hoạt động" />
+    <text name="FullName" value="Tên đầy đủ" />
+    <text name="CreateNewUser" value="Tạo người dùng mới" />
+    <text name="Yes" value="Có" />
+    <text name="No" value="Không" />
+    <text name="Optional" value="Tùy chọn" />
+    <text name="LeaveEmptyToSwitchToHost">Leave empty to switch to the host</text>
+    <text name="CurrentTenant">Current tenant</text>
+    <text name="NotSelected">Chưa chọn</text>
+    <text name="Change">Thay đổi</text>
+    <text name="ChangeTenant">Change tenant</text>
+    <text name="MultiLevelMenu">Multi Level Menu</text>
+    <text name="Back">Quay lại</text>
+    <text name="SuccessfullyRegistered">Đăng ký thành công</text>
+    <text name="WaitingForEmailActivation">Email của bạn cần được kích hoạt</text>
+    <text name="Roles">Quyền</text>
+    <text name="DisplayName">Tên hiển thị</text>
+    <text name="Edit">Chỉnh sửa</text>
+    <text name="Delete">Xóa</text>
+    <text name="CreateNewRole">Thêm vai trò</text>
+    <text name="RoleName">Tên vai trò</text>
+    <text name="Actions">Hành động</text>
+    <text name="CouldNotCompleteLoginOperation">Không thể đăng nhập, vui lòng thử lại.</text>
+    <text name="CouldNotValidateExternalUser">Could not validate external user</text>
+    <text name="EditRole">Chỉnh sửa vai trò</text>
+    <text name="EditTenant">Edit tenant</text>
+    <text name="EditUser">Chỉnh sửa user</text>
+    <text name="TenantIdIsNotActive{0}">TenantId {0} is not active</text>
+    <text name="UnknownTenantId{0}">Unknown tenantId {0}</text>
+    <text name="ThisFieldIsRequired">Trường này bắt buộc</text>
+    <text name="PleaseWait">Vui lòng đợi trong giây lát...</text>
+    <text name="Administration">Sự quản trị</text>
+    <text name="ClearAll">Xóa hết</text>
+    <text name="ClearOthers">Xóa những các khác</text>
+    <text name="LabelOptions">Nhãn</text>
+    <text name="Permissions">Quyền</text>
+    <text name="RoleDescription">Mô tả vai trò</text>
+    <text name="Refresh">Làm mới</text>
+    <text name="Create">Thêm mới</text>
+    <text name="UserDetails">Thông tin người dùng</text>
+    <text name="UserRoles">Vai trò người dùng</text>
+    <text name="ConfirmPassword">Xác nhận mật khẩu</text>
+    <text name="Version">Version</text>
+    <text name="On">Bật</text>
+    <text name="Off">Tắt</text>
+    <text name="AreYouSureWantToDelete">Bạn có chắc muốn xóa {0}?</text>
+    <text name="SuccessfullyDeleted">Xóa thành công</text>
+    <text name="StartTyping">Bắt đầu nhập</text>
+    <text name="Skins">Skins</text>
+    <text name="Settings">Cài đặt</text>
+    <text name="Filter">Lọc</text>
+    <text name="CurrentPassword">Mật khẩu hiện tại</text>
+    <text name="NewPassword">Mật khẩu mới</text>
+    <text name="ConfirmNewPassword">Nhập lại mật khẩu mới</text>
+    <text name="PasswordsDoNotMatch">Mật khẩu không khớp</text>
+    <text name="PasswordsMustBeAtLeast8CharactersContainLowercaseUppercaseNumber">Mật khẩu ít nhất 8 ký tự, chứa ít nhât 1 ký tự thường, 1 hoa và 1 số</text>
+    <text name="UserDeleteWarningMessage">Người dùng {0} sẽ bị xóa.</text>
+    <text name="RoleDeleteWarningMessage">Vai trò {0} sẽ bị xóa và bị gỡ khỏi tất cả người dùng hiện tại.</text>
+    <text name="TenantDeleteWarningMessage">Tenant {0} will be deleted.</text>
+    <text name="SearchWithThreeDot">Tìm...</text>
+    <text name="PleaseEnterAtLeastNCharacter">Nhập ít nhất {0} ký tự</text>
+    <text name="PleaseEnterNoMoreThanNCharacter">Nhập nhiều nhất {0} ký tự</text>
+    <text name="InvalidEmailAddress">Địa chỉ email không hợp lệ</text>
+    <text name="InvalidPattern">Không hợp lệ</text>
+    <text name="PairsDoNotMatch">Không khớp</text>
+    <text name="All">Tất cả</text>
+    <text name="TotalRecordsCount">Tất cả: {0}</text>
+    <text name="Search">Tìm</text>
+    <text name="Clear">Làm sạch</text>
+    <text name="ResetPasswordStepOneInfo">1. Nhập mật khẩu người quản trị</text>
+    <text name="ResetPasswordStepTwoInfo">2. Sao chép mật khẩu này để gửi cho người dùng</text>
+    <text name="UsersActivation">Kích hoạt người dùng</text>
+    <text name="amountPaid">Số tiền đã thanh toán</text>
+    <text name="certificateTypeId">ID loại giấy khám</text>
+    <text name="certificateType_Name">Tên loại giấy khám</text>
+    <text name="clientInfo_Name">Họ tên</text>
+    <text name="paymentStatus">Trạng thái thanh toán</text>
+    <text name="reason">Lý do</text>
+    <text name="status">Trạng thái</text>
+    <text name="certificate-types">Loại giấy khám</text>
+    <text name="certificates">Giấy khám</text>
+    <text name="filePath">Đường dẫn lưu trữ</text>
+    <text name="finalResult"></text>
+    <text name="name">Tên loại giấy</text>
+    <text name="price">Giá tiền</text>
+    <text name="Unready">Chưa khám {0}</text>
+    <text name="creationTime">Thời gian khám</text>
+    <text name="Status">Trạng thái</text>
+    <text name="RevenueReport">Báo cáo doanh thu</text>
+    <text name="DriverReport">Báo cáo xét nghiệm (Trên 18)</text>
+    <text name="HeroinReport">Báo cáo xét nghiệm (Lái xe)</text>
+    <text name="HeroinReport+">Báo cáo xét nghiệm dương tính (Lái xe)</text>
+    
+    <text name="HospitalCode">Mã cơ sở KCB</text>
+    <text name="TenancyManagementName">Tên cơ quan chủ quản</text>
+    <text name="SyncUsername">Tên đăng nhập BHXH</text>
+    <text name="SyncPassword">Mật khẩu đăng nhập</text>
+    <text name="NormalTitle">Mẫu số thường(In giấy khám)</text>
+    <text name="DriverLicenseTile">Mẫu số giấy lái xe(In giấy khám)</text>
+  </texts>
+</localizationDictionary>
